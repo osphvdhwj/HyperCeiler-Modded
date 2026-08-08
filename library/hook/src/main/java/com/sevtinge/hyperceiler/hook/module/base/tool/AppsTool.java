@@ -174,7 +174,7 @@ public class AppsTool {
     private static String getCallerMethod() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (StackTraceElement el : stackTrace)
-            if (el != null && el.getClassName().startsWith(ProjectApi.mAppModulePkg + ".module"))
+            if (el != null && el.getClassName().startsWith("com.sevtinge.hyperceiler"))
                 return el.getMethodName();
         return stackTrace[4].getMethodName();
     }

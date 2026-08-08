@@ -297,7 +297,7 @@ public class CrashHook extends HookTool {
     private Intent getIntent(String abbr) {
         Intent intent = new Intent();
         intent.setPackage("com.sevtinge.hyperceiler.modded");
-        intent.setClassName("com.sevtinge.hyperceiler.modded", "com.sevtinge.hyperceiler.safe.CrashActivity");
+        intent.setClassName("com.sevtinge.hyperceiler.modded", "com.sevtinge.hyperceiler.safemode.CrashActivity");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra("key_longMsg", longMsg);
         intent.putExtra("key_stackTrace", stackTrace);

@@ -244,7 +244,7 @@ public class XposedInit implements IXposedHookZygoteInit, IXposedHookLoadPackage
     }
 
     public void moduleActiveHook(XC_LoadPackage.LoadPackageParam lpparam) {
-        Class<?> AppsTool = XposedHelpers.findClassIfExists(ProjectApi.mAppModulePkg + ".utils.XposedActivateHelper", lpparam.classLoader);
+        Class<?> AppsTool = XposedHelpers.findClassIfExists("com.sevtinge.hyperceiler.utils.XposedActivateHelper", lpparam.classLoader);
 
         XposedHelpers.setStaticBooleanField(AppsTool, "isModuleActive", true);
         XposedHelpers.setStaticIntField(AppsTool, "XposedVersion", XposedBridge.getXposedVersion());
