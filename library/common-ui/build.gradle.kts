@@ -64,9 +64,10 @@ dependencies {
     api(libs.miuix.cardview)
     api(libs.miuix.core)
     api(libs.miuix.flexible)
-    api(libs.miuix.folme)
+    api(libs.miuix.folme) {
+        exclude(group = "fan.miuix", module = "haptic")
+    }
     api(libs.miuix.graphics)
-    api(libs.miuix.haptic)
     api(libs.miuix.mgl)
     api(libs.miuix.navigator)
     api(libs.miuix.nestedheader)
