@@ -156,7 +156,7 @@ public class ProvisionAnimHelper {
         if (mContext != null) {
             mContext.registerReceiver(mReceiver, new IntentFilter("fan.action.PROVISION_ANIM_END"), Context.RECEIVER_EXPORTED);
             Intent intent = new Intent("fan.intent.action.OOBSERVICE");
-            intent.setPackage("com.sevtinge.hyperceiler");
+            intent.setPackage("com.sevtinge.hyperceiler.modded");
             mContext.bindService(intent, mConnection, 1);
         } else {
             Log.e("OobeUtil2", "registerAnimService context is null");

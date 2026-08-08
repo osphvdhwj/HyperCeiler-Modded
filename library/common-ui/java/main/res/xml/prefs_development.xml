@@ -45,7 +45,7 @@
             android:title="OOBE"
             android:enabled="false">
             <intent
-                android:targetPackage="com.sevtinge.hyperceiler"
+                android:targetPackage="com.sevtinge.hyperceiler.modded"
                 android:targetClass="com.sevtinge.hyperceiler.provision.activity.ProvisionActivity"/>
         </Preference>
 

@@ -14,7 +14,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
-val apkId = "HyperCeiler"
+val apkId = "HyperCeiler_Modded_By_Antigravity"
 
 val getGitCommitCount: () -> Int = {
     val output = ByteArrayOutputStream()
@@ -58,7 +58,7 @@ android {
     buildToolsVersion = "36.0.0"
 
     defaultConfig {
-        applicationId = namespace
+        applicationId = "com.sevtinge.hyperceiler.modded"
         minSdk = 34
         targetSdk = 36
         versionCode = getVersionCode()

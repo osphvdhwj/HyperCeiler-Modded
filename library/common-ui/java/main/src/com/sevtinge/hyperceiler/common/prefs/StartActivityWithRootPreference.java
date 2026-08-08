@@ -65,7 +65,7 @@ public class StartActivityWithRootPreference extends Preference {
                 os.flush();
                 suProcess.waitFor();
             } catch (IOException | InterruptedException e) {
-                logE("StartActivityWithRootPreference", "com.sevtinge.hyperceiler", "Failed to start activity \"" + targetActivityClass + "\" with root", e);
+                logE("StartActivityWithRootPreference", "com.sevtinge.hyperceiler.modded", "Failed to start activity \"" + targetActivityClass + "\" with root", e);
             }
         } else {
             Toast.makeText(this.getContext(), R.string.start_failed, Toast.LENGTH_SHORT).show();
