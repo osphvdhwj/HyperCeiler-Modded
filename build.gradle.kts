@@ -4,3 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.lsparanoid) apply false
 }
+
+allprojects {
+    configurations.all {
+        exclude(group = "fan.miuix", module = "haptic")
+    }
+}
