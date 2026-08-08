@@ -54,7 +54,7 @@ jobs:
             echo "GIT_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
             echo "GIT_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
           else
-            echo "GIT_ACTOR=${{ secrets.GIT_ACTOR }}" >> $GITHUB_ENV
+            echo "GIT_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
             echo "GIT_TOKEN=${{ secrets.GIT_TOKEN }}" >> $GITHUB_ENV
           fi
 
