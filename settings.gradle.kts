@@ -19,9 +19,14 @@ if (gprUser.isEmpty() || gprKey.isEmpty()) {
         gprKey = gprInfo.getProperty("gpr.key") ?: ""
 
         if (gprUser.isEmpty() || gprKey.isEmpty()) {
-            throw GradleException("\'gpr.user\' and \'gpr.key\' must be set in \'signing.properties\'")
+            gprUser = "dummy"
+            gprKey = "dummy"
         }
     }
+}
+if (gprUser.isEmpty() || gprKey.isEmpty()) {
+    gprUser = "dummy"
+    gprKey = "dummy"
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
