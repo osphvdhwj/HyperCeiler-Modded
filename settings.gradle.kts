@@ -44,6 +44,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("${rootProject.projectDir.absolutePath}/repo") }
         mavenLocal()
         maven {
             url = uri("https://maven.pkg.github.com/ReChronoRain/HyperCeiler")

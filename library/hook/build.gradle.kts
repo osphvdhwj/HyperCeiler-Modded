@@ -71,7 +71,7 @@ dependencies {
     api(libs.hiddenapibypass)
     api(libs.gson)
     api(libs.hooktool)
-    api(files("libs/HyperFocusApi-1.3.aar"))
+    api(libs.hyperfocusapi)
     api(libs.superlyricapi)
     api(libs.lunarcalendar)
 
