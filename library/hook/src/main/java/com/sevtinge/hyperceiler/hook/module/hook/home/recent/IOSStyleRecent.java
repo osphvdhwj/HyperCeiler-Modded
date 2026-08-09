@@ -12,7 +12,7 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 public class IOSStyleRecent extends BaseHook {
     @Override
     public void init() {
-        boolean isHorizontal = mPrefsMap.getBoolean("home_recent_ios_horizontal_mode", true);
+        boolean isHorizontal = !mPrefsMap.containsKey("home_recent_ios_horizontal_mode") || mPrefsMap.getBoolean("home_recent_ios_horizontal_mode");
         int cornerRadius = mPrefsMap.getInt("task_view_corners", 36);
         int cardScalePercent = mPrefsMap.getInt("home_recent_ios_scale", 100);
         float cardScale = cardScalePercent / 100.0f;
