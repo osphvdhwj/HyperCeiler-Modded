@@ -3,6 +3,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.recent;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.ContentResolver;
+import android.graphics.RectF;
 import android.provider.Settings;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -13,16 +14,14 @@ public class IOSStyleRecent extends BaseHook {
     @Override
     public void init() {
         int cornerRadius = mPrefsMap.getInt("task_view_corners", 36);
-        int cardScalePercent = mPrefsMap.getInt("home_recent_ios_scale", 100);
-        float cardScale = cardScalePercent / 100.0f;
 
-        // 1. Force Horizontal layout style 1 (Horizontal Mode ONLY, like iOS)
+        // 1. Force Horizontal layout style 1 (Horizontal Mode ONLY like iOS & HyperOS 3 Stacked)
         findAndHookMethod(Settings.Global.class, "getInt", ContentResolver.class, String.class, int.class, new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {
                 String name = (String) param.args[1];
                 if ("task_stack_view_layout_style".equals(name)) {
-                    param.setResult(1); // 1 = Horizontal Recents Layout
+                    param.setResult(1); // 1 = Horizontal Stacked Layout
                 }
             }
         });
@@ -66,7 +65,19 @@ public class IOSStyleRecent extends BaseHook {
             });
         }
 
-        // 4. Custom Task View Card Scale & Rounded Corners (iOS Style)
+        // 4. Copy iOS / HyperOS 3 Stacked Card Overlap & Scale Algorithm
+        Class<?> horizontalAlgorithm = findClassIfExists("com.miui.home.recents.views.TaskStackViewsAlgorithmHorizontal");
+        if (horizontalAlgorithm != null) {
+            hookAllMethods(horizontalAlgorithm, "scaleTaskView", new MethodHook() {
+                @Override
+                protected void after(MethodHookParam param) throws Throwable {
+                    RectF rect = (RectF) param.args[0];
+                    callStaticMethod(findClassIfExists("com.miui.home.recents.util.Utilities"), "scaleRectAboutCenter", rect, 0.88f);
+                }
+            });
+        }
+
+        // 5. Custom Task View Card Corner Radius (iOS Style)
         Class<?> cornerRadiusUtil = findClassIfExists("com.miui.home.recents.util.WindowCornerRadiusUtil");
         if (cornerRadiusUtil != null) {
             hookAllMethods(cornerRadiusUtil, "getTaskViewCornerRadius", new MethodHook() {
@@ -77,19 +88,7 @@ public class IOSStyleRecent extends BaseHook {
             });
         }
 
-        Class<?> taskViewCls = findClassIfExists("com.miui.home.recents.views.TaskView");
-        if (taskViewCls != null && cardScale != 1.0f) {
-            hookAllMethods(taskViewCls, "onMeasure", new MethodHook() {
-                @Override
-                protected void after(MethodHookParam param) throws Throwable {
-                    View view = (View) param.thisObject;
-                    view.setScaleX(cardScale);
-                    view.setScaleY(cardScale);
-                }
-            });
-        }
-
-        // 5. iOS-style dismiss animation
+        // 6. iOS-style swipe up dismiss animation
         Class<?> horizontalStyle = findClassIfExists("com.miui.home.recents.TaskStackViewLayoutStyleHorizontal");
         if (horizontalStyle != null) {
             findAndHookMethod(horizontalStyle, "createScaleDismissAnimation", View.class, float.class, new MethodHook() {
@@ -98,8 +97,8 @@ public class IOSStyleRecent extends BaseHook {
                     View view = (View) param.args[0];
                     int screenHeight = view.getResources().getDisplayMetrics().heightPixels;
                     ObjectAnimator transY = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, view.getTranslationY(), -screenHeight * 1.1f);
-                    ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, View.SCALE_X, view.getScaleX(), 0.75f * cardScale);
-                    ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, View.SCALE_Y, view.getScaleY(), 0.75f * cardScale);
+                    ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, View.SCALE_X, view.getScaleX(), 0.75f);
+                    ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, View.SCALE_Y, view.getScaleY(), 0.75f);
                     ObjectAnimator alpha = ObjectAnimator.ofFloat(view, View.ALPHA, view.getAlpha(), 0.0f);
 
                     AnimatorSet animatorSet = new AnimatorSet();

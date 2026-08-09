@@ -1208,7 +1208,7 @@
     <string name="home_title_notif_color_picker">Custom color</string>
     <string name="home_title_icon_size">Icon size</string>
     <string name="home_recent">Recents</string>
-    <string name="home_recent_ios_style">iOS-style stacked layout</string>
+    <string name="home_recent_ios_style">iOS Recent</string>
     <string name="home_recent_animation_speed">Animation speed</string>
     <string name="home_recent_unlock_pin">Unlock pinned apps</string>
     <string name="home_recent_hide_status_bar_in_task_view">Hide status bar in Recents</string>
