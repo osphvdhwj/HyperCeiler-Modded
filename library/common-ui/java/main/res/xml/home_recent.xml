@@ -32,6 +32,24 @@
             android:title="@string/home_recent_ios_style" />
 
         <SwitchPreference
+            android:defaultValue="true"
+            android:dependency="prefs_key_home_recent_ios_style"
+            android:key="prefs_key_home_recent_ios_horizontal_mode"
+            android:summary="Switch between Horizontal (iOS default) and Vertical card stack layout"
+            android:title="iOS Recents Horizontal Mode" />
+
+        <SeekBarPreferenceCompat
+            android:dependency="prefs_key_home_recent_ios_style"
+            android:key="prefs_key_home_recent_ios_scale"
+            android:title="iOS Recents Card Scale"
+            app:defaultValue="100"
+            app:defaultValueTitle="@string/array_default"
+            app:format="%s %%"
+            app:maxValue="150"
+            app:minValue="50"
+            app:stepValue="1" />
+
+        <SwitchPreference
             android:defaultValue="false"
             android:key="prefs_key_home_recent_show_launch"
             android:title="@string/home_recent_show_launch" />

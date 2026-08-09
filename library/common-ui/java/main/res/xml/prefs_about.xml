@@ -31,14 +31,14 @@
             android:enabled="false"
             android:key="prefs_key_about_device_name"
             android:layout="@layout/preference_big_title"
-            android:title="HyperCeiler User's Device" />
+            android:title="HyperHand User's Device" />
 
         <Preference
             android:enabled="false"
             android:key="prefs_key_about_device_info_device"
             android:layout="@layout/preference_second_title"
             android:summary="@string/about_device_info_device"
-            android:title="HyperCeiler Device" />
+            android:title="HyperHand Device" />
 
         <Preference
             android:enabled="false"
