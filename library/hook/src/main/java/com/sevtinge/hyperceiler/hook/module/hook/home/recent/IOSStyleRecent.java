@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
+import de.robv.android.xposed.XposedHelpers;
 
 public class IOSStyleRecent extends BaseHook {
     @Override
@@ -72,7 +73,10 @@ public class IOSStyleRecent extends BaseHook {
                 @Override
                 protected void after(MethodHookParam param) throws Throwable {
                     RectF rect = (RectF) param.args[0];
-                    callStaticMethod(findClassIfExists("com.miui.home.recents.util.Utilities"), "scaleRectAboutCenter", rect, 0.88f);
+                    Class<?> utilCls = findClassIfExists("com.miui.home.recents.util.Utilities");
+                    if (utilCls != null) {
+                        XposedHelpers.callStaticMethod(utilCls, "scaleRectAboutCenter", rect, 0.88f);
+                    }
                 }
             });
         }
