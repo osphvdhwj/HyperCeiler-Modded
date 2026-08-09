@@ -12,38 +12,39 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 public class IOSStyleRecent extends BaseHook {
     @Override
     public void init() {
-        boolean isHorizontal = !mPrefsMap.containsKey("home_recent_ios_horizontal_mode") || mPrefsMap.getBoolean("home_recent_ios_horizontal_mode");
         int cornerRadius = mPrefsMap.getInt("task_view_corners", 36);
         int cardScalePercent = mPrefsMap.getInt("home_recent_ios_scale", 100);
         float cardScale = cardScalePercent / 100.0f;
 
-        // 1. Enable layout style 2 (iOS Task Stack)
+        // 1. Force Horizontal layout style 1 (Horizontal Mode ONLY, like iOS)
         findAndHookMethod(Settings.Global.class, "getInt", ContentResolver.class, String.class, int.class, new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {
                 String name = (String) param.args[1];
                 if ("task_stack_view_layout_style".equals(name)) {
-                    param.setResult(2);
+                    param.setResult(1); // 1 = Horizontal Recents Layout
                 }
             }
         });
 
-        // 2. Configure Recents orientation (Horizontal by default for iOS mode)
+        // 2. Enforce Horizontal Recents across all MIUI launcher utilities (STRICT Horizontal ONLY)
         Class<?> recentsUtilsCls = findClassIfExists("com.miui.home.launcher.RecentsAndFSGestureUtils");
         if (recentsUtilsCls == null) {
             recentsUtilsCls = findClassIfExists("com.miui.home.recents.util.RecentsAndGestureUtils");
         }
         if (recentsUtilsCls != null) {
-            hookAllMethods(recentsUtilsCls, "isRecentsHorizontal", MethodHook.returnConstant(isHorizontal));
-            hookAllMethods(recentsUtilsCls, "isRecentsLayoutHorizontal", MethodHook.returnConstant(isHorizontal));
-            hookAllMethods(recentsUtilsCls, "isRecentsVertical", MethodHook.returnConstant(!isHorizontal));
-            hookAllMethods(recentsUtilsCls, "isRecentsLayoutVertical", MethodHook.returnConstant(!isHorizontal));
+            hookAllMethods(recentsUtilsCls, "isRecentsHorizontal", MethodHook.returnConstant(true));
+            hookAllMethods(recentsUtilsCls, "isRecentsLayoutHorizontal", MethodHook.returnConstant(true));
+            hookAllMethods(recentsUtilsCls, "isRecentsVertical", MethodHook.returnConstant(false));
+            hookAllMethods(recentsUtilsCls, "isRecentsLayoutVertical", MethodHook.returnConstant(false));
+            hookAllMethods(recentsUtilsCls, "getRecentsLayoutStyle", MethodHook.returnConstant(1));
         }
 
         Class<?> recentsModelCls = findClassIfExists("com.miui.home.recents.RecentsModel");
         if (recentsModelCls != null) {
-            hookAllMethods(recentsModelCls, "isRecentsHorizontal", MethodHook.returnConstant(isHorizontal));
-            hookAllMethods(recentsModelCls, "isRecentsVertical", MethodHook.returnConstant(!isHorizontal));
+            hookAllMethods(recentsModelCls, "isRecentsHorizontal", MethodHook.returnConstant(true));
+            hookAllMethods(recentsModelCls, "isRecentsVertical", MethodHook.returnConstant(false));
+            hookAllMethods(recentsModelCls, "getRecentsLayoutStyle", MethodHook.returnConstant(1));
         }
 
         // 3. Fix TaskViewThumbnail visibility & thumbnail display in stack view
