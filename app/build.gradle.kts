@@ -14,7 +14,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
-val apkId = "HyperCeiler_Modded_By_Antigravity"
+val apkId = "HyperHand"
 
 val getGitCommitCount: () -> Int = {
     val output = ByteArrayOutputStream()

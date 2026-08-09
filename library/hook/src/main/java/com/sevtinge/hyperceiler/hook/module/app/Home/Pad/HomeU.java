@@ -97,6 +97,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.recent.CardTextColor;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.CardTextSize;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.FreeformCardBackgroundColor;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.HideCleanUp;
+import com.sevtinge.hyperceiler.hook.module.hook.home.recent.IOSStyleRecent;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.HideFreeform;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.HideRecentCard;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.HideStatusBarWhenEnterRecent;
@@ -208,6 +209,7 @@ public class HomeU extends BaseModule {
         initHook(new PinyinArrangement(), mPrefsMap.getBoolean("home_drawer_pinyin"));
 
         // 最近任务
+        initHook(new IOSStyleRecent(), mPrefsMap.getBoolean("home_recent_ios_style"));
         initHook(BlurLevel.INSTANCE, mPrefsMap.getStringAsInt("home_recent_blur_level", 6) != 6 && !mPrefsMap.getBoolean("home_title_app_blur_enable"));
         initHook(HideStatusBarWhenEnterRecent.INSTANCE, mPrefsMap.getBoolean("home_recent_hide_status_bar_in_task_view"));
         initHook(RemoveCardAnim.INSTANCE, mPrefsMap.getBoolean("home_recent_modify_animation"));

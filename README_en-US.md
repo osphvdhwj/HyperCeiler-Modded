@@ -1,14 +1,22 @@
 <div align="center">
 
-<img src="\imgs\icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="icon" />
+<img src="imgs/icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="HyperHand Icon" />
 
-# HyperCeiler
+# HyperHand
 
-### Make HyperOS Great Again!
+### Make HyperOS Great Again with Next-Gen Modding!
 
-[简体中文](/README.md)&nbsp;&nbsp;|&nbsp;&nbsp;[繁體中文](/README_zh-HK.md)&nbsp;&nbsp;|&nbsp;&nbsp;English&nbsp;&nbsp;|&nbsp;&nbsp;[Українська](/README_uk_UA.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Português (Brasil)](/README_pt-BR.md)
+[简体中文](/README.md)&nbsp;&nbsp;|&nbsp;&nbsp;English
 
 </div>
+
+## 🚀 New HyperHand Features
+
+- 📱 **Expanded Home Screen Grids**: Unlock desktop icon layout limits up to **10×20** grid density.
+- 📱 **iOS-Style Recents Stack Layout**: Enforces vertical stacked recents layout with custom iOS-style card rounded corners (90px) and smooth scale/alpha dismiss animations.
+- 👇 **Double-Tap to Sleep Gestures**: Configure home screen double-tap gestures to quickly turn off screen / lock device.
+- 🛡️ **Conflict-Free Architecture**: Custom application ID (`com.sevtinge.hyperceiler.modded`) and dynamic ContentProvider authority for side-by-side installation with official versions.
+- ⚡ **Dedicated arm64 GitHub CI/CD Pipeline**: Automated GitHub Actions workflows optimized for arm64 devices.
 
 ## Currently supported versions
 

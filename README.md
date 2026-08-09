@@ -1,14 +1,22 @@
 <div align="center">
 
-<img src="\imgs\icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="icon" />
+<img src="imgs/icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="HyperHand Icon" />
 
-# HyperCeiler
+# HyperHand
 
-### Make HyperOS Great Again!
+### Make HyperOS Great Again with Next-Gen Modding!
 
-简体中文&nbsp;&nbsp;|&nbsp;&nbsp;[繁體中文](/README_zh-HK.md)&nbsp;&nbsp;|&nbsp;&nbsp;[English](/README_en-US.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Українська](/README_uk_UA.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Português (Brasil)](/README_pt-BR.md)
+简体中文&nbsp;&nbsp;|&nbsp;&nbsp;[English](/README_en-US.md)
 
 </div>
+
+## 🚀 HyperHand 独家新增特性 (New Added Features)
+
+- 📱 **扩展桌面网格 (Expanded Home Screen Grids)**: 解锁系统桌面图标布局限制，最高支持 **10×20** 超大网格。
+- 📱 **iOS 风格纵向卡片后台 (iOS-Style Recents Stack Layout)**: 强制锁定纵向卡片层叠布局、优化 iOS 风格圆角（90px）与向上滑出平滑缩放淡出动画 (Scale & Alpha Dismiss Animation)。
+- 👇 **双击熄屏手势 (Double-Tap to Sleep)**: 自定义桌面双击快捷操作，快速锁屏熄屏。
+- 🛡️ **独立 App 包名与防冲突 (Conflict-Free Architecture)**: 使用 `com.sevtinge.hyperceiler.modded` 包名与动态 ContentProvider Authority，支持与官方原版并存安装使用。
+- ⚡ **arm64 架构 GitHub CI 自动化构建**: 优化 Android 14/15 环境下的 arm64 APK GitHub Actions 构建流水线。
 
 ## 当前支持的版本
 
