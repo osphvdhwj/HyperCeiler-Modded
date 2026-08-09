@@ -27,16 +27,16 @@ public class IOSStyleRecent extends BaseHook {
             recentsUtilsCls = findClassIfExists("com.miui.home.recents.util.RecentsAndGestureUtils");
         }
         if (recentsUtilsCls != null) {
-            hookAllMethods(recentsUtilsCls, "isRecentsHorizontal", returnConstant(false));
-            hookAllMethods(recentsUtilsCls, "isRecentsLayoutHorizontal", returnConstant(false));
-            hookAllMethods(recentsUtilsCls, "isRecentsVertical", returnConstant(true));
-            hookAllMethods(recentsUtilsCls, "isRecentsLayoutVertical", returnConstant(true));
+            hookAllMethods(recentsUtilsCls, "isRecentsHorizontal", MethodHook.returnConstant(false));
+            hookAllMethods(recentsUtilsCls, "isRecentsLayoutHorizontal", MethodHook.returnConstant(false));
+            hookAllMethods(recentsUtilsCls, "isRecentsVertical", MethodHook.returnConstant(true));
+            hookAllMethods(recentsUtilsCls, "isRecentsLayoutVertical", MethodHook.returnConstant(true));
         }
 
         Class<?> recentsModelCls = findClassIfExists("com.miui.home.recents.RecentsModel");
         if (recentsModelCls != null) {
-            hookAllMethods(recentsModelCls, "isRecentsHorizontal", returnConstant(false));
-            hookAllMethods(recentsModelCls, "isRecentsVertical", returnConstant(true));
+            hookAllMethods(recentsModelCls, "isRecentsHorizontal", MethodHook.returnConstant(false));
+            hookAllMethods(recentsModelCls, "isRecentsVertical", MethodHook.returnConstant(true));
         }
 
         Class<?> cornerRadiusUtil = findClassIfExists("com.miui.home.recents.util.WindowCornerRadiusUtil");
