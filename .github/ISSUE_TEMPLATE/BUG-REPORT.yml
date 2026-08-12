@@ -12,11 +12,11 @@ body:
       label: Notice | 须知
       description: |
         Make sure that all necessary options have been followed; otherwise, the issue will be closed without any reason.
-        Before submitting an issue, confirm that the latest CI version released by [HyperCeiler | Canary Test](https://t.me/cemiuiler_canary) is currently available.
+        Before submitting an issue, confirm that the latest CI version released by [HyperHand | Canary Test](https://t.me/cemiuiler_canary) is currently available.
         Or the latest debug version from the main branch in the GitHub Actions of this project.
         
         请确认已经遵守所有必选项，否则将被无理由直接关闭 Issue。
-        提交 Issue 前请确认当前为[HyperCeiler | Canary Test](https://t.me/cemiuiler_canary)发布的最新版 CI。
+        提交 Issue 前请确认当前为[HyperHand | Canary Test](https://t.me/cemiuiler_canary)发布的最新版 CI。
         或者本项目 GitHub Actions 下 main 分支最新构建的 Debug 版本。
       options:
         - label: |
@@ -83,9 +83,9 @@ body:
   - type: textarea
     id: device
     attributes:
-      label: "HyperCeiler device information | HyperCeiler 设备信息"
+      label: "HyperHand device information | HyperHand 设备信息"
       description: |
-        Make sure to upload a screenshot to help diagnose the issue in HyperCeiler Settings > Developer options > Debug info.  
-        请务必上传 HyperCeiler 设置 > 开发者选项 > 调试信息 的截图，以便诊断问题。
+        Make sure to upload a screenshot to help diagnose the issue in HyperHand Settings > Developer options > Debug info.  
+        请务必上传 HyperHand 设置 > 开发者选项 > 调试信息 的截图，以便诊断问题。
     validations:
       required: false

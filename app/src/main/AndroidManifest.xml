@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of HyperCeiler.
+  ~ This file is part of HyperHand.
   ~
-  ~ HyperCeiler is free software: you can redistribute it and/or modify
+  ~ HyperHand is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
   ~ published by the Free Software Foundation, either version 3 of the
   ~ License.
@@ -15,7 +15,7 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2023-2025 HyperCeiler Contributions
+  ~ Copyright (C) 2023-2025 HyperHand Contributions
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -69,7 +69,7 @@
         android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         tools:node="remove" />
 
-    <uses-permission android:name="hyperceiler.permission.APP_CRASH" />
+    <uses-permission android:name="hyperhand.permission.APP_CRASH" />
 
     <permission
         android:name="${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -82,11 +82,10 @@
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:forceQueryable="true"
         android:allowNativeHeapPointerTagging="true">
 
         <activity
-            android:name=".ui.HyperCeilerTabActivity"
+            android:name=".ui.HyperHandTabActivity"
             android:exported="true"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
@@ -99,7 +98,7 @@
             android:name=".ui.LauncherActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:targetActivity=".ui.HyperCeilerTabActivity"
+            android:targetActivity=".ui.HyperHandTabActivity"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -118,32 +117,21 @@
         </activity>
 
         <activity
-            android:name=".sub.SubPickerActivity"
-            android:theme="@style/SubPickerTheme"
-            android:label="@string/array_global_actions_launch_choose"
+            android:name=".ui.sub.SubPickerActivity"
             tools:ignore="DiscouragedApi,LockedOrientationActivity" />
-
-        <meta-data
-            android:name="app_description_title"
-            android:resource="@string/uninstall_title" />
-
-        <meta-data
-            android:name="app_description_content"
-            android:resource="@string/uninstall_summary" />
 
         <meta-data
             android:name="miui_keyguard_shortcuts"
             android:resource="@xml/miui_keyguard_shortcuts" />
 
-
         <activity
-            android:name="com.sevtinge.hyperceiler.safemode.CrashActivity"
+            android:name="com.harry.hyperhand.safemode.CrashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:excludeFromRecents="true"
             android:exported="true"
             android:finishOnTaskLaunch="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.HyperCeiler.Translucent.NoActionBar">
+            android:theme="@style/Theme.HyperHand.Translucent.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.Crash" />
                 <category android:name="android.intent.category.CrashDailog" />
@@ -151,16 +139,16 @@
         </activity>
 
         <activity
-            android:name="com.sevtinge.hyperceiler.safemode.ExceptionCrashActivity"
+            android:name="com.harry.hyperhand.safemode.ExceptionCrashActivity"
             android:theme="@style/CrashTheme"
             android:exported="true" />
 
         <service
-            android:name="com.sevtinge.hyperceiler.safemode.CrashService"
+            android:name="com.harry.hyperhand.safemode.CrashService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.sevtinge.hyperceiler.crash.Service" />
+                <action android:name="com.harry.hyperhand.crash.Service" />
             </intent-filter>
         </service>
 
@@ -168,11 +156,22 @@
             android:name=".safemode.CrashReceiver"
             android:enabled="true"
             android:exported="true"
-            android:permission="hyperceiler.permission.APP_CRASH">
+            android:permission="hyperhand.permission.APP_CRASH">
             <intent-filter>
-                <action android:name="hyperceiler.intent.action.APP_CRASH" />
+                <action android:name="hyperhand.intent.action.APP_CRASH" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".service.FocusModeTileService"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Focus / Hail"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
 
     </application>
 

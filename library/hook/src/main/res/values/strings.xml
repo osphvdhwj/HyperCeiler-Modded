@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of HyperCeiler.
+  ~ This file is part of HyperHand.
   ~
-  ~ HyperCeiler is free software: you can redistribute it and/or modify
+  ~ HyperHand is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
   ~ published by the Free Software Foundation, either version 3 of the
   ~ License.
@@ -15,10 +15,10 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2023-2025 HyperCeiler Contributions
+  ~ Copyright (C) 2023-2025 HyperHand Contributions
   -->
 <resources>
-    <string name="library_app_name" translatable="false">HyperCeiler</string>
+    <string name="library_app_name" translatable="false">HyperHand</string>
     <!--Introduction to Xposed Modules-->
     <string name="xposed_description">Make HyperOS Great Again!</string>
     <string name="miui_quick_settings_tiles_stock" translatable="false">reduce_brightness,vowifi1,vowifi2,cell,wifi,bt,airplane,autobrightness,mute,screenshot,flashlight,rotation,screenlock,dtmdtm,scanner,papermode,night,quietmode,batterysaver,uwb_shp,aitranslate,aisubtitles,freeformhang,vibrate,hotspot,sync,wirelesspower,nfc,dolbyatomssound,gps,edit,hearingassisttile,controls,wallet,inversion,saver,dark,onehanded,color_correction,user,dnd,taskmanager,settings,camerahandle,carsickness,voicetrans</string>
@@ -30,9 +30,6 @@
     <string name="tiles_snow_leopard_mode">S-Leo mode</string>
     <string name="tiles_taplus">Taplus</string>
     <string name="tiles_5g">5G network</string>
-    <string name="system_ui_statusbar_music_share">Share lyrics</string>
-    <string name="system_ui_statusbar_music_send">Release to send</string>
-    <string name="system_ui_statusbar_music_send_share_text">I shared the following lyrics from %1$s:\n%2$s</string>
     <string name="system_ui_statusbar_music_notification">Focus notification lyrics</string>
     <string name="system_ui_statusbar_network_speed_Bs" translatable="false">B/s</string>
     <string name="system_ui_statusbar_network_speed_speedunits" translatable="false">KMG</string>
@@ -47,19 +44,6 @@
     <string name="tiles_sunshine_mode">Sunlight mode</string>
     <string name="system_cc_showpct_style_1">Inline</string>
     <string name="system_cc_showpct_style_2">Explicit</string>
-    <string name="media_control_ground_mode_1">Cover art</string>
-    <string name="media_control_ground_mode_2">Blurry cover</string>
-    <string name="media_control_ground_mode_3">Radial gradient</string>
-    <string name="media_control_ground_mode_4">Linear gradient</string>
-    <string name="media_control_ground_mode_5">Material blur</string>
-    <string name="media_control_album_mode_1">Hide source identifier</string>
-    <string name="media_control_album_mode_2">Invisible</string>
-    <string name="media_control_button_mode_1">The custom button is on the far right</string>
-    <string name="media_control_button_mode_2">The play button is on the far left</string>
-    <string name="notes_unlock_ai_mode_1">Old version</string>
-    <string name="notes_unlock_ai_mode_2">New version</string>
-    <string name="mode_phone">Phone</string>
-    <string name="mode_pad">Pad</string>
     <!--System Framework-->
     <string name="system_framework_phone_network_title">Network settings</string>
     <string name="system_ui_hide_navigation_bar">Hide gesture line</string>
@@ -92,6 +76,8 @@
     <!--Mi Share-->
     <string name="mishare">Xiaomi Share</string>
     <string name="mishare_disable_mishare_auto_off">Disable automatic disable of Xiaomi Share</string>
+    <string name="mishare_disable_auto_on_location">Disable auto enable location when sharing document</string>
+    <string name="mishare_unlock_turbo_mode">Unlock Turbo transfer</string>
     <string name="mishare_hook_switch_mode_all">Everyone</string>
     <!--Smart cards-->
     <string name="tsmclient">Smart cards</string>

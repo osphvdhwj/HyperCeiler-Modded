@@ -1,7 +1,7 @@
 /*
- * This file is part of HyperCeiler.
+ * This file is part of HyperHand.
 
- * HyperCeiler is free software: you can redistribute it and/or modify
+ * HyperHand is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License.
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
- * Copyright (C) 2023-2025 HyperCeiler Contributions
+ * Copyright (C) 2023-2025 HyperHand Contributions
  */
 package com.hchen.database;
 

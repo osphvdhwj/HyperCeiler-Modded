@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ This file is part of HyperCeiler.
+  ~ This file is part of HyperHand.
   ~
-  ~ HyperCeiler is free software: you can redistribute it and/or modify
+  ~ HyperHand is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Affero General Public License as
   ~ published by the Free Software Foundation, either version 3 of the
   ~ License.
@@ -15,10 +15,10 @@
   ~ You should have received a copy of the GNU Affero General Public License
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   ~
-  ~ Copyright (C) 2023-2025 HyperCeiler Contributions
+  ~ Copyright (C) 2023-2025 HyperHand Contributions
   -->
 <resources>
-    <color name="color_surface_variant">#D09A9B9D</color>
+    <color name="color_surface_variant">#DC9A9B9D</color>
 
     <color name="pa_widget_blur_color_lab">#2EF200</color>
     <color name="pa_widget_blur_color_linear_light">#66B4B4B4</color>
@@ -47,6 +47,4 @@
     <color name="notification_element_blend_keyguard_color_2">#bdfa00</color>
     <color name="notification_element_blend_shade_color_1">#818181</color>
     <color name="notification_element_blend_shade_color_2">#b3ff00</color>
-
-    <color name="red">#FF0000</color>
 </resources>

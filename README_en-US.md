@@ -2,7 +2,7 @@
 
 <img src="\imgs\icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="icon" />
 
-# HyperCeiler
+# HyperHand
 
 ### Make HyperOS Great Again!
 
@@ -12,33 +12,31 @@
 
 ## Currently supported versions
 
-HyperOS for Android 15-16
+HyperOS for Android 14-15
 
 ## Pre-use instructions
 
-Please enable HyperCeiler in [LSPosed](https://github.com/LSPosed/LSPosed/releases), then enable the corresponding feature in the HyperCeiler app and restart the scope (root access required).
+Please enable HyperHand in [LSPosed](https://github.com/LSPosed/LSPosed/releases), then enable the corresponding feature in the HyperHand app and restart the scope (root access required).
 
 This module <b>does not support</b> `third-party Xiaomi HyperOS ROMs with a lot of modifications`, `system software with a lot of modifications`, and some `international Xiaomi HyperOS ROMs`.
 
-Currently, HyperCeiler is adapted for Xiaomi HyperOS 3.0 mobile devices based on Android 16. The coverage isn't very comprehensive and requires ongoing testing and improvements.
+Currently, HyperHand is adapted for Xiaomi HyperOS 2.0.200 mobile devices based on Android 15. The coverage isn't very comprehensive and requires ongoing testing and improvements.
 
 Before submitting feedback, please pay attention to whether there is already the same feedback to avoid causing trouble to developers. Spending the same energy reading the same feedback is a waste of time.
 
-HyperCeiler has stopped maintaining MIUI ROMs for Android 11-13 and HyperOS 1.0/2.0 ROM for Android 13/14.
+HyperHand has stopped maintaining MIUI ROMs for Android 11-13 and HyperOS 1.0 ROM for Android 13.
 
 > For MIUI ROMs on Android 11-12, please use [this version](https://github.com/ReChronoRain/Cemiuiler/releases/tag/1.3.130).
 >
-> For MIUI ROMs on Android 13 and HyperOS 1.0 ROM, please use [this version](https://github.com/Xposed-Modules-Repo/com.sevtinge.hyperceiler/releases/download/3866-2.5.156_20250118/HyperCeiler_2.5.156_20250118_3866_release_miui.apk).
+> For MIUI ROMs on Android 13 and HyperOS 1.0 ROM, please use [this version](https://github.com/Xposed-Modules-Repo/com.harry.hyperhand/releases/download/3866-2.5.156_20250118/HyperHand_2.5.156_20250118_3866_release_miui.apk).
 >
-> Android 14's HyperOS 1.0/2.0 has been archived, and support for Android 14 will be removed starting from version 2.6.162.
+> Android 14's HyperOS 1.0/2.0 has been archived, and after version 2.6.160 is released, no further feedback or fixes will be accepted.
 
 ## Project planning
 
-Xiaomi HyperOS 3 or 4 will be the endpoint of this project. For now, Xiaomi has selectively incorporated some of Xposed's features into its own (user‑unfriendly) devices, and the module's capabilities have been gradually reduced as the system is updated.
+Android 16 is expected to be gradually adapted to most devices after the release of Xiaomi HyperOS 3.0. However, due to Xiaomi HyperOS's unlocking policies, the number of rooted devices will be significantly reduced compared to the previous version.
 
-I also watched Xiaomi HyperOS evolve, step by step, from something completely unusable without root to something almost usable (except for the Xiaomi Pad).
-
-In the future, this module will be extensively adapted to Xiaomi HyperOS 3.0 and later versions, although there's no guarantee that all features will be available. Xiaomi HyperOS 2 will be discontinued in future maintenance updates due to significant differences compared to the newer versions.
+The devices available to developers can only be partially adapted, and there's no guarantee that all features will work properly. There's also a possibility that the project may be archived and development discontinued.
 
 ## Supported apps
 
@@ -54,6 +52,7 @@ In the future, this module will be extensively adapted to Xiaomi HyperOS 3.0 and
 | Joyose                        | com.xiaomi.joyose                  |
 | Mi Settings                   | com.xiaomi.misettings              |
 | Security                      | com.miui.securitycenter            |
+| Notes                         | com.miui.notes                     |
 | Wallpaper                     | com.miui.miwallpaper               |
 | Taplus                        | com.miui.contentextension          |
 | Bullet screen notification    | com.xiaomi.barrage                 |
@@ -63,7 +62,6 @@ In the future, this module will be extensively adapted to Xiaomi HyperOS 3.0 and
 | Messaging                     | com.android.mms                    |
 | Screenshot                    | com.miui.screenshot                |
 | Calendar                      | com.android.calendar               |
-| Notes                         | com.miui.notes                     |
 | Browser                       | com.android.browser                |
 | Rueban (MTB)                  | com.xiaomi.mtb                     |
 | Screen Recorder               | com.miui.screenrecorder            |
@@ -93,6 +91,7 @@ In the future, this module will be extensively adapted to Xiaomi HyperOS 3.0 and
 | Camera                        | com.android.camera                 |
 | Mi AI Translate               | com.xiaomi.aiasst.vision           |
 | Scanner                       | com.xiaomi.scanner                 |
+| Mi AI                         | com.miui.voiceassist               |
 | NFC Service                   | com.android.nfc                    |
 | Earphones                     | com.miui.misound                   |
 | Backup                        | com.miui.backup                    |
@@ -122,30 +121,28 @@ Join our group to report issues or get the latest updates.
 
 ## Translation contributions
 
-We used Hosted Weblate to synchronize project translations. You can contribute translations for the HyperCeiler project [here](https://hosted.weblate.org/engage/hyperceiler/)
+[![Crowdin](https://badges.crowdin.net/cemiuiler/localized.svg)](https://crowdin.com/project/cemiuiler)
 
-<a href="https://hosted.weblate.org/engage/hyperceiler/">
-<img src="https://hosted.weblate.org/widget/hyperceiler/multi-auto.svg" alt="Translation status" />
-</a>
+You can provide translations for the HyperHand project [here](https://crwd.in/cemiuiler).
 
-> Note: When the translation progress of the new language is greater than or equal to 85%, it will enter the merge process. If the translation progress of the added language is less than or equal to 30% of the source text, it will be temporarily removed until the translation progress is greater than or equal to 85%.
+> Note: When the translation progress of the new language is greater than or equal to 90%, it will enter the merge process. If the translation progress of the added language is less than or equal to 30% of the source text, it will be temporarily removed until the translation progress is greater than or equal to 90%.
 
 ## Thanks!
 
-> <b>HyperCeiler</b> uses some or all of the following projects, thanks to the developers of these projects for their support (in no particular order).
+> <b>HyperHand</b> uses some or all of the following projects, thanks to the developers of these projects for their support (in no particular order).
 
 - [「Accompanist」 by Android Open Source Project, Google Inc.](https://google.github.io/accompanist)
 - [「Android」 by Android Open Source Project, Google Inc.](https://source.android.google.cn/license)
 - [「AndroidHiddenApiBypass」 by LSPosed](https://github.com/LSPosed/AndroidHiddenApiBypass)
 - [「AndroidX」 by Android Open Source Project, Google Inc.](https://github.com/androidx/androidx)
-- [「AutoSEffSwitch」 by HChenX](https://github.com/HChenX/AutoSEffSwitch)
+- [「AutoSEffSwitch」 by 焕晨HChen](https://github.com/HChenX/AutoSEffSwitch)
 - [「AntiAntiDefraud」 by MinaMichita](https://github.com/MinaMichita/AntiAntiDefraud)
 - [「AutoNFC」 by GSWXXN](https://github.com/GSWXXN/AutoNFC)
 - [「BypassSignCheck」 by Weverses](https://github.com/Weverses/BypassSignCheck)
 - [「CorePatch」 by LSPosed](https://github.com/LSPosed/CorePatch)
 - [「CustoMIUIzer」 by MonwF](https://github.com/MonwF/customiuizer)
 - [「CustoMIUIzerMod」 by liyafe1997](https://github.com/liyafe1997/CustoMIUIzerMod)
-- [「ClipboardList」 by HChenX](https://github.com/HChenX/ClipboardList)
+- [「ClipboardList」 by 焕晨HChen](https://github.com/HChenX/ClipboardList)
 - [「DexKit」 by LuckyPray](https://github.com/LuckyPray/DexKit)
 - [「Disable app link verify」 by tehcneko](https://github.com/Xposed-Modules-Repo/io.github.tehcneko.applinkverify)
 - [「DisableFlagSecure」 by LSPosed](https://github.com/LSPosed/DisableFlagSecure)
@@ -153,13 +150,11 @@ We used Hosted Weblate to synchronize project translations. You can contribute t
 - [「EzXHelper」 by KyuubiRan](https://github.com/KyuubiRan/EzXHelper)
 - [「FixMiuiMediaControlPanel」 by qqlittleice](https://github.com/qqlittleice/FixMiuiMediaControlPanel)
 - [「FocusNotifLyric」 by wuyou-123](https://github.com/wuyou-123/FocusNotifLyric)
-- [「ForegroundPin」 by HChenX](https://github.com/HChenX/ForegroundPin)
+- [「ForegroundPin」 by 焕晨HChen](https://github.com/HChenX/ForegroundPin)
 - [「FuckNFC」 by xiaowine](https://github.com/xiaowine/FuckNFC)
 - [「Gson」 by Android Open Source Project, Google Inc.](https://github.com/google/gson)
 - [「XiaomiHelper」 by HowieHChen](https://github.com/HowieHChen/XiaomiHelper)
 - [「HideMiuiClipboardDialog」 by zerorooot](https://github.com/zerorooot/HideMiuiClipboardDialog)
-- [「HookTool」 by HChenX](https://github.com/HChenX/HookTool)
-- [「HyperFocusApi」 by ghhccghk](https://github.com/ghhccghk/HyperFocusApi)
 - [「HyperSmartCharge」 by buffcow](https://github.com/buffcow/HyperSmartCharge)
 - [「HyperStar」 by YunZiA](https://github.com/YunZiA/HyperStar)
 - [「Kotlin」 by JetBrains](https://github.com/JetBrains/kotlin)
@@ -175,11 +170,11 @@ We used Hosted Weblate to synchronize project translations. You can contribute t
 - [「ModemPro」 by Weverse](https://github.com/Weverses/ModemPro)
 - [「NoStorageRestrict」 by DanGLES3](https://github.com/Xposed-Modules-Repo/com.github.dan.nostoragerestrict)
 - [「PortalHook」 by Haocen2004](https://github.com/Haocen2004/PortalHook)
-- [「PinningApp」 by HChenX](https://github.com/HChenX/PinningApp)
+- [「PinningApp」 by 焕晨HChen](https://github.com/HChenX/PinningApp)
 - [「RemoveMiuiSystemSelfProtection」 by gfbjngjibn](https://github.com/gfbjngjibn/RemoveMiuiSystemSelfProtection)
 - [「SettingsDontThroughTheList」 by weixiansen574](https://github.com/weixiansen574/settingsdontthroughthelist)
 - [「StarVoyager」 by hosizoraru](https://github.com/hosizoraru/StarVoyager)
-- [「SuperLyric」 by HChenX](https://github.com/HChenX/SuperLyric)
+- [「SuperLyric」 by 焕晨HChen](https://github.com/HChenX/SuperLyric)
 - [「WINI」 by ouhoukyo](https://github.com/ouhoukyo/WINI)
 - [「WOMMO」 by YifePlayte](https://github.com/YifePlayte/WOMMO)
 - [「Woobox For MIUI」 by hosizoraru](https://github.com/hosizoraru/WooBoxForMIUI)

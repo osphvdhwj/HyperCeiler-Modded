@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.lsparanoid)
 }
 
@@ -13,13 +14,13 @@ lsparanoid {
 }
 
 android {
-    namespace = "com.sevtinge.hyperceiler.hook"
+    namespace = "com.harry.hyperhand.hook"
     compileSdk = 36
 
     defaultConfig {
         minSdk = 34
 
-        buildConfigField("String", "APP_MODULE_ID", "\"com.sevtinge.hyperceiler\"")
+        buildConfigField("String", "APP_MODULE_ID", "\"com.harry.hyperhand\"")
     }
 
     buildFeatures {
@@ -29,13 +30,13 @@ android {
 
     buildTypes {
         release {
-            consumerProguardFiles("proguard-rules.pro")
+            consumerProguardFiles(libs.versions.proguard.rules.get())
         }
         create("beta") {
-            consumerProguardFiles("proguard-rules.pro")
+            consumerProguardFiles(libs.versions.proguard.rules.get())
         }
         create("canary") {
-            consumerProguardFiles("proguard-rules.pro")
+            consumerProguardFiles(libs.versions.proguard.rules.get())
         }
     }
 }
@@ -46,15 +47,7 @@ java {
     }
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
-
-    compilerOptions {
-        freeCompilerArgs.add("-XXLanguage:+MultiDollarInterpolation")
-    }
-}
+kotlin.jvmToolchain(21)
 
 dependencies {
     api(libs.core)
@@ -67,11 +60,14 @@ dependencies {
 
     api(libs.core.ktx)
     api(libs.expansion)
-    compileOnlyApi(projects.library.hiddenApi)
-    compileOnlyApi(libs.xposed.api)
+    compileOnly(projects.library.hiddenApi)
+    compileOnly(libs.xposed.api)
 
     api(libs.dexkit)
-    api(libs.bundles.ezxhelper)
+    api(libs.mmkv)
+    api(libs.ezxhelper.core)
+    api(libs.ezxhelper.xposed.api)
+    api(libs.ezxhelper.android.utils)
     api(libs.hiddenapibypass)
     api(libs.gson)
     api(libs.hooktool)
