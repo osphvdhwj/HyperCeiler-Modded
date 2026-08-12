@@ -3,8 +3,8 @@ package com.harry.hyperhand.hook.module.hook.camera
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.harry.hyperhand.hook.annotation.HookBase
-import com.harry.hyperhand.hook.base.BaseHook
+import com.hchen.database.HookBase
+import com.harry.hyperhand.hook.module.base.BaseHook
 import com.harry.hyperhand.hook.utils.log.AndroidLogUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
