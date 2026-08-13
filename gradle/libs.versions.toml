@@ -23,7 +23,7 @@ ezxhelper = "3.0.1"
 proguard-rules = "proguard-rules.pro"
 hiddenapibypass = "6.1"
 mmkv = "2.2.2"
-hooktool = "v.2.2.3"
+hooktool = "v.2.2.1"
 
 # Third-party
 expansions = "1.0.0"
