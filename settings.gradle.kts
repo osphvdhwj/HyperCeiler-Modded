@@ -41,7 +41,7 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal()
         maven {
-            url = uri("https://maven.pkg.github.com/ReChronoRain/HyperCeiler")
+            url = uri("https://maven.pkg.github.com/sevtinge/HyperCeiler")
             credentials {
                 username = gprUser
                 password = gprKey
