@@ -22,6 +22,7 @@ dexkit = "2.0.7"
 ezxhelper = "3.0.1"
 proguard-rules = "proguard-rules.pro"
 hiddenapibypass = "6.1"
+mmkv = "2.2.2"
 hooktool = "v.2.2.3"
 
 # Third-party
@@ -82,6 +83,7 @@ expansion = { module = "com.sevtinge.hyperceiler:hyperceiler-expansion", version
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hyperfocusapi = { module = "com.github.ghhccghk:HyperFocusApi", version.ref = "hyperfocusapi" }
 lunarcalendar = { module = "com.xhinliang:LunarCalendar", version.ref = "lunarcalendar" }
+mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
 superlyricapi = { module = "com.github.HChenX:SuperLyricApi", version.ref = "superLyricApi" }
 
 [plugins]
