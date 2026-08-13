@@ -94,8 +94,8 @@ RealMemory : BaseHook() {
                     totalMem = "$totalMem$extmMem GB"
                     val availMem = memoryInfo.availMem.formatSize()
                     
-                    val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem).trimEnd(' ', '|')
-                    val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem).trimEnd(' ', '|')
+                    val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem).replace("|", "").trim()
+                    val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem).replace("|", "").trim()
                     
                     (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text = text1
                     (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text = text2
