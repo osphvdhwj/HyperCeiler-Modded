@@ -47,6 +47,13 @@ dependencyResolutionManagement {
                 password = gprKey
             }
         }
+        maven {
+            url = uri("https://maven.pkg.github.com/sevtinge/HyperCeiler")
+            credentials {
+                username = gprUser
+                password = gprKey
+            }
+        }
         maven("https://jitpack.io")
         maven("https://api.xposed.info")
     }
