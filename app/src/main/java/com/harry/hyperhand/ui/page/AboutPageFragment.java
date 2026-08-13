@@ -42,7 +42,7 @@ import com.harry.hyperhand.common.utils.MainActivityContextHelper;
 import com.harry.hyperhand.dashboard.DashboardFragment;
 import com.harry.hyperhand.ui.ContentFragment.IFragmentChange;
 import com.harry.hyperhand.ui.R;
-import com.harry.hyperhand.expansion.utils.ClickCountsUtils;
+import com.sevtinge.hyperceiler.expansion.utils.ClickCountsUtils;
 import com.harry.hyperhand.ui.page.about.view.BgEffectPainter;
 import com.harry.hyperhand.ui.page.about.widget.VersionCard;
 import com.harry.hyperhand.widget.ListContainerView;

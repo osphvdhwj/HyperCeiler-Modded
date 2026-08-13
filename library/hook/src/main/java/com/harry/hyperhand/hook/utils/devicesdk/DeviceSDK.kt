@@ -24,7 +24,7 @@ import android.content.res.Resources
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.os.Build
-import com.harry.hyperhand.expansion.utils.TokenUtils.getDeviceToken
+import com.sevtinge.hyperceiler.expansion.utils.TokenUtils.getDeviceToken
 import com.harry.hyperhand.hook.utils.PropUtils.getProp
 import com.harry.hyperhand.hook.utils.shell.ShellUtils.rootExecCmd
 import io.github.kyuubiran.ezxhelper.xposed.EzXposed.appContext

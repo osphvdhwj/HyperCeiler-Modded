@@ -18,7 +18,7 @@
  */
 package com.harry.hyperhand.hook.utils.shell;
 
-import static com.harry.hyperhand.expansion.utils.ShellSafeUtils.isSafeCommand;
+import static com.sevtinge.hyperceiler.expansion.utils.ShellSafeUtils.isSafeCommand;
 
 import androidx.annotation.NonNull;
 

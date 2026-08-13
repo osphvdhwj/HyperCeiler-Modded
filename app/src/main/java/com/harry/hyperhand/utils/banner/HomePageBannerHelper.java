@@ -31,7 +31,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import com.harry.hyperhand.BuildConfig;
-import com.harry.hyperhand.expansion.utils.SignUtils;
+import com.sevtinge.hyperceiler.expansion.utils.SignUtils;
 import com.harry.hyperhand.hook.utils.devicesdk.SystemSDKKt;
 import com.harry.hyperhand.ui.R;
 import com.harry.hyperhand.common.prefs.LayoutPreference;
