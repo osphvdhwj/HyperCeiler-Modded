@@ -1,6 +1,6 @@
 [versions]
 # Build tools
-agp = "9.0.0-rc01"
+agp = "8.11.1"
 kotlin-android = "2.2.0"
 lsparanoid = "0.6.0"
 autoService = "1.1.1"
