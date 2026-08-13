@@ -29,8 +29,10 @@ object OpenDefaultGallery : BaseHook() {
                         
                         intent.component = null
                         intent.`package` = null
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                         
-                        if (intent.action == "com.android.camera.action.REVIEW") {
+                        if (intent.action == "com.miui.gallery.action.VIEW_PHOTO") {
                             intent.action = Intent.ACTION_VIEW
                         }
                     }
