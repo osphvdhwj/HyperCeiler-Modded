@@ -60,12 +60,33 @@ jobs:
           echo "GIT_ACTOR=${{ secrets.GIT_ACTOR }}" >> $GITHUB_ENV
           echo "GIT_TOKEN=${{ secrets.GIT_TOKEN }}" >> $GITHUB_ENV
 
+      - name: Diagnose Package Registry
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          echo "=== Testing token access to GitHub Packages ==="
+          HTTP_CODE=$(curl -s -o /tmp/pkg_resp.txt -w "%{http_code}" \
+            -u "$GIT_ACTOR:$GIT_TOKEN" \
+            "https://maven.pkg.github.com/ReChronoRain/HyperCeiler/fan/miuix/haptic/maven-metadata.xml")
+          echo "HTTP Status: $HTTP_CODE"
+          cat /tmp/pkg_resp.txt || true
+          echo ""
+          echo "=== Check folme metadata ==="
+          curl -s -u "$GIT_ACTOR:$GIT_TOKEN" \
+            "https://maven.pkg.github.com/ReChronoRain/HyperCeiler/fan/miuix/folme/maven-metadata.xml" | head -30 || true
+        env:
+          GIT_ACTOR: ${{ secrets.GIT_ACTOR }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+
       - name: Build with Gradle (Canary)
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
           ./gradlew assembleCanary
           echo "IS_DEBUG=false" >> $GITHUB_ENV
+        env:
+          GIT_ACTOR: ${{ secrets.GIT_ACTOR }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
 
       - name: Build with Gradle (Debug)
         if: github.event_name == 'pull_request'
