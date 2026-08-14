@@ -57,11 +57,12 @@ public class ExceptionCrashActivity extends AppCompatActivity implements View.On
 
         String message = throwable.getMessage();
         String exceptionType = throwable.getClass().getName();
-        StackTraceElement element = throwable.getStackTrace()[0];
-        String fileName = element.getFileName();
-        String className = element.getClassName();
-        String methodName = element.getMethodName();
-        int lineNumber = element.getLineNumber();
+        StackTraceElement[] stackTrace = throwable.getStackTrace();
+        StackTraceElement element = stackTrace.length > 0 ? stackTrace[0] : null;
+        String fileName = element != null ? element.getFileName() : "Unknown";
+        String className = element != null ? element.getClassName() : "Unknown";
+        String methodName = element != null ? element.getMethodName() : "Unknown";
+        int lineNumber = element != null ? element.getLineNumber() : -1;
         Date timestamp = new Date();
 
         StringWriter sw = new StringWriter();
