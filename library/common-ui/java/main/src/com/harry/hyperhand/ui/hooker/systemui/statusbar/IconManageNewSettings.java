@@ -124,12 +124,6 @@ public class IconManageNewSettings extends DashboardFragment {
             return true;
         });
 
-        mNotificationIconMaximum.setOnPreferenceChangeListener((preference, o) -> {
-            if ((int) o == 16) {
-                mNotificationIconMaximum.setValue(R.string.unlimited);
-            }
-            return true;
-        });
 
         mBatteryNumber.setOnPreferenceChangeListener((preference, o) -> {
             if (!(boolean) o) {
