@@ -48,7 +48,6 @@ public class AutoSEffSwitchForSystemUi extends HCBase {
         return SystemPropTool.getProp("ro.vendor.audio.fweffect", false);
     }
 
-    @Override
     protected void onApplicationAfter(Context context) {
         Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         if (intent == null) return;

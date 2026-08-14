@@ -39,7 +39,7 @@ import java.util.List;
 
 import de.robv.android.xposed.XposedHelpers;
 
-public class HyperHandSettings extends BaseHook {
+public class HyperCeilerSettings extends BaseHook {
 
     private int settingsIconResId;
 

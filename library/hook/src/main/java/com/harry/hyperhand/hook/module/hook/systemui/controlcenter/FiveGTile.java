@@ -78,7 +78,8 @@ public class FiveGTile extends TileUtils {
     }
 
     private void initStyle3() {
-        Resources modRes = ResInjectTool.injectModuleRes(getAppContext().getResources());
+        ResInjectTool.injectModuleRes();
+        Resources modRes = getAppContext().getResources();
         String fiveG = modRes.getString(customRes());
 
         String detailContentClzName = "com.android.systemui.qs.QSDetailContent";
