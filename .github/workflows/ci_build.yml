@@ -59,31 +59,15 @@ jobs:
           echo keyPassword='${{ secrets.KEY_STORE_PASSWORD }}' >> signing.properties
           echo storeFile=../key.jks >> signing.properties
           python3 -c "import base64, os; open('key.jks', 'wb').write(base64.b64decode(os.environ['SIGNING_KEY']))"
-          python3 -c "
-import subprocess, os
-pw = os.environ.get('KEY_STORE_PASSWORD', '')
-try:
-    out = subprocess.check_output(['keytool', '-list', '-keystore', 'key.jks', '-storepass', pw], text=True)
-    for line in out.splitlines():
-        if 'PrivateKeyEntry' in line or 'keyEntry' in line:
-            alias = line.split(',')[0].strip()
-            print('Found alias in key.jks:', alias)
-            lines = open('signing.properties').readlines()
-            with open('signing.properties', 'w') as f:
-                for l in lines:
-                    if l.startswith('keyAlias='):
-                        f.write(f'keyAlias={alias}\n')
-                    else:
-                        f.write(l)
-            break
-except Exception as e:
-    print('Keytool alias auto-detect error:', e)
-"
+          KEY_ALIAS=$(keytool -list -keystore key.jks -storepass "${{ secrets.KEY_STORE_PASSWORD }}" 2>/dev/null | grep -E "PrivateKeyEntry|keyEntry" | head -1 | cut -d',' -f1 | xargs)
+          if [ -n "$KEY_ALIAS" ]; then
+            echo "Detected keyAlias: $KEY_ALIAS"
+            echo "keyAlias=$KEY_ALIAS" >> signing.properties
+          fi
           echo "GIT_ACTOR=${{ secrets.GIT_ACTOR }}" >> $GITHUB_ENV
           echo "GIT_TOKEN=${{ secrets.GIT_TOKEN }}" >> $GITHUB_ENV
         env:
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
 
       - name: Build with Gradle (Canary)
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
