@@ -1228,6 +1228,8 @@
     <string name="home_recent_text_color">Color of thumbnail labels text</string>
     <string name="home_recent_freeform_background_color">Freeform app card background color</string>
     <string name="home_recent_show_real_memory">Show real memory</string>
+    <string name="home_recent_ios_stack_enable">iOS Stack Layout</string>
+    <string name="home_recent_ios_stack_enable_desc">Enable iOS-style overlapping stack layout in the Recents view</string>
     <string name="home_recent_show_memory_info_sum">For tablet use only</string>
     <string name="home_recent_show_memory_info">Show memory info</string>
     <string name="home_recent_always_show_clean_up">Don\'t hide clean up button</string>

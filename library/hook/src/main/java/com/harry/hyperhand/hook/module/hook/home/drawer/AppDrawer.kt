@@ -32,23 +32,27 @@ object AppDrawer : BaseHook() {
     override fun init() {
         if (mPrefsMap.getBoolean("home_drawer_all")) {
             try {
-                loadClassOrNull("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")!!
-                    .methodFinder()
-                    .filterByName("buildSortCategoryList")
-                    .single()
-            } catch (_: Exception) {
-                loadClassOrNull("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")!!
-                    .methodFinder()
-                    .filterByName("buildSortCategoryList")
-                    .single()
-            }.createHook {
-                after {
-                    val list = it.result as ArrayList<*>
-                    if (list.size > 1) {
-                        list.removeAt(0)
-                        it.result = list
+                try {
+                    loadClassOrNull("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")!!
+                        .methodFinder()
+                        .filterByName("buildSortCategoryList")
+                        .single()
+                } catch (_: Exception) {
+                    loadClassOrNull("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")!!
+                        .methodFinder()
+                        .filterByName("buildSortCategoryList")
+                        .single()
+                }.createHook {
+                    after {
+                        val list = it.result as ArrayList<*>
+                        if (list.size > 1) {
+                            list.removeAt(0)
+                            it.result = list
+                        }
                     }
                 }
+            } catch (e: Throwable) {
+                com.harry.hyperhand.hook.utils.log.XposedLogUtils.logE("AppDrawer", lpparam.packageName, "Failed to hook buildSortCategoryList: " + e)
             }
         }
 

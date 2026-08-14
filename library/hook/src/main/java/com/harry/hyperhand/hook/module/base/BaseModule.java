@@ -124,8 +124,12 @@ public abstract class BaseModule {
     }
 
     private void onCreate(Object hook) {
-        if (hook instanceof BaseHook baseHook) baseHook.onCreate(mLoadPackageParam);
-        else if (hook instanceof HCBase HCBase) HCBase.onLoadPackage();
-        else throw new RuntimeException("Unknown hook!");
+        try {
+            if (hook instanceof BaseHook baseHook) baseHook.onCreate(mLoadPackageParam);
+            else if (hook instanceof HCBase HCBase) HCBase.onLoadPackage();
+            else throw new RuntimeException("Unknown hook!");
+        } catch (Throwable e) {
+            com.harry.hyperhand.hook.utils.log.XposedLogUtils.logE(TAG, mLoadPackageParam.packageName, "Failed to init hook: " + hook.getClass().getName() + " - " + e);
+        }
     }
 }
