@@ -273,3 +273,4 @@ public class HyperHandTabActivity extends NaviBaseActivity
         PreferenceHeader.mDisableOrHiddenApp.clear();
     }
 }
+// build trigger
