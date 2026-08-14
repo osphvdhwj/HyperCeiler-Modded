@@ -23,9 +23,22 @@ import static com.harry.hyperhand.hook.utils.log.LogManager.logLevel;
 import de.robv.android.xposed.XposedBridge;
 
 public class XposedLogUtils {
+    private static void writeToFile(String msg) {
+        try {
+            java.io.File file = new java.io.File("/storage/emulated/0/Download/HyperHand_log.txt");
+            java.io.FileWriter fw = new java.io.FileWriter(file, true);
+            fw.write(msg + "\n");
+            fw.close();
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+
     public static void logI(String msg) {
         if (logLevel < 3) return;
-        XposedBridge.log("[HyperHand][I]: " + msg);
+        String fullMsg = "[HyperHand][I]: " + msg;
+        XposedBridge.log(fullMsg);
+        writeToFile(fullMsg);
     }
 
     public static void logI(String tagOpkg, String msg) {
@@ -80,22 +93,30 @@ public class XposedLogUtils {
 
     public static void logE(String tag, String msg) {
         if (logLevel < 1) return;
-        XposedBridge.log("[HyperHand][E][" + tag + "]: " + msg);
+        String fullMsg = "[HyperHand][E][" + tag + "]: " + msg;
+        XposedBridge.log(fullMsg);
+        writeToFile(fullMsg);
     }
 
     public static void logE(String msg) {
         if (logLevel < 1) return;
-        XposedBridge.log("[HyperHand][E]: " + msg);
+        String fullMsg = "[HyperHand][E]: " + msg;
+        XposedBridge.log(fullMsg);
+        writeToFile(fullMsg);
     }
 
     public static void logE(String tag, Throwable log) {
         if (logLevel < 1) return;
-        XposedBridge.log("[HyperHand][E][" + tag + "]: " + log);
+        String fullMsg = "[HyperHand][E][" + tag + "]: " + log;
+        XposedBridge.log(fullMsg);
+        writeToFile(fullMsg);
     }
 
     public static void logE(String tag, String pkg, String msg) {
         if (logLevel < 1) return;
-        XposedBridge.log("[HyperHand][E][" + pkg + "][" + tag + "]: " + msg);
+        String fullMsg = "[HyperHand][E][" + pkg + "][" + tag + "]: " + msg;
+        XposedBridge.log(fullMsg);
+        writeToFile(fullMsg);
     }
 
     public static void logE(String tag, String pkg, Throwable log) {

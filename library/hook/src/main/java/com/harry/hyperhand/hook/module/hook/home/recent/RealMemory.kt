@@ -74,38 +74,42 @@ RealMemory : BaseHook() {
             .first().createHook {
                 before {
                     it.result = null
-                    val memoryInfo = ActivityManager.MemoryInfo()
-                    val activityManager =
-                        context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-                    activityManager.getMemoryInfo(memoryInfo)
-                    var totalMem = "\\d+\\.\\d+".toRegex().find(memoryInfo.totalMem.formatSize())?.value
-                    val extmSize = getProp("persist.miui.extm.bdsize")
-                    var extmMem = ""
-                    if (!getProp("persist.miui.extm.enable").equals("0")) {
-                        try {
-                            val number = extmSize.toDouble() / 1024
-                            val df = DecimalFormat("0.00")
-                            extmMem = "+" + df.format(number).toString()
-                        } catch (e: NumberFormatException) {
-                            XposedLogUtils.logE(TAG, lpparam.packageName, "Get extm size failed by: $e"
-                            )
-                        }
-                    }
-                    totalMem = "$totalMem$extmMem GB"
-                    val availMem = memoryInfo.availMem.formatSize()
-                    
-                    val pipeRegex = "[|｜丨│]".toRegex()
-                    val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem).replace(pipeRegex, "").trim()
-                    val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem).replace(pipeRegex, "").trim()
-                    
-                    (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text = text1
-                    (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text = text2
-                    
                     try {
-                        val divider = it.thisObject.getObjectField("mMemoryInfoDivider") as? android.view.View
-                        divider?.visibility = android.view.View.GONE
+                        val activityManager =
+                            context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+                        val memoryInfo = ActivityManager.MemoryInfo()
+                        activityManager.getMemoryInfo(memoryInfo)
+                        var totalMem = "\\d+\\.\\d+".toRegex().find(memoryInfo.totalMem.formatSize())?.value
+                        val extmSize = getProp("persist.miui.extm.bdsize")
+                        var extmMem = ""
+                        if (!getProp("persist.miui.extm.enable").equals("0")) {
+                            try {
+                                val number = extmSize.toDouble() / 1024
+                                val df = DecimalFormat("0.00")
+                                extmMem = "+" + df.format(number).toString()
+                            } catch (e: NumberFormatException) {
+                                XposedLogUtils.logE(TAG, lpparam.packageName, "Get extm size failed by: $e"
+                                )
+                            }
+                        }
+                        totalMem = "$totalMem$extmMem GB"
+                        val availMem = memoryInfo.availMem.formatSize()
+                        
+                        val pipeRegex = "[|｜丨│]".toRegex()
+                        val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem).replace(pipeRegex, "").trim()
+                        val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem).replace(pipeRegex, "").trim()
+                        
+                        (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text = text1
+                        (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text = text2
+                        
+                        try {
+                            val divider = it.thisObject.getObjectField("mMemoryInfoDivider") as? android.view.View
+                            divider?.visibility = android.view.View.GONE
+                        } catch (e: Throwable) {
+                            // Ignore if divider view doesn't exist
+                        }
                     } catch (e: Throwable) {
-                        // Ignore if divider view doesn't exist
+                        XposedLogUtils.logE(TAG, lpparam.packageName, "RealMemory before hook crashed: " + e)
                     }
                 }
             }
