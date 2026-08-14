@@ -63,8 +63,8 @@ class ClearClipboard : BaseHook() {
                 it.thisObject.getObjectFieldAs<ImageView>("addButton").apply {
                     addButton = this
                     addButtonIcon = drawable
-                    removeIcon = ResInjectTool.injectModuleRes()
-                        .getDrawable(R.drawable.ic_remove, context.theme)
+                    ResInjectTool.injectModuleRes()
+                    removeIcon = context.resources.getDrawable(R.drawable.ic_remove, context.theme)
 
                     callMethod("setVisibility", 0)
                     onClickAddButton = callMethod("getListenerInfo")!!.getObjectFieldAs("mOnClickListener")
