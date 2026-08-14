@@ -51,18 +51,22 @@ jobs:
       - name: Create Sign File
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
-          touch signing.properties
-          echo storePassword=${{ secrets.KEY_STORE_PASSWORD }} >> signing.properties
-          ALIAS="${{ secrets.ALIAS }}"
-          if [ -z "$ALIAS" ]; then ALIAS="key0"; fi
-          echo keyAlias=$ALIAS >> signing.properties
-          echo keyPassword='${{ secrets.KEY_STORE_PASSWORD }}' >> signing.properties
-          echo storeFile=../key.jks >> signing.properties
-          python3 -c "import base64, os; open('key.jks', 'wb').write(base64.b64decode(os.environ['SIGNING_KEY']))"
-          KEY_ALIAS=$(keytool -list -keystore key.jks -storepass "${{ secrets.KEY_STORE_PASSWORD }}" 2>/dev/null | grep -E "PrivateKeyEntry|keyEntry" | head -1 | cut -d',' -f1 | xargs)
-          if [ -n "$KEY_ALIAS" ]; then
-            echo "Detected keyAlias: $KEY_ALIAS"
-            echo "keyAlias=$KEY_ALIAS" >> signing.properties
+          if [ -n "${{ secrets.SIGNING_KEY }}" ]; then
+            touch signing.properties
+            echo storePassword=${{ secrets.KEY_STORE_PASSWORD }} >> signing.properties
+            ALIAS="${{ secrets.ALIAS }}"
+            if [ -z "$ALIAS" ]; then ALIAS="key0"; fi
+            echo keyAlias=$ALIAS >> signing.properties
+            echo keyPassword='${{ secrets.KEY_STORE_PASSWORD }}' >> signing.properties
+            echo storeFile=../key.jks >> signing.properties
+            python3 -c "import base64, os; open('key.jks', 'wb').write(base64.b64decode(os.environ['SIGNING_KEY']))"
+            KEY_ALIAS=$(keytool -list -keystore key.jks -storepass "${{ secrets.KEY_STORE_PASSWORD }}" 2>/dev/null | grep -E "PrivateKeyEntry|keyEntry" | head -1 | cut -d',' -f1 | xargs)
+            if [ -n "$KEY_ALIAS" ]; then
+              echo "Detected keyAlias: $KEY_ALIAS"
+              echo "keyAlias=$KEY_ALIAS" >> signing.properties
+            fi
+          else
+            echo "SIGNING_KEY is empty, skipping signing configuration (debug keystore will be used)"
           fi
           echo "GIT_ACTOR=${{ secrets.GIT_ACTOR }}" >> $GITHUB_ENV
           echo "GIT_TOKEN=${{ secrets.GIT_TOKEN }}" >> $GITHUB_ENV

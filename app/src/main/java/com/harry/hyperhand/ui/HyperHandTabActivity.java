@@ -275,3 +275,4 @@ public class HyperHandTabActivity extends NaviBaseActivity
 }
 // build trigger
 // ci update
+// fix empty signing key
