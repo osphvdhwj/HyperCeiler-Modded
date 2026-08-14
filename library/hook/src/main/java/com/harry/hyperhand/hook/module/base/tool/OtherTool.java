@@ -56,7 +56,8 @@ public class OtherTool {
 
     public static Resources getModuleRes(Context context)
             throws PackageManager.NameNotFoundException {
-        return ResInjectTool.injectModuleRes(context.getResources());
+        ResInjectTool.injectModuleRes();
+        return context.getResources();
     }
 
     public static Context findContext(@ContextUtils.Duration int flag) {
