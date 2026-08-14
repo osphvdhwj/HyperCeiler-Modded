@@ -28,7 +28,7 @@ import com.harry.hyperhand.hook.module.hook.systemsettings.AppsFreezerEnable;
 import com.harry.hyperhand.hook.module.hook.systemsettings.ControlCenterStyle;
 import com.harry.hyperhand.hook.module.hook.systemsettings.DisableInstallUnknownVerify;
 import com.harry.hyperhand.hook.module.hook.systemsettings.EnableSpeedMode;
-import com.harry.hyperhand.hook.module.hook.systemsettings.HyperHandSettings;
+import com.harry.hyperhand.hook.module.hook.systemsettings.HyperCeilerSettings;
 import com.harry.hyperhand.hook.module.hook.systemsettings.InternationalBuild;
 import com.harry.hyperhand.hook.module.hook.systemsettings.LanguageMenuShowAllApps;
 import com.harry.hyperhand.hook.module.hook.systemsettings.LinkTurbo;
@@ -58,7 +58,7 @@ public class SystemSettingsU extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
-        initHook(new HyperHandSettings(), mPrefsMap.getStringAsInt("settings_icon", 0) != 0);
+        initHook(new HyperCeilerSettings(), mPrefsMap.getStringAsInt("settings_icon", 0) != 0);
 
         initHook(new ShowAutoUIMode(), mPrefsMap.getBoolean("system_settings_unlock_ui_mode"));
         initHook(new LinkTurbo(), mPrefsMap.getBoolean("system_settings_linkturbo"));
