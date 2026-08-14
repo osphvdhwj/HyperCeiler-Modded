@@ -94,11 +94,19 @@ RealMemory : BaseHook() {
                     totalMem = "$totalMem$extmMem GB"
                     val availMem = memoryInfo.availMem.formatSize()
                     
-                    val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem).replace("|", "").trim()
-                    val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem).replace("|", "").trim()
+                    val pipeRegex = "[|｜丨│]".toRegex()
+                    val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem).replace(pipeRegex, "").trim()
+                    val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem).replace(pipeRegex, "").trim()
                     
                     (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text = text1
                     (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text = text2
+                    
+                    try {
+                        val divider = it.thisObject.getObjectField("mMemoryInfoDivider") as? android.view.View
+                        divider?.visibility = android.view.View.GONE
+                    } catch (e: Throwable) {
+                        // Ignore if divider view doesn't exist
+                    }
                 }
             }
     }
