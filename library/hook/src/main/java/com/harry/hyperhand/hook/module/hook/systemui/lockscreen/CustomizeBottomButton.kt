@@ -174,7 +174,7 @@ object CustomizeBottomButton : BaseHook() {
                 flashlightController = MiuiStub.sysUIProvider.flashlightController
 
                 val context = MiuiStub.baseProvider.context
-                ResInjectTool.injectModuleRes(context.resources)
+                ResInjectTool.injectModuleRes()
                 chargeImage(param, context)
             }
         })

@@ -9,7 +9,7 @@ import com.harry.hyperhand.hook.utils.log.AndroidLogUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
-@HookBase
+@HookBase(targetPackage = "com.android.camera")
 object OpenDefaultGallery : BaseHook() {
     override fun init() {
         XposedHelpers.findAndHookMethod(

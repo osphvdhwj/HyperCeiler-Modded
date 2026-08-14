@@ -130,7 +130,7 @@ abstract class MusicBaseHook : BaseHook() {
             remoteViewsrv.setTextColor(focuslyric, Color.BLACK) // 字体颜色
             remoteViewsrv.setTextViewTextSize(focuslyric, TypedValue.COMPLEX_UNIT_SP, nSize) // 字体大小 为第三个
             val api = if (!isAodShow) {
-                FocusApi.senddiyFocus(
+                FocusApi.sendDiyFocus(
                     ticker = text,
                     updatable = true,
                     aodTitle = text,
@@ -142,7 +142,7 @@ abstract class MusicBaseHook : BaseHook() {
                     picticker = icon
                 )
             } else {
-                FocusApi.senddiyFocus(
+                FocusApi.sendDiyFocus(
                     ticker = text,
                     updatable = true,
                     enableFloat = false,

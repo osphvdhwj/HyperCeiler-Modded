@@ -8,7 +8,7 @@ import kotlin.math.max
 
 object IosRecentStack : BaseHook() {
     override fun init() {
-        val enableIosStack = mPrefsMap.getBoolean("home_recent_ios_stack_enable", true)
+        val enableIosStack = mPrefsMap.getBoolean("home_recent_ios_stack_enable")
         if (!enableIosStack) return
 
         "com.miui.home.recents.views.RecentsView".hookBeforeMethod(
