@@ -194,3 +194,4 @@ Android 16 预期在 Xiaomi HyperOS 3.0 大部分设备发布后逐渐适配，�
 [telegram_url]: https://t.me/cemiuiler
 
 [badge_telegram]: https://img.shields.io/badge/dynamic/json?style=for-the-badge&color=2CA5E0&label=Telegram&logo=telegram&query=%24.data.totalSubs&url=https%3A%2F%2Fapi.spencerwoo.com%2Fsubstats%2F%3Fsource%3Dtelegram%26queryKey%3Dcemiuiler
+
