@@ -15,7 +15,7 @@ object IosRecentStack : BaseHook() {
             "dispatchDraw", Canvas::class.java
         ) {
             val recentsView = it.thisObject as ViewGroup
-            val screenCenter = recentsView.width / 2f
+            val screenCenter = recentsView.scrollX + (recentsView.width / 2f)
             val childCount = recentsView.childCount
 
             for (i in 0 until childCount) {

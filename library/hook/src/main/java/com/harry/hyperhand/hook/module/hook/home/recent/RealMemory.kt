@@ -38,6 +38,8 @@ object
 RealMemory : BaseHook() {
     @SuppressLint("DiscouragedApi")
     override fun init() {
+        if (!mPrefsMap.getBoolean("home_recent_show_real_memory")) return
+        
         lateinit var context: Context
         var memoryInfo1StringId: Int? = null
         var memoryInfo2StringId: Int? = null
@@ -72,27 +74,14 @@ RealMemory : BaseHook() {
         recentContainerClass.methodFinder()
             .filterByName("refreshMemoryInfo")
             .first().createHook {
-                before {
-                    it.result = null
+                after {
                     try {
                         val activityManager =
                             context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                         val memoryInfo = ActivityManager.MemoryInfo()
                         activityManager.getMemoryInfo(memoryInfo)
-                        var totalMem = "\\d+\\.\\d+".toRegex().find(memoryInfo.totalMem.formatSize())?.value
-                        val extmSize = getProp("persist.miui.extm.bdsize")
-                        var extmMem = ""
-                        if (!getProp("persist.miui.extm.enable").equals("0")) {
-                            try {
-                                val number = extmSize.toDouble() / 1024
-                                val df = DecimalFormat("0.00")
-                                extmMem = "+" + df.format(number).toString()
-                            } catch (e: NumberFormatException) {
-                                XposedLogUtils.logE(TAG, lpparam.packageName, "Get extm size failed by: $e"
-                                )
-                            }
-                        }
-                        totalMem = "$totalMem$extmMem GB"
+                        
+                        val totalMem = memoryInfo.totalMem.formatSize()
                         val availMem = memoryInfo.availMem.formatSize()
                         
                         val pipeRegex = "[|｜丨│]".toRegex()
@@ -109,7 +98,7 @@ RealMemory : BaseHook() {
                             // Ignore if divider view doesn't exist
                         }
                     } catch (e: Throwable) {
-                        XposedLogUtils.logE(TAG, lpparam.packageName, "RealMemory before hook crashed: " + e)
+                        XposedLogUtils.logE(TAG, lpparam.packageName, "RealMemory after hook crashed: " + e)
                     }
                 }
             }

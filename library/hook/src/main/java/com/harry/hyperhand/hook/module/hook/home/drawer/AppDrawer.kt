@@ -38,10 +38,17 @@ object AppDrawer : BaseHook() {
                         .filterByName("buildSortCategoryList")
                         .single()
                 } catch (_: Exception) {
-                    loadClassOrNull("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")!!
-                        .methodFinder()
-                        .filterByName("buildSortCategoryList")
-                        .single()
+                    try {
+                        loadClassOrNull("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")!!
+                            .methodFinder()
+                            .filterByName("buildSortCategoryList")
+                            .single()
+                    } catch (_: Exception) {
+                        loadClassOrNull("com.miui.home.launcher.AllCategoryList")!!
+                            .methodFinder()
+                            .filterByName("buildSortCategoryList")
+                            .single()
+                    }
                 }.createHook {
                     after {
                         val list = it.result as ArrayList<*>
