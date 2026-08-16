@@ -30,7 +30,7 @@ object RemoveLeftShare : BaseHook() {
     override fun init() {
         loadClass("com.miui.home.recents.views.RecentsWorldCirculateAndSmallWindowCrop").methodFinder()
             .filterByName("initViewDisplayInDrag")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.thisObject.setObjectField("mIsSupportWorldcirculate", false)
                 }

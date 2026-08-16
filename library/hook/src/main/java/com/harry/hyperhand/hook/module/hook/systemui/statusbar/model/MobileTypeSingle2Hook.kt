@@ -164,7 +164,7 @@ object MobileTypeSingle2Hook : BaseHook() {
             }
         }
 
-        miuiCellularIconVM.constructorFinder().first().createAfterHook { param ->
+        miuiCellularIconVM.constructorFinder().firstOrNull()?.createAfterHook { param ->
             val viewModel = param.thisObject
             viewModel.setAdditionalInstanceField("interactor", param.args[1])
             viewModel.setObjectField("wifiAvailable", param.args[2].getObjectField("wifiAvailable"))
@@ -173,7 +173,7 @@ object MobileTypeSingle2Hook : BaseHook() {
         modernStatusBarMobileView.methodFinder()
             .filterByName("constructAndBind")
             .filterByParamCount(5)
-            .single().createAfterHook { param ->
+            .singleOrNull()?.createAfterHook { param ->
                 var viewModel = param.args.last()
                 if (viewModel.javaClass.simpleName == "MiuiMobileIconVMImpl") {
                     viewModel = viewModel.callMethodAs("getCellProvider")
@@ -282,7 +282,7 @@ object MobileTypeSingle2Hook : BaseHook() {
             }
 
         if ((!hideIndicator && (showMobileType || mobileNetworkType == 3)) || mobileNetworkType == 4) {
-            mobileUiAdapter.constructorFinder().first().createAfterHook {
+            mobileUiAdapter.constructorFinder().firstOrNull()?.createAfterHook {
                 setOnDataChangedListener(it.thisObject)
             }
         }

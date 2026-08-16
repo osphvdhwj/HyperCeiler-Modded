@@ -32,7 +32,7 @@ object UnlockPrivacyMarking : BaseHook() {
     override fun init() {
         isClass.methodFinder()
             .filterByName("isSupportPrivacyMarking")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

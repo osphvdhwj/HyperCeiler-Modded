@@ -49,7 +49,7 @@ object ExpandNotificationKt : BaseHook() {
             }
 
         mExpandNotificationRowClass.methodFinder().filterByName("setHeadsUp")
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 val mOnKeyguard =
                     it.thisObject.getObjectField("mOnKeyguard") as Boolean
                 val showHeadsUp = it.args[0] as Boolean

@@ -30,6 +30,7 @@ import com.harry.hyperhand.hook.module.hook.camera.UnlockLeica;
 import com.harry.hyperhand.hook.module.hook.camera.UnlockSuperHighQuality;
 import com.harry.hyperhand.hook.module.hook.camera.UnlockTrackEyes;
 import com.harry.hyperhand.hook.module.hook.camera.OpenDefaultGallery;
+import com.harry.hyperhand.hook.module.hook.camera.UnlockFlagshipCamera;
 
 @HookBase(targetPackage = "com.android.camera")
 public class Camera extends BaseModule {
@@ -51,5 +52,6 @@ public class Camera extends BaseModule {
         initHook(Unlock4k60.INSTANCE, mPrefsMap.getBoolean("camera_unlock_4k60"));
         initHook(UnlockLeica.INSTANCE, mPrefsMap.getBoolean("camera_unlock_leica"));
         initHook(OpenDefaultGallery.INSTANCE, mPrefsMap.getBoolean("camera_open_default_gallery"));
+        initHook(UnlockFlagshipCamera.INSTANCE, true);
     }
 }

@@ -43,7 +43,7 @@ class ClearClipboard : BaseHook() {
         MethodFinder.fromClass("android.inputmethodservice.InputMethodModuleManager")
             .filterByName("loadDex")
             .filterByParamTypes(ClassLoader::class.java, String::class.java)
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 createHook(it.args[0] as ClassLoader)
             }
     }
@@ -98,7 +98,7 @@ class ClearClipboard : BaseHook() {
                 MethodFinder.fromClass("com.miui.inputmethod.InputMethodClipboardPhrasePopupView", classLoader)
                     .filterByName("onClick")
                     .filterByParamTypes(View::class.java)
-                    .first().createAfterHook {
+                    .firstOrNull()?.createAfterHook {
                         if (mClipboardText.isSelected) {
                             addButton.setImageDrawable(removeIcon)
                         } else {

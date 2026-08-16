@@ -30,7 +30,7 @@ object MultiFreeFormSupported : BaseHook() {
             if (!mPrefsMap.getBoolean("system_framework_freeform_recents_to_small_freeform")) {
                 loadClass("android.util.MiuiMultiWindowUtils").methodFinder()
                     .filterByName("multiFreeFormSupported")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         before {
                             val ex = Throwable()
                             val stackTrace = ex.stackTrace
@@ -48,7 +48,7 @@ object MultiFreeFormSupported : BaseHook() {
             } else {
                 loadClass("android.util.MiuiMultiWindowUtils").methodFinder()
                     .filterByName("multiFreeFormSupported")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         returnConstant(true)
                     }
                 logI(TAG, this.lpparam.packageName, "Hook success!")

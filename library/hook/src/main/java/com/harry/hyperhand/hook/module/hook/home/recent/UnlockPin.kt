@@ -27,7 +27,7 @@ object UnlockPin : BaseHook() {
     override fun init() {
         loadClass("com.miui.home.launcher.DeviceConfig").methodFinder()
             .filterByName("isScreenPinningEnabled")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

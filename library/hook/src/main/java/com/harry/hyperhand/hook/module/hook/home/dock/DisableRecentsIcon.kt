@@ -27,7 +27,7 @@ object DisableRecentsIcon : BaseHook() {
     override fun init() {
         loadClass("com.miui.home.launcher.hotseats.HotSeatsListRecentsAppProvider").methodFinder()
             .filterByName("updateFinalRecommendTasks")
-            .single().createHook {
+            .singleOrNull()?.createHook {
             returnConstant(true)
         }
     }

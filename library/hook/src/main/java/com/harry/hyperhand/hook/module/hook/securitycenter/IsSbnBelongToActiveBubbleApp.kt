@@ -28,7 +28,7 @@ object IsSbnBelongToActiveBubbleApp : BaseHook() {
         runCatching {
             loadClass("com.miui.bubbles.settings.BubblesSettings").methodFinder()
                 .filterByName("isSbnBelongToActiveBubbleApp")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

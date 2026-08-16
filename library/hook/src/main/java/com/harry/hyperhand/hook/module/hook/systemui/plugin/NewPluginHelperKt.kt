@@ -44,7 +44,7 @@ object NewPluginHelperKt : BaseHook() {
     override fun init() {
         // from hyperstar2.0
         /*loadClass("com.android.systemui.shared.plugins.PluginActionManager\$PluginContextWrapper")
-            .constructors.first().createAfterHook {
+            .constructors.firstOrNull()?.createAfterHook {
                 val classLoader = it.thisObject.getObjectFieldAs<ClassLoader>("mClassLoader")
                 runCatching {
                     onPluginLoadedAll(classLoader)
@@ -57,7 +57,7 @@ object NewPluginHelperKt : BaseHook() {
         // https://github.com/buffcow/Hyper5GSwitch/blob/master/app/src/main/kotlin/cn/buffcow/hyper5g/hooker/PluginLoader.kt
         loadClass("com.android.systemui.shared.plugins.PluginInstance\$PluginFactory")
             .methodFinder().filterByName("createPluginContext")
-            .first().createAfterHook { it ->
+            .firstOrNull()?.createAfterHook { it ->
                 runCatching {
                     val wrapper = it.result as ContextWrapper
                     onPluginLoaded(PluginFactory(it.thisObject).also { isLoad ->

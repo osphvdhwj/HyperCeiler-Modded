@@ -28,7 +28,7 @@ object DualNRSupport : BaseHook() {
         runCatching {
             loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
                 .filterByName("isDualNrSupported")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

@@ -28,17 +28,17 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 object EnableMoreSetting : BaseHook() {
     override fun init() {
         loadClass("com.miui.home.settings.MiuiHomeSettings").methodFinder()
-            .filterByName("checkDevice").first().createHook {
+            .filterByName("checkDevice").firstOrNull()?.createHook {
                 returnConstant(true)
             }
 
         loadClass("com.miui.home.launcher.DeviceConfig").methodFinder()
-            .filterByName("needShowCellsEntry").first().createHook {
+            .filterByName("needShowCellsEntry").firstOrNull()?.createHook {
                 returnConstant(true)
             }
 
         loadClass("com.miui.home.launcher.LauncherMenu").methodFinder()
-            .filterByName("onShow").first().createHook {
+            .filterByName("onShow").firstOrNull()?.createHook {
                 after {
                     val mDefaultScreenPreview =
                         it.thisObject.getObjectField("mDefaultScreenPreview") as View

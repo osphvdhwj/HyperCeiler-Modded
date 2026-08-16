@@ -74,7 +74,7 @@ object VolumeOrQSBrightnessValue {
                 .filterByName("updateIconProgress")
                 .filterByParamTypes {
                     it[0] == Boolean::class.java
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     val sliderHolder = it.thisObject.callMethod("getHolder") ?: return@createAfterHook
                     val item = sliderHolder.getObjectField("itemView") as View
                     val topValue = item.findViewByIdName("top_text") as TextView
@@ -95,7 +95,7 @@ object VolumeOrQSBrightnessValue {
                 .filterByName("updateSuperVolumeView")
                 .filterByParamTypes {
                     it[0] == loadClass("com.android.systemui.miui.volume.VolumePanelViewController\$VolumeColumn", classLoader)
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     val mExpanded = it.thisObject.getObjectField("mExpanded") as Boolean
                     val superVolume = it.args[0].getObjectField("superVolume") as TextView
                     val mSuperVolumeBg = it.thisObject.getObjectField("mSuperVolumeBg") as View
@@ -109,7 +109,7 @@ object VolumeOrQSBrightnessValue {
                 .filterByName("updateVolumeColumnSliderH")
                 .filterByParamTypes {
                     it[0] == loadClass("com.android.systemui.miui.volume.VolumePanelViewController\$VolumeColumn", classLoader)
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     val volumeColumn = it.args[0]
                     val mState = it.thisObject.getObjectField("mState")
                     val states = mState?.getObjectField("states") as SparseArray<*>
@@ -136,7 +136,7 @@ object VolumeOrQSBrightnessValue {
                 .filterByName("updateColumnSliderBlendColor")
                 .filterByParamTypes {
                     it[0] == loadClass("com.android.systemui.miui.volume.VolumePanelViewController\$VolumeColumn", classLoader)
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     val thisObj = it.thisObject
                     val volumeColumn = it.args[0]
                     val mContext = thisObj.getObjectField("mContext") as Context
@@ -178,7 +178,7 @@ object VolumeOrQSBrightnessValue {
             // 控制中心一级亮度条计算
             brightnessSliderController.methodFinder()
                 .filterByName("updateIconProgress")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val sliderHolder = it.thisObject.callMethod("getSliderHolder") ?: return@createAfterHook
 
                     val item = sliderHolder.getObjectField("itemView") as View
@@ -192,7 +192,7 @@ object VolumeOrQSBrightnessValue {
             // 控制中心二级亮度条百分比进度值计算
             brightnessPanelSliderController.methodFinder()
                 .filterByName("updateIconProgress")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val vToggleSliderInner = it.thisObject.callMethod("getVToggleSliderInner") as ViewGroup
                     val seekBar = it.thisObject.callMethod("getVSlider") as SeekBar
                     val topValue = vToggleSliderInner.findViewByIdName("top_text") as TextView
@@ -204,7 +204,7 @@ object VolumeOrQSBrightnessValue {
             // 控制中心二级亮度条进度值高级材质适配
             brightnessPanelSliderController.methodFinder()
                 .filterByName("updateBlendBlur")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val context = it.thisObject.callMethod("getContext") as Context
                     val vToggleSliderInner = it.thisObject.callMethod("getVToggleSliderInner") as ViewGroup
                     val topValue = vToggleSliderInner.findViewByIdName("top_text") as TextView
@@ -228,7 +228,7 @@ object VolumeOrQSBrightnessValue {
             // 设置展开的大小
             brightnessPanelSliderController.methodFinder()
                 .filterByName("updateLargeSize")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val item = it.thisObject.callMethod("getVToggleSliderInner") as ViewGroup
                     val topValue = item.findViewByIdName("top_text") as TextView
                     topValue.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
@@ -238,7 +238,7 @@ object VolumeOrQSBrightnessValue {
             // 设置未展开的大小
             brightnessPanelSliderController.methodFinder()
                 .filterByName("updateSmallSize")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val item = it.thisObject.callMethod("getVToggleSliderInner") as ViewGroup
                     val topValue = item.findViewByIdName("top_text") as TextView
                     topValue.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
@@ -251,7 +251,7 @@ object VolumeOrQSBrightnessValue {
             // 修复过渡动画错位，并增加大小过渡动画
             brightnessPanelAnimator.methodFinder()
                 .filterByName("frameCallback")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val sliderController = it.thisObject.getObjectField("sliderController")
                     val item = sliderController?.callMethod("getVToggleSliderInner") as ViewGroup
                     val topValue = item.findViewByIdName("top_text") as TextView
@@ -283,7 +283,7 @@ object VolumeOrQSBrightnessValue {
                 .filterByName("createViewHolder")
                 .filterByParamTypes {
                     it[0] == ViewGroup::class.java && it[1] == Int::class.java
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     val viewHolder = it.result
 
                     if (viewHolder != null) {
@@ -307,7 +307,7 @@ object VolumeOrQSBrightnessValue {
 
         toggleSliderViewHolder.methodFinder().apply {
             filterByName("updateSize")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val item = it.thisObject.getObjectField("itemView") as View
                     val topValue = item.findViewByIdName("top_text") as TextView
                     topValue.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
@@ -315,7 +315,7 @@ object VolumeOrQSBrightnessValue {
 
                 }
             filterByName("updateBlendBlur")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val context = it.thisObject.callMethod("getContext") as Context
 
                     val item = it.thisObject.getObjectField("itemView") as View

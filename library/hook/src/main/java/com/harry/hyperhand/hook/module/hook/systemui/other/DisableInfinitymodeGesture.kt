@@ -31,7 +31,7 @@ object DisableInfinitymodeGesture : BaseHook() {
             loadClass("com.android.wm.shell.multitasking.miuiinfinitymode.MiuiInfinityModeSizesPolicy", lpparam.classLoader)
         } else {
             loadClass("com.android.wm.shell.miuifreeform.MiuiInfinityModeSizesPolicy", lpparam.classLoader)
-        }.methodFinder().filterByName("isForbiddenWindow").single().createHook {
+        }.methodFinder().filterByName("isForbiddenWindow").singleOrNull()?.createHook {
             returnConstant(true)
         }
     }

@@ -42,7 +42,7 @@ object BigIconCorner : BaseHook() {
 
         maMlHostViewClass.methodFinder()
             .filterByName("getCornerRadius")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 before {
                     it.result = it.thisObject.getObjectField("mEnforcedCornerRadius") as Float
                 }
@@ -51,7 +51,7 @@ object BigIconCorner : BaseHook() {
         maMlHostViewClass.methodFinder()
             .filterByName("computeRoundedCornerRadius")
             .filterByParamCount(1)
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 before {
                     it.result = it.thisObject.getObjectField("mEnforcedCornerRadius") as Float
                 }
@@ -60,7 +60,7 @@ object BigIconCorner : BaseHook() {
         loadClass("com.miui.home.launcher.LauncherAppWidgetHostView").methodFinder()
             .filterByName("computeRoundedCornerRadius")
             .filterByParamCount(1)
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 before {
                     it.result = it.thisObject.getObjectField("mEnforcedCornerRadius") as Float
                 }

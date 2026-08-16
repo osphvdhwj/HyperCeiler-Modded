@@ -29,7 +29,7 @@ object IncreaseSamplingRate : BaseHook() {
     override fun init() {
         try {
             loadClass("com.miui.misound.EqualizerView").methodFinder()
-                .first().createHook {
+                .firstOrNull()?.createHook {
                     before {
                         it.thisObject.setObjectField("l", "0x2ee00")
                     }
@@ -39,7 +39,7 @@ object IncreaseSamplingRate : BaseHook() {
         }
         try {
         loadClass("com.miui.misound.mihearingassist.h").methodFinder()
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.thisObject.setObjectField("a", "0x2ee00")
                 }
@@ -50,7 +50,7 @@ object IncreaseSamplingRate : BaseHook() {
         try {
         loadClass("com.miui.misound.mihearingassist.h").methodFinder()
             .filterByName("b")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.args[1] = "0x2ee00"
                 }
@@ -61,7 +61,7 @@ object IncreaseSamplingRate : BaseHook() {
         try {
         loadClass("com.miui.misound.soundid.controller.AudioTrackController").methodFinder()
             .filterByParamCount(2)
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.args[0] = "0x2ee00"
                 }
@@ -72,7 +72,7 @@ object IncreaseSamplingRate : BaseHook() {
         try {
         loadClass("com.miui.misound.soundid.controller.AudioTrackController").methodFinder()
             .filterByParamCount(3)
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.args[0] = "0x2ee00"
                 }
@@ -82,7 +82,7 @@ object IncreaseSamplingRate : BaseHook() {
         }
         try {
         loadClass("miuix.media.Mp3Encoder").methodFinder()
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.thisObject.setObjectField("DEFAULT_SAMPLE_RATE", "0x2ee00")
                 }
@@ -93,7 +93,7 @@ object IncreaseSamplingRate : BaseHook() {
         try {
         loadClass("com.miui.misound.mihearingassist.h").methodFinder()
             .filterByName("b")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     it.args[6] = "0x2ee00"
                 }

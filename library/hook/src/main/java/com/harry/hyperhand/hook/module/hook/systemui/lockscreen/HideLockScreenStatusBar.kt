@@ -32,7 +32,7 @@ object HideLockScreenStatusBar : BaseHook() {
     override fun init() {
         loadClassOrNull("com.android.systemui.statusbar.phone.CentralSurfacesImpl")!!.methodFinder()
             .filterByName("updateIsKeyguard")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 after { param ->
                     val shadeControllerImpl =
                         param.thisObject.getObjectField("mShadeController")

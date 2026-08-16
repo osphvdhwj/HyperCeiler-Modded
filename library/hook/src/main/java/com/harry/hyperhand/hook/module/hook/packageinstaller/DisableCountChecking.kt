@@ -27,7 +27,7 @@ object DisableCountChecking : BaseHook() {
     override fun init() {
         loadClass("com.miui.packageInstaller.model.RiskControlRules").methodFinder()
             .filterByName("getCurrentLevel")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(0)
             }
     }

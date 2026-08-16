@@ -54,13 +54,13 @@ object NewAiCaptions: BaseHook() {
             runCatching {
                 mSupportAiSubtitlesUtils.methodFinder()
                     .filterByName("isSupportAiSubtitles")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         returnConstant(true)
                     }
 
                 mSupportAiSubtitlesUtils.methodFinder()
                     .filterByName("isSupportOfflineAiSubtitles")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         returnConstant(true)
                     }
 

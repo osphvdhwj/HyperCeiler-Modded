@@ -33,7 +33,7 @@ object DisableMiuiMultiWinSwitch : BaseHook() {
             loadClass("com.android.wm.shell.miuimultiwinswitch.miuiwindowdecor.MiuiDotView", lpparam.classLoader)
         }.methodFinder()
             .filterByName("onDraw")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(null)
             }
     }

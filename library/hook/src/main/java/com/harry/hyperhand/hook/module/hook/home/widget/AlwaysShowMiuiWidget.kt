@@ -42,14 +42,14 @@ object AlwaysShowMiuiWidget : BaseHook() {
                 hook1 = loadClass("com.miui.home.launcher.widget.MIUIAppWidgetInfo").methodFinder()
                     .filterByName("initMiuiAttribute")
                     .filterByParamCount(1)
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         after {
                             it.thisObject.setObjectField("isMIUIWidget", false)
                         }
                     }
                 hook2 = loadClass("com.miui.home.launcher.MIUIWidgetUtil").methodFinder()
                     .filterByName("isMIUIWidgetSupport")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         after {
                             it.result = false
                         }

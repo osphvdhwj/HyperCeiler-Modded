@@ -37,7 +37,7 @@ object ShowAllHideApp : BaseHook() {
     override fun init() {
         getClass.methodFinder()
             .filterByName("isHideAppValid")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

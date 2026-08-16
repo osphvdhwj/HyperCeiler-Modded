@@ -54,7 +54,7 @@ class MaxFreeForm : BaseHook() {
 
         // StartSmallWindow
         loadClass("com.miui.home.smallwindow.SmallWindowStateHelperUseManager").methodFinder()
-            .filterByName("canEnterMiniSmallWindow").first().createHook {
+            .filterByName("canEnterMiniSmallWindow").firstOrNull()?.createHook {
                 before {
                     it.result =
                         it.thisObject.getObjectFieldOrNullAs<ArraySet<*>>("mMiniSmallWindowInfoSet")!!.isEmpty()

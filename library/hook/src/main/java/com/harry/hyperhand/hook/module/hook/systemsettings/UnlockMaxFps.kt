@@ -29,7 +29,7 @@ object UnlockMaxFps : BaseHook() {
         // by TG@Crystal
         loadClass("com.android.settings.development.ForcePeakRefreshRatePreferenceController").methodFinder()
             .filterByName("isAvailable")
-            .single().createAfterHook {
+            .singleOrNull()?.createAfterHook {
                 it.result = true
             }
     }

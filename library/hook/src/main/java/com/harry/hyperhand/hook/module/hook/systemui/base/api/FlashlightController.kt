@@ -67,7 +67,7 @@ class FlashlightController(instance: Any) : BaseReflectObject(instance) {
             miuiFlashlightControllerImpl.methodFinder()
                 .filterByName("dispatchListeners")
                 .filterByParamTypes(Int::class.java, Boolean::class.java)
-                .single().createAfterHook { param ->
+                .singleOrNull()?.createAfterHook { param ->
                     synchronized(listeners) {
                         val event = param.args[0] as Int
                         val isEnabled = param.args[1] as Boolean

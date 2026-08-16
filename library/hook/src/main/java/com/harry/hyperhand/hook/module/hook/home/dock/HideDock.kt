@@ -28,13 +28,13 @@ object HideDock : BaseHook() {
     override fun init() {
         // 上滑时忽略 dock,直接触发最近任务手势
         loadClass("com.miui.home.recents.GestureTouchEventTracker").methodFinder()
-            .filterByName("isTouchCountAndHotSeatSupport").single().createHook {
+            .filterByName("isTouchCountAndHotSeatSupport").singleOrNull()?.createHook {
                 returnConstant(false)
             }
 
         // 拦截dock出现动画
         loadClass("com.miui.home.launcher.dock.DockStateMachine").methodFinder()
-            .filterByName("transitionToAppearingState\$default").single().createHook {
+            .filterByName("transitionToAppearingState\$default").singleOrNull()?.createHook {
                 replace { }
             }
     }

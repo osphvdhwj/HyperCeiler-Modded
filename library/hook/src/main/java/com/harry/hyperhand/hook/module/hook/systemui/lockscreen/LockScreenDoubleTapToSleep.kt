@@ -40,7 +40,7 @@ object LockScreenDoubleTapToSleep : BaseHook() {
     override fun init() {
         className.methodFinder()
             .filterByName("onFinishInflate")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 before {
                     val view = it.thisObject as View
                     setAdditionalInstanceField(view, "currentTouchTime", 0L)

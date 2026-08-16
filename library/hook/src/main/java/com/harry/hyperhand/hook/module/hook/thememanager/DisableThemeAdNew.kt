@@ -59,7 +59,7 @@ class DisableThemeAdNew : BaseHook() {
 
     private fun removeAds(clazz: Class<*>) {
         try {
-            clazz.constructorFinder().filterByParamCount(2).first().createHook {
+            clazz.constructorFinder().filterByParamCount(2).firstOrNull()?.createHook {
                 after {
                     if (it.args[0] != null) {
                         val view = it.args[0] as View

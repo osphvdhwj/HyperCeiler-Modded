@@ -35,7 +35,7 @@ object DoubleTapToSleep : BaseHook() {
     override fun init() {
         loadClass("com.android.systemui.statusbar.phone.MiuiPhoneStatusBarView").methodFinder()
             .filterByName("onFinishInflate")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 before {
                     val view = it.thisObject as ViewGroup
                     XposedHelpers.setAdditionalInstanceField(view, "currentTouchTime", 0L)

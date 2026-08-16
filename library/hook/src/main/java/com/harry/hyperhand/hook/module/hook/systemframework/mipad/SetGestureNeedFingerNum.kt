@@ -27,7 +27,7 @@ object SetGestureNeedFingerNum : BaseHook() {
     override fun init() {
         loadClass("com.miui.server.input.gesture.multifingergesture.gesture.BaseMiuiMultiFingerGesture").methodFinder()
             .filterByName("getFunctionNeedFingerNum")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(4)
             }
     }

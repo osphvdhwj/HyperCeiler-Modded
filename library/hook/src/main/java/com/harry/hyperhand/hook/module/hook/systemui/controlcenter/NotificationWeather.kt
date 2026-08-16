@@ -145,7 +145,7 @@ object NotificationWeather : BaseHook() {
     }
 
     private fun newNotificationWeather() {
-        combinedHeaderController.constructors.single().createAfterHook { param ->
+        combinedHeaderController.constructors.singleOrNull()?.createAfterHook { param ->
             val controller = param.thisObject
             val dateView = controller.getObjectFieldAs<View>("notificationDateTime")
             val landClock = controller.getObjectFieldAs<View>("notificationHorizontalTime")
@@ -165,7 +165,7 @@ object NotificationWeather : BaseHook() {
         combinedHeaderController.methodFinder()
             .filterByName("onSwitchProgressChanged")
             .filterByParamTypes(Float::class.java)
-            .first().createAfterHook { param ->
+            .firstOrNull()?.createAfterHook { param ->
                 val controller = param.thisObject
                 val dateView = controller.getObjectFieldAs<View>("notificationDateTime")
                 val landClock = controller.getObjectFieldAs<View>("notificationHorizontalTime")
@@ -177,7 +177,7 @@ object NotificationWeather : BaseHook() {
                 hWeatherView?.translationY = landClock.translationY
             }
 
-        notificationHeaderExpandController.constructors.single().createAfterHook { param ->
+        notificationHeaderExpandController.constructors.singleOrNull()?.createAfterHook { param ->
             val expandController = param.thisObject
             val callback = expandController.getObjectFieldAs<Any>("notificationCallback")
 
@@ -186,7 +186,7 @@ object NotificationWeather : BaseHook() {
     }
 
     private fun hookNotificationCallback(expandController: Any, clazz: Class<*>) {
-        clazz.methodFinder().filterByName("onAppearanceChanged").first().createAfterHook {
+        clazz.methodFinder().filterByName("onAppearanceChanged").firstOrNull()?.createAfterHook {
             val newAppearance = it.args[0] as Boolean
             val animate = it.args[1] as Boolean
 
@@ -205,7 +205,7 @@ object NotificationWeather : BaseHook() {
             startFolmeAnimationAlpha(vWeatherView, vWeatherViewFolme)
         }
 
-        clazz.methodFinder().filterByName("onExpansionChanged").first().createAfterHook {
+        clazz.methodFinder().filterByName("onExpansionChanged").firstOrNull()?.createAfterHook {
             val headerController = expandController.getObjectFieldAs<Any>("headerController")
                 .callMethodAs<Any>("get")
 
@@ -224,7 +224,7 @@ object NotificationWeather : BaseHook() {
     private fun oldNotificationWeather() {
         miuiNotificationHeaderView.methodFinder()
             .filterByName("onFinishInflate")
-            .single().createAfterHook { param ->
+            .singleOrNull()?.createAfterHook { param ->
                 val viewGroup = param.thisObject as ViewGroup
                 val context = viewGroup.context
 

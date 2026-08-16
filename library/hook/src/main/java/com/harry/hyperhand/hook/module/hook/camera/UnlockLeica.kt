@@ -171,7 +171,7 @@ object UnlockLeica : BaseHook() {
 
         unlockMethod3.declaringClass.methodFinder()
             .filterByName(unlockMethod3.name.decrementLetters())
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 logD(TAG, lpparam.packageName, "uM3: ${unlockMethod3.name}, uM3-1: ${unlockMethod3.name.decrementLetters()}")
                 returnConstant(true)
             }

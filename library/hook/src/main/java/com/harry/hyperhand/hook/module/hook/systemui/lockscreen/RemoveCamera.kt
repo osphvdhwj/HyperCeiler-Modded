@@ -48,12 +48,12 @@ object RemoveCamera : BaseHook() {
         loadClassOrNull("com.android.keyguard.KeyguardMoveRightController")!!.methodFinder()
             .filterByName("onTouchMove")
             .filterByParamCount(2)
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(false)
             }
         loadClassOrNull("com.android.keyguard.KeyguardMoveRightController")!!.methodFinder()
             .filterByName("reset")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(null)
             }
     }

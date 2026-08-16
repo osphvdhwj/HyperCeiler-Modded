@@ -29,7 +29,7 @@ object UnlockTaplus : BaseHook() {
     override fun init() {
         loadClass("com.miui.contentextension.setting.activity.MainSettingsActivity").methodFinder()
             .filterByName("getFragment")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 setStaticObject(
                     clazzMiuiBuild, "IS_TABLET", false
                 )

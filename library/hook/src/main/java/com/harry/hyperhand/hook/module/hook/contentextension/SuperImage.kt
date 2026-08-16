@@ -32,7 +32,7 @@ class SuperImage : BaseHook() {
     override fun init() {
         superImageUtils!!.methodFinder()
             .filterByName("isSupportSuperImage")
-            .single().createHook {
+            .singleOrNull()?.createHook {
             returnConstant(true)
         }
 
@@ -40,7 +40,7 @@ class SuperImage : BaseHook() {
             .filterByName("isBitmapSupportSuperImage")
             .filterByParamTypes {
                 it[0] == Bitmap::class.java
-            }.single().createHook {
+            }.singleOrNull()?.createHook {
             returnConstant(true)
         }
     }

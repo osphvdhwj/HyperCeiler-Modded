@@ -27,7 +27,7 @@ object HorizontalContentExtension : BaseHook() {
     override fun init() {
         loadClass("com.miui.contentextension.services.TextContentExtensionService").methodFinder()
             .filterByName("isScreenPortrait")
-            .single().createAfterHook {
+            .singleOrNull()?.createAfterHook {
                 it.result = true
             }
     }

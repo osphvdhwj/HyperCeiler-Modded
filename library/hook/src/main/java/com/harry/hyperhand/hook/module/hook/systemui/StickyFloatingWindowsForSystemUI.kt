@@ -98,7 +98,7 @@ class StickyFloatingWindowsForSystemUI : BaseHook() {
         )
 
         loadClass("com.android.wm.shell.miuifreeform.MiuiInfinityModeTaskOperations")
-            .methodFinder().filterByName("resizedTask").single().createHook {
+            .methodFinder().filterByName("resizedTask").singleOrNull()?.createHook {
                 after {
                     val taskWrapperInfo = it.args[0]
                     val scale = taskWrapperInfo.callMethod("getDestinationNormalScale") as Float
@@ -113,7 +113,7 @@ class StickyFloatingWindowsForSystemUI : BaseHook() {
                 }
             }
         loadClass("com.android.wm.shell.miuifreeform.MiuiInfinityModeTaskOperations")
-            .methodFinder().filterByName("setFreeformDestBoundsAndScale").single().createHook {
+            .methodFinder().filterByName("setFreeformDestBoundsAndScale").singleOrNull()?.createHook {
                 after {
                     val pkgName = it.args[0].getObjectField("mPackageName").toString()
                     val rect = it.args[1] as Rect
@@ -128,7 +128,7 @@ class StickyFloatingWindowsForSystemUI : BaseHook() {
                 }
             }
         loadClass("com.android.wm.shell.miuifreeform.MiuiFreeformModeTaskInfo")
-            .methodFinder().filterByName("setBounds").single().createHook {
+            .methodFinder().filterByName("setBounds").singleOrNull()?.createHook {
                 after {
                     val rect = it.args[0] as Rect? ?: return@after
                     val mMode = it.thisObject.getObjectField("mMode") as Int
@@ -143,7 +143,7 @@ class StickyFloatingWindowsForSystemUI : BaseHook() {
                 }
             }
         loadClass("com.android.wm.shell.miuifreeform.MiuiFreeformModeTaskInfo")
-            .methodFinder().filterByName("setScale").single().createHook {
+            .methodFinder().filterByName("setScale").singleOrNull()?.createHook {
                 after {
                     val scale = it.args[0] as Float
                     if (scale.isNaN()) return@after
@@ -161,7 +161,7 @@ class StickyFloatingWindowsForSystemUI : BaseHook() {
                 }
             }
         loadClass("com.android.wm.shell.miuimultiwinswitch.miuiwindowdecor.MiuiBaseWindowDecoration")
-            .methodFinder().filterByName("updateViews").single().createHook {
+            .methodFinder().filterByName("updateViews").singleOrNull()?.createHook {
                 before {
                     val taskInfo =
                         it.thisObject.getObjectField("mTaskInfo") as ActivityManager.RunningTaskInfo

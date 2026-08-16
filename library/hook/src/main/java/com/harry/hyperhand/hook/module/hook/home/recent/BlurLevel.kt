@@ -40,7 +40,7 @@ object BlurLevel : BaseHook() {
 
         mBlurClass.methodFinder()
             .filterByName("getBlurType")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 when (blurLevel) {
                     5 -> returnConstant(2)
                     0 -> returnConstant(2)
@@ -54,7 +54,7 @@ object BlurLevel : BaseHook() {
             4 -> {
                 mBlurClass.methodFinder()
                     .filterByName("isUseCompleteBlurOnDev")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         returnConstant(false)
                     }
 
@@ -103,7 +103,7 @@ object BlurLevel : BaseHook() {
 
                 mBlurClass.methodFinder()
                     .filterByName("isUseCompleteBlurOnDev")
-                    .single().createHook {
+                    .singleOrNull()?.createHook {
                         if (blurLevel == 1) returnConstant(true)
                     }
             }

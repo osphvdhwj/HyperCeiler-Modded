@@ -28,7 +28,7 @@ class OverlapMode : BaseHook() {
         // Fold2 样式负一屏
         loadClass("com.miui.home.launcher.overlay.assistant.AssistantDeviceAdapter").methodFinder()
             .filterByName("inOverlapMode")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

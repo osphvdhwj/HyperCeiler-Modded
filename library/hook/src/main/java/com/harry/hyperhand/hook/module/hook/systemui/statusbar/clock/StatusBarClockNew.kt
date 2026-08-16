@@ -174,7 +174,7 @@ object StatusBarClockNew : BaseHook() {
             .filterByParamCount(3)
             .filterByParamTypes {
                 it[0] == Context::class.java
-            }.first().createAfterHook { param ->
+            }.firstOrNull()?.createAfterHook { param ->
                 runCatching {
                     val regex = Regex("(ss|s)")
                     val miuiClock = param.thisObject as TextView
@@ -231,7 +231,7 @@ object StatusBarClockNew : BaseHook() {
 
         if (isMoreHyperOSVersion(2f) && bBold) {
             loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback$1").methodFinder()
-                .filterByName("onExpansionChanged").first().createAfterHook {
+                .filterByName("onExpansionChanged").firstOrNull()?.createAfterHook {
                     val notificationHeaderExpandController =
                         it.thisObject.getObjectField("this\$0")
                     notificationHeaderExpandController!!.callMethod("updateWeight", 0.3f)
@@ -240,7 +240,7 @@ object StatusBarClockNew : BaseHook() {
             runCatching {
                 loadClassOrNull("com.android.systemui.statusbar.policy.FakeStatusBarClockController")!!
                     .methodFinder().filterByName("initState")
-                    .first().createHook {
+                    .firstOrNull()?.createHook {
                         replace { null }
                     }
             }

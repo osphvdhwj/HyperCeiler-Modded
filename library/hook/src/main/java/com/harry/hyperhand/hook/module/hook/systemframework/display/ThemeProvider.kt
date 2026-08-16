@@ -30,7 +30,7 @@ class ThemeProvider : BaseHook() {
     override fun init() {
         var hook: List<XC_MethodHook.Unhook>? = null
         try {
-            ThemeReceiver::class.java.methodFinder().filterByName("validateTheme").first().createHook {
+            ThemeReceiver::class.java.methodFinder().filterByName("validateTheme").firstOrNull()?.createHook {
                 before {
                     hook = DrmManager::class.java.methodFinder().filterByName("isLegal").toList().createHooks {
                         returnConstant(DrmManager.DrmResult.DRM_SUCCESS)

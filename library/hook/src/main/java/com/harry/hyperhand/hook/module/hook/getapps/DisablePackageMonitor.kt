@@ -29,7 +29,7 @@ object DisablePackageMonitor : BaseHook() {
         // 使用 root, adb, packageinstaller 安装应用后, 应用商店有后台时会上传检查应用更新信息
         val initMethod = loadClass("com.xiaomi.market.receiver.MyPackageMonitor")
 
-        initMethod.methodFinder().filterByName("init").first().createHook {
+        initMethod.methodFinder().filterByName("init").firstOrNull()?.createHook {
             logD(TAG, lpparam.packageName, "FindAndHook 'init' method: $initMethod")
             replace { }
         }

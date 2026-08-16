@@ -33,7 +33,7 @@ object RemoveMiuiMultiWinSwitch : BaseHook() {
             loadClass("com.android.wm.shell.miuimultiwinswitch.miuiwindowdecor.MiuiBaseWindowDecoration", lpparam.classLoader)
         }.methodFinder()
             .filterByName("shouldHideCaption")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

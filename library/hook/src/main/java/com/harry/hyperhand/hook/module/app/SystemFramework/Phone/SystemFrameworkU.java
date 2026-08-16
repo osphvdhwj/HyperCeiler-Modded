@@ -80,6 +80,7 @@ import com.harry.hyperhand.hook.module.hook.systemframework.volume.VolumeFirstPr
 import com.harry.hyperhand.hook.module.hook.systemframework.volume.VolumeMediaSteps;
 import com.harry.hyperhand.hook.module.hook.systemframework.volume.VolumeSteps;
 import com.harry.hyperhand.hook.module.hook.various.NoAccessDeviceLogsRequest;
+import com.harry.hyperhand.hook.module.hook.systemframework.NativeKeepNotes;
 
 @HookBase(targetPackage = "android", isPad = 2, targetSdk = 34)
 public class SystemFrameworkU extends BaseModule {
@@ -165,6 +166,7 @@ public class SystemFrameworkU extends BaseModule {
 
         initHook(new EffectBinderProxy(), mPrefsMap.getBoolean("misound_bluetooth"));
         initHook(new AutoEffectSwitchForSystem(), mPrefsMap.getBoolean("misound_bluetooth"));
+        initHook(NativeKeepNotes.INSTANCE, true);
     }
 
 }

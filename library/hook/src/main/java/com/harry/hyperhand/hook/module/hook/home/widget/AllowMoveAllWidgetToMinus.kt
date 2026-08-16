@@ -32,7 +32,7 @@ object AllowMoveAllWidgetToMinus : BaseHook() {
             loadClass("com.miui.home.launcher.widget.MIUIWidgetHelper").methodFinder()
                 .filterByName("canDragToPa")
                 .filterByParamCount(2)
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     before {
                         val dragInfo = it.args[1].callMethod("getDragInfo")
                         val i = dragInfo?.getObjectField("spanX")
@@ -49,7 +49,7 @@ object AllowMoveAllWidgetToMinus : BaseHook() {
         } catch (_: Exception) {
             loadClass("com.miui.home.launcher.Workspace").methodFinder()
                 .filterByName("canDragToPa")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     before {
                         val currentDragObject =
                             it.thisObject.getObjectFieldOrNull("mDragController")

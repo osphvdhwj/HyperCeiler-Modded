@@ -34,7 +34,7 @@ object FlashLightNotificationColor : BaseHook() {
     override fun init() {
         loadClass("miui.systemui.flashlight.MiFlashlightManager").methodFinder()
             .filterByName("getExtraMiuiFocusParam")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 after {
                     val mContext = it.thisObject.getObjectField("context") as Context
                     val stringTitle = mContext.getString("flashlight_notification_content_title")

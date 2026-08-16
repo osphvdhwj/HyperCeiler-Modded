@@ -33,7 +33,7 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 object SlideUpOnlyShowDock : BaseHook() {
     override fun init() {
         loadClass("com.miui.home.recents.DockGestureHelper").methodFinder()
-            .filterByName("dispatchTouchEvent").single().createHook {
+            .filterByName("dispatchTouchEvent").singleOrNull()?.createHook {
                 replace {
                     // ================
                     // DockController dockController = getDockController();
@@ -174,7 +174,7 @@ object SlideUpOnlyShowDock : BaseHook() {
 
         // 拦截通过dock快速上滑进入桌面的方法
         loadClass("com.miui.home.recents.DockGestureHelper").methodFinder()
-            .filterByName("startGestureModeGesture").single().createHook {
+            .filterByName("startGestureModeGesture").singleOrNull()?.createHook {
                 replace { }
             }
     }

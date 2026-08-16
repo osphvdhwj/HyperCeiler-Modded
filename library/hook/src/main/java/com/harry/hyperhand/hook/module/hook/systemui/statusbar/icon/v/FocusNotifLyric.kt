@@ -79,12 +79,12 @@ object FocusNotifLyric : MusicBaseHook() {
         var unhook: XC_MethodHook.Unhook? = null
         loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder()
             .filterByName("onCreateView")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     unhook =
                         loadClass("com.android.systemui.statusbar.widget.FocusedTextView").constructorFinder()
                             .filterByParamCount(3)
-                            .first().createAfterHook {
+                            .firstOrNull()?.createAfterHook {
                                 focusTextViewList += it.thisObject as TextView
                             }
                 }
@@ -109,7 +109,7 @@ object FocusNotifLyric : MusicBaseHook() {
         runCatching {
             loadClass("miui.systemui.notification.NotificationSettingsManager", classLoader)
                 .methodFinder().filterByName("canShowFocus")
-                .first().createHook {
+                .firstOrNull()?.createHook {
                     // 允许全部应用发送焦点通知
                     returnConstant(true)
                 }
@@ -120,7 +120,7 @@ object FocusNotifLyric : MusicBaseHook() {
         runCatching {
             loadClass("miui.systemui.notification.NotificationSettingsManager", classLoader)
                 .methodFinder().filterByName("canCustomFocus")
-                .first().createHook {
+                .firstOrNull()?.createHook {
                     // 允许全部应用发送自定义焦点通知
                     returnConstant(true)
                 }

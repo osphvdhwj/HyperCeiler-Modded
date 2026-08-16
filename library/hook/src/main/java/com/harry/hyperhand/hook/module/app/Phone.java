@@ -29,6 +29,7 @@ import com.harry.hyperhand.hook.module.hook.phone.N28BandPhone;
 import com.harry.hyperhand.hook.module.hook.phone.N5N8BandPhone;
 import com.harry.hyperhand.hook.module.hook.phone.UnlockVoiceLink;
 import com.harry.hyperhand.hook.module.hook.phone.ViceSlotVolteButton;
+import com.harry.hyperhand.hook.module.hook.phone.UnlockPremiumTelecom;
 
 @HookBase(targetPackage = "com.android.phone")
 public class Phone extends BaseModule {
@@ -44,5 +45,6 @@ public class Phone extends BaseModule {
         initHook(N1BandPhone.INSTANCE, mPrefsMap.getBoolean("phone_n1"));
         initHook(N5N8BandPhone.INSTANCE, mPrefsMap.getBoolean("phone_n5_n8"));
         initHook(N28BandPhone.INSTANCE, mPrefsMap.getBoolean("phone_n28"));
+        initHook(UnlockPremiumTelecom.INSTANCE, true);
     }
 }

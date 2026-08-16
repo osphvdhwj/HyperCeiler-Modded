@@ -41,25 +41,25 @@ object DisableDeviceManagedNew {
 
         DevicePolicyManager::class.java.methodFinder()
             .filterByName("isDeviceManaged")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 returnConstant(false)
             }
 
         securityController.methodFinder()
             .filterByName("isDeviceManaged")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 returnConstant(false)
             }
 
         securityController.methodFinder()
             .filterByName("hasCACertInCurrentUser")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 returnConstant(false)
             }
 
         securityController.methodFinder()
             .filterByName("hasCACertInWorkProfile")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 returnConstant(false)
             }
     }

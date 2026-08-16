@@ -26,7 +26,7 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 object NotificationShowOnKeyguard : BaseHook() {
     override fun init() {
         loadClass("com.android.systemui.statusbar.notification.ExpandedNotification").methodFinder()
-            .filterByName("canShowOnKeyguard").first().createHook {
+            .filterByName("canShowOnKeyguard").firstOrNull()?.createHook {
                 returnConstant(true)
             }
     }

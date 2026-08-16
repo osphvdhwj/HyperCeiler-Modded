@@ -27,7 +27,7 @@ object DualNrSupport : BaseHook() {
     override fun init() {
         loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
             .filterByName("isDualNrSupported")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

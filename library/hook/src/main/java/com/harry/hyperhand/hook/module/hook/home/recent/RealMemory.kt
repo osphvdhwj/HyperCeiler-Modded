@@ -55,7 +55,7 @@ RealMemory : BaseHook() {
 
         recentContainerClass.declaredConstructors.constructorFinder()
             .filterByParamCount(2)
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 after {
                     context = it.args[0] as Context
                     memoryInfo1StringId = context.resources.getIdentifier(
@@ -73,7 +73,7 @@ RealMemory : BaseHook() {
 
         recentContainerClass.methodFinder()
             .filterByName("refreshMemoryInfo")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 after {
                     try {
                         val activityManager =

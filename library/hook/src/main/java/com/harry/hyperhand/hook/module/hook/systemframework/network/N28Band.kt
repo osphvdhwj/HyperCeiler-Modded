@@ -28,7 +28,7 @@ object N28Band : BaseHook() {
         runCatching {
             loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
                 .filterByName("isN28Supported")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

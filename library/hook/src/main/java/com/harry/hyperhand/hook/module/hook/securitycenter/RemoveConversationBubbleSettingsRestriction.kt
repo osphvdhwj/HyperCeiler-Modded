@@ -33,7 +33,7 @@ class RemoveConversationBubbleSettingsRestriction : BaseHook() {
     override fun init() {
         loadClass("com.miui.bubbles.settings.BubblesSettings").methodFinder()
             .filterByName("getDefaultBubbles")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 before { param ->
                     val classBubbleApp = loadClass("com.miui.bubbles.settings.BubbleApp")
                     val arrayMap = ArrayMap<String, Any>()

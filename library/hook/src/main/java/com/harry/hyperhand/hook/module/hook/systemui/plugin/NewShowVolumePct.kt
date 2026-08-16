@@ -48,7 +48,7 @@ object NewShowVolumePct {
             }
 
             volumePanelViewControllerClazz.methodFinder().filterByName("showVolumePanelH")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val mVolumeView =
                         it.thisObject.getObjectField("mVolumeView") as View
                     val windowView = mVolumeView.parent as FrameLayout
@@ -66,7 +66,7 @@ object NewShowVolumePct {
             }
 
             miuiVolumeDialogImplClazz.methodFinder().filterByName("showVolumeDialogH")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     val mVolumeView =
                         it.thisObject.getObjectField("mDialogView") as View
                     val windowView = mVolumeView.parent as FrameLayout
@@ -80,7 +80,7 @@ object NewShowVolumePct {
 
     private fun mVolumeDisable(clazz: Class<*>) {
         clazz.methodFinder().filterByName("dismissH")
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 removePct(mPct)
             }
     }
@@ -88,7 +88,7 @@ object NewShowVolumePct {
     @SuppressLint("SetTextI18n")
     private fun onProgressChanged(clazz: Class<*>, mSupportSV: Boolean) {
         clazz.methodFinder().filterByName("onProgressChanged")
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 var nowLevel = -233
                 var mTag = 0
                 var currentLevel: Int

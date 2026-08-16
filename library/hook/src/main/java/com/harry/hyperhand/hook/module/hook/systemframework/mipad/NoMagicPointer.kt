@@ -28,13 +28,13 @@ object NoMagicPointer : BaseHook() {
     override fun init() {
         loadClassOrNull("android.magicpointer.util.MiuiMagicPointerUtils")!!.methodFinder()
             .filterByName("isEnable")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(false)
             }
 
         loadClass("com.android.server.SystemServerImpl").methodFinder()
             .filterByName("addMagicPointerManagerService")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(null)
             }
     }

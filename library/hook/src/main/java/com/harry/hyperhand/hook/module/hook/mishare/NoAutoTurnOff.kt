@@ -243,7 +243,7 @@ object NoAutoTurnOff : BaseHook() {
                         .filterByName("getString")
                         .filterByParamTypes {
                             it.size == 1 && it[0] == Int::class.java
-                        }.first().createHook {
+                        }.firstOrNull()?.createHook {
                             before { param ->
                                 val resName =
                                     (param.thisObject as Context).resources.getResourceName(param.args[0] as Int)
@@ -267,7 +267,7 @@ object NoAutoTurnOff : BaseHook() {
                         .filterByName("getString")
                         .filterByParamTypes {
                             it.size == 1 && it[0] == Int::class.java
-                        }.first().createHook {
+                        }.firstOrNull()?.createHook {
                             before { param ->
                                 val resName =
                                     (param.thisObject as Context).resources.getResourceName(param.args[0] as Int)

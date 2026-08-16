@@ -30,7 +30,7 @@ object MemInfoShow : BaseHook() {
             // 此方法调用会将内存显示 hide，需拦截
             loadClass("com.miui.home.recents.views.RecentsDecorations").methodFinder()
                 .filterByName("hideTxtMemoryInfoView")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                 returnConstant(null)
             }
         }.onFailure {

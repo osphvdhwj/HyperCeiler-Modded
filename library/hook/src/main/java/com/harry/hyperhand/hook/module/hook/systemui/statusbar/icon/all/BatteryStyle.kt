@@ -71,7 +71,7 @@ object BatteryStyle : BaseHook() {
         } else {
             mBatteryMeterViewClass.methodFinder()
                 .filterByName("updateAll")
-        }.single().createAfterHook { param ->
+        }.singleOrNull()?.createAfterHook { param ->
             hookStatusBattery(param)
         }
     }

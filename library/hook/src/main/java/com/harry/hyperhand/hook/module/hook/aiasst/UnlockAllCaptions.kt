@@ -51,7 +51,7 @@ object UnlockAllCaptions : BaseHook() {
         } else {
             loadClass("com.xiaomi.aiasst.vision.common.BuildConfigUtils").methodFinder()
                 .filterByName("isSupplierOnline")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

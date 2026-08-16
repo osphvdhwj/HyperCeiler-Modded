@@ -29,13 +29,13 @@ object HideStatusBarWhenEnterRecent : BaseHook() {
         // if (mPrefsMap.getBoolean("home_recent_hide_status_bar_in_task_view")) {
         loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder()
             .filterByName("isHideStatusBarWhenEnterRecents")
-            .single().createHook {
+            .singleOrNull()?.createHook {
             returnConstant(true)
         }
 
         loadClass("com.miui.home.launcher.DeviceConfig").methodFinder()
             .filterByName("keepStatusBarShowingForBetterPerformance")
-            .single().createHook {
+            .singleOrNull()?.createHook {
             returnConstant(false)
         }
         // } else {

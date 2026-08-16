@@ -29,7 +29,7 @@ object UnlockXiaomiHyperAIEntranceKt : BaseHook() {
     override fun init() {
         loadClass("com.android.settings.InternalDeviceUtils").methodFinder()
             .filterByName("isAiSupported")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 returnConstant(true)
             }
     }

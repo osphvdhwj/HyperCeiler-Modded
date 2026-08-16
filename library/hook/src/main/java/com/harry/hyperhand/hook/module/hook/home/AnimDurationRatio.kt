@@ -31,7 +31,7 @@ object AnimDurationRatio : BaseHook() {
             value1 /= 100f
             loadClass("com.miui.home.recents.util.RectFSpringAnim").methodFinder()
                 .filterByName("getModifyResponse")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     before {
                         it.result = it.args[0] as Float * value1
                     }
@@ -41,7 +41,7 @@ object AnimDurationRatio : BaseHook() {
             value2 /= 100f
             loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder()
                 .filterByName("getDeviceLevelTransitionAnimRatio")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     before {
                         it.result = value2
                     }

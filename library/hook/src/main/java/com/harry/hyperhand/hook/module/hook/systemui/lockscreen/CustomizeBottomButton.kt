@@ -57,7 +57,7 @@ object CustomizeBottomButton : BaseHook() {
     fun hideLeftButton() {
         keyguardBottomAreaInjector.methodFinder()
             .filterByName("updateIcons")
-            .single().createAfterHook {
+            .singleOrNull()?.createAfterHook {
                 val left =
                     it.thisObject.getObjectFieldOrNullAs<LinearLayout>("mLeftAffordanceViewLayout") ?: return@createAfterHook
                 left.visibility = View.GONE

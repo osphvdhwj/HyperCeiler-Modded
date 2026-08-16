@@ -31,7 +31,7 @@ object AnyBarrage : BaseHook() {
     override fun init() {
         loadClass("com.xiaomi.barrage.service.NotificationMonitorService").methodFinder()
             .filterByName("filterNotification")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before { param ->
                     val statusBarNotification =
                         param.args[0] as StatusBarNotification

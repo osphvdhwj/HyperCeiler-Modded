@@ -16,24 +16,30 @@
 
   * Copyright (C) 2023-2025 HyperHand Contributions
 */
-package com.harry.hyperhand.hook.module.hook.home.recent
+package com.harry.hyperhand.hook.module.hook.systemframework
 
+import android.content.ComponentName
+import android.content.Intent
 import com.harry.hyperhand.hook.module.base.BaseHook
-import com.harry.hyperhand.hook.utils.devicesdk.isPad
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
-object AlwaysShowCleanUp: BaseHook() {
+object NativeKeepNotes : BaseHook() {
     override fun init() {
-        loadClass(
-            when (isPad()) {
-                false -> "com.miui.home.recents.views.RecentsContainer"
-                true -> "com.miui.home.recents.views.RecentsDecorations"
-            }
-        ).methodFinder().filterByName("updateClearContainerVisible")
-            .firstOrNull()?.createHook {
-                returnConstant(true)
-            }
+        runCatching {
+            loadClass("android.app.Instrumentation").methodFinder()
+                .filterByName("execStartActivity")
+                .firstOrNull()?.createHook {
+                    before { param ->
+                        val intent = param.args.firstOrNull { it is Intent } as? Intent
+                        if (intent?.component?.packageName == "com.miui.notes") {
+                            intent.component = ComponentName("com.google.android.keep", "com.google.android.keep.activities.BrowseActivity")
+                        }
+                    }
+                }
+        }.onFailure {
+            logE(TAG, this.lpparam.packageName, "NativeKeepNotes initialization failed: $it")
+        }
     }
 }

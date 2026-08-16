@@ -29,7 +29,7 @@ object BypassAuthentication : BaseHook() {
         runCatching {
             loadClass("com.xiaomi.mtb.MtbApp").methodFinder()
                 .filterByName("getMiServerPermissionClass")
-                .single().createAfterHook {
+                .singleOrNull()?.createAfterHook {
                     it.result = 0L
                 }
         }

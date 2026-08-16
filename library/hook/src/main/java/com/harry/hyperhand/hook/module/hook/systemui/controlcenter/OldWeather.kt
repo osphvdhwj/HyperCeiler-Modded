@@ -40,7 +40,7 @@ object OldWeather : BaseHook() {
         var mWeatherView: TextView?
         loadClass("com.android.systemui.qs.MiuiQSHeaderView").methodFinder()
             .filterByName("onFinishInflate")
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 val viewGroup = it.thisObject as ViewGroup
                 val context = viewGroup.context
                 val layoutParam =

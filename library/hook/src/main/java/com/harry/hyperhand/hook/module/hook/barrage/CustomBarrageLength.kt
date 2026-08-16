@@ -35,7 +35,7 @@ object CustomBarrageLength : BaseHook() {
         clazzString.methodFinder()
             .filterByName("subSequence")
             .filterByParamCount(2)
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before { param ->
                     if (Throwable().stackTrace.any { it.className == "com.xiaomi.barrage.utils.BarrageWindowUtils" }) {
                         param.args[1] = minOf(barrageLength, (param.thisObject as String).length)
@@ -53,7 +53,7 @@ object CustomBarrageLength : BaseHook() {
         clazzString.methodFinder()
             .filterByName("length")
             .filterByParamCount(0)
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 after { param ->
                     val stacktrace = Throwable().stackTrace
                     if (stacktrace.any {

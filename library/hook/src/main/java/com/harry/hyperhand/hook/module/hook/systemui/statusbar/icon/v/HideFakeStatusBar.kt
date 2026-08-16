@@ -114,7 +114,7 @@ object HideFakeStatusBar : MusicBaseHook() {
             }
 
         loadClass("com.android.systemui.statusbar.phone.MiuiPhoneStatusBarView").methodFinder()
-            .filterByName("onFinishInflate").first().createAfterHook {
+            .filterByName("onFinishInflate").firstOrNull()?.createAfterHook {
                 logD(TAG, lpparam.packageName, "onFinishInflate")
                 // 通知栏左边部分(包含时间和通知图标)
                 mStatusBarLeftContainer =
@@ -122,7 +122,7 @@ object HideFakeStatusBar : MusicBaseHook() {
                 // mStatusBarLeftContainer!!.visibility = View.INVISIBLE
             }
         loadClass("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment").methodFinder()
-            .filterByName("onViewCreated").first().createAfterHook {
+            .filterByName("onViewCreated").firstOrNull()?.createAfterHook {
                 val isObj = if (isAndroidVersion(34)) {
                     loadClass("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment")
                 } else {
@@ -135,7 +135,7 @@ object HideFakeStatusBar : MusicBaseHook() {
             }
 
         miuiNotificationClass.methodFinder()
-            .filterByName("onFinishInflate").first().createAfterHook {
+            .filterByName("onFinishInflate").firstOrNull()?.createAfterHook {
                 // 大时钟布局
                 mBigTime = it.thisObject.getObjectFieldOrNullAs<TextView>("mBigTime") ?: return@createAfterHook
             }
@@ -154,7 +154,7 @@ object HideFakeStatusBar : MusicBaseHook() {
 
         var unhook0: XC_MethodHook.Unhook? = null
         loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback$1").methodFinder()
-            .filterByName("onExpansionChanged").first().createHook {
+            .filterByName("onExpansionChanged").firstOrNull()?.createHook {
                 before {
                     unhook0 = miuiConfigs.methodFinder()
                         .filterByName("isVerticalMode").first().replaceMethod {
@@ -199,7 +199,7 @@ object HideFakeStatusBar : MusicBaseHook() {
                 }
             }
         loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback\$1").methodFinder()
-            .filterByName("onAppearanceChanged").first().createHook {
+            .filterByName("onAppearanceChanged").firstOrNull()?.createHook {
                 before {
                 }
                 after {
@@ -224,7 +224,7 @@ object HideFakeStatusBar : MusicBaseHook() {
             }
 
         loadClass("com.android.systemui.statusbar.phone.FocusedNotifPromptController").methodFinder()
-            .filterByName("notifyNotifBeanChanged").first().createHook {
+            .filterByName("notifyNotifBeanChanged").firstOrNull()?.createHook {
                 before {
                     // 焦点通知更新的事件,通过这个判断当前展示的焦点通知是不是歌词
                     val sbn = it.args[0]?.getObjectFieldOrNullAs<StatusBarNotification?>("sbn") ?: return@before
@@ -276,7 +276,7 @@ object HideFakeStatusBar : MusicBaseHook() {
             }
 
         loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder()
-            .filterByName("updateStatusBarVisibilities").first().createAfterHook {
+            .filterByName("updateStatusBarVisibilities").firstOrNull()?.createAfterHook {
                 // 获取是否在显示焦点通知
                 // 更新一次 isShowingFocused
                 isShowingFocused.value =

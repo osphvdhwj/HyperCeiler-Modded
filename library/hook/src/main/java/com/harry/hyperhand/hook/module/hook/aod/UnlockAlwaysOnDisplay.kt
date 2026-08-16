@@ -27,7 +27,7 @@ object UnlockAlwaysOnDisplay : BaseHook() {
     override fun init() {
         loadClass("com.miui.aod.widget.AODSettings").methodFinder()
             .filterByName("onlySupportKeycodeGoto")
-            .single().createHook {
+            .singleOrNull()?.createHook {
             returnConstant(false)
         }
     }

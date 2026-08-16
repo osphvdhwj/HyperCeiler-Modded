@@ -121,7 +121,7 @@ object UnlockVideoSomeFunc : BaseHook() {
                 logD(TAG, lpparam.packageName, "find EnhanceContours Method(${methods.declaringClass}) is $newName")
                 findTat.declaringClass.methodFinder()
                     .filterByName(newName)
-                    .first().createHook {
+                    .firstOrNull()?.createHook {
                         returnConstant(true)
                     }
             }

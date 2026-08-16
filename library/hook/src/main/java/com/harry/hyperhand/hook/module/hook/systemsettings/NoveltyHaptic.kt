@@ -29,7 +29,7 @@ object NoveltyHaptic : BaseHook() {
 
         loadClass("com.android.settings.utils.SettingsFeatures").methodFinder()
             .filterByName("isNoveltyHaptic")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

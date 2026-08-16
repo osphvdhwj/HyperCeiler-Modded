@@ -27,7 +27,7 @@ object DualSaSupport : BaseHook() {
     override fun init() {
         loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
             .filterByName("isDualSaSupported")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
             }
     }

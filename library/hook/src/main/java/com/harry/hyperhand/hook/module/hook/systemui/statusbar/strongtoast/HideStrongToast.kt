@@ -34,7 +34,7 @@ object HideStrongToast : BaseHook() {
             NewStrongToast!!.methodFinder()
         } else {
             StrongToast!!.methodFinder()
-        }.filterByName("onAttachedToWindow").single().createAfterHook {
+        }.filterByName("onAttachedToWindow").singleOrNull()?.createAfterHook {
             val strongToastLayout = it.thisObject as FrameLayout
             strongToastLayout.viewTreeObserver.addOnPreDrawListener {
                 return@addOnPreDrawListener false

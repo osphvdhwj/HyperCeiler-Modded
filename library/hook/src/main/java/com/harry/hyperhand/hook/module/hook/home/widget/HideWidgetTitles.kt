@@ -34,7 +34,7 @@ object HideWidgetTitles : BaseHook() {
         loadClass("com.miui.home.launcher.LauncherAppWidgetHost").methodFinder()
             .filterByName("createLauncherWidgetView")
             .filterByParamCount(4)
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 after {
                     val view = it.result as Any
                     view.callMethod("getTitleView")?.callMethod("setVisibility", View.GONE)

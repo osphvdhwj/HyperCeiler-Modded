@@ -87,7 +87,7 @@ object StartCollpasedColumnPress {
 
         miuiVolumeDialogView.methodFinder().apply {
             filterByName("onFinishInflate")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     it.thisObject.getObjectFieldAs<View>("mExpandButton").apply {
                         alpha = 0f
                         isClickable = false
@@ -99,7 +99,7 @@ object StartCollpasedColumnPress {
             filterByName("notifyAccessibilityChanged")
                 .filterByParamTypes {
                     it[0] == Boolean::class.java
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     it.thisObject.getObjectFieldAs<View>("mExpandButton").apply {
                         isClickable = false
                         visibility = View.GONE
@@ -118,7 +118,7 @@ object StartCollpasedColumnPress {
             .filterByName("onTouchEvent")
             .filterByParamTypes {
                 it[0] == MotionEvent::class.java
-            }.first().createAfterHook {
+            }.firstOrNull()?.createAfterHook {
                 val mSeekBarOnclickListener = it.thisObject.getObjectField("mSeekBarOnclickListener")
                 val mSeekBarAnimListener = it.thisObject.getObjectField("mSeekBarAnimListener")!!
                 val volumePanelViewController = mSeekBarAnimListener.getObjectField("this\$0")!!

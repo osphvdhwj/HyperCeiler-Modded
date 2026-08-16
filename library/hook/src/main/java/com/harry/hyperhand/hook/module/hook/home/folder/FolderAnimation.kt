@@ -57,14 +57,14 @@ class FolderAnimation : BaseHook() {
 
                             mLauncherClass.methodFinder()
                                 .filterByName("run")
-                                .first().createHook {
+                                .firstOrNull()?.createHook {
                                     before {
                                         hook1 = mSpringAnimator.methodFinder()
                                             .filterByName("setDampingResponse")
                                             .filterByParamTypes {
                                                 it[0] == Float::class.javaPrimitiveType &&
                                                     it[1] == Float::class.javaPrimitiveType
-                                            }.single().createHook {
+                                            }.singleOrNull()?.createHook {
                                                 before {
                                                     it.args[0] = value1
                                                     it.args[1] = value2

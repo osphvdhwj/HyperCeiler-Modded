@@ -44,7 +44,7 @@ class TitleFontSize : HomeBaseHook() {
 
         val appIconClass = Class.forName("com.miui.home.launcher.AppIcon", false, lpparam.classLoader)  // 抽屉
 
-        MethodFinder.fromClass("com.miui.home.launcher.ShortcutIcon").filterByName("onMeasure").first().createHook {
+        MethodFinder.fromClass("com.miui.home.launcher.ShortcutIcon").filterByName("onMeasure").firstOrNull()?.createHook {
             before {
                 (it.thisObject as TextView).setTextSize(0, defaultSizePx)
             }
@@ -62,7 +62,7 @@ class TitleFontSize : HomeBaseHook() {
                 (it.thisObject as TextView).textSize = desktopSp
             }
 
-        ConstructorFinder.fromClass("com.miui.home.launcher.TitleTextView").first().createAfterHook {
+        ConstructorFinder.fromClass("com.miui.home.launcher.TitleTextView").firstOrNull()?.createAfterHook {
             (it.thisObject as TextView).textSize = desktopSp
         }
     }
@@ -71,7 +71,7 @@ class TitleFontSize : HomeBaseHook() {
         if (mPrefsMap.getInt("home_title_font_size", 12) == 12) return
 
         MethodFinder.fromClass("com.miui.home.launcher.common.Utilities").filterByName("adaptTitleStyleToWallpaper")
-            .first().createAfterHook { param ->
+            .firstOrNull()?.createAfterHook { param ->
                 val mTitle = param.args[1] as? TextView
                 if (mTitle != null && mTitle.id == mTitle.resources.getIdentifier(
                         "icon_title", "id", "com.miui.home"

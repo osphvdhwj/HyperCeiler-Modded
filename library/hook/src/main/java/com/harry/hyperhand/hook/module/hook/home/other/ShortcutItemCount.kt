@@ -32,19 +32,19 @@ object ShortcutItemCount : BaseHook() {
     override fun init() {
         mAppShortcutMenuClass.methodFinder()
             .filterByName("getMaxCountInCurrentOrientation")
-            .single().createAfterHook {
+            .singleOrNull()?.createAfterHook {
                 it.result = 20
             }
 
         mAppShortcutMenuClass.methodFinder()
             .filterByName("getMaxShortcutItemCount")
-            .single().createAfterHook {
+            .singleOrNull()?.createAfterHook {
                 it.result = 20
             }
 
         mAppShortcutMenuClass.methodFinder()
             .filterByName("getMaxVisualHeight")
-            .single().createAfterHook {
+            .singleOrNull()?.createAfterHook {
                 it.result = it.thisObject.callMethod("getItemHeight")
             }
 

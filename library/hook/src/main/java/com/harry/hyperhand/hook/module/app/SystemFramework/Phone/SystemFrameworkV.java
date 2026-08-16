@@ -84,6 +84,7 @@ import com.harry.hyperhand.hook.module.hook.systemframework.volume.VolumeFirstPr
 import com.harry.hyperhand.hook.module.hook.systemframework.volume.VolumeMediaSteps;
 import com.harry.hyperhand.hook.module.hook.systemframework.volume.VolumeSteps;
 import com.harry.hyperhand.hook.module.hook.various.NoAccessDeviceLogsRequest;
+import com.harry.hyperhand.hook.module.hook.systemframework.NativeKeepNotes;
 
 @HookBase(targetPackage = "android", isPad = 2, targetSdk = 35)
 public class SystemFrameworkV extends BaseModule {
@@ -173,6 +174,7 @@ public class SystemFrameworkV extends BaseModule {
 
         initHook(new EffectBinderProxy(), mPrefsMap.getBoolean("misound_bluetooth"));
         initHook(new AutoEffectSwitchForSystem(), mPrefsMap.getBoolean("misound_bluetooth"));
+        initHook(NativeKeepNotes.INSTANCE, true);
     }
 
 }

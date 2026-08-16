@@ -28,7 +28,7 @@ object ModemFeature : BaseHook() {
         runCatching {
             loadClass("com.android.phone.FiveGManagerBase").methodFinder()
                 .filterByName("getModemFeatureMode")
-                .single().createAfterHook {
+                .singleOrNull()?.createAfterHook {
                     it.args[0] = -1
                     it.result = true
                 }
@@ -37,7 +37,7 @@ object ModemFeature : BaseHook() {
         runCatching {
             loadClass("com.android.phone.MiuiPhoneUtils").methodFinder()
                 .filterByName("isModemFeatureSupported")
-                .single().createAfterHook {
+                .singleOrNull()?.createAfterHook {
                     it.args[0] = -1
                 }
         }
@@ -45,7 +45,7 @@ object ModemFeature : BaseHook() {
         runCatching {
             loadClass("com.android.phone.MiuiPhoneUtils").methodFinder()
                 .filterByName("getModemFeatureFromDb")
-                .single().createAfterHook {
+                .singleOrNull()?.createAfterHook {
                         it.args[0] = -1
                     }
         }

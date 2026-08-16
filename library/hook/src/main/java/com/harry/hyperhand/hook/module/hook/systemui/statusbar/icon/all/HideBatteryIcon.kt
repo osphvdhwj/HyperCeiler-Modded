@@ -39,7 +39,7 @@ object HideBatteryIcon : BaseHook() {
         if(isMoreAndroidVersion(35)) {
             mBatteryMeterViewClass.methodFinder()
                 .filterByName("onBatteryStyleChanged")
-                .first().createHook {
+                .firstOrNull()?.createHook {
                     after { param ->
                         if (param.thisObject != null) {
                             // 隐藏电池图标
@@ -63,7 +63,7 @@ object HideBatteryIcon : BaseHook() {
         } else {
             mBatteryMeterViewClass.methodFinder()
                 .filterByName("updateAll")
-        }.single().createHook {
+        }.singleOrNull()?.createHook {
             after { param ->
                 if (param.thisObject != null) {
                     // 隐藏电池图标
@@ -93,7 +93,7 @@ object HideBatteryIcon : BaseHook() {
 
         mBatteryMeterViewClass.methodFinder()
             .filterByName("updateChargeAndText")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 after { param ->
                     if (param.thisObject != null) {
                         if (isMoreAndroidVersion(35)) {

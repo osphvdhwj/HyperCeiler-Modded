@@ -34,7 +34,7 @@ object MobileTypeTextCustom : BaseHook() {
             .filterByName("getMobileTypeName")
             .filterByParamTypes {
                 it[0] == Int::class.java
-            }.single().createHook {
+            }.singleOrNull()?.createHook {
                 after {
                     it.result =
                         mPrefsMap.getString("system_ui_status_bar_mobile_type_custom", "ERR")

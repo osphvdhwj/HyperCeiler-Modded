@@ -37,14 +37,14 @@ object HideLockScreenHint : BaseHook() {
             keyguardIndicationController!!.methodFinder()
                 .filterByParamCount(1)
                 .filterByParamTypes(keyguardIndicationController)
-                .filterStatic().single().createHook {
+                .filterStatic().singleOrNull()?.createHook {
                     returnConstant(null)
                 }
         } else {
             // by Hyper Helper
             keyguardIndicationController!!.methodFinder()
                 .filterByName("updateDeviceEntryIndication")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     after {
                         XposedHelpers.setObjectField(it.thisObject, "mPersistentUnlockMessage", "")
                     }
@@ -52,7 +52,7 @@ object HideLockScreenHint : BaseHook() {
 
             keyguardIndicationController!!.methodFinder()
                 .filterByName("setIndicationArea")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     after {
                         val image =
                             it.thisObject.getObjectFieldOrNullAs<ImageView>("mUpArrow") ?: return@after

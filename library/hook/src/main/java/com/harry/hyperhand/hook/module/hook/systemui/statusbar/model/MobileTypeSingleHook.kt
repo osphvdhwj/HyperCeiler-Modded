@@ -44,7 +44,7 @@ object MobileTypeSingleHook : BaseHook() {
         statusBarMobileClass.methodFinder()
             .filterByName("fromContext")
             .filterByParamCount(2)
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 after {
                     val mobileLeftContainer =
                         XposedHelpers.getObjectField(it.result, "mMobileLeftContainer") as ViewGroup

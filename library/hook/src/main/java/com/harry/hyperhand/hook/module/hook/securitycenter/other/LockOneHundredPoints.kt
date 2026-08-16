@@ -85,7 +85,7 @@ object LockOneHundredPoints : BaseHook() {
         loadClass("com.miui.securityscan.ui.main.MainContentFrame").methodFinder()
             .filterByName("onClick")
             .filterByParamTypes(View::class.java)
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 returnConstant(null)
             }
 

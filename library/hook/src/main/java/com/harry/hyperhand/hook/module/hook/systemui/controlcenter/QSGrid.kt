@@ -40,7 +40,7 @@ class QSGrid : BaseHook() {
         hyperHooks(cols, colsHorizontal)
         miuiTileClass.methodFinder()
             .filterByName("updateResources")
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 val viewGroup = it.thisObject as ViewGroup
                 val mConfiguration: Configuration = viewGroup.context.resources.configuration
                 if (mConfiguration.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -59,7 +59,7 @@ class QSGrid : BaseHook() {
         miuiTileClass.methodFinder()
             .filterByName("layoutTileRecords")
             .filterByParamCount(1)
-            .first().createAfterHook {
+            .firstOrNull()?.createAfterHook {
                 val viewGroup = it.thisObject as ViewGroup
                 val mConfiguration: Configuration = viewGroup.context.resources.configuration
                 if (mConfiguration.orientation == Configuration.ORIENTATION_PORTRAIT) {

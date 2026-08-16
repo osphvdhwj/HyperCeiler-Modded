@@ -27,7 +27,7 @@ object DontKillApps : BaseHook() {
     override fun init() {
         loadClass("miui.process.ProcessManager").methodFinder()
             .filterByName("kill")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(false)
             }
     }

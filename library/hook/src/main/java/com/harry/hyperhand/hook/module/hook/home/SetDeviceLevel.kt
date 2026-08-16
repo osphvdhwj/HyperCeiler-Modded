@@ -59,35 +59,35 @@ object SetDeviceLevel : BaseHook() {
         runCatching {
             mDeviceConfigClass.methodFinder()
                 .filterByName("isUseSimpleAnim")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(false)
             }
         }
         runCatching {
             mDeviceLevelUtilsClass.methodFinder()
                 .filterByName("getDeviceLevel")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(2)
             }
         }
         runCatching {
             mDeviceConfigClass.methodFinder()
                 .filterByName("isSupportCompleteAnimation")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
             }
         }
         runCatching {
             mDeviceLevelUtilsClass.methodFinder()
                 .filterByName("isLowLevelOrLiteDevice")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(false)
             }
         }
         runCatching {
             mDeviceConfigClass.methodFinder()
                 .filterByName("isMiuiLiteVersion")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(false)
             }
         }

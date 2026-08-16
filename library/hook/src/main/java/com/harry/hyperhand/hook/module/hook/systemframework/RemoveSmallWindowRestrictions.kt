@@ -43,7 +43,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
         runCatching {
             loadClass("com.android.server.wm.ActivityTaskManagerService").methodFinder()
                 .filterByName("retrieveSettings")
-                .single().createAfterHook { param ->
+                .singleOrNull()?.createAfterHook { param ->
                     param.thisObject.javaClass.field("mDevEnableNonResizableMultiWindow")
                         .setBoolean(param.thisObject, true)
                 }
@@ -84,7 +84,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
         runCatching {
             mWindowsUtilsClass.methodFinder()
                 .filterByName("isForceResizeable")
-                .first().createHook {
+                .firstOrNull()?.createHook {
                     returnConstant(true)
                 }
         }.onFailure { e ->
@@ -95,7 +95,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
         runCatching {
             loadClass("com.android.server.wm.Task").methodFinder()
                 .filterByName("isResizeable")
-                .first().createHook {
+                .firstOrNull()?.createHook {
                     returnConstant(true)
                 }
         }.onFailure { e ->
@@ -105,7 +105,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
         runCatching {
             mWindowsClass.methodFinder()
                 .filterByName("getFreeformBlackList")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(mutableListOf<String>())
                 }
         }.onFailure { e ->
@@ -118,7 +118,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
                 .filterByParamTypes {
                     it[0] == Context::class.java
                 }
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(mutableListOf<String>())
                 }
         }.onFailure { e ->
@@ -128,7 +128,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
         runCatching {
             mWindowsClass.methodFinder()
                 .filterByName("getStartFromFreeformBlackListFromCloud")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(mutableListOf<String>())
                 }
         }.onFailure { e ->
@@ -138,7 +138,7 @@ object RemoveSmallWindowRestrictions : BaseHook() {
         runCatching {
             mWindowsUtilsClass.methodFinder()
                 .filterByName("supportFreeform")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }.onFailure { e ->

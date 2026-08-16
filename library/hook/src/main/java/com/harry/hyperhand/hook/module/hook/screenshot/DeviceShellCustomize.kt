@@ -34,7 +34,7 @@ object DeviceShellCustomize : BaseHook() {
      override fun init() {
          loadClass("com.miui.gallery.editor.photo.screen.shell.res.ShellResourceFetcher").methodFinder()
              .filterByName("getResId")
-             .first().createHook {
+             .firstOrNull()?.createHook {
                  before {
                      if (!this@DeviceShellCustomize::device.isInitialized) {
                          device = Build.DEVICE

@@ -28,7 +28,7 @@ object N5N8BandPhone : BaseHook() {
         runCatching {
             loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
                 .filterByName("isN5Supported")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }
@@ -36,7 +36,7 @@ object N5N8BandPhone : BaseHook() {
         runCatching {
             loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
                 .filterByName("isN8Supported")
-                .single().createHook {
+                .singleOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

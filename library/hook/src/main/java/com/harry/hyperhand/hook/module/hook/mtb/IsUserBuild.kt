@@ -27,12 +27,12 @@ object IsUserBuild : BaseHook() {
     override fun init() {
         loadClass("com.xiaomi.mtb.MtbUtils").methodFinder()
             .filterByName("IsUserBuild")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(false)
         }
         loadClass("com.xiaomi.mtb.MtbApp").methodFinder()
             .filterByName("isFactoryBuild")
-            .single().createHook {
+            .singleOrNull()?.createHook {
                 returnConstant(true)
         }
     }

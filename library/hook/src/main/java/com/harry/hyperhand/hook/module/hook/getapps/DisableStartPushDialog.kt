@@ -29,12 +29,12 @@ object DisableStartPushDialog : BaseHook() {
         // 禁用开启推送弹窗
         loadClass("com.xiaomi.market.ui.UpdateListFragment").methodFinder()
             .filterByName("tryShowDialog")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 interrupt()
             }
         loadClass("com.xiaomi.market.ui.update.UpdatePushDialogManager").methodFinder()
             .filterByName("tryShowDialog")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 interrupt()
             }
     }

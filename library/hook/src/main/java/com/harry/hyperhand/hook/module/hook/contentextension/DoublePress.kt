@@ -30,7 +30,7 @@ class DoublePress : BaseHook() {
             .filterByName("isCatcherSupportDoublePress")
             .filterByParamTypes {
                 it[0] == Context::class.java
-            }.single().createHook {
+            }.singleOrNull()?.createHook {
             returnConstant(true)
         }
     }

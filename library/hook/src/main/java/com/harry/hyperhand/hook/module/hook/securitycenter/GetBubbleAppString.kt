@@ -33,7 +33,7 @@ object GetBubbleAppString : BaseHook() {
     override fun init() {
         loadClass("com.miui.bubbles.settings.BubblesSettings").methodFinder()
             .filterByName("getBubbleAppString")
-            .first().createHook {
+            .firstOrNull()?.createHook {
                 before {
                     val stringBuilder = StringBuilder()
                     val mActiveBubbles =
