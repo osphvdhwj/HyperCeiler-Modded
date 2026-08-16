@@ -11,7 +11,7 @@ object IosRecentStack : BaseHook() {
         val enableIosStack = mPrefsMap.getBoolean("home_recent_ios_stack_enable")
         if (!enableIosStack) return
 
-        "com.miui.home.recents.views.RecentsView".hookBeforeMethod(
+        "com.miui.home.recents.views.TaskStackView".hookBeforeMethod(
             "dispatchDraw", Canvas::class.java
         ) {
             val recentsView = it.thisObject as ViewGroup
@@ -21,8 +21,11 @@ object IosRecentStack : BaseHook() {
             for (i in 0 until childCount) {
                 val taskView = recentsView.getChildAt(i)
                 
-                // Exclude the empty text view and other non-task overlays
-                if (!taskView.javaClass.name.contains("TaskView", ignoreCase = true)) continue
+                // Ensure the view is actually a TaskView or similar layout, not a background overlay
+                if (taskView.javaClass.name.contains("Clear") || taskView.javaClass.name.contains("Background")) continue
+                
+                // Fallback check to ensure it has width (TaskViews will)
+                if (taskView.width == 0) continue
 
                 // Base center of the child view
                 val taskCenter = taskView.left + (taskView.width / 2f)
