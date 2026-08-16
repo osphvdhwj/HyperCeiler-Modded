@@ -35,7 +35,9 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 object RealMemory : BaseHook() {
     @SuppressLint("DiscouragedApi")
     override fun init() {
-        if (!mPrefsMap.getBoolean("home_recent_show_real_memory")) return
+        val showRealMemory = mPrefsMap.getBoolean("home_recent_show_real_memory")
+        XposedLogUtils.logI(TAG, "RealMemory enabled: $showRealMemory")
+        if (!showRealMemory) return
 
         val recentContainerClass = loadClass(
             when (isPad()) {
@@ -43,11 +45,17 @@ object RealMemory : BaseHook() {
                 true -> "com.miui.home.recents.views.RecentsDecorations"
             }
         )
+        XposedLogUtils.logI(TAG, "RealMemory targeting class: ${recentContainerClass.name}")
 
-        recentContainerClass.methodFinder()
+        val methodFound = recentContainerClass.methodFinder()
             .filterByName("refreshMemoryInfo")
-            .firstOrNull()?.createHook {
+            .firstOrNull()
+            
+        XposedLogUtils.logI(TAG, "RealMemory refreshMemoryInfo method found: ${methodFound != null}")
+
+        methodFound?.createHook {
                 after {
+                    XposedLogUtils.logI(TAG, "RealMemory refreshMemoryInfo hook fired!")
                     try {
                         val view = it.thisObject as android.view.View
                         val context = view.context
@@ -73,6 +81,8 @@ object RealMemory : BaseHook() {
                         (view.getObjectField("mTxtMemoryInfo1") as TextView).text = text1
                         (view.getObjectField("mTxtMemoryInfo2") as TextView).text = text2
                         
+                        XposedLogUtils.logI(TAG, "RealMemory successfully updated text to: $text1")
+
                         try {
                             val divider = view.getObjectField("mMemoryInfoDivider") as? android.view.View
                             divider?.visibility = android.view.View.GONE

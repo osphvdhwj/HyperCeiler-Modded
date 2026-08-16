@@ -4,11 +4,13 @@ import android.graphics.Canvas
 import android.view.ViewGroup
 import com.harry.hyperhand.hook.module.base.BaseHook
 import com.harry.hyperhand.hook.utils.hookBeforeMethod
+import com.harry.hyperhand.hook.utils.log.XposedLogUtils
 import kotlin.math.max
 
 object IosRecentStack : BaseHook() {
     override fun init() {
         val enableIosStack = mPrefsMap.getBoolean("home_recent_ios_stack_enable")
+        XposedLogUtils.logI(TAG, "IosRecentStack enabled: $enableIosStack")
         if (!enableIosStack) return
 
         "com.miui.home.recents.views.TaskStackView".hookBeforeMethod(
@@ -18,6 +20,7 @@ object IosRecentStack : BaseHook() {
             val screenCenter = recentsView.scrollX + (recentsView.width / 2f)
             val childCount = recentsView.childCount
 
+            var hookedTasks = 0
             for (i in 0 until childCount) {
                 val taskView = recentsView.getChildAt(i)
                 
@@ -27,6 +30,7 @@ object IosRecentStack : BaseHook() {
                 // Fallback check to ensure it has width (TaskViews will)
                 if (taskView.width == 0) continue
 
+                hookedTasks++
                 // Base center of the child view
                 val taskCenter = taskView.left + (taskView.width / 2f)
                 val distanceFromCenter = taskCenter - screenCenter
@@ -59,6 +63,9 @@ object IosRecentStack : BaseHook() {
                     taskView.z = i.toFloat()
                     taskView.alpha = 1f
                 }
+            }
+            if (hookedTasks > 0) {
+                XposedLogUtils.logI(TAG, "IosRecentStack dispatchDraw processed $hookedTasks tasks")
             }
         }
     }
