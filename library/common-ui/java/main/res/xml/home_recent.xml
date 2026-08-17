@@ -22,7 +22,7 @@
     app:quick_restart="com.miui.home">
     <PreferenceCategory>
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="prefs_key_home_recent_blur"
             android:title="@string/home_recent_blur" />
 
@@ -69,7 +69,7 @@
             android:title="@string/home_recent_show_real_memory" />
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="prefs_key_home_recent_modify_animation"
             android:title="@string/home_recent_modify_animation" />
 
@@ -82,7 +82,7 @@
             android:title="@string/home_recent_hide_card" />
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="prefs_key_home_recent_hide_status_bar_in_task_view"
             android:title="@string/home_recent_hide_status_bar_in_task_view" />
 
@@ -92,12 +92,12 @@
             android:title="@string/home_recent_hide_world_circulate" />
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="prefs_key_home_recent_hide_freeform"
             android:title="@string/home_recent_hide_freeform" />
 
         <SwitchPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:disableDependentsState="true"
             android:key="prefs_key_home_recent_hide_clean_up"
             android:title="@string/home_recent_hide_clean_up" />
@@ -129,7 +129,7 @@
         <SeekBarPreferenceCompat
             android:key="prefs_key_task_view_corners"
             android:title="@string/home_recent_task_view_card_rounded_corners"
-            app:defaultValue="20"
+            app:defaultValue="100"
             app:defaultValueTitle="@string/array_default"
             app:format="%s dp"
             app:maxValue="180"
@@ -176,7 +176,7 @@
         <SeekBarPreferenceCompat
             android:key="prefs_key_task_view_horizontal1"
             android:title="@string/home_recent_horizontal_task_view_card_size1"
-            app:defaultValue="100"
+            app:defaultValue="150"
             app:defaultValueTitle="@string/array_default"
             app:format="%s / 100 f"
             app:maxValue="150"
@@ -186,7 +186,7 @@
         <SeekBarPreferenceCompat
             android:key="prefs_key_task_view_horizontal2"
             android:title="@string/home_recent_horizontal_task_view_card_size2"
-            app:defaultValue="100"
+            app:defaultValue="150"
             app:defaultValueTitle="@string/array_default"
             app:format="%s / 100 f"
             app:maxValue="150"
@@ -196,7 +196,7 @@
         <SeekBarPreferenceCompat
             android:key="prefs_key_home_recent_vertical_task_view_card_size"
             android:title="@string/home_recent_vertical_task_view_card_size"
-            app:defaultValue="100"
+            app:defaultValue="150"
             app:defaultValueTitle="@string/array_default"
             app:format="%s / 100 f"
             app:maxValue="150"
