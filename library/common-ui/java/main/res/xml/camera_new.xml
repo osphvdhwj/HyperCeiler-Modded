@@ -95,5 +95,11 @@
             android:key="prefs_key_camera_settings_track_eyes"
             android:title="@string/camera_settings_track_eyes" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_camera_unhardcode_gallery"
+            android:title="Remove Hardcoded Gallery"
+            android:summary="Allows third-party gallery apps like Google Photos to be opened from the Camera app." />
+
     </PreferenceCategory>
 </PreferenceScreen>
