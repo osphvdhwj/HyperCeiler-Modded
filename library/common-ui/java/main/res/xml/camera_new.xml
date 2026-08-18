@@ -97,6 +97,12 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="prefs_key_camera_unlock_raw"
+            android:title="Unlock RAW Video/Image"
+            android:summary="Force enable RAW mode features across all lenses." />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="prefs_key_camera_unhardcode_gallery"
             android:title="Remove Hardcoded Gallery"
             android:summary="Allows third-party gallery apps like Google Photos to be opened from the Camera app." />
