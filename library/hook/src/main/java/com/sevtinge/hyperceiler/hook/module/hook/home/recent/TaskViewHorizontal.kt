@@ -36,10 +36,9 @@ object TaskViewHorizontal : BaseHook() {
                 val scrollProgress = it.args[1] as Float
                 val transformOut = it.args[2]!!
                 
-                // Get rect and scale
-                val rectF = transformOut.javaClass.getDeclaredField("rect").apply { isAccessible = true }.get(transformOut) as RectF
-                val scaleField = transformOut.javaClass.getDeclaredField("scale").apply { isAccessible = true }
-                val currentScale = scaleField.getFloat(transformOut)
+                // Get rect and scale using XposedHelpers
+                val rectF = de.robv.android.xposed.XposedHelpers.getObjectField(transformOut, "rect") as RectF
+                val currentScale = de.robv.android.xposed.XposedHelpers.getFloatField(transformOut, "scale")
                 
                 val scalePref = mPrefsMap.getInt("home_recent_ios_scale", 90).toFloat() / 100f
                 val overlapDp = mPrefsMap.getInt("home_recent_ios_overlap", 30).toFloat()
@@ -50,7 +49,7 @@ object TaskViewHorizontal : BaseHook() {
                     
                     // Scale down background cards exponentially based on how far back they are
                     val newScale = currentScale * Math.pow(scalePref.toDouble(), progressFloat.toDouble()).toFloat()
-                    scaleField.setFloat(transformOut, newScale)
+                    de.robv.android.xposed.XposedHelpers.setFloatField(transformOut, "scale", newScale)
                     
                     // Non-linear offset to create a true stacking effect where cards bunch up
                     // We use a diminishing returns formula so they don't just spread out linearly
@@ -60,18 +59,16 @@ object TaskViewHorizontal : BaseHook() {
 
                     // Add alpha fading for background cards to mimic iOS depth
                     try {
-                        val alphaField = transformOut.javaClass.getDeclaredField("alpha").apply { isAccessible = true }
-                        val currentAlpha = alphaField.getFloat(transformOut)
+                        val currentAlpha = de.robv.android.xposed.XposedHelpers.getFloatField(transformOut, "alpha")
                         val newAlpha = Math.max(0.0f, currentAlpha - (progressFloat * 0.15f))
-                        alphaField.setFloat(transformOut, newAlpha)
+                        de.robv.android.xposed.XposedHelpers.setFloatField(transformOut, "alpha", newAlpha)
                     } catch (e: Exception) {
                         // Ignore if alpha field is not accessible
                     }
 
                     // Optional: Adjust translationZ to ensure correct overlapping order
                     try {
-                        val zField = transformOut.javaClass.getDeclaredField("translationZ").apply { isAccessible = true }
-                        zField.setFloat(transformOut, -progressFloat * 10f)
+                        de.robv.android.xposed.XposedHelpers.setFloatField(transformOut, "translationZ", -progressFloat * 10f)
                     } catch (e: Exception) {
                         // Ignore if translationZ is not accessible
                     }

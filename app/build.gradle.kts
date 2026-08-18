@@ -58,7 +58,7 @@ android {
     buildToolsVersion = "36.0.0"
 
     defaultConfig {
-        applicationId = "com.sevtinge.hyperceiler.modded"
+        applicationId = "com.harry.hyperhand"
         minSdk = 34
         targetSdk = 36
         versionCode = getVersionCode()
