@@ -21,42 +21,6 @@
 
     <application>
 
-        <activity
-            android:exported="true"
-            android:theme="@style/ProvisionTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
 
-        <activity
-            android:name="com.sevtinge.hyperceiler.provision.activity.PermissionSettingsActivity"
-            android:exported="true"
-            android:theme="@style/ProvisionTheme" />
-
-        <activity
-            android:name="com.sevtinge.hyperceiler.provision.activity.TermsAndStatementActivity"
-            android:exported="true"
-            android:theme="@style/ProvisionTheme" />
-
-        <activity
-            android:name="com.sevtinge.hyperceiler.provision.activity.BasicSettingsActivity"
-            android:exported="true"
-            android:theme="@style/ProvisionTheme" />
-
-        <activity
-            android:name="com.sevtinge.hyperceiler.provision.activity.CongratulationActivity"
-            android:exported="true"
-            android:theme="@style/ProvisionTheme" />
-
-        <service
-            android:name="com.sevtinge.hyperceiler.provision.service.ProvisionAnimService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="fan.intent.action.OOBSERVICE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
     </application>
 </manifest>
