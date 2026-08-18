@@ -29,6 +29,7 @@
     </declare-styleable>
 
     <attr name="rebootIconColor" format="color" />
+    <attr name="showDividerValue" format="boolean|integer|string" />
 
     <!--<declare-styleable name="SeekBarPreference">
         <attr name="android:defaultValue" />
