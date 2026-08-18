@@ -46,16 +46,35 @@ object TaskViewHorizontal : BaseHook() {
                 
                 // iOS Stacking: Cards to the left (background) overlap and scale down
                 if (scrollProgress < 0f) {
-                    val progressInt = Math.abs(scrollProgress)
+                    val progressFloat = Math.abs(scrollProgress)
                     
                     // Scale down background cards exponentially based on how far back they are
-                    val newScale = currentScale * Math.pow(scalePref.toDouble(), progressInt.toDouble()).toFloat()
+                    val newScale = currentScale * Math.pow(scalePref.toDouble(), progressFloat.toDouble()).toFloat()
                     scaleField.setFloat(transformOut, newScale)
                     
-                    // Offset to the right to create an overlap effect
-                    // dp approximation, multiplying by 3 for density factor
-                    val offset = overlapDp * progressInt * 3f 
+                    // Non-linear offset to create a true stacking effect where cards bunch up
+                    // We use a diminishing returns formula so they don't just spread out linearly
+                    val stackFactor = (1f - Math.pow(0.7, progressFloat.toDouble())).toFloat() * 2.5f
+                    val offset = overlapDp * stackFactor * 3f * progressFloat
                     rectF.offset(offset, 0f)
+
+                    // Add alpha fading for background cards to mimic iOS depth
+                    try {
+                        val alphaField = transformOut.javaClass.getDeclaredField("alpha").apply { isAccessible = true }
+                        val currentAlpha = alphaField.getFloat(transformOut)
+                        val newAlpha = Math.max(0.0f, currentAlpha - (progressFloat * 0.15f))
+                        alphaField.setFloat(transformOut, newAlpha)
+                    } catch (e: Exception) {
+                        // Ignore if alpha field is not accessible
+                    }
+
+                    // Optional: Adjust translationZ to ensure correct overlapping order
+                    try {
+                        val zField = transformOut.javaClass.getDeclaredField("translationZ").apply { isAccessible = true }
+                        zField.setFloat(transformOut, -progressFloat * 10f)
+                    } catch (e: Exception) {
+                        // Ignore if translationZ is not accessible
+                    }
                 }
             }
         }

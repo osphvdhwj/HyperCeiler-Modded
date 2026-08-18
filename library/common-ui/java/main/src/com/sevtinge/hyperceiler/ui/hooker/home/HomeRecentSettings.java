@@ -21,6 +21,8 @@ package com.sevtinge.hyperceiler.ui.hooker.home;
 import static com.sevtinge.hyperceiler.hook.utils.devicesdk.MiDeviceAppUtilsKt.isPad;
 
 import android.content.Intent;
+import android.widget.Toast;
+
 
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreference;
@@ -39,6 +41,7 @@ public class HomeRecentSettings extends DashboardFragment {
     SwitchPreference mShowMenInfo;
     SwitchPreference mHideCleanIcon;
     SwitchPreference mNotHideCleanIcon;
+    SwitchPreference mIosMode;
 
     @Override
     public int getPreferenceScreenResId() {
@@ -52,6 +55,16 @@ public class HomeRecentSettings extends DashboardFragment {
         mShowMenInfo = findPreference("prefs_key_home_recent_show_memory_info");
         mHideCleanIcon = findPreference("prefs_key_home_recent_hide_clean_up");
         mNotHideCleanIcon = findPreference("prefs_key_always_show_clean_up");
+        mIosMode = findPreference("prefs_key_home_recent_ios_mode");
+
+        if (mIosMode != null) {
+            mIosMode.setOnPreferenceChangeListener((preference, newValue) -> {
+                if ((Boolean) newValue) {
+                    Toast.makeText(getActivity(), "Please ensure Horizontal recents style is enabled in System settings.", Toast.LENGTH_LONG).show();
+                }
+                return true;
+            });
+        }
 
         if (isPad()) {
             mTaskViewHeight.setVisible(false);
