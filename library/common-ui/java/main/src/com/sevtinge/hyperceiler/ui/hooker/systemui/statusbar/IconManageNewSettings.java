@@ -125,9 +125,9 @@ public class IconManageNewSettings extends DashboardFragment {
         });
 
         mNotificationIconMaximum.setOnPreferenceChangeListener((preference, o) -> {
-            if ((int) o == 16) {
-                mNotificationIconMaximum.setValue(R.string.unlimited);
-            }
+            // if ((int) o == 16) {
+            //     mNotificationIconMaximum.setValue(getString(R.string.unlimited));
+            // }
             return true;
         });
 

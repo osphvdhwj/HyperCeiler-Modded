@@ -124,12 +124,10 @@ public class LayoutPreference extends Preference implements PreferenceStyle {
         frameLayout.addView(mRootView);
     }
 
-    @Override
     public boolean isTouchAnimationEnable() {
         return true;
     }
 
-    @Override
     public boolean isEnabledCardStyle() {
         return false;
     }

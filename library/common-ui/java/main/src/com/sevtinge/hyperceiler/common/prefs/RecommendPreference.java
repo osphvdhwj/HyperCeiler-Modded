@@ -155,12 +155,10 @@ public class RecommendPreference extends Preference
         notifyChanged();
     }
 
-    @Override
     public boolean isEnabledCardStyle() {
         return false;
     }
 
-    @Override
     public boolean isTouchAnimationEnable() {
         return false;
     }
