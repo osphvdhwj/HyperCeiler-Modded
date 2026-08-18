@@ -28,21 +28,35 @@ import com.sevtinge.hyperceiler.hook.utils.hookAfterMethod
 object TaskViewHorizontal : BaseHook() {
     override fun init() {
 
-        try {
-            "com.miui.home.recents.views.TaskStackViewsAlgorithmHorizontal".findClass().declaredMethods.forEach { method ->
-                com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logI("HyperHand-Explore", "Found method in TaskStackViewsAlgorithmHorizontal: " + method.name)
+        "com.miui.home.recents.views.TaskStackViewsAlgorithmHorizontal".hookAfterMethod(
+            "getTaskViewTransform", Int::class.javaPrimitiveType, Float::class.javaPrimitiveType, "com.miui.home.recents.views.TaskViewTransform".findClass()
+        ) {
+            val iosMode = mPrefsMap.getBoolean("prefs_key_home_recent_ios_mode", false)
+            if (iosMode) {
+                val scrollProgress = it.args[1] as Float
+                val transformOut = it.args[2]
+                
+                // Get rect and scale
+                val rectF = transformOut.javaClass.getDeclaredField("rect").apply { isAccessible = true }.get(transformOut) as RectF
+                val scaleField = transformOut.javaClass.getDeclaredField("scale").apply { isAccessible = true }
+                val currentScale = scaleField.getFloat(transformOut)
+                
+                val scalePref = mPrefsMap.getInt("prefs_key_home_recent_ios_scale", 90).toFloat() / 100f
+                val overlapDp = mPrefsMap.getInt("prefs_key_home_recent_ios_overlap", 30).toFloat()
+                
+                // iOS Stacking: Cards to the left (background) overlap and scale down
+                if (scrollProgress < 0f) {
+                    val progressInt = Math.abs(scrollProgress)
+                    
+                    // Scale down background cards exponentially based on how far back they are
+                    val newScale = currentScale * Math.pow(scalePref.toDouble(), progressInt.toDouble()).toFloat()
+                    scaleField.setFloat(transformOut, newScale)
+                    
+                    // Offset to the right to create an overlap effect
+                    // dp approximation, multiplying by 3 for density factor
+                    val offset = overlapDp * progressInt * 3f 
+                    rectF.offset(offset, 0f)
+                }
             }
-        } catch (e: Exception) {}
-
-        try {
-            "com.miui.home.launcher.RecentsAndFsGestureUtils".findClass().declaredMethods.forEach { method ->
-                com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logI("HyperHand-Explore", "Found method in RecentsAndFsGestureUtils: " + method.name)
-            }
-        } catch (e: Exception) {}
-        
-        try {
-            "com.miui.home.recents.RecentsModel".findClass().declaredMethods.forEach { method ->
-                com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logI("HyperHand-Explore", "Found method in RecentsModel: " + method.name)
-            }
-        } catch (e: Exception) {}
+        }
 }
