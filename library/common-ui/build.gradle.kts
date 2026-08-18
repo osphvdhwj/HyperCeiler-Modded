@@ -4,8 +4,7 @@ plugins {
 
 val srcDir = arrayOf (
     "safemode",
-    "dashboard",
-    "provision"
+    "dashboard"
 )
 
 android {

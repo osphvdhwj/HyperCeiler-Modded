@@ -75,6 +75,11 @@ public class RecommendPreference extends Preference
     }
 
     @Override
+    public boolean isCardStyleEnabled() {
+        return false;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         onBindView(holder.itemView);

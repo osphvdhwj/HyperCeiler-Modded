@@ -22,7 +22,6 @@
     <application>
 
         <activity
-            android:name="com.sevtinge.hyperceiler.provision.activity.ProvisionActivity"
             android:exported="true"
             android:theme="@style/ProvisionTheme">
             <intent-filter>

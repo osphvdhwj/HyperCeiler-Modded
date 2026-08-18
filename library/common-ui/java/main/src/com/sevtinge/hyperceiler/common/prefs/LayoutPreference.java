@@ -41,6 +41,11 @@ import fan.preference.PreferenceStyle;
 
 public class LayoutPreference extends Preference implements PreferenceStyle {
 
+    @Override
+    public boolean isCardStyleEnabled() {
+        return false;
+    }
+
     private int mLayoutResId;
     private CharSequence mTtitle;
 
