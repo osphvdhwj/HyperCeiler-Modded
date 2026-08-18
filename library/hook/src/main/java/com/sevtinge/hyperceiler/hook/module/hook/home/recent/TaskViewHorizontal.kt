@@ -31,7 +31,7 @@ object TaskViewHorizontal : BaseHook() {
         "com.miui.home.recents.views.TaskStackViewsAlgorithmHorizontal".hookAfterMethod(
             "getTaskViewTransform", Int::class.javaPrimitiveType, Float::class.javaPrimitiveType, "com.miui.home.recents.views.TaskViewTransform".findClass()
         ) {
-            val iosMode = mPrefsMap.getBoolean("prefs_key_home_recent_ios_mode", false)
+            val iosMode = mPrefsMap.getBoolean("home_recent_ios_mode")
             if (iosMode) {
                 val scrollProgress = it.args[1] as Float
                 val transformOut = it.args[2]!!
@@ -41,8 +41,8 @@ object TaskViewHorizontal : BaseHook() {
                 val scaleField = transformOut.javaClass.getDeclaredField("scale").apply { isAccessible = true }
                 val currentScale = scaleField.getFloat(transformOut)
                 
-                val scalePref = mPrefsMap.getInt("prefs_key_home_recent_ios_scale", 90).toFloat() / 100f
-                val overlapDp = mPrefsMap.getInt("prefs_key_home_recent_ios_overlap", 30).toFloat()
+                val scalePref = mPrefsMap.getInt("home_recent_ios_scale", 90).toFloat() / 100f
+                val overlapDp = mPrefsMap.getInt("home_recent_ios_overlap", 30).toFloat()
                 
                 // iOS Stacking: Cards to the left (background) overlap and scale down
                 if (scrollProgress < 0f) {
