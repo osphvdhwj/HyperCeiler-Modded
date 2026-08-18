@@ -34,7 +34,7 @@ object TaskViewHorizontal : BaseHook() {
             val iosMode = mPrefsMap.getBoolean("prefs_key_home_recent_ios_mode", false)
             if (iosMode) {
                 val scrollProgress = it.args[1] as Float
-                val transformOut = it.args[2]
+                val transformOut = it.args[2]!!
                 
                 // Get rect and scale
                 val rectF = transformOut.javaClass.getDeclaredField("rect").apply { isAccessible = true }.get(transformOut) as RectF
@@ -59,4 +59,5 @@ object TaskViewHorizontal : BaseHook() {
                 }
             }
         }
+    }
 }
