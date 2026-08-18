@@ -29,7 +29,7 @@ import com.sevtinge.hyperceiler.hook.module.base.tool.AppsTool;
 import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils;
 
 import fan.appcompat.app.Fragment;
-import fan.core.utils.AttributeResolver;
+import fan.appcompat.app.Fragment;
 import fan.navigator.Navigator;
 import fan.navigator.NavigatorStrategy;
 import fan.navigator.app.NavigatorActivity;
@@ -41,7 +41,9 @@ public class NaviBaseActivity extends NavigatorActivity {
     protected BaseSettingsProxy mProxy;
 
     public void checkTheme() {
-        if (AttributeResolver.resolve(this, fan.navigator.R.attr.isNavigatorTheme) < 0) {
+        android.util.TypedValue typedValue = new android.util.TypedValue();
+        boolean resolved = getTheme().resolveAttribute(fan.navigator.R.attr.isNavigatorTheme, typedValue, true);
+        if (!resolved || typedValue.data < 0) {
             Log.d("NotesNaviActivityTAG", "reset Theme");
             setTheme(com.sevtinge.hyperceiler.ui.R.style.NavigatorActivityTheme);
         }

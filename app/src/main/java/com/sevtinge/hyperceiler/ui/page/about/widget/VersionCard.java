@@ -270,7 +270,7 @@ public class VersionCard extends FrameLayout implements View.OnClickListener {
             }
         } else {
             MiuiBlurUtils.setViewBlurMode(view, 0);
-            MiuiBlurUtils.clearBackgroundBlenderColor(view);
+            // MiuiBlurUtils.clearBackgroundBlenderColor(view);
         }
     }
     public void stopLogoAnimation() {
