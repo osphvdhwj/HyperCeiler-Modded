@@ -43,7 +43,7 @@ import java.util.Set;
 
 public class SharedPrefsProvider extends ContentProvider {
 
-    public static final String AUTHORITY = "com.sevtinge.hyperceiler.provider.sharedprefs";
+    public static final String AUTHORITY = "com.sevtinge.hyperceiler.modded.provider.sharedprefs";
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     SharedPreferences prefs;
