@@ -178,7 +178,7 @@ public class SystemUiV extends BaseModule {
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_percent_mark") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_charging");
         initHook(HideBatteryIcon.INSTANCE, isHideBatteryIcon);
-        initHook(DisableChargeAnimation.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game") || !mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps", Collections.emptySet()).isEmpty());
+        initHook(DisableChargeAnimation.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game") || !mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps").isEmpty());
         initHook(BatteryStyle.INSTANCE, mPrefsMap.getBoolean("system_ui_status_bar_battery_style_enable_custom") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_style_change_location"));
         // initHook(new BatteryIndicator(), mPrefsMap.getBoolean("system_ui_status_bar_battery_indicator_enable"));
