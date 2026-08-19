@@ -18,6 +18,7 @@
  */
 package com.sevtinge.hyperceiler.hook.module.app.SecurityCenter.Phone;
 
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.AppLockDisableFingerprint;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.AppLockPinScramble;
@@ -78,6 +79,11 @@ public class SecurityCenterV extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
+        if ("com.miui.securitycenter.remote".equals(mLoadPackageParam.processName)) {
+            initHook(new AppLockPinScramble(), mPrefsMap.getBoolean("security_center_applock_pin_scramble"));
+            initHook(AppLockDisableFingerprint.INSTANCE, true);
+            return;
+        }
 
         // 应用管理
         initHook(new AppDefaultSort(), mPrefsMap.getStringAsInt("security_center_app_default_sort", 0) > 0);

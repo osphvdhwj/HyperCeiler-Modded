@@ -18,6 +18,8 @@
  */
 package com.sevtinge.hyperceiler.hook.module.app.SystemUI.Phone;
 
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation;
+import java.util.Collections;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AllowManageAllNotifications;
@@ -171,6 +173,7 @@ public class SystemUiU extends BaseModule {
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_percent_mark") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_charging");
         initHook(HideBatteryIcon.INSTANCE, isHideBatteryIcon);
+        initHook(DisableChargeAnimation.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game") || !mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps", Collections.emptySet()).isEmpty());
         initHook(BatteryStyle.INSTANCE, mPrefsMap.getBoolean("system_ui_status_bar_battery_style_enable_custom") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_style_change_location"));
         // initHook(new BatteryIndicator(), mPrefsMap.getBoolean("system_ui_status_bar_battery_indicator_enable"));

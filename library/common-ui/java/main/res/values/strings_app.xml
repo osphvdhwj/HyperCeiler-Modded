@@ -1,22 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ This file is part of HyperCeiler.
-  ~
-  ~ HyperCeiler is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Affero General Public License as
-  ~ published by the Free Software Foundation, either version 3 of the
-  ~ License.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Affero General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Affero General Public License
-  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  ~
-  ~ Copyright (C) 2023-2025 HyperCeiler Contributions
-  -->
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name" translatable="false">Hyper Hand</string>
     <string name="app_name_sp" translatable="false">HappyCeiler</string>
@@ -68,14 +50,12 @@
     <string name="settings_app_vi_vn" translatable="false">Tiếng Việt</string>
     <string name="settings_app_it_it" translatable="false">Italiano</string>
     <string name="settings_app_zh_me" translatable="false">梗体中文</string>
-    <!--Introduction to Xposed Modules-->
     <string name="description_hyperos" translatable="false">Make HyperOS Great Again!</string>
     <string name="new_permission_wifi_state_desc">Add and delete files on device\'s internal storage</string>
     <string name="new_permission_location_desc">Used to provide services such as latitude and longitude</string>
     <string name="new_cta_agree_desc">During usage, in order to provide you with more features, we may apply for Root/Su permission from you. You can go to Permission Management at any time to adjust the authorization status of all permissions, and please go to your Root/Su manager to grant Root/Su permissions.</string>
     <string name="new_cta_app_main_purpose">Modify system apps</string>
     <string name="new_cta_app_all_purpose_title">Welcome to HyperCeiler! This app relies on the Xposed framework to run. You can use this app to hijack and modify other supported apps to enhance the system. During usage, in order to provide you with more functions, we may apply for Root/Su permissions from you. You can manage it at any time by going to your Root/Su manager.</string>
-    <!--HyperCeiler Settings/About Page-->
     <string name="language">English</string>
     <string name="translator">HyperCeiler Official</string>
     <string name="translator_url">https://github.com/ReChronoRain</string>
@@ -106,7 +86,7 @@
     <string name="help_cant_see_apps_scope">Not selected as scoped:\n</string>
     <string name="help_cant_see_apps_desc_no_hidden">To maintain the simplicity and usability of the homepage, we\'ve hidden access to the following types of app features:\n\n • Those currently disabled or hidden\n • Those not found in your device\n • Those incompatible with the current version of the system or the app\n • Not selected as scoped\n\nPlease troubleshoot based on the above information, restart HyperCeiler, and try again. If you still can\'t find the app features, it may be a bug. Please provide timely and effective feedback to us.\n\nThere are currently no hidden features!</string>
     <string name="help_cant_see_apps_switch">Hide this help in homepage</string>
-    <string name="help_cant_see_apps_switch_desc">You can still find this page in About > Help. Reboot app to apply.</string>
+    <string name="help_cant_see_apps_switch_desc">You can still find this page in About &gt; Help. Reboot app to apply.</string>
     <string name="help_support_version_title">Current app version support system version list</string>
     <string name="help_support_version_desc_1">The current app version is fully adapted to the following system versions:</string>
     <string name="help_support_version_desc_2">The following system versions are adapted to the current app version:</string>
@@ -188,7 +168,6 @@
     <string name="about_crwd_desc">Help us translate HyperCeiler into you language</string>
     <string name="about_privacy">Privacy Policy</string>
     <string name="about_protocol">User Agreement</string>
-    <!--Pop-up window/miuix part-->
     <string name="expand_button_title">High level</string>
     <string name="not_set">Not set</string>
     <string name="copy">Copy</string>
@@ -248,7 +227,6 @@
     <string name="miuix_sbl_tracking_progress_labe_up_none">That\'s all for now</string>
     <string name="miuix_sbl_tracking_progress_labe_up_refresh">Just a sec…</string>
     <string name="miuix_sbl_tracking_progress_labe_up_refresh_fail">Couldn\'t load items</string>
-    <!--String reuse-->
     <string name="top_margin">Top margin</string>
     <string name="bottom_margin">Bottom margin</string>
     <string name="left_margin">Left margin</string>
@@ -276,7 +254,6 @@
     <string name="system_ui_statusbar_indicator_fixedcontent_width">Fix content width</string>
     <string name="system_ui_statusbar_indicator_fixedcontent_width_desc">To prevent horizontal jitter</string>
     <string name="system_ui_statusbar_indicator_bold">Bold</string>
-    <!--Multi-list Array-->
     <string name="array_close">Close</string>
     <string name="array_hide">Hide</string>
     <string name="array_default">Default</string>
@@ -381,7 +358,6 @@
     <string name="mediaeditor_mickey">Mickey Mouse</string>
     <string name="mediaeditor_strawberry_bear">Strawberry Bear</string>
     <string name="mediaeditor_disney_princess">Disney Princess</string>
-    <!--System Framework-->
     <string name="system_framework">System Framework</string>
     <string name="system_framework_volume_title">Volume</string>
     <string name="system_framework_other_title">Others</string>
@@ -490,7 +466,6 @@
     <string name="system_framework_market_use_detailmini_desc">Remove the restriction that prevents an app from redirecting to another app\'s details page in GetApps without using the appClientId.</string>
     <string name="system_framework_bypass_force_downloadui">Fix download redirection</string>
     <string name="system_framework_bypass_force_downloadui_desc">Fixes the incorrect redirection issue when clicking \"View downloads\" in Quick Share</string>
-    <!--Package Manager Service-->
     <string name="system_framework_corepatch_title">Package manager service</string>
     <string name="system_framework_core_patch_downgr">Allow downgrade apps</string>
     <string name="system_framework_core_patch_downgr_desc">Allow downgrade app when the app is at higher version</string>
@@ -516,14 +491,12 @@
     <string name="system_framework_core_patch_bypass_isolation_violation_desc">Allow third-party apps to install system apps</string>
     <string name="system_framework_core_patch_allow_update_system_app">Allow update system apps</string>
     <string name="system_framework_core_patch_allow_update_system_app_desc">Allow installation of system apps when updating system apps is disabled</string>
-    <!--Browser-->
     <string name="browser">Browser</string>
     <string name="browser_debug_mode">Unlock developer options</string>
     <string name="browser_debug_mode_desc">17.5.xxxxx and above version doesn\'t have entry</string>
     <string name="browser_disable_blacklist">Disable URL blacklist</string>
     <string name="browser_enable_debug_environment">Enable debug environment</string>
     <string name="browser_enable_debug_environment_desc">This may result in some functions being invalid</string>
-    <!--Camera-->
     <string name="camera">Camera</string>
     <string name="camera_custom_watermark">Custom device watermark</string>
     <string name="camera_custom_watermark_manufacturer">Manufacturer information</string>
@@ -539,24 +512,19 @@
     <string name="camera_black_leica_desc">Change the Leica watermark color to black when using it. Some devices doesn\'t support it yet.</string>
     <string name="camera_custom_theme_color">Customize theme color</string>
     <string name="camera_custom_theme_color_picker">Choose theme color</string>
-    <!--Calendar-->
     <string name="calendar">Calendar</string>
     <string name="calendar_unlock_subscription">Unlock Subscription</string>
-    <!--Community-->
     <string name="community">Xiaomi Community</string>
     <string name="community_device_modify">Spoof model</string>
     <string name="community_fuck_detection">Block detection</string>
     <string name="community_fuck_detection_desc">Prevent detection of HyperCeiler and upload it while giving feedback. Please ensure that the problem isn\'t caused by you, but a real system issue before providing feedback, to avoid unnecessary trouble.</string>
-    <!--File Manager-->
     <string name="fileexplorer">File Manager</string>
     <string name="file_explorer_can_selectable">Allow directly long press folder name and do action</string>
     <string name="file_explorer_is_single_line">Show folder name in single line</string>
     <string name="file_explorer_unlock_file_parse">Unlock Online files</string>
-    <!--Phone-->
     <string name="incallui">Phone</string>
     <string name="incallui_hide_crbt">Hide personalized calling ui video</string>
     <string name="incallui_answer_in_head_up">Block fullscreen on call answer</string>
-    <!--Message-->
     <string name="mms">Messaging</string>
     <string name="mms_disable_ad">Disable ads</string>
     <string name="mms_disable_ad_desc">Remove shortcuts at the bottom of the screen and promotions below SMS content</string>
@@ -565,7 +533,6 @@
     <string name="mms_disable_overseas_risk_tip">Disable overseas risk tip</string>
     <string name="mms_disable_overseas_risk_tip_desc">Disable \"Might be overseas fraud\" tip</string>
     <string name="mms_im_old_device">Prohibition of identification as a new device</string>
-    <!--Phone Service-->
     <string name="phone">Phone Service</string>
     <string name="phone_smart_dual_sim">Unlock Smart dual SIM</string>
     <string name="phone_disable_remove_network_mode">Enable network type menu</string>
@@ -573,15 +540,12 @@
     <string name="phone_vice_slot_volte_desc">Change mobile data to secondary SIM during VoLTE calls on the secondary SIM</string>
     <string name="phone_unlock_voice_link">Unlock Voice link</string>
     <string name="phone_unlock_voice_link_desc">Unlock Voice link for some SIMs which support Wi-Fi calling</string>
-    <!--Download management program-->
     <string name="downloads">Downloads</string>
     <string name="various_fuck_xlDownload">Block generate of .xlDownload folder</string>
     <string name="various_fuck_xlDownload_desc">Prevent Downloads from creating the .xlDownload folder in the root of internal storage</string>
-    <!--Download UI-->
     <string name="downloads_ui">Downloads UI</string>
     <string name="downloads_ui_always_show_link">Always show full download link</string>
     <string name="downloads_ui_always_show_link_desc">Also fix some download tasks cannot be copied</string>
-    <!--System UI-->
     <string name="system_ui_lockscreen_title">Lock screen</string>
     <string name="system_ui_lockscreen_safe_title">Security</string>
     <string name="system_ui_lockscreen_ui_title">Lock screen</string>
@@ -901,15 +865,13 @@
     <string name="system_ui_plugin_enable_volume_blur">Enable volume bar blur</string>
     <string name="system_ui_move_log_to_miui">Move statusbar_gestures.dat to MIUI directory</string>
     <string name="system_ui_plugin_enable_volume_blur_desc">May lead to high GPU load</string>
-    <!--Telecom-->
     <string name="telecom">Manage calls</string>
     <string name="scam_reminder_bypass_caption">Allow call forwarding via MMI code</string>
     <string name="scam_reminder_bypass_description">Allows direct dialing of MMI codes, such as **21*8#, to activate call forwarding.</string>
-    <!--Settings-->
     <string name="system_settings_linkturbo">Remove restrictions of network acceleration apps</string>
     <string name="system_settings_international_build">International version of settings</string>
     <string name="system_settings_safe_wifi">View saved Wi-Fi passwords</string>
-    <string name="system_settings_safe_wifi_desc">Unlock Manage saved networks\nPath: Settings > Wi-Fi > Additional settings > Manage saved networks</string>
+    <string name="system_settings_safe_wifi_desc">Unlock Manage saved networks\nPath: Settings &gt; Wi-Fi &gt; Additional settings &gt; Manage saved networks</string>
     <string name="system_settings_novelty_haptic_title">Unlock new version of haptic feedback page</string>
     <string name="system_settings_novelty_haptic_desc">Only for devices with the Sounds &amp; Haptic feedback - Haptics page</string>
     <string name="system_settings_unlock_google_header">Unlock Google entry</string>
@@ -958,7 +920,6 @@
     <string name="system_settings_anti_ques">Disable sensitive word check in device name</string>
     <string name="system_settings_anti_ques_desc">You may not use this feature in violation of local or national laws</string>
     <string name="system_settings_more_vpn_types">More VPN types</string>
-    <!--Themes-->
     <string name="theme_manager">Themes</string>
     <string name="theme_manager_version_code_modify">Adjust detection version</string>
     <string name="theme_manager_version_code_modify_desc">Adjust the detected version to use some themes that aren\'t adapted to the new version</string>
@@ -966,10 +927,8 @@
     <string name="theme_manager_diable_ads_desc">Replace \"guess what you like\" ads with blank cards, and remove the rest of the ads completely.</string>
     <string name="theme_manager_allow_download_more">Allow more downloads without logging in</string>
     <string name="theme_manager_allow_download_more_desc">Allow downloading more than 10 items without logging in</string>
-    <!--remotecontroller-->
     <string name="remotecontroller">Mi Remote</string>
     <string name="remotecontroller_disable_ad">Disable ads</string>
-    <!--Updater-->
     <string name="updater">Updater</string>
     <string name="updater_enable_miui_version">Enable Fake version for Updater</string>
     <string name="updater_fuck_vab">Remove OTA verification</string>
@@ -983,24 +942,19 @@
     <string name="updater_device">Fake device for Updater</string>
     <string name="updater_device_desc">Enter the model code of the target device to specify the model, which can be used to obtain ROM packages for other models, which is extremely dangerous.</string>
     <string name="updater_diable_dialog">Disable pop-up of \"Turn on automatic updates\" dialog</string>
-    <!--Permissions-->
     <string name="lbe">Permissions</string>
     <string name="lbe_auto_start">Disable auto-shutdown of auto start</string>
-    <!--Cast-->
     <string name="milink_hyperos">Interconnectivity services</string>
     <string name="milink_unlock_mishare">Unlock Device interconnection</string>
     <string name="milink_allow_camera_devices">Force support for camera streaming</string>
     <string name="milink_fuck_hpplay">Block generate of hpplay folders</string>
-    <!--Sound Recorder-->
     <string name="sound_recorder">Sound Recorder</string>
     <string name="sound_recorder_disable_ai_watermark">Disable AI watermark</string>
     <string name="sound_recorder_unlock_recording_scene">Unlock the recording scene</string>
-    <!--Always-on display-->
     <string name="aod_hyperos">Always-on display and Lock screen editor</string>
     <string name="aod_unlock_always_on_display">Unlock the display time limit of the Always-on display</string>
     <string name="aod_unlock_always_on_display_more">Restart the System UI to fully enable the feature</string>
     <string name="aod_unlock_aon">Unlock Aod Aon</string>
-    <!--Taplus-->
     <string name="content_extension">Taplus</string>
     <string name="content_extension_browser">Use third-party browser</string>
     <string name="content_extension_browser_desc">Let Taplus not forcing to use system browser for search, you need to choose the default browser by yourself.</string>
@@ -1011,25 +965,19 @@
     <string name="content_extension_super_image_summary">True preservation requires underlying support from the system</string>
     <string name="content_extension_link_open_mode">Open link method</string>
     <string name="content_extension_link_open_mode_desc">Choose a browser to open link</string>
-    <!--Xiaomi Cloud Service-->
     <string name="micloud_service">Xiaomi Cloud</string>
     <string name="micloud_service_list">Unlock Cloud data synchronization</string>
     <string name="micloud_service_list_summary">The completion functions are as follows:\n• The device can be synchronized with Mi Canvas.\n• The Chinese and international versions of Mi Browser can be synchronized simultaneously.\n\nNote: The first synchronization of Mi Creation must be enabled from the settings of Mi Creation, otherwise it will prompt that the network is unavailable or the system is busy.</string>
-    <!--Mi Mover-->
     <string name="huanji">Mi Mover</string>
     <string name="huanji_allow_all_apps">Allow move all apps</string>
-    <!--Backup-->
     <string name="backup">Backup</string>
     <string name="backup_allow_all_apps">Allow backup all apps</string>
     <string name="backup_unlock_broken_screen_backup">Unlock Backups with damaged screen</string>
-    <!--Mi Canvas-->
     <string name="creation">Mi Canvas</string>
     <string name="creation_unlock">Remove restrictions on the use of mobile phones</string>
-    <!--LPA-->
     <string name="lpa">LPA</string>
     <string name="lpa_custom_imei">Custom IMEI</string>
     <string name="lpa_custom_imei_desc">Make sure you\'ve entered the IMEI correctly. An incorrect IMEI may cause the eSIM to be unavailable or abnormal. We\'re not responsible for any consequences arising therefrom.</string>
-    <!--Gallery-->
     <string name="gallery">Gallery</string>
     <string name="gallery_enable_hdr_enhanced">Unlock display HDR enhanced image</string>
     <string name="gallery_enable_pdf">Unlock Create PDF</string>
@@ -1046,11 +994,9 @@
     <string name="gallery_backup_server_xiaomi">Xiaomi Cloud</string>
     <string name="gallery_backup_server_google">Google</string>
     <string name="gallery_backup_server_onedrive">Google &amp; OneDrive</string>
-    <!--System security components-->
     <string name="guard_provider_hyperos">System security components</string>
     <string name="guard_provider_disable_upload_applist">Prevent automatic upload of installed app list</string>
     <string name="guard_provider_disable_root_check">Disable environment check</string>
-    <!--System launcher-->
     <string name="home_gesture">Gesture and navigation</string>
     <string name="home_navigation_title">Navigation</string>
     <string name="home_navigation_quick_back">Go back to previous app</string>
@@ -1279,6 +1225,9 @@
     <string name="home_other_home_mode">Home screen mode</string>
     <string name="home_other_infinite_scroll">Infinite scroll</string>
     <string name="home_other_infinite_scroll_desc">Jump from last page to first page and vice versa</string>
+    <string name="home_other_force_stop_shortcut_menu">Force stop mode</string>
+    <string name="home_other_force_stop_shortcut_menu_desc">Add Force Stop menu to the shortcut menu</string>
+    <string name="force_stop">Force Stop</string>
     <string name="home_other_freeform_shortcut_menu">Freeform mode</string>
     <string name="home_other_freeform_shortcut_menu_desc">Add Freeform menu to the shortcut menu</string>
     <string name="home_other_tasks_shortcut_menu">More tasks mode</string>
@@ -1309,7 +1258,6 @@
     <string name="home_other_mi_pad_enable_more_setting_desc">The unlocked features may not be available, and some features require support from the underlying system.</string>
     <string name="home_other_disable_prestart">Disable app preload</string>
     <string name="home_other_opt_app_launch_delay">Optimize app launch delay</string>
-    <!--Gallery Editor-->
     <string name="mediaeditor">Gallery Editor</string>
     <string name="mediaeditor_tip">Instructions for use:\n• Use the v2 hook for versions 1.7.5.0.4 or higher. For versions earlier than 1.7.5.0.4, use the v1 hook.</string>
     <string name="mediaeditor_hook_type">Gallery Editor hook type</string>
@@ -1329,13 +1277,10 @@
     <string name="mediaeditor_unlock_leica_filter_desc">Only some versions are supported</string>
     <string name="mediaeditor_unlock_aigc">Unlock AIGC</string>
     <string name="mediaeditor_disable_add_aigc_watermark">Disable the \"AI-generated\" watermark</string>
-    <!--Wallpaper-->
     <string name="miwallpaper">Wallpaper</string>
     <string name="miwallpaper_unlock_super_wallpaper">Unlock Super wallpaper</string>
-    <!--Notes-->
     <string name="notes">Notes</string>
     <string name="notes_disable_ai_watermark">Disable AI watermark</string>
-    <!--Package installer-->
     <string name="package_installer">Package installer</string>
     <string name="miui_package_installer_modify">Clean page</string>
     <string name="miui_package_installer_disable_ad">Disable ads</string>
@@ -1349,14 +1294,11 @@
     <string name="miui_package_installer_apk_info_desc">Show more info about the app that\'s being installed</string>
     <string name="miui_package_installer_upload_appinfo">Disallow uploading app info</string>
     <string name="miui_package_installer_upload_appinfo_desc">Security check won\'t be running if disabled</string>
-    <!--NFC-->
     <string name="nfc">NFC Service</string>
     <string name="nfc_disable_sound">Disable NFC notification sound</string>
     <string name="nfc_allow_information_screen">Allow recognition when screen is off</string>
-    <!--HTML Viewer-->
     <string name="html_viewer">HTML Viewer</string>
     <string name="html_viewer_disable_cloud_control">Disable Cloud control</string>
-    <!--App vault-->
     <string name="personal_assistant">Personal assistant</string>
     <string name="personal_assistant_overlap_mode">Fold style Personal assistant</string>
     <string name="personal_assistant_blur_model">Personal assistant blur settings</string>
@@ -1368,7 +1310,6 @@
     <string name="personal_assistant_set_tv_notif_info_max_width_desc">Adjust this value appropriately to solve the problem of omitted display content</string>
     <string name="personal_assistant_disable_lite_version">Disable lite version</string>
     <string name="personal_assistant_widget_widget_blur_opt">Optimize widget blur</string>
-    <!--Battery and performance-->
     <string name="powerkeeper">Battery and performance</string>
     <string name="powerkeeper_custom_refresh_rate">Custom high refresh rate apps</string>
     <string name="powerkeeper_lock_max_fps">Lock max FPS</string>
@@ -1378,7 +1319,6 @@
     <string name="powerkeeper_disable_get_display_ctrl_code">Disable fetching display control code</string>
     <string name="powerkeeper_gms_doze_fix">Allow GMS to connect to network at any time</string>
     <string name="powerkeeper_conservative_millet">Make Millet conservative</string>
-    <!--Screen Recorder-->
     <string name="screenrecorder">Screen Recorder</string>
     <string name="screen_recorder_force_support_playback_capture">Force enable AOSP screen recording support</string>
     <string name="screen_recorder_force_support_playback_capture_desc">Requires screen recording version support</string>
@@ -1387,7 +1327,6 @@
     <string name="screen_recorder_more_volume">Unlock more volume source</string>
     <string name="screen_recorder_more_volume_desc">Some versions aren\'t supported</string>
     <string name="screen_recorder_save_to_movies_desc">Specify the recording video save location to Movies/ScreenRecorder</string>
-    <!--Screenshot-->
     <string name="screenshot">Screenshot</string>
     <string name="screenshot_unlock_minimum_crop_limit">Remove the minimum crop image limit</string>
     <string name="screenshot_unlock_privacy_marking_title">Unlock privacy marking</string>
@@ -1395,11 +1334,9 @@
     <string name="screenshot_save_to_pictures_desc">Set screenshot save location to /Pictures/Screenshots</string>
     <string name="screenshot_device_customize_title">Custom screenshot model shell</string>
     <string name="screenshot_device_customize_desc">Please enter the device code, and the colored device should be filled with a suffix, for example:\n• Xiaomi 13, fill in the content is fuxi\n• Xiaomi 14 pink version, fill in the content is houji_PK</string>
-    <!--System Service Plugin-->
     <string name="securityadd">System service plugin</string>
     <string name="securityadd_disable_gb_ads">Disable Game Center ads</string>
     <string name="securityadd_disable_gb_ads_desc">This may cause other functions to be abnormal</string>
-    <!--Security/Tablet security center-->
     <string name="security_center_app_title">Manage apps</string>
     <string name="security_center_battery_title">Battery</string>
     <string name="security_center_privacy_title">Privacy protection</string>
@@ -1462,7 +1399,7 @@
     <string name="security_center_unlock_side_hide_freeform">Unlock side-hide freeform</string>
     <string name="security_center_unlock_side_hide_freeform_desc">Unlock side-hide in freeform mode for devices with limited support. This will also affect widget behavior when the device cuts to the background.</string>
     <string name="security_center_unlock_smart_charge_title">Complete charging and battery functions</string>
-    <string name="security_center_unlock_smart_charge_title_summary">Completed functions:\n• Battery protection -> Charging auto-disconnect\n• More battery features -> Low battery fast charging</string>
+    <string name="security_center_unlock_smart_charge_title_summary">Completed functions:\n• Battery protection -&gt; Charging auto-disconnect\n• More battery features -&gt; Low battery fast charging</string>
     <string name="security_center_super_wireless_charge">Unlock Quick wireless charging</string>
     <string name="security_center_blur_model">Sidebar blur model</string>
     <string name="security_center_invert_color">Invert icon color</string>
@@ -1504,11 +1441,9 @@
     <string name="secutity_center_battery_show_more_info_desc">Experimental feature. The additional battery information displayed may vary depending on the device.</string>
     <string name="security_center_unlock_car_sickness">Unlock Motion sickness relief</string>
     <string name="security_center_unlock_car_sickness_desc">Needs \"Barrage\" support</string>
-    <!--MiTrustService-->
     <string name="trustservice">MiTrustService</string>
     <string name="trustservice_disable_mrm">Disable risk detections</string>
     <string name="trustservice_disable_mrm_desc">Experimental feature. You may not use this feature in violation of local or national laws.</string>
-    <!--Weather-->
     <string name="weather">Weather</string>
     <string name="weather_device_level_title">Animation level</string>
     <string name="weather_device_level_title_low">Low</string>
@@ -1517,26 +1452,21 @@
     <string name="weather_card_display_type_title">Card display type</string>
     <string name="weather_card_display_type_title_2">Light mode</string>
     <string name="weather_card_display_type_title_3">Dark mode</string>
-    <!--Analytics-->
     <string name="analytics">Analytics</string>
     <string name="analytics_fuck_guard">Remove guard</string>
-    <!--AI Translate-->
     <string name="aiasst">Mi AI Translate</string>
     <string name="aiasst_ai_captions">Force enable AI captions</string>
     <string name="aiasst_all_captions">Unlock multi-language online captions</string>
     <string name="aiasst_disable_watermark">Disable watermark</string>
-    <!--Barrage-->
     <string name="barrage">Barrage</string>
     <string name="barrage_any_barrage">Allow all apps to use barrage notification</string>
     <string name="barrage_custom_barrage_length">Custom barrage notification length</string>
-    <!--Joyose-->
     <string name="joyose">Joyose</string>
     <string name="joyose_cloud_control_title">Cloud control</string>
     <string name="joyose_disable_cloud_control">Disable Cloud control</string>
     <string name="joyose_game_title">Game Space</string>
     <string name="joyose_enable_gpu_tuner">Performance scheduling</string>
     <string name="joyose_enable_gpu_tuner_desc">After turning it on, the GPU settings are available at the bottom of Game Space.</string>
-    <!--GetApps-->
     <string name="market">GetApps</string>
     <string name="market_device_modify">Spoof model</string>
     <string name="market_device_modify_desc">Receive updates from the corresponding device by spoofing the model as another device</string>
@@ -1547,29 +1477,23 @@
     <string name="market_disable_ads">Disable ads</string>
     <string name="market_bypass_risk_check">Bypass risk check</string>
     <string name="market_disable_start_push_dialog">Disable turn on push dialog</string>
-    <!--Mi sound-->
     <string name="misound">Earphones</string>
     <string name="misound_bluetooth">Change headphone status to the original sound</string>
     <string name="misound_increase_sampling_rate">Increase sampling rate</string>
-    <!--Mi Settings-->
     <string name="mi_settings">Mi Settings</string>
     <string name="mi_input_settings">Input settings</string>
     <string name="mi_settings_show_fps">Show more FPS list</string>
     <string name="mi_settings_show_fps_desc">The module unlocks all frame rates by default. It\'s not guaranteed that all of them will be available.</string>
-    <!--MTB-->
     <string name="mtb">MTB</string>
     <string name="mtb_auth">Bypass MTB authentication</string>
     <string name="mtb_auth_desc">This is a high-risk feature; any issues resulting from it will be the user\'s responsibility. Please ensure you back up your baseband. Enter *#*#MODEMTEST#*#* on the phone dialer to open MTB Settings.</string>
-    <!--Sogou input method-->
     <string name="sogou_xiaomi">Sogou input method</string>
     <string name="sogou_xiaomi_clipboard">Remove the limit on the number of clipboards</string>
     <string name="add_clipboard_clear">Add clear clipboard button</string>
-    <!--Sim Activation Service-->
     <string name="sim_activation_service">Xiaomi SIM Activation Service</string>
     <string name="sim_activation_service_disable_activate_when_roaming">Disable SIM 2 activation when roaming</string>
     <string name="sim_activation_service_disable_activate_when_roaming_desc">Only Chinese mainland is supported</string>
     <string name="sim_activation_service_disable_activate_when_roaming_radical">Use a more aggressive roaming filtering</string>
-    <!--Scanner-->
     <string name="scanner_hyper">AI Scanner</string>
     <string name="scanner_card">Unlock scan ID card</string>
     <string name="scanner_translation">Unlock translation</string>
@@ -1578,16 +1502,13 @@
     <string name="scanner_excel">Unlock scan table</string>
     <string name="scanner_ppt">Unlock scan PPT</string>
     <string name="scanner_doc_ppt">Unlock scan files</string>
-    <!--MI AI-->
     <string name="voiceassist_hyper">Super AI</string>
     <string name="voiceassist_disable_watermark">Disable chat watermark</string>
-    <!--Voice Trigger-->
     <string name="voicetrigger">Voice Trigger</string>
     <string name="bypass_udk_word_legal_check_caption">Allow recording of the Wake with voice without internet</string>
     <string name="bypass_udk_word_legal_check_description">Allows the recording of words from the Wake with voice when offline</string>
     <string name="voicetrigger_accuracy_percent_caption">Set accuracy for Wake with voice detection</string>
     <string name="voicetrigger_accuracy_percent_description" formatted="false">Higher values are more difficult to detect. The default value is 70%, for the keyword XATX it\'s 0%. After setting up, you need to record wake-up phrase again.</string>
-    <!--Other-->
     <string name="various">Others</string>
     <string name="app_version_not_supported">Unsupported version</string>
     <string name="various_dialog_title">Dialog</string>
@@ -1698,4 +1619,17 @@
     <string name="custom_hook_mode">Select mode</string>
     <string name="open_source">Open source projects</string>
     <string name="close_source">Close source projects</string>
+    <string name="system_ui_charge_anim_title">Charging animation</string>
+    <string name="system_ui_disable_charge_anim_in_game">Disable charge animation in games</string>
+    <string name="system_ui_disable_charge_anim_in_game_desc">Prevent the fullscreen charging animation from showing when a game is in the foreground</string>
+    <string name="system_ui_disable_charge_anim_apps">Disable charge animation in specific apps</string>
+    <string name="system_ui_disable_charge_anim_apps_desc">Select apps that should suppress the charging animation</string>
+    <string name="security_center_disable_applock_fingerprint_apps">Disable Fingerprint for Apps (App Lock)</string>
+    <string name="security_center_disable_applock_fingerprint_apps_desc">Select apps that will require PIN/Pattern instead of Fingerprint when App Lock is shown.</string>
+    <string name="contacts_show_third_party_calls">Show Third-Party Calls in Dialer</string>
+    <string name="contacts_show_third_party_calls_desc">Allows calls from apps like WhatsApp and Telegram to appear in the system Call Log (like One UI).</string>
+    <string name="home_minus_one_custom_app">Custom -1 Screen App</string>
+    <string name="home_minus_one_custom_app_desc">Launch any app when swiping left on the home screen instead of the default overlay.</string>
+    <string name="home_layout_searchbar_custom_provider">Custom Search Bar Provider</string>
+    <string name="home_layout_searchbar_custom_provider_desc">Launch a custom app (like Brave or Firefox) when tapping the dock search bar instead of the default Google/MIUI search.</string>
 </resources>

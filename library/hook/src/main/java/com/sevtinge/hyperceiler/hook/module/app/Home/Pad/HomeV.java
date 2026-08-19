@@ -68,6 +68,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.layout.HotSeatsMarginTop;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.IndicatorMarginBottom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.SearchBarMarginBottom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.SearchBarMarginWidth;
+import com.sevtinge.hyperceiler.hook.module.hook.home.layout.CustomSearchBarProvider;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.UnlockGrids;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.WorkspacePadding;
 import com.sevtinge.hyperceiler.hook.module.hook.home.mipad.EnableHideGestureLine;
@@ -131,6 +132,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.title.TitleFontSize;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.TitleMarquee;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.AllWidgetAnimation;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.AllowMoveAllWidgetToMinus;
+import com.sevtinge.hyperceiler.hook.module.hook.home.MinusOneCustomApp;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.AlwaysShowMiuiWidget;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.HideWidgetTitles;
 import com.sevtinge.hyperceiler.hook.module.hook.home.widget.ResizableWidgets;
@@ -177,6 +179,7 @@ public class HomeV extends BaseModule {
         initHook(new HotSeatsMarginTop(), mPrefsMap.getBoolean("home_layout_hotseats_margin_top_enable"));
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
+        initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider", java.util.Collections.emptySet()).isEmpty());
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
                 mPrefsMap.getBoolean("home_layout_searchbar_margin_bottom_enable"));
 
@@ -256,6 +259,7 @@ public class HomeV extends BaseModule {
         initHook(new AllWidgetAnimation(), mPrefsMap.getBoolean("home_widget_all_widget_animation"));
         initHook(AlwaysShowMiuiWidget.INSTANCE, mPrefsMap.getBoolean("home_widget_show_miui_widget"));
         initHook(AllowMoveAllWidgetToMinus.INSTANCE, mPrefsMap.getBoolean("home_widget_allow_moved_to_minus_one_screen"));
+        initHook(MinusOneCustomApp.INSTANCE, !mPrefsMap.getStringSet("home_minus_one_custom_app", java.util.Collections.emptySet()).isEmpty());
         initHook(new WidgetCornerRadius(), mPrefsMap.getInt("home_widget_corner_radius", 0) > 0);
         initHook(HideWidgetTitles.INSTANCE, mPrefsMap.getBoolean("home_widget_hide_title"));
         initHook(ResizableWidgets.INSTANCE, mPrefsMap.getBoolean("home_widget_resizable"));

@@ -118,6 +118,8 @@ public class FreeformShortcutMenu extends BaseHook {
                         param.setResult(getFreeformOnClickListener(obj, false));
                     } else if (mShortTitle.equals(modRes.getString(R.string.new_task))) {
                         param.setResult(getFreeformOnClickListener(obj, true));
+                    } else if (mShortTitle.equals(modRes.getString(R.string.force_stop))) {
+                        param.setResult(getForceStopOnClickListener(obj));
                     }
                 }
             });
@@ -147,6 +149,8 @@ public class FreeformShortcutMenu extends BaseHook {
 
                     Object mSmallWindowInstance = XposedHelpers.newInstance(mAppDetailsShortcutMenuItem);
                     Object mNewTasksInstance = XposedHelpers.newInstance(mAppDetailsShortcutMenuItem);
+                    Object mForceStopInstance = XposedHelpers.newInstance(mAppDetailsShortcutMenuItem);
+
                     if (mPrefsMap.getBoolean("home_other_freeform_shortcut_menu")) {
                         callMethod(mSmallWindowInstance, "setShortTitle", modRes.getString(R.string.floating_window));
                         callMethod(mSmallWindowInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier("ic_task_small_window", "drawable", mContext.getPackageName())));
@@ -155,8 +159,14 @@ public class FreeformShortcutMenu extends BaseHook {
                         callMethod(mNewTasksInstance, "setShortTitle", modRes.getString(R.string.new_task));
                         callMethod(mNewTasksInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier("ic_task_add_pair", "drawable", mContext.getPackageName())));
                     }
+                    if (mPrefsMap.getBoolean("home_other_force_stop_shortcut_menu")) {
+                        callMethod(mForceStopInstance, "setShortTitle", modRes.getString(R.string.force_stop));
+                        callMethod(mForceStopInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, android.R.drawable.ic_menu_close_clear_cancel));
+                    }
 
                     ArrayList sAllSystemShortcutMenuItems = new ArrayList();
+                    if (mPrefsMap.getBoolean("home_other_force_stop_shortcut_menu"))
+                        sAllSystemShortcutMenuItems.add(mForceStopInstance);
                     if (mPrefsMap.getBoolean("home_other_freeform_shortcut_menu"))
                         sAllSystemShortcutMenuItems.add(mSmallWindowInstance);
                     if (mPrefsMap.getBoolean("home_other_tasks_shortcut_menu"))
@@ -188,6 +198,23 @@ public class FreeformShortcutMenu extends BaseHook {
 
             if (makeFreeformActivityOptions != null) {
                 mContext1.startActivity(intent, (Bundle) callMethod(makeFreeformActivityOptions, "toBundle", new Object[0]));
+            }
+        };
+    }
+
+    private View.OnClickListener getForceStopOnClickListener(Object obj) {
+        return view -> {
+            try {
+                Context mContext1 = view.getContext();
+                ComponentName mComponentName = (ComponentName) callMethod(obj, "getComponentName", new Object[0]);
+                String packageName = mComponentName.getPackageName();
+                android.app.ActivityManager am = (android.app.ActivityManager) mContext1.getSystemService(Context.ACTIVITY_SERVICE);
+                java.lang.reflect.Method forceStopPackageMethod = am.getClass().getDeclaredMethod("forceStopPackage", String.class);
+                forceStopPackageMethod.setAccessible(true);
+                forceStopPackageMethod.invoke(am, packageName);
+                android.widget.Toast.makeText(mContext1, "Force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         };
     }
