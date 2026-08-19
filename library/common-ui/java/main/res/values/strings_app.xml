@@ -1624,6 +1624,10 @@
     <string name="system_ui_disable_charge_anim_in_game_desc">Prevent the fullscreen charging animation from showing when a game is in the foreground</string>
     <string name="system_ui_disable_charge_anim_apps">Disable charge animation in specific apps</string>
     <string name="system_ui_disable_charge_anim_apps_desc">Select apps that should suppress the charging animation</string>
+    <string name="system_ui_disable_charge_sound">Mute charging sound</string>
+    <string name="system_ui_disable_charge_sound_desc">Disable the plug-in sound when charging</string>
+    <string name="system_ui_disable_charge_vibration">Stop charging vibration</string>
+    <string name="system_ui_disable_charge_vibration_desc">Disable the plug-in vibration when charging</string>
     <string name="security_center_disable_applock_fingerprint_apps">Disable Fingerprint for Apps (App Lock)</string>
     <string name="security_center_disable_applock_fingerprint_apps_desc">Select apps that will require PIN/Pattern instead of Fingerprint when App Lock is shown.</string>
     <string name="contacts_show_third_party_calls">Show Third-Party Calls in Dialer</string>

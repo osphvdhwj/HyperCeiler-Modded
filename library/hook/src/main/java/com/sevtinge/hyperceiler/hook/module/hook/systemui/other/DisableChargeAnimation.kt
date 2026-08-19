@@ -10,11 +10,12 @@ import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 
 object DisableChargeAnimation : BaseHook() {
     override fun init() {
-        val chargeControllerClass = findClassIfExists("com.miui.charge.MiuiChargeController") ?: return
+        val chargeControllerClass = findClassIfExists("com.miui.charge.MiuiChargeController")
+        val strongToastClass = findClassIfExists("com.android.systemui.toast.MIUIStrongToastControl")
 
         // Hook the main methods that trigger the charging animation
         val hookLogic: (de.robv.android.xposed.XC_MethodHook.MethodHookParam) -> Unit = hookLogic@{ param ->
-            val context = param.thisObject.getObjectFieldAs<Context>("mContext") ?: return@hookLogic
+            val context = param.thisObject.getObjectFieldAs<Context>("mContext") ?: android.app.ActivityThread.currentApplication() ?: return@hookLogic
             
             val disableInGame = mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game")
             val disabledApps = mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps")
@@ -52,7 +53,8 @@ object DisableChargeAnimation : BaseHook() {
             }
         }
         
-        chargeControllerClass.hookBeforeAllMethods("dealWithAnimationShow", hooker = hookLogic)
-        chargeControllerClass.hookBeforeAllMethods("showChargeAnimation", hooker = hookLogic)
+        chargeControllerClass?.hookBeforeAllMethods("dealWithAnimationShow", hooker = hookLogic)
+        chargeControllerClass?.hookBeforeAllMethods("showChargeAnimation", hooker = hookLogic)
+        strongToastClass?.hookBeforeAllMethods("showChargeAnimation", hooker = hookLogic)
     }
 }
