@@ -145,7 +145,7 @@
             android:key="prefs_key_home_minus_one_custom_app"
             android:title="@string/home_minus_one_custom_app"
             android:summary="@string/home_minus_one_custom_app_desc"
-            app:singleSelect="true" />
+             />
 
     </PreferenceCategory>
 

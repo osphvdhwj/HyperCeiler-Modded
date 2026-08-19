@@ -10,7 +10,7 @@ object MinusOneCustomApp : BaseHook() {
         val launcherClass = findClassIfExists("com.miui.home.launcher.Launcher") ?: return
         
         launcherClass.hookBeforeAllMethods("showOverlay") { param ->
-            val customAppSet = mPrefsMap.getStringSet("home_minus_one_custom_app", emptySet())
+            val customAppSet = mPrefsMap.getStringSet("home_minus_one_custom_app")
             val customAppPkg = customAppSet.firstOrNull()
             
             if (!customAppPkg.isNullOrEmpty()) {

@@ -59,7 +59,7 @@ object TaskViewHorizontal : BaseHook() {
         try {
             "com.miui.home.recents.views.TaskStackViewsAlgorithmHorizontal".hookAfterMethod(
                 "getTaskViewTransform", Int::class.javaPrimitiveType, Float::class.javaPrimitiveType, "com.miui.home.recents.views.TaskViewTransform".findClass(),
-                callback = hookLogic
+                hooker = hookLogic
             )
         } catch (e: Throwable) {
             // Ignore
@@ -68,7 +68,7 @@ object TaskViewHorizontal : BaseHook() {
         try {
             "com.miui.home.recents.views.TaskStackLayoutAlgorithm".hookAfterMethod(
                 "getTaskViewTransform", Int::class.javaPrimitiveType, Float::class.javaPrimitiveType, "com.miui.home.recents.views.TaskViewTransform".findClass(),
-                callback = hookLogic
+                hooker = hookLogic
             )
         } catch (e: Throwable) {
             // Ignore

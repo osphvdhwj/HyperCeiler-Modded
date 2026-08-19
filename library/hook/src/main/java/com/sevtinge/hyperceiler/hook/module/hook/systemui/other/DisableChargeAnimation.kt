@@ -13,11 +13,11 @@ object DisableChargeAnimation : BaseHook() {
         val chargeControllerClass = findClassIfExists("com.miui.charge.MiuiChargeController") ?: return
 
         // Hook the main methods that trigger the charging animation
-        val hookCallback: (de.robv.android.xposed.XC_MethodHook.MethodHookParam) -> Unit = { param ->
-            val context = param.thisObject.getObjectFieldAs<Context>("mContext") ?: return@hookCallback
+        val hookLogic: (de.robv.android.xposed.XC_MethodHook.MethodHookParam) -> Unit = hookLogic@{ param ->
+            val context = param.thisObject.getObjectFieldAs<Context>("mContext") ?: return@hookLogic
             
             val disableInGame = mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game")
-            val disabledApps = mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps", emptySet())
+            val disabledApps = mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps")
             
             if (disableInGame || disabledApps.isNotEmpty()) {
                 val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -30,7 +30,7 @@ object DisableChargeAnimation : BaseHook() {
                         // Check specific apps list
                         if (disabledApps.contains(topPackageName)) {
                             param.result = null // Cancel animation
-                            return@hookCallback
+                            return@hookLogic
                         }
 
                         // Check if it's a game
@@ -38,10 +38,10 @@ object DisableChargeAnimation : BaseHook() {
                             try {
                                 val pm = context.packageManager
                                 val appInfo = pm.getApplicationInfo(topPackageName, 0)
-                                val isGame = (appInfo.flags and ApplicationInfo.FLAG_IS_GAME) != 0 || 
-                                             appInfo.category == ApplicationInfo.CATEGORY_GAME
-                                if (isGame) {
+                                if (appInfo.category == ApplicationInfo.CATEGORY_GAME ||
+                                    (appInfo.flags and ApplicationInfo.FLAG_IS_GAME) != 0) {
                                     param.result = null // Cancel animation
+                                    return@hookLogic
                                 }
                             } catch (e: PackageManager.NameNotFoundException) {
                                 // Ignore
@@ -52,7 +52,7 @@ object DisableChargeAnimation : BaseHook() {
             }
         }
         
-        chargeControllerClass.hookBeforeAllMethods("dealWithAnimationShow", callback = hookCallback)
-        chargeControllerClass.hookBeforeAllMethods("showChargeAnimation", callback = hookCallback)
+        chargeControllerClass.hookBeforeAllMethods("dealWithAnimationShow", hooker = hookLogic)
+        chargeControllerClass.hookBeforeAllMethods("showChargeAnimation", hooker = hookLogic)
     }
 }

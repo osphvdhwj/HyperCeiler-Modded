@@ -19,7 +19,7 @@ object CustomSearchBarProvider : BaseHook() {
             val isWebSearchAction = action == "android.intent.action.WEB_SEARCH"
 
             if (isGoogleSearch || isMiuiSearch || isWebSearchAction) {
-                val customPkgSet = mPrefsMap.getStringSet("home_layout_searchbar_custom_provider", emptySet())
+                val customPkgSet = mPrefsMap.getStringSet("home_layout_searchbar_custom_provider")
                 val customPkg = customPkgSet.firstOrNull()
                 
                 if (!customPkg.isNullOrEmpty()) {

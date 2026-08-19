@@ -20,7 +20,7 @@ object AppLockDisableFingerprint : BaseHook() {
                           ?: intent.getStringExtra("packageName")
 
             if (pkgName != null) {
-                val disabledApps = mPrefsMap.getStringSet("security_center_disable_applock_fingerprint_apps", emptySet())
+                val disabledApps = mPrefsMap.getStringSet("security_center_disable_applock_fingerprint_apps")
                 isTargetAppDisabled = disabledApps.contains(pkgName)
             } else {
                 isTargetAppDisabled = false

@@ -236,7 +236,7 @@
             android:key="prefs_key_home_layout_searchbar_custom_provider"
             android:title="@string/home_layout_searchbar_custom_provider"
             android:summary="@string/home_layout_searchbar_custom_provider_desc"
-            app:singleSelect="true" />
+             />
 
     </PreferenceCategory>
 
