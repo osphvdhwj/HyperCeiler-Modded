@@ -35,7 +35,7 @@ object AppLockDisableFingerprint : BaseHook() {
             }
         }
 
-        fingerprintHelperClass.hookBeforeAllMethods("hasEnrolledFingerprintsAppLock", callback = cancelFingerprintHook)
-        fingerprintHelperClass.hookBeforeAllMethods("isHardwareDetectedAppLock", callback = cancelFingerprintHook)
+        fingerprintHelperClass.hookBeforeAllMethods("hasEnrolledFingerprintsAppLock", hooker = cancelFingerprintHook)
+        fingerprintHelperClass.hookBeforeAllMethods("isHardwareDetectedAppLock", hooker = cancelFingerprintHook)
     }
 }
