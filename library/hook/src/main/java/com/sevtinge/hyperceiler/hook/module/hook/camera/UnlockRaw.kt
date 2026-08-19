@@ -1,13 +1,19 @@
 package com.sevtinge.hyperceiler.hook.module.hook.camera
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
-import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Method
 
 object UnlockRaw : BaseHook() {
-    private val rawMethods: List<Method> by lazy {
-        val names = listOf(
+    override fun init() {
+        val classNames = listOf(
+            "com.mi.device.DataItemFeature",
+            "com.android.camera.data.data.config.DataItemConfig",
+            "com.android.camera.CameraSettings"
+        )
+        
+        val targetMethods = listOf(
             "isSupportRaw",
             "isSupportCaptureRaw10",
             "isSupportSatRawSize",
@@ -15,27 +21,20 @@ object UnlockRaw : BaseHook() {
             "isMultipleRawHdrSupported",
             "isUltraPixelRawPhotographySupported"
         )
-        val list = mutableListOf<Method>()
-        names.forEach { methodName ->
-            val method = DexKit.findMember<Method?>("UnlockRaw_$methodName") {
-                it.findMethod {
-                    matcher {
-                        name = methodName
-                        returnType = "boolean"
-                    }
-                }.firstOrNull()
-            }
-            if (method != null) {
-                list.add(method)
-            }
-        }
-        list
-    }
 
-    override fun init() {
-        rawMethods.forEach { method ->
-            method.createHook {
-                returnConstant(true)
+        classNames.forEach { className ->
+            try {
+                val clazz = XposedHelpers.findClass(className, lpparam.classLoader)
+                val methods = clazz.declaredMethods
+                methods.forEach { method ->
+                    if (targetMethods.contains(method.name) && method.returnType == Boolean::class.javaPrimitiveType) {
+                        method.createHook {
+                            returnConstant(true)
+                        }
+                    }
+                }
+            } catch (e: Throwable) {
+                // Ignore if class not found
             }
         }
     }
