@@ -15,7 +15,7 @@ object DisableChargeAnimation : BaseHook() {
 
         // Hook the main methods that trigger the charging animation
         val hookLogic: (de.robv.android.xposed.XC_MethodHook.MethodHookParam) -> Unit = hookLogic@{ param ->
-            val context = param.thisObject.getObjectFieldAs<Context>("mContext") ?: de.robv.android.xposed.AndroidAppHelper.currentApplication() ?: return@hookLogic
+            val context = param.thisObject.getObjectFieldAs<Context>("mContext") ?: android.app.AndroidAppHelper.currentApplication() ?: return@hookLogic
             
             val disableInGame = mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game")
             val disabledApps = mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps")
