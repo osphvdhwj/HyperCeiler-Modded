@@ -23,6 +23,10 @@ import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreHy
 
 import androidx.preference.PreferenceCategory;
 import androidx.preference.SwitchPreference;
+import androidx.preference.Preference;
+import android.content.Intent;
+import com.sevtinge.hyperceiler.ui.sub.AppPickerFragment;
+import com.sevtinge.hyperceiler.ui.sub.SubPickerActivity;
 
 import com.sevtinge.hyperceiler.ui.R;
 import com.sevtinge.hyperceiler.dashboard.DashboardFragment;
@@ -39,6 +43,7 @@ public class HomeLayoutSettings extends DashboardFragment {
     SwitchPreference mFolderHorPaddingSwitchPref;
 
     PreferenceCategory mOldFunc;
+    Preference mSearchProvider;
 
     @Override
     public int getPreferenceScreenResId() {
@@ -72,6 +77,17 @@ public class HomeLayoutSettings extends DashboardFragment {
             mFolderTitlePosDropDownPref.setVisible(false);
             mFolderHorPaddingSwitchPref.setEnabled(false);
             mFolderHorPaddingSwitchPref.setVisible(false);
+        }
+
+        mSearchProvider = findPreference("prefs_key_home_layout_searchbar_custom_provider");
+        if (mSearchProvider != null) {
+            mSearchProvider.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(getActivity(), SubPickerActivity.class);
+                intent.putExtra("mode", AppPickerFragment.LAUNCHER_MODE);
+                intent.putExtra("key", preference.getKey());
+                startActivity(intent);
+                return true;
+            });
         }
     }
 }

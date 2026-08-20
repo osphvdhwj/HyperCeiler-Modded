@@ -23,6 +23,7 @@ import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreHy
 import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreSmallVersion;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,8 @@ import com.sevtinge.hyperceiler.hook.utils.ToastHelper;
 import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils;
 import com.sevtinge.hyperceiler.hook.utils.shell.ShellPackageManager;
 import com.sevtinge.hyperceiler.ui.R;
+import com.sevtinge.hyperceiler.ui.sub.AppPickerFragment;
+import com.sevtinge.hyperceiler.ui.sub.SubPickerActivity;
 
 import fan.preference.DropDownPreference;
 import fan.preference.SeekBarPreferenceCompat;
@@ -54,6 +57,7 @@ public class OtherSettings extends DashboardFragment
     SwitchPreference mVolume2;
     SeekBarPreferenceCompat mShowPctTop;
     SwitchPreference mShowPctBlur;
+    Preference mChargeAnimApps;
 
     @Override
     public int getPreferenceScreenResId() {
@@ -78,6 +82,17 @@ public class OtherSettings extends DashboardFragment
         mVolume2 = findPreference("prefs_key_system_showpct_title");
         mShowPctTop = findPreference("prefs_key_system_ui_others_showpct_top");
         mShowPctBlur = findPreference("prefs_key_system_showpct_use_blur");
+
+        mChargeAnimApps = findPreference("prefs_key_system_ui_disable_charge_anim_apps");
+        if (mChargeAnimApps != null) {
+            mChargeAnimApps.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(getActivity(), SubPickerActivity.class);
+                intent.putExtra("mode", AppPickerFragment.LAUNCHER_MODE);
+                intent.putExtra("key", preference.getKey());
+                startActivity(intent);
+                return true;
+            });
+        }
 
         mDisableInfinitymodeGesture.setVisible(isPad());
 

@@ -76,7 +76,7 @@
             android:summary="@string/security_center_applock_pin_scramble_desc"
             android:title="@string/security_center_applock_pin_scramble" />
 
-        <com.sevtinge.hyperceiler.common.preference.AppSelectPreference
+        <Preference
             android:key="prefs_key_security_center_disable_applock_fingerprint_apps"
             android:title="@string/security_center_disable_applock_fingerprint_apps"
             android:summary="@string/security_center_disable_applock_fingerprint_apps_desc" />

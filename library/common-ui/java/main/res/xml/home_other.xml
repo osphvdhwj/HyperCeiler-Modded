@@ -141,7 +141,7 @@
                 android:targetPackage="com.miui.home" />
         </Preference>
 
-        <com.sevtinge.hyperceiler.common.preference.AppSelectPreference
+        <Preference
             android:key="prefs_key_home_minus_one_custom_app"
             android:title="@string/home_minus_one_custom_app"
             android:summary="@string/home_minus_one_custom_app_desc"

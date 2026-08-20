@@ -29,7 +29,7 @@
             android:summary="@string/system_ui_disable_charge_anim_in_game_desc"
             android:title="@string/system_ui_disable_charge_anim_in_game" />
 
-        <com.sevtinge.hyperceiler.common.preference.AppSelectPreference
+        <Preference
             android:key="prefs_key_system_ui_disable_charge_anim_apps"
             android:title="@string/system_ui_disable_charge_anim_apps"
             android:summary="@string/system_ui_disable_charge_anim_apps_desc" />

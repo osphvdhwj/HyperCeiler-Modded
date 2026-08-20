@@ -20,12 +20,30 @@ package com.sevtinge.hyperceiler.ui.hooker.securitycenter;
 
 import com.sevtinge.hyperceiler.ui.R;
 import com.sevtinge.hyperceiler.dashboard.DashboardFragment;
+import androidx.preference.Preference;
+import android.content.Intent;
+import com.sevtinge.hyperceiler.ui.sub.AppPickerFragment;
+import com.sevtinge.hyperceiler.ui.sub.SubPickerActivity;
 
 public class OtherSettings extends DashboardFragment {
 
     @Override
     public int getPreferenceScreenResId() {
         return R.xml.security_center_other;
+    }
+
+    @Override
+    public void initPrefs() {
+        Preference fingerprintApps = findPreference("prefs_key_security_center_disable_applock_fingerprint_apps");
+        if (fingerprintApps != null) {
+            fingerprintApps.setOnPreferenceClickListener(preference -> {
+                Intent intent = new Intent(getActivity(), SubPickerActivity.class);
+                intent.putExtra("mode", AppPickerFragment.LAUNCHER_MODE);
+                intent.putExtra("key", preference.getKey());
+                startActivity(intent);
+                return true;
+            });
+        }
     }
 
 }
