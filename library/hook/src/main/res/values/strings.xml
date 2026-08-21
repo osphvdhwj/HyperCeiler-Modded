@@ -111,4 +111,16 @@
     <string name="system_notifrowmenu_appinfo">App info</string>
     <string name="system_notifrowmenu_openinfw">Floating window</string>
     <string name="system_notifrowmenu_forceclose">Force close</string>
+    <string name="system_framework_auto_turn_off_wifi">Auto turn off Wi-Fi</string>
+    <string name="system_framework_auto_turn_off_wifi_desc">Turn off Wi-Fi if not connected to any AP for a specific time</string>
+    <string name="system_framework_auto_turn_off_wifi_timer">Wi-Fi turn off timer (minutes)</string>
+    <string name="system_framework_auto_turn_off_hotspot">Auto turn off Hotspot</string>
+    <string name="system_framework_auto_turn_off_hotspot_desc">Turn off Hotspot if no clients are connected for a specific time</string>
+    <string name="system_framework_auto_turn_off_hotspot_timer">Hotspot turn off timer (minutes)</string>
+    <string name="system_framework_auto_turn_off_bluetooth">Auto turn off Bluetooth</string>
+    <string name="system_framework_auto_turn_off_bluetooth_desc">Turn off Bluetooth if no devices are connected for a specific time</string>
+    <string name="system_framework_auto_turn_off_bluetooth_timer">Bluetooth turn off timer (minutes)</string>
+
+    <string name="system_framework_volume_limit_screen_off_speaker">Screen off volume limit (Speaker)</string>
+    <string name="system_framework_volume_limit_screen_off_earphones">Screen off volume limit (Earphones)</string>
 </resources>

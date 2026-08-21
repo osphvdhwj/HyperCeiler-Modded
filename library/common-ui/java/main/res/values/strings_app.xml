@@ -1636,4 +1636,8 @@
     <string name="home_minus_one_custom_app_desc">Launch any app when swiping left on the home screen instead of the default overlay.</string>
     <string name="home_layout_searchbar_custom_provider">Custom Search Bar Provider</string>
     <string name="home_layout_searchbar_custom_provider_desc">Launch a custom app (like Brave or Firefox) when tapping the dock search bar instead of the default Google/MIUI search.</string>
+    <string name="system_framework_volume_skip_songs">Skip songs with volume buttons</string>
+    <string name="system_framework_volume_skip_songs_desc">Long press volume up/down to skip/rewind songs when the screen is off</string>
+    <string name="system_ui_statusbar_brightness_control">Statusbar brightness control</string>
+    <string name="system_ui_statusbar_brightness_control_desc">Slide across the status bar to adjust screen brightness</string>
 </resources>

@@ -281,5 +281,56 @@
             android:summary="@string/system_framework_auto_start_apps_desc"
             android:title="@string/system_framework_auto_start_apps" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_system_framework_auto_turn_off_wifi"
+            android:summary="@string/system_framework_auto_turn_off_wifi_desc"
+            android:title="@string/system_framework_auto_turn_off_wifi" />
+
+        <SeekBarPreferenceCompat
+            android:defaultValue="5"
+            android:dependency="prefs_key_system_framework_auto_turn_off_wifi"
+            android:key="prefs_key_system_framework_auto_turn_off_wifi_timer"
+            android:title="@string/system_framework_auto_turn_off_wifi_timer"
+            app:format="%s"
+            app:maxValue="60"
+            app:minValue="1"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_system_framework_auto_turn_off_hotspot"
+            android:summary="@string/system_framework_auto_turn_off_hotspot_desc"
+            android:title="@string/system_framework_auto_turn_off_hotspot" />
+
+        <SeekBarPreferenceCompat
+            android:defaultValue="5"
+            android:dependency="prefs_key_system_framework_auto_turn_off_hotspot"
+            android:key="prefs_key_system_framework_auto_turn_off_hotspot_timer"
+            android:title="@string/system_framework_auto_turn_off_hotspot_timer"
+            app:format="%s"
+            app:maxValue="60"
+            app:minValue="1"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_system_framework_auto_turn_off_bluetooth"
+            android:summary="@string/system_framework_auto_turn_off_bluetooth_desc"
+            android:title="@string/system_framework_auto_turn_off_bluetooth" />
+
+        <SeekBarPreferenceCompat
+            android:defaultValue="5"
+            android:dependency="prefs_key_system_framework_auto_turn_off_bluetooth"
+            android:key="prefs_key_system_framework_auto_turn_off_bluetooth_timer"
+            android:title="@string/system_framework_auto_turn_off_bluetooth_timer"
+            app:format="%s"
+            app:maxValue="60"
+            app:minValue="1"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
     </PreferenceCategory>
 </PreferenceScreen>

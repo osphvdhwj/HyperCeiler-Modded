@@ -43,10 +43,15 @@ object AppDrawer : BaseHook() {
                     .single()
             }.createHook {
                 after {
-                    val list = it.result as ArrayList<*>
-                    if (list.size > 1) {
-                        list.removeAt(0)
-                        it.result = list
+                    try {
+                        val result = it.result as? java.util.List<*>
+                        if (result != null && result.size > 1) {
+                            val list = ArrayList(result)
+                            list.removeAt(0)
+                            it.result = list
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
                 }
             }

@@ -44,6 +44,12 @@
 
     <SwitchPreference
         android:defaultValue="false"
+        android:key="prefs_key_system_framework_volume_skip_songs"
+        android:summary="@string/system_framework_volume_skip_songs_desc"
+        android:title="@string/system_framework_volume_skip_songs" />
+
+    <SwitchPreference
+        android:defaultValue="false"
         android:key="prefs_key_system_framework_volume_media_steps_enable"
         android:summary="@string/system_framework_volume_media_steps_desc"
         android:title="@string/system_framework_volume_media_steps" />
@@ -72,6 +78,26 @@
         app:minValue="0"
         app:showSeekBarValue="true"
         app:stepValue="25" />
+
+    <SeekBarPreferenceCompat
+        android:defaultValue="15"
+        android:key="prefs_key_system_framework_volume_limit_screen_off_speaker"
+        android:title="@string/system_framework_volume_limit_screen_off_speaker"
+        app:format="%s"
+        app:maxValue="15"
+        app:minValue="0"
+        app:showSeekBarValue="true"
+        app:stepValue="1" />
+
+    <SeekBarPreferenceCompat
+        android:defaultValue="15"
+        android:key="prefs_key_system_framework_volume_limit_screen_off_earphones"
+        android:title="@string/system_framework_volume_limit_screen_off_earphones"
+        app:format="%s"
+        app:maxValue="15"
+        app:minValue="0"
+        app:showSeekBarValue="true"
+        app:stepValue="1" />
 
     </PreferenceCategory>
 
