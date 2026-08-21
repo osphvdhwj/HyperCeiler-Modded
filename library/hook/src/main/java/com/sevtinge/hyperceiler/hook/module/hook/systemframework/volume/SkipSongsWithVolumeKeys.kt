@@ -44,6 +44,8 @@ object SkipSongsWithVolumeKeys : BaseHook() {
                         if (isScreenOn) return@before
 
                         if (action == KeyEvent.ACTION_DOWN) {
+                            it.result = 0 // consume to prevent clash
+
                             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                                 if (!volumeUpPressed) {
                                     volumeUpPressed = true
@@ -53,9 +55,6 @@ object SkipSongsWithVolumeKeys : BaseHook() {
                                         sendMediaKey(context, KeyEvent.KEYCODE_MEDIA_NEXT)
                                     }
                                     handler.postDelayed(volumeUpRunnable!!, 500)
-                                }
-                                if (volumeUpConsumed) {
-                                    it.result = 0 // consume
                                 }
                             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                                 if (!volumeDownPressed) {
@@ -67,25 +66,24 @@ object SkipSongsWithVolumeKeys : BaseHook() {
                                     }
                                     handler.postDelayed(volumeDownRunnable!!, 500)
                                 }
-                                if (volumeDownConsumed) {
-                                    it.result = 0
-                                }
                             }
                         } else if (action == KeyEvent.ACTION_UP) {
+                            it.result = 0 // consume UP
+
                             if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                                 volumeUpPressed = false
                                 volumeUpRunnable?.let { r -> handler.removeCallbacks(r) }
-                                if (volumeUpConsumed) {
-                                    volumeUpConsumed = false
-                                    it.result = 0 // consume
+                                if (!volumeUpConsumed) {
+                                    adjustVolume(context, android.media.AudioManager.ADJUST_RAISE)
                                 }
+                                volumeUpConsumed = false
                             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                                 volumeDownPressed = false
                                 volumeDownRunnable?.let { r -> handler.removeCallbacks(r) }
-                                if (volumeDownConsumed) {
-                                    volumeDownConsumed = false
-                                    it.result = 0
+                                if (!volumeDownConsumed) {
+                                    adjustVolume(context, android.media.AudioManager.ADJUST_LOWER)
                                 }
+                                volumeDownConsumed = false
                             }
                         }
                     }
@@ -93,8 +91,12 @@ object SkipSongsWithVolumeKeys : BaseHook() {
         }
     }
 
+    private fun adjustVolume(context: Context, direction: Int) {
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        audioManager.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, direction, 0)
+    }
+
     private fun sendMediaKey(context: Context, keyCode: Int) {
-        val audioService = android.os.ServiceManager.checkService(Context.AUDIO_SERVICE)
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
         val eventDown = KeyEvent(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), KeyEvent.ACTION_DOWN, keyCode, 0)
         val eventUp = KeyEvent(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), KeyEvent.ACTION_UP, keyCode, 0)
