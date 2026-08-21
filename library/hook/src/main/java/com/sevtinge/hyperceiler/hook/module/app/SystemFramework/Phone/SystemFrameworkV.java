@@ -179,6 +179,7 @@ public class SystemFrameworkV extends BaseModule {
 
         initHook(new EffectBinderProxy(), mPrefsMap.getBoolean("misound_bluetooth"));
         initHook(new AutoEffectSwitchForSystem(), mPrefsMap.getBoolean("misound_bluetooth"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.AppLaunchInterceptor(), true);
     }
 
 }
