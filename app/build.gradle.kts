@@ -58,8 +58,8 @@ android {
     buildToolsVersion = "36.0.0"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     defaultConfig {
@@ -206,11 +206,11 @@ tasks.withType<PackageAndroidArtifact> {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-kotlin.jvmToolchain(17)
+kotlin.jvmToolchain(21)
 
 dependencies {
     implementation(libs.expansion)
