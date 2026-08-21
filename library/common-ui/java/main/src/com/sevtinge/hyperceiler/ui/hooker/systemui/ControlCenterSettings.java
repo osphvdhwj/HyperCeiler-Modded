@@ -49,6 +49,8 @@ public class ControlCenterSettings extends DashboardFragment {
     SwitchPreference mShadeHeaderBlur;
     SwitchPreference mNotifrowMenu;
     SwitchPreference mAllFocus;
+    SwitchPreference mDualDataUsage;
+    SwitchPreference mConnectivityPlatter;
     RecommendPreference mRecommend;
 
     @Override
@@ -64,6 +66,8 @@ public class ControlCenterSettings extends DashboardFragment {
         mRedirectNotice = findPreference("prefs_key_system_ui_control_center_redirect_notice");
         mSpotlightNotifColorMix = findPreference("prefs_key_system_ui_control_center_opt_notification_element_background_color");
         mShadeHeaderBlur = findPreference("prefs_key_system_ui_shade_header_gradient_blur");
+        mDualDataUsage = findPreference("prefs_key_system_ui_control_center_dual_data_usage");
+        mConnectivityPlatter = findPreference("prefs_key_system_ui_control_center_ios_connectivity_platter");
 
         mNotifrowMenu = findPreference("prefs_key_system_ui_control_center_notifrowmenu");
         mAllFocus = findPreference("prefs_key_system_ui_unlock_all_focus");

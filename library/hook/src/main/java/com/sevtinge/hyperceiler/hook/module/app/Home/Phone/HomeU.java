@@ -234,6 +234,7 @@ public class HomeU extends BaseModule {
         initHook(new DownloadAnimation(), mPrefsMap.getBoolean("home_title_download_animation"));
         initHook(DisableHideFile.INSTANCE, mPrefsMap.getBoolean("home_title_disable_hide_file"));
         initHook(DisableHideGoogle.INSTANCE, mPrefsMap.getBoolean("home_title_disable_hide_google"));
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysShowDropTargets.INSTANCE, mPrefsMap.getBoolean("home_always_show_drop_targets"));
         initHook(new FakeNonDefaultIcon(), mPrefsMap.getBoolean("fake_non_default_icon"));
         initHook(new AnimParamCustom(), mPrefsMap.getBoolean("home_title_custom_anim_param_main"));
         initHook(AppBlurAnim.INSTANCE, mPrefsMap.getBoolean("home_title_app_blur_enable"));

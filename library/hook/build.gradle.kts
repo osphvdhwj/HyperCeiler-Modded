@@ -17,6 +17,11 @@ android {
     namespace = "com.sevtinge.hyperceiler.hook"
     compileSdk = 36
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     defaultConfig {
         minSdk = 34
 
@@ -43,11 +48,11 @@ android {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
-kotlin.jvmToolchain(21)
+kotlin.jvmToolchain(17)
 
 dependencies {
     api(libs.core)

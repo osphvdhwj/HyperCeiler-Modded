@@ -104,6 +104,74 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/system_ui_control_center_grid_layout_title">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_system_ui_control_center_custom_grid"
+            android:summary="@string/system_ui_control_center_custom_grid_summary"
+            android:title="@string/system_ui_control_center_custom_grid" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="4"
+            android:dependency="prefs_key_system_ui_control_center_custom_grid"
+            android:key="prefs_key_system_ui_control_center_grid_columns"
+            android:title="@string/system_control_center_qs_columns"
+            app:defaultValueTitle="@string/array_default"
+            app:format="@string/system_control_center_qs_columns_format"
+            app:maxValue="6"
+            app:minValue="3"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="6"
+            android:dependency="prefs_key_system_ui_control_center_custom_grid"
+            android:key="prefs_key_system_ui_control_center_grid_columns_horizontal"
+            android:title="@string/system_control_center_qs_columns_horizontal"
+            app:defaultValueTitle="@string/array_default"
+            app:format="@string/system_control_center_qs_columns_format"
+            app:maxValue="8"
+            app:minValue="4"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="8"
+            android:dependency="prefs_key_system_ui_control_center_custom_grid"
+            android:key="prefs_key_system_ui_control_center_tile_margin_h"
+            android:title="@string/system_ui_control_center_tile_margin_h"
+            app:defaultValueTitle="@string/array_default"
+            app:format="%d dp"
+            app:maxValue="30"
+            app:minValue="0"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="8"
+            android:dependency="prefs_key_system_ui_control_center_custom_grid"
+            android:key="prefs_key_system_ui_control_center_tile_margin_v"
+            android:title="@string/system_ui_control_center_tile_margin_v"
+            app:defaultValueTitle="@string/array_default"
+            app:format="%d dp"
+            app:maxValue="30"
+            app:minValue="0"
+            app:showSeekBarValue="true"
+            app:stepValue="1" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="16"
+            android:dependency="prefs_key_system_ui_control_center_custom_grid"
+            android:key="prefs_key_system_ui_control_center_grid_padding_h"
+            android:title="@string/system_ui_control_center_grid_padding_h"
+            app:defaultValueTitle="@string/array_default"
+            app:format="%d dp"
+            app:maxValue="40"
+            app:minValue="0"
+            app:showSeekBarValue="true"
+            app:stepValue="2" />
+    </PreferenceCategory>
+
     <PreferenceCategory>
         <Preference
             android:fragment="com.sevtinge.hyperceiler.ui.hooker.systemui.CardTileSettings"
@@ -116,16 +184,28 @@
             android:title="@string/system_ui_control_center_rounded_rect" />
 
         <SeekBarPreferenceCompat
-            app:defaultValue="72"
+            android:dependency="prefs_key_system_ui_control_center_rounded_rect"
             android:key="prefs_key_system_ui_control_center_rounded_rect_radius"
             android:title="@string/system_ui_control_center_rounded_rect_radius"
+            app:defaultValue="26"
             app:defaultValueTitle="@string/array_default"
-            app:format="%d f"
+            app:format="%d dp"
             app:isPreferenceVisible="false"
-            app:maxValue="99"
-            app:minValue="1"
+            app:maxValue="50"
+            app:minValue="0"
             app:showSeekBarValue="true"
             app:stepValue="1" />
+
+        <SeekBarPreferenceCompat
+            android:key="prefs_key_system_ui_control_center_tile_scale"
+            android:title="@string/system_ui_control_center_tile_scale"
+            app:defaultValue="100"
+            app:defaultValueTitle="@string/array_default"
+            app:format="%d %%"
+            app:maxValue="150"
+            app:minValue="50"
+            app:showSeekBarValue="true"
+            app:stepValue="5" />
 
         <SwitchPreference
             android:defaultValue="false"

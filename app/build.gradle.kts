@@ -57,6 +57,11 @@ android {
     compileSdk = 36
     buildToolsVersion = "36.0.0"
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     defaultConfig {
         applicationId = "com.harry.hyperhand"
         minSdk = 34
@@ -201,11 +206,11 @@ tasks.withType<PackageAndroidArtifact> {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
-kotlin.jvmToolchain(21)
+kotlin.jvmToolchain(17)
 
 dependencies {
     implementation(libs.expansion)

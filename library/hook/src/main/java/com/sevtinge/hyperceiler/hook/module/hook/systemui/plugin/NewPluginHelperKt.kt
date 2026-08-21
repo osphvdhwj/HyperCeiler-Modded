@@ -23,6 +23,7 @@ import android.text.TextUtils
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.hook.aod.AodBlurButton
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.CCGridForHyperOSKt
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ConnectivityPlatterHook
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.CustomCardTiles
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.QSColor
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DefaultPluginTheme
@@ -147,7 +148,9 @@ object NewPluginHelperKt : BaseHook() {
                     ),
                     Triple(
                         "CCGridForHyperOS",
-                        mPrefsMap.getBoolean("system_ui_control_center_rounded_rect"),
+                        mPrefsMap.getBoolean("system_ui_control_center_rounded_rect") ||
+                            mPrefsMap.getBoolean("system_ui_control_center_custom_grid") ||
+                            (mPrefsMap.getInt("system_ui_control_center_tile_scale", 100) != 100),
                         CCGridForHyperOSKt::initCCGridForHyperOS
                     ),
                     Triple(
@@ -170,6 +173,12 @@ object NewPluginHelperKt : BaseHook() {
                         "UnlockCarSicknessTile",
                         mPrefsMap.getBoolean("security_center_unlock_car_sickness")
                     ) { cl -> UnlockCarSicknessTile.initUnlockCarSicknessTile(cl) },
+                    Triple(
+                        "ConnectivityPlatterHook",
+                        mPrefsMap.getBoolean("system_ui_control_center_ios_connectivity_platter") ||
+                            mPrefsMap.getBoolean("system_ui_control_center_connectivity_platter"),
+                        ConnectivityPlatterHook::initConnectivityPlatterHook
+                    ),
                 )
                 loadClassLoaders(factory.mComponentName.toString(), classLoader, loaders)
             }

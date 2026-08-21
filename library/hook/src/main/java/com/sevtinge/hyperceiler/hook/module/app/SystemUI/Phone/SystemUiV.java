@@ -43,6 +43,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.lockscreen.Keygua
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.AllowAllThemesNotificationBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ControlCenterStyle;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.DisableDeviceManaged;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.DualDataUsageHook;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ExpandNotificationKt;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.FiveGTile;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.FixTilesList;
@@ -228,6 +229,7 @@ public class SystemUiV extends BaseModule {
         initHook(new BlurEnable(), mPrefsMap.getBoolean("system_ui_control_center_statusbar_blur"));
         initHook(ExpandNotificationKt.INSTANCE, !mPrefsMap.getStringSet("system_ui_control_center_expand_notification").isEmpty());
         initHook(new HideDelimiter(), mPrefsMap.getStringAsInt("system_ui_control_center_hide_operator", 0) != 0);
+        initHook(new DualDataUsageHook(), mPrefsMap.getBoolean("system_ui_control_center_dual_data_usage"));
         initHook(new GmsTile(), mPrefsMap.getBoolean("security_center_gms_open"));
         initHook(new TaplusTile(), mPrefsMap.getBoolean("security_center_taplus"));
         initHook(new ReduceBrightColorsTile(), mPrefsMap.getBoolean("security_center_reduce_bright_colors_tile"));

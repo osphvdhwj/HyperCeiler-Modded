@@ -761,6 +761,18 @@
     <string name="system_control_center_qs_columns">Columns</string>
     <string name="system_control_center_qs_columns_format">%d cols</string>
     <string name="system_control_center_qs_columns_horizontal">Columns (Horizontal)</string>
+    <string name="system_ui_control_center_grid_layout_title">Grid &amp; Spacing</string>
+    <string name="system_ui_control_center_custom_grid">Customize grid layout</string>
+    <string name="system_ui_control_center_custom_grid_summary">Customize columns, inter-tile margins, and edge padding for Control Center tiles</string>
+    <string name="system_ui_control_center_tile_margin_h">Horizontal tile spacing</string>
+    <string name="system_ui_control_center_tile_margin_v">Vertical tile spacing</string>
+    <string name="system_ui_control_center_grid_padding_h">Container edge horizontal padding</string>
+    <string name="system_ui_control_center_data_usage_category">Data Usage Display</string>
+    <string name="system_ui_control_center_dual_data_usage">Dual Data Usage (Mobile &amp; Wi-Fi)</string>
+    <string name="system_ui_control_center_dual_data_usage_desc">Display simultaneous Mobile and Wi-Fi data in Control Center. Long-press to open Security Center data stats.</string>
+    <string name="system_ui_control_center_platter_category">Connectivity Folder</string>
+    <string name="system_ui_control_center_connectivity_platter">iOS-Style Connectivity Platter</string>
+    <string name="system_ui_control_center_connectivity_platter_desc">Group Wi-Fi, Bluetooth, Mobile Data, and Airplane Mode into an expandable 2x2 platter.</string>
     <string name="system_ui_control_center_notification_disable_transparent">Disable transparent mode</string>
     <string name="system_ui_control_center_notification_disable_transparent_desc">Disable set notification background to transparent</string>
     <string name="system_ui_control_center_media_control_panel_background_mix">Optimize color mixing effect background of media control panel</string>
@@ -796,6 +808,8 @@
     <string name="system_ui_control_center_rounded_rect">Rounded rectangle tile</string>
     <string name="system_ui_control_center_statusbar_blur">Force background blur</string>
     <string name="system_ui_control_center_rounded_rect_radius">Rounded radius</string>
+    <string name="system_ui_control_center_tile_scale">Tile scale</string>
+    <string name="system_ui_control_center_tile_shape_size_title">Tile Shape &amp; Size</string>
     <string name="system_ui_control_center_fix_tiles_list">Unlock hidden control center tiles</string>
     <string name="system_ui_shade_header_gradient_blur">Blur the top of control center and Notification shade</string>
     <string name="system_ui_control_center_switch_cc_and_notification_title">Switch control center and Notification shade</string>
@@ -1245,6 +1259,8 @@
     <string name="home_other_app_icon_hide">Manage Home screen shortcuts</string>
     <string name="home_other_toast_slide_again">Disable \"Slide again\" toast</string>
     <string name="home_other_shortcut_remove_restrictions">Remove shortcut restrictions</string>
+    <string name="home_always_show_drop_targets">Always Show Drop Targets</string>
+    <string name="home_always_show_drop_targets_desc">Always show both Delete and Uninstall drop targets when dragging apps, like Pixel Launcher.</string>
     <string name="home_other_shortcut_background_blur_custom">Shortcut menu blur value</string>
     <string name="home_other_high_models">Spoof launcher as high-end model</string>
     <string name="home_recent_blur_level">Blur level</string>

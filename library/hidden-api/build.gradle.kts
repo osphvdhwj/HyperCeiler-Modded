@@ -7,6 +7,11 @@ android {
     namespace = "com.android.internal"
     compileSdk = 36
 
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -37,11 +42,11 @@ android {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
-kotlin.jvmToolchain(21)
+kotlin.jvmToolchain(17)
 
 dependencies {
     implementation(libs.annotation)
