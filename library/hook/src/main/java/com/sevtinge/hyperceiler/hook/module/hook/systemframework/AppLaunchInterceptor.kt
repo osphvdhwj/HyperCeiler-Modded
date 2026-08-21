@@ -41,7 +41,6 @@ class AppLaunchInterceptor : BaseHook() {
                             if (targetPkg == null || targetPkg == "com.harry.hyperhand") return
 
                             // Read hail apps
-                            mPrefsMap.reload()
                             val appsStr = mPrefsMap.getString("hail_apps", "")
                             if (appsStr == null || appsStr.isEmpty()) return
                             

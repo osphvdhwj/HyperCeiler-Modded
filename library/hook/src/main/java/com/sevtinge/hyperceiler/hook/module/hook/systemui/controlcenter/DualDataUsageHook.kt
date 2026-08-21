@@ -165,7 +165,7 @@ class DualDataUsageHook : BaseHook() {
     private val activeViews = mutableListOf<WeakReference<TextView>>()
 
     private val isDualDataEnabled: Boolean
-        get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_dual_data_usage", false)
+        get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_dual_data_usage")
 
     override fun init() {
         val updateTextHook = object : MethodHook() {

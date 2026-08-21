@@ -876,8 +876,8 @@ class ConnectivityPlatterHook : BaseHook() {
         private var observerRegistered = false
 
         private val isPlatterEnabled: Boolean
-            get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_ios_connectivity_platter", false) ||
-                PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_connectivity_platter", false)
+            get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_ios_connectivity_platter") ||
+                PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_connectivity_platter")
 
         @JvmStatic
         fun initConnectivityPlatterHook(classLoader: ClassLoader?) {

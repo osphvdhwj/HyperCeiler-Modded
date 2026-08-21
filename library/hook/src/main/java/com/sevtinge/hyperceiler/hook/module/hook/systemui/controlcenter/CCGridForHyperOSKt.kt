@@ -52,10 +52,10 @@ object CCGridForHyperOSKt {
     )
 
     private val isCustomGrid: Boolean
-        get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_custom_grid", false)
+        get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_custom_grid")
 
     private val isRoundedRect: Boolean
-        get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_rounded_rect", false)
+        get() = PrefsUtils.mPrefsMap.getBoolean("system_ui_control_center_rounded_rect")
 
     private val tileScale: Float
         get() {
