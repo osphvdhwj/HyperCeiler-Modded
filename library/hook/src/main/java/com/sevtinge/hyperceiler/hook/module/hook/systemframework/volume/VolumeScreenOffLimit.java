@@ -2,7 +2,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.AudioSystem;
 import android.os.PowerManager;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
@@ -28,17 +27,18 @@ public class VolumeScreenOffLimit extends BaseHook {
                 if (pm != null && !pm.isInteractive()) { // Screen is off
                     int index = (int) param.args[1];
                     
-                    // AudioSystem.getDevicesForStream returns a bitmask of devices
-                    int device = (int) XposedHelpers.callStaticMethod(
-                            XposedHelpers.findClass("android.media.AudioSystem", mContext.getClassLoader()),
-                            "getDevicesForStream", streamType);
+                    Class<?> audioSystemClass = XposedHelpers.findClass("android.media.AudioSystem", mContext.getClassLoader());
+                    int device = (int) XposedHelpers.callStaticMethod(audioSystemClass, "getDevicesForStream", streamType);
 
-                    boolean isEarphone = (device & (AudioSystem.DEVICE_OUT_WIRED_HEADSET |
-                            AudioSystem.DEVICE_OUT_WIRED_HEADPHONE |
-                            AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP |
-                            AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
-                            AudioSystem.DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER |
-                            AudioSystem.DEVICE_OUT_USB_HEADSET)) != 0;
+                    int deviceOutWiredHeadset = getStaticIntFieldOrDefault(audioSystemClass, "DEVICE_OUT_WIRED_HEADSET", 0x4);
+                    int deviceOutWiredHeadphone = getStaticIntFieldOrDefault(audioSystemClass, "DEVICE_OUT_WIRED_HEADPHONE", 0x8);
+                    int deviceOutBtA2dp = getStaticIntFieldOrDefault(audioSystemClass, "DEVICE_OUT_BLUETOOTH_A2DP", 0x80);
+                    int deviceOutBtA2dpHeadphones = getStaticIntFieldOrDefault(audioSystemClass, "DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES", 0x100);
+                    int deviceOutBtA2dpSpeaker = getStaticIntFieldOrDefault(audioSystemClass, "DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER", 0x200);
+                    int deviceOutUsbHeadset = getStaticIntFieldOrDefault(audioSystemClass, "DEVICE_OUT_USB_HEADSET", 0x4000);
+
+                    int earphoneMask = deviceOutWiredHeadset | deviceOutWiredHeadphone | deviceOutBtA2dp | deviceOutBtA2dpHeadphones | deviceOutBtA2dpSpeaker | deviceOutUsbHeadset;
+                    boolean isEarphone = (device & earphoneMask) != 0;
 
                     int limit;
                     if (isEarphone) {
@@ -61,5 +61,13 @@ public class VolumeScreenOffLimit extends BaseHook {
                 }
             }
         });
+    }
+
+    private int getStaticIntFieldOrDefault(Class<?> clazz, String fieldName, int defValue) {
+        try {
+            return XposedHelpers.getStaticIntField(clazz, fieldName);
+        } catch (Throwable t) {
+            return defValue;
+        }
     }
 }
