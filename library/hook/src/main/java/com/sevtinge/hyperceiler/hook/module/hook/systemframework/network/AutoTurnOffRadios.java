@@ -1,6 +1,7 @@
 package com.sevtinge.hyperceiler.hook.module.hook.systemframework.network;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -108,9 +109,9 @@ public class AutoTurnOffRadios extends BaseHook {
         // Check if any devices are connected
         boolean isConnected = false;
         try {
-            int state = btAdapter.getProfileConnectionState(BluetoothAdapter.HEADSET);
-            int a2dpState = btAdapter.getProfileConnectionState(BluetoothAdapter.A2DP);
-            isConnected = (state == BluetoothAdapter.STATE_CONNECTED || a2dpState == BluetoothAdapter.STATE_CONNECTED);
+            int state = btAdapter.getProfileConnectionState(BluetoothProfile.HEADSET);
+            int a2dpState = btAdapter.getProfileConnectionState(BluetoothProfile.A2DP);
+            isConnected = (state == BluetoothProfile.STATE_CONNECTED || a2dpState == BluetoothProfile.STATE_CONNECTED);
         } catch (Exception ignored) {
         }
 

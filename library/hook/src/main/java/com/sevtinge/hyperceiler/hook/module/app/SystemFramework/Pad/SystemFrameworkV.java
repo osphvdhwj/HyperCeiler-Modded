@@ -28,6 +28,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowUntrustedT
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AntiQues;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AppLinkVerify;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AutoEffectSwitchForSystem;
+import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.AutoTurnOffRadios;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.BackgroundBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.BypassForceDownloadui;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.BypassForceMiAppStore;
