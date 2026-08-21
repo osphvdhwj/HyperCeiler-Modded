@@ -232,11 +232,10 @@
             app:maxValue="150"
             app:stepValue="1" />
 
-        <com.sevtinge.hyperceiler.ui.preference.AppSelectPreference
+        <Preference
             android:key="prefs_key_home_layout_searchbar_custom_provider"
             android:title="@string/home_layout_searchbar_custom_provider"
-            android:summary="@string/home_layout_searchbar_custom_provider_desc"
-            app:singleSelect="true" />
+            android:summary="@string/home_layout_searchbar_custom_provider_desc" />
 
     </PreferenceCategory>
 
