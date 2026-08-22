@@ -65,6 +65,7 @@ public class VariousThirdApps extends BaseModule {
 
         // 焦点歌词（音乐软件相关）
         initHook(MusicHooks.INSTANCE, mPrefsMap.getBoolean("system_ui_statusbar_music_switch") && mPrefsMap.getBoolean("system_ui_statusbar_music_show_app"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.various.dialog.DialogBlur(), mPrefsMap.getBoolean("various_dialog_blur"));
     }
 
     private List<String> getAppsUsingInputMethod(Context context) {

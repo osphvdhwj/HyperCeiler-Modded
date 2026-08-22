@@ -203,6 +203,10 @@ public class HomeV extends BaseModule {
         initHook(new UnlockBlurSupported(), mPrefsMap.getBoolean("home_folder_unlock_blur_supported"));
         // initHook(new RecommendAppsSwitch(), mPrefsMap.getBoolean("home_folder_recommend_apps_switch"));
 
+        // 布局
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.home.layout.ShowClock(), mPrefsMap.getBoolean("home_other_show_clock"));
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.home.other.ShortcutBackgroundBlur.INSTANCE, mPrefsMap.getBoolean("home_other_shortcut_background_blur"));
+
         // 抽屉
         initHook(AppDrawer.INSTANCE, mPrefsMap.getBoolean("home_drawer_all") ||
                 mPrefsMap.getBoolean("home_drawer_editor"));

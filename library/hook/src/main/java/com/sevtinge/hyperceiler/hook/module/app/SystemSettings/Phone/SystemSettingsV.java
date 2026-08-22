@@ -99,6 +99,6 @@ public class SystemSettingsV extends BaseModule {
         initHook(new AddGoogleListHeader(), mPrefsMap.getBoolean("system_settings_unlock_google_header"));
 
         initHook(new UnlockNeverSleepScreen(), mPrefsMap.getBoolean("system_settings_allow_never_lock_screen"));
-
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.systemsettings.UnLockAreaScreenshot.INSTANCE, mPrefsMap.getBoolean("system_settings_unlock_area_screenshot"));
     }
 }

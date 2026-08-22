@@ -276,6 +276,8 @@ public class SystemUiU extends BaseModule {
                 mPrefsMap.getBoolean("system_ui_control_center_media_control_remove_album_audio_source_identifie"));
         initHook(MediaSeekBar.INSTANCE, mPrefsMap.getBoolean("system_ui_control_center_remove_media_control_panel_background") ||
                 mPrefsMap.getStringAsInt("system_ui_control_center_media_control_progress_mode", 0) == 2);
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.media.MediaControlPanelBackugroundMix.INSTANCE, mPrefsMap.getBoolean("system_ui_control_center_media_card_background_mix"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.BigMobileNetworkType(), mPrefsMap.getBoolean("system_ui_status_bar_big_mobile_network_type"));
 
 
         // Actions
@@ -291,6 +293,8 @@ public class SystemUiU extends BaseModule {
         initHook(DisableBottomBar.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_bottombar"));
         initHook(UnlockClipboard.INSTANCE, mPrefsMap.getBoolean("system_ui_unlock_clipboard"));
         initHook(new VolumeTimerValuesHook(), mPrefsMap.getBoolean("system_ui_volume_timer"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.NotificationVolumeSeparateSlider(), mPrefsMap.getBoolean("system_ui_separate_notification_volume"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.ShouldPlayUnmuteSoundHook(), mPrefsMap.getBoolean("system_ui_disable_unmute_sound"));
 
         // 锁屏
         initHook(new ScramblePIN(), mPrefsMap.getBoolean("system_ui_lock_screen_scramble_pin"));
