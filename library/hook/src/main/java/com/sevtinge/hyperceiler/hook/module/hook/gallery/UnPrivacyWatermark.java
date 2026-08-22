@@ -61,7 +61,7 @@ public class UnPrivacyWatermark extends BaseHook {
                 findAndHookMethod("com.miui.gallery.privacywatermark.PrivacyWatermarkHelper", "drawWatermark", Canvas.class, String.class, int.class, int.class, int.class, new MethodHook() {
                     @Override
                     protected void before(MethodHookParam param) throws Throwable {
-                        drawWatermark((Canvas) param.args[0], (String) param.args[1], (int) param.args[2], (int) param.args[3], (int) param.args[4], true);
+                        drawWatermark((Canvas) param.args[0], (String) param.args[1], (int) param.args[2], (int) param.args[3], (int) param.args[4], false);
                         param.setResult(null);
                     }
                 });
@@ -69,7 +69,7 @@ public class UnPrivacyWatermark extends BaseHook {
                 findAndHookMethod("com.miui.gallery.privacywatermark.PrivacyWatermarkActivity", "drawWatermark", Canvas.class, String.class, int.class, int.class, int.class, new MethodHook() {
                     @Override
                     protected void before(MethodHookParam param) throws Throwable {
-                        drawWatermark((Canvas) param.args[0], (String) param.args[1], (int) param.args[2], (int) param.args[3], (int) param.args[4], true);
+                        drawWatermark((Canvas) param.args[0], (String) param.args[1], (int) param.args[2], (int) param.args[3], (int) param.args[4], false);
                         param.setResult(null);
                     }
                 });
@@ -94,6 +94,7 @@ public class UnPrivacyWatermark extends BaseHook {
                 "com.miui.gallery.privacywatermark.PrivacyWatermarkHelper",
                 "getInitialPaint"
         ));
+        if (initialPaint == null) return;
         Rect rect = new Rect();
         initialPaint.setTextSize(min);
         initialPaint.getTextBounds(text, 0, text.length(), rect);

@@ -31,7 +31,7 @@ object SelectName : BaseHook() {
             .filterByName("onFinishInflate")
             .single().createHook {
                 after {
-                    (it.thisObject.getObjectField("mFileNameTextView") as TextView).apply {
+                    (it.thisObject.getObjectField("mFileNameTextView") as? TextView)?.apply {
                         setTextIsSelectable(mPrefsMap.getBoolean("file_explorer_can_selectable"))
                         isSingleLine = mPrefsMap.getBoolean("file_explorer_is_single_line")
                     }

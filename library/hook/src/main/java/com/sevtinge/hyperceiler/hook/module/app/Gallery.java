@@ -43,7 +43,7 @@ public class Gallery extends BaseModule {
         initHook(new EnableIdPhoto(), mPrefsMap.getBoolean("gallery_enable_id_photo"));
         initHook(new EnableMagicMatting(), mPrefsMap.getBoolean("gallery_enable_magic_matting"));
         initHook(new EnableVideoPost(), mPrefsMap.getBoolean("gallery_enable_video_post"));
-        initHook(new EnableVideoPost(), mPrefsMap.getBoolean("gallery_enable_video_editor"));
+        initHook(new EnableVideoEditor(), mPrefsMap.getBoolean("gallery_enable_video_editor"));
         initHook(new EnableOcr(), mPrefsMap.getBoolean("gallery_enable_ocr"));
         initHook(new EnableOcrForm(), mPrefsMap.getBoolean("gallery_enable_ocr_form"));
         initHook(new ChangeBackupServer(), mPrefsMap.getStringAsInt("gallery_backup_server", 0) != 0);

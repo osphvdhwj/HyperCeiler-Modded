@@ -129,24 +129,33 @@ public class BlackLeica extends BaseHook {
             }
         });
 
-        XposedHelpers.setStaticIntField(field1.getDeclaringClass(), field1.getName(), Color.parseColor("#8CFFFFFF"));
-        XposedHelpers.setStaticIntField(field2.getDeclaringClass(), field2.getName(), Color.parseColor("#33FFFFFF"));
-        hookMethod(method1, new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                hookMethod(method2, new MethodHook() {
-                    @Override
-                    protected void before(MethodHookParam param) throws Throwable {
+        if (field1 != null) {
+            XposedHelpers.setStaticIntField(field1.getDeclaringClass(), field1.getName(), Color.parseColor("#8CFFFFFF"));
+        }
+        if (field2 != null) {
+            XposedHelpers.setStaticIntField(field2.getDeclaringClass(), field2.getName(), Color.parseColor("#33FFFFFF"));
+        }
+
+        if (method2 != null) {
+            hookMethod(method2, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    if (param.args != null && param.args.length > 2 && param.args[2] instanceof Integer) {
                         if ((int) param.args[2] == -16777216) param.args[2] = -1;
                     }
-                });
-                hookMethod(method3, new MethodHook() {
-                    @Override
-                    protected void before(MethodHookParam param) throws Throwable {
+                }
+            });
+        }
+
+        if (method3 != null) {
+            hookMethod(method3, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    if (param.args != null && param.args.length > 0) {
                         param.args[0] = 1048576;
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     }
 }

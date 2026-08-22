@@ -38,20 +38,21 @@ public class EnablePdf extends BaseHook {
             hookAllConstructors("com.miui.gallery.ui.ProduceCreationDialogWithMediaEditorConfig",  new MethodHook() {
                 @Override
                 protected void before(XC_MethodHook.MethodHookParam param) throws Throwable {
-                    isGlobal = findAndHookMethodUseUnhook("com.miui.gallery.util.BuildUtil", lpparam.classLoader, "isGlobal", new MethodHook() {
+                    XC_MethodHook.Unhook unhook = findAndHookMethodUseUnhook("com.miui.gallery.util.BuildUtil", lpparam.classLoader, "isGlobal", new MethodHook() {
                         @Override
                         protected void before(XC_MethodHook.MethodHookParam param) throws Throwable {
                             param.setResult(false);
                         }
                     });
+                    param.setObjectExtra("isGlobal", unhook);
                 }
 
                 @Override
                 protected void after(MethodHookParam param) throws Throwable {
-                    if (isGlobal != null) {
-                        isGlobal.unhook();
+                    XC_MethodHook.Unhook unhook = (XC_MethodHook.Unhook) param.getObjectExtra("isGlobal");
+                    if (unhook != null) {
+                        unhook.unhook();
                     }
-                    isGlobal = null;
                 }
             });
         }

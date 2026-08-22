@@ -58,6 +58,8 @@ public class CustomCameraColor extends BaseHook {
                 return methodData;
             }
         });
+        if (method == null) return;
+
         Field field = DexKit.findMember("CameraColor", new IDexKit() {
             @Override
             public BaseData dexkit(DexKitBridge bridge) throws ReflectiveOperationException {
@@ -69,6 +71,9 @@ public class CustomCameraColor extends BaseHook {
                 return fieldData;
             }
         });
-        XposedHelpers.setStaticIntField(field.getDeclaringClass(), field.getName(), mPrefsMap.getInt("camera_custom_theme_color_picker", -2025677));
+
+        if (field != null) {
+            XposedHelpers.setStaticIntField(field.getDeclaringClass(), field.getName(), mPrefsMap.getInt("camera_custom_theme_color_picker", -2025677));
+        }
     }
 }
