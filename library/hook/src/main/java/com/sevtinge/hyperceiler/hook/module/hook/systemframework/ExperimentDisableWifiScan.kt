@@ -6,10 +6,11 @@ import de.robv.android.xposed.XposedHelpers
 
 object ExperimentDisableWifiScan : BaseHook() {
     override fun init() {
-        try {
+        val classLoader = lpparam?.classLoader ?: return
+        runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.android.server.wifi.WifiServiceImpl",
-                lpparam.classLoader,
+                classLoader,
                 "startScan",
                 String::class.java,
                 String::class.java,
@@ -19,7 +20,6 @@ object ExperimentDisableWifiScan : BaseHook() {
                     }
                 }
             )
-        } catch (e: Throwable) {
         }
     }
 }

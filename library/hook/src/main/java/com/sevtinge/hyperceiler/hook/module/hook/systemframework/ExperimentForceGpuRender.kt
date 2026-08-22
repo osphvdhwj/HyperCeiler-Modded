@@ -5,36 +5,27 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
 /**
- * [Experiment] Force GPU hardware acceleration for all windows.
- * Hooks WindowManagerService internals to ensure hardware-accelerated rendering is always enabled.
+ * [Experiment] Force GPU hardware acceleration for system windows.
+ * Safely initializes hardware acceleration flags without per-frame WindowState hooks.
  */
 object ExperimentForceGpuRender : BaseHook() {
     override fun init() {
-        // Hook WindowState.isHardwareAccelerated() to always return true
-        runCatching {
-            XposedHelpers.findAndHookMethod(
-                "com.android.server.wm.WindowState",
-                lpparam.classLoader,
-                "isHardwareAccelerated",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        param.result = true
-                    }
-                }
-            )
-        }
-
-        // Hook WindowManagerService to force hardware acceleration flag via system ready
+        val classLoader = lpparam?.classLoader ?: return
         runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.android.server.wm.WindowManagerService",
-                lpparam.classLoader,
+                classLoader,
                 "systemReady",
                 object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam) {
-                        // Ensure GPU rendering is never disabled after system ready
                         runCatching {
-                            XposedHelpers.callMethod(param.thisObject, "enableScreenAfterBoot")
+                            val context = XposedHelpers.getObjectField(param.thisObject, "mContext") as? android.content.Context
+                            context?.let {
+                                android.provider.Settings.Global.putInt(
+                                    it.contentResolver,
+                                    "hardware_accelerated_main_ui", 1
+                                )
+                            }
                         }
                     }
                 }

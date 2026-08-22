@@ -39,6 +39,7 @@ public class HookTool extends XposedLogUtils {
     public XC_LoadPackage.LoadPackageParam lpparam;
 
     public void setLoadPackageParam(XC_LoadPackage.LoadPackageParam param) {
+        this.lpparam = param;
     }
 
     public Class<?> findClass(String className) {

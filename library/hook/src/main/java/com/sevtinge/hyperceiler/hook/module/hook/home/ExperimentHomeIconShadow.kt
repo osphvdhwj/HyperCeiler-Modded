@@ -4,20 +4,27 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
+/**
+ * [Experiment] Home icon shadow customization.
+ * Safely enables icon shadow layer without per-frame onDraw reflection overhead.
+ */
 object ExperimentHomeIconShadow : BaseHook() {
     override fun init() {
-        try {
+        val classLoader = lpparam?.classLoader ?: return
+        runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.miui.home.launcher.ShortcutIcon",
-                lpparam.classLoader,
-                "onDraw",
-                android.graphics.Canvas::class.java,
+                classLoader,
+                "onFinishInflate",
                 object : XC_MethodHook() {
-                    override fun beforeHookedMethod(param: MethodHookParam) {
+                    override fun afterHookedMethod(param: MethodHookParam) {
+                        runCatching {
+                            val view = param.thisObject as? android.view.View ?: return
+                            view.setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
+                        }
                     }
                 }
             )
-        } catch (e: Throwable) {
         }
     }
 }

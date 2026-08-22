@@ -6,10 +6,11 @@ import de.robv.android.xposed.XposedHelpers
 
 object ExperimentControlCenterTileAnimation : BaseHook() {
     override fun init() {
-        try {
+        val classLoader = lpparam?.classLoader ?: return
+        runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.android.systemui.qs.tileimpl.QSTileViewImpl",
-                lpparam.classLoader,
+                classLoader,
                 "handleStateChanged",
                 "com.android.systemui.plugins.qs.QSTile.State",
                 object : XC_MethodHook() {
@@ -19,7 +20,6 @@ object ExperimentControlCenterTileAnimation : BaseHook() {
                     }
                 }
             )
-        } catch (e: Throwable) {
         }
     }
 }

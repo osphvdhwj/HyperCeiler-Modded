@@ -10,11 +10,12 @@ import de.robv.android.xposed.XposedHelpers
  */
 object ExperimentAllowHighRefreshInLowPower : BaseHook() {
     override fun init() {
+        val classLoader = lpparam?.classLoader ?: return
         // Hook 1: Block low-power refresh rate throttle from DisplayModeDirector
         runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.android.server.display.mode.DisplayModeDirector",
-                lpparam.classLoader,
+                classLoader,
                 "onBatteryChanged",
                 Boolean::class.java,
                 object : XC_MethodHook() {
@@ -29,7 +30,7 @@ object ExperimentAllowHighRefreshInLowPower : BaseHook() {
             runCatching {
                 XposedHelpers.findAndHookMethod(
                     "com.android.server.display.DisplayPowerController",
-                    lpparam.classLoader,
+                    classLoader,
                     "shouldReduceRefreshRate",
                     object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam) {
@@ -44,7 +45,7 @@ object ExperimentAllowHighRefreshInLowPower : BaseHook() {
         runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.android.server.power.batterysaver.BatterySaverStateMachine",
-                lpparam.classLoader,
+                classLoader,
                 "setShouldAdjustRefreshRate",
                 Boolean::class.java,
                 object : XC_MethodHook() {
