@@ -106,6 +106,7 @@ public class SecurityCenterV extends BaseModule {
         initHook(new MoreBatteryInfo(), mPrefsMap.getBoolean("secutity_center_battery_show_more_info"));
 
         // 隐私保护
+        initHook(AppLockDisableFingerprint.INSTANCE, true);
         initHook(new AppLockPinScramble(), mPrefsMap.getBoolean("security_center_applock_pin_scramble"));
         initHook(new HideXOptModeTip(), mPrefsMap.getBoolean("security_center_hide_xopt_mode_tip"));
 
