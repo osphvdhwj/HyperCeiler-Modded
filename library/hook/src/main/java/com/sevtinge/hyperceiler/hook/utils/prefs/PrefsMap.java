@@ -24,34 +24,39 @@ import java.util.Set;
 
 public class PrefsMap<K, V> extends HashMap<K, V> {
 
+    private String normalizeKey(String key) {
+        if (key == null) return "";
+        return key.startsWith("prefs_key_") ? key : "prefs_key_" + key;
+    }
+
     public Object getObject(String key, Object defValue) {
-        return get(key) == null ? defValue : get(key);
+        return get(normalizeKey(key)) == null ? defValue : get(normalizeKey(key));
     }
 
     public int getInt(String key, int defValue) {
-        key = "prefs_key_" + key;
-        return get(key) == null ? defValue : (Integer) get(key);
+        String k = normalizeKey(key);
+        return get(k) == null ? defValue : (Integer) get(k);
     }
 
     public String getString(String key, String defValue) {
-        key = "prefs_key_" + key;
-        return get(key) == null ? defValue : (String) get(key);
+        String k = normalizeKey(key);
+        return get(k) == null ? defValue : (String) get(k);
     }
 
     public int getStringAsInt(String key, int defValue) {
-        key = "prefs_key_" + key;
-        return get(key) == null ? defValue : Integer.parseInt((String) get(key));
+        String k = normalizeKey(key);
+        return get(k) == null ? defValue : Integer.parseInt((String) get(k));
     }
 
     @SuppressWarnings("unchecked")
     public Set<String> getStringSet(String key) {
-        key = "prefs_key_" + key;
-        return get(key) == null ? new LinkedHashSet<>() : (Set<String>) get(key);
+        String k = normalizeKey(key);
+        return get(k) == null ? new LinkedHashSet<>() : (Set<String>) get(k);
     }
 
     public boolean getBoolean(String key) {
-        key = "prefs_key_" + key;
-        return get(key) != null && (Boolean) get(key);
+        String k = normalizeKey(key);
+        return get(k) != null && (Boolean) get(k);
     }
 
 }

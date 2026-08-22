@@ -305,7 +305,8 @@ public class SystemUiU extends BaseModule {
         initHook(new DisableUnlockByBleToast(), mPrefsMap.getBoolean("system_ui_lock_screen_disable_unlock_by_ble_toast"));
         initHook(new LinkageAnimCustomer(), mPrefsMap.getBoolean("system_ui_lock_screen_linkage_anim"));
 
-        initHook(BlurButton.INSTANCE, mPrefsMap.getBoolean("system_ui_lock_screen_blur_button"));
+        initHook(BlurButton.INSTANCE, mPrefsMap.getBoolean("system_ui_lock_screen_hyper_blur_button"));
+        initHook(NotificationShowOnKeyguard.INSTANCE, mPrefsMap.getBoolean("system_ui_lock_screen_unlock_notification_restrict"));
 
         initHook(DoubleTapToSleep.INSTANCE, mPrefsMap.getBoolean("system_ui_status_bar_double_tap_to_sleep"));
         initHook(StatusbarBrightnessControl.INSTANCE, mPrefsMap.getBoolean("system_ui_statusbar_brightness_control"));

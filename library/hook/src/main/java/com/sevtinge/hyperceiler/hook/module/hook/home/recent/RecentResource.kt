@@ -74,7 +74,7 @@ object RecentResource : BaseHook() {
                 hookMap["recents_task_view_rounded_corners_radius_max"] =
                     ResourcesHookData("dimen", dp2px(value))
             }
-            if (value1 != -1f && value != 40f) hookMap["recents_task_view_header_height"] =
+            if (value1 != -1f && value1 != 40f) hookMap["recents_task_view_header_height"] =
                 ResourcesHookData("dimen", dp2px(value1))
         }
     }

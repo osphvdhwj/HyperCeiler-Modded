@@ -181,6 +181,8 @@ public class HomeU extends BaseModule {
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysShowDropTargets.INSTANCE, mPrefsMap.getBoolean("home_always_show_drop_targets"));
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.home.MinusOneCustomApp.INSTANCE, !mPrefsMap.getStringSet("home_minus_one_custom_app").isEmpty());
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
                 mPrefsMap.getBoolean("home_layout_searchbar_margin_bottom_enable"));
 
