@@ -34,12 +34,13 @@ public class CollapseMiuiTitle extends BaseHook {
             hookAllConstructors(abvCls, new MethodHook() {
                 @Override
                 protected void after(MethodHookParam param) throws Throwable {
-                    XposedHelpers.setIntField(param.thisObject, "mExpandState", (int) XposedHelpers.getStaticObjectField(
-                            findClassIfExists("miui.app.ActionBar"),
-                            "STATE_EXPAND"));
-                    XposedHelpers.setIntField(param.thisObject, "mInnerExpandState", (int) XposedHelpers.getStaticObjectField(
-                            findClassIfExists("miui.app.ActionBar"),
-                            "STATE_COLLAPSE"));
+                    Class<?> abClass = findClassIfExists("miui.app.ActionBar");
+                    if (abClass != null) {
+                        int stateExpand = getStaticIntFieldOrDefault(abClass, "STATE_EXPAND", 1);
+                        int stateCollapse = getStaticIntFieldOrDefault(abClass, "STATE_COLLAPSE", 0);
+                        XposedHelpers.setIntField(param.thisObject, "mExpandState", stateExpand);
+                        XposedHelpers.setIntField(param.thisObject, "mInnerExpandState", stateCollapse);
+                    }
                     if (opt == 2)
                         XposedHelpers.setBooleanField(param.thisObject, "mResizable", false);
                 }
@@ -76,6 +77,14 @@ public class CollapseMiuiTitle extends BaseHook {
             XposedHelpers.callMethod(obj, "setResizable", false);
         } else {
             XposedHelpers.callMethod(obj, "setResizable", true);
+        }
+    }
+
+    private int getStaticIntFieldOrDefault(Class<?> clazz, String fieldName, int defValue) {
+        try {
+            return XposedHelpers.getStaticIntField(clazz, fieldName);
+        } catch (Throwable t) {
+            return defValue;
         }
     }
 }

@@ -57,7 +57,7 @@ object UnlockMoreVolumeFromNew : BaseHook() {
         findAndHookConstructor(getClass, object : MethodHook() {
             override fun after(param: MethodHookParam) {
                 for (i in fieldData) {
-                    XposedHelpers.setObjectField(param.thisObject, i.name, true)
+                    XposedHelpers.setBooleanField(param.thisObject, i.name, true)
                 }
             } })
 

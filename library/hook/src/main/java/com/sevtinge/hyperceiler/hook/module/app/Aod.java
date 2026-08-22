@@ -31,7 +31,7 @@ public class Aod extends BaseModule {
     @Override
     public void handleLoadPackage() {
         initHook(UnlockShortCuts.INSTANCE, isMoreSmallVersion(200, 2f));
-        initHook(UnlockAlwaysOnDisplay.INSTANCE, mPrefsMap.getBoolean("aod_unlock_always_on_display"));
+        initHook(UnlockAlwaysOnDisplay.INSTANCE, mPrefsMap.getBoolean("aod_unlock_always_on_display_hyper"));
         initHook(new UnlockAodAon(), mPrefsMap.getBoolean("aod_unlock_aon"));
     }
 }

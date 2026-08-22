@@ -49,7 +49,7 @@ public class CustomRefreshRate extends BaseHook {
         hookMethod(method, new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {
-                ObjectUtil.setObject(param.thisObject, "mIsCustomFpsSwitch", "true");
+                XposedHelpers.setBooleanField(param.thisObject, "mIsCustomFpsSwitch", true);
             }
         });
     }

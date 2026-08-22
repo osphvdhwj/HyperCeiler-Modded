@@ -56,8 +56,8 @@ public class GmsDozeFix extends BaseHook {
         try {
             Class<?> MilletPolicy = findClass("com.miui.powerkeeper.millet.MilletPolicy", lpparam.classLoader);
             findAndHookConstructor("com.miui.powerkeeper.millet.MilletPolicy", Context.class, new MethodHook() {
-                protected void before(MethodHookParam methodHookParam) throws Throwable {
-                    super.after(methodHookParam);
+                @Override
+                protected void after(MethodHookParam methodHookParam) throws Throwable {
                     boolean mSystemBlackList = false;
                     boolean whiteApps = false;
                     boolean mDataWhiteList = false;
