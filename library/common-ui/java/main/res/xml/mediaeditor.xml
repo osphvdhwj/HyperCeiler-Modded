@@ -41,6 +41,11 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="prefs_key_mediaeditor_unlock_audio_eraser"
+            android:title="@string/mediaeditor_unlock_audio_eraser" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="prefs_key_mediaeditor_disable_add_aigc_watermark"
             android:title="@string/mediaeditor_disable_add_aigc_watermark" />
 
