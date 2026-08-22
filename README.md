@@ -2,13 +2,33 @@
 
 <img src="\imgs\icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="icon" />
 
-# HyperCeiler
+# HyperCeiler — HyperHand Modded
 
-### Make HyperOS Great Again!
+### Make HyperOS Great Again! · HyperHand 社区增强版
 
 简体中文&nbsp;&nbsp;|&nbsp;&nbsp;[繁體中文](/README_zh-HK.md)&nbsp;&nbsp;|&nbsp;&nbsp;[English](/README_en-US.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Українська](/README_uk_UA.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Português (Brasil)](/README_pt-BR.md)
 
 </div>
+
+> **HyperHand Modded** 是 HyperCeiler 的社区增强分支，包含 35+ 个实验性功能、AI 音频擦除器、深层 Hook 分析以及官方尚未发布的多项修复。
+
+## 🧪 实验性功能（HyperHand 新增）
+
+| 应用 | 实验性功能 |
+|------|----------|
+| 📷 相机 | 解锁星空摄影、100× 最大变焦、强制 HDR 视频 |
+| 🎬 影视编辑 | 解锁所有 AI 滤镜、移除 AIGC 水印 |
+| 🖼️ 相册 | 解锁全部云 AI 功能 |
+| 🎥 屏幕录制 | 最大码率提升至 80 Mbps |
+| 📸 截屏 | 无限长截图模式 |
+| 🎵 录音机 | 无损 FLAC + 192 kHz 录音 |
+| 📱 系统界面 | 控制中心动画、模糊强度、自定义锁屏时钟 |
+| 🏠 桌面 | 3D 文件夹效果、图标阴影、隐藏状态栏 |
+| ⚙️ 系统框架 | 强制 GPU 渲染、禁止后台 WiFi 扫描、省电模式保持高刷 |
+| 🌐 浏览器 | 广告拦戴、强制桌面模式、夜间模式 |
+| 🤖 AI 传送门 | 解锁全部工具、悬浮于所有应用 |
+
+> ⚠️ 实验性功能默认禁用，需手动开启。可能并非适用于所有设备或 ROM，请谨慎使用。
 
 ## 当前支持的版本
 

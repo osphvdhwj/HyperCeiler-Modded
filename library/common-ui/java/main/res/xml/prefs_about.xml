@@ -62,6 +62,31 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="🔮 HyperHand Modded">
+
+        <Preference
+            android:enabled="false"
+            android:summary="Community-enhanced fork with 35+ experimental features, AI Audio Eraser, deep hook analysis, and fixes across 20+ apps."
+            android:title="About HyperHand" />
+
+        <Preference
+            android:summary="Camera, MediaEditor, Gallery, SystemUI, Launcher, Browser, Notes, Phone, PowerKeeper, Scanner, ThemeManager &amp; more"
+            android:title="🧪 Experimental Features">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/osphvdhwj/HyperCeiler-Modded#-experimental-features-hyperhand-additions" />
+        </Preference>
+
+        <Preference
+            android:summary="Latest canary APK builds with all experiments"
+            android:title="📦 Releases &amp; APKs">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/osphvdhwj/HyperCeiler-Modded/releases" />
+        </Preference>
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/about_developer_title">
 
         <Preference

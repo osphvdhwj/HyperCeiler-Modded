@@ -2,13 +2,44 @@
 
 <img src="\imgs\icon.webp" width="160" height="160" style="display: block; margin: 0 auto;" alt="icon" />
 
-# HyperCeiler
+# HyperCeiler — HyperHand Modded
 
-### Make HyperOS Great Again!
+### Make HyperOS Great Again! · Enhanced by HyperHand
 
 [简体中文](/README.md)&nbsp;&nbsp;|&nbsp;&nbsp;[繁體中文](/README_zh-HK.md)&nbsp;&nbsp;|&nbsp;&nbsp;English&nbsp;&nbsp;|&nbsp;&nbsp;[Українська](/README_uk_UA.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Português (Brasil)](/README_pt-BR.md)
 
 </div>
+
+> **HyperHand Modded** is a community-enhanced fork of HyperCeiler with 35+ new experimental features, deep hook analysis, AI audio tools, and many fixes not yet in the official release.
+
+## 🧪 Experimental Features (HyperHand Additions)
+
+This fork adds a dedicated **Experimental** section across 20+ apps:
+
+| App | Experimental Features |
+|-----|----------------------|
+| 📷 Camera | Astrophotography Unlock, 100× Max Zoom, Force HDR Video |
+| 🎬 MediaEditor | Unlock All AI Filters, Remove AIGC Watermark |
+| 🖼️ Gallery | Unlock All Cloud AI Features |
+| 🎥 ScreenRecorder | Max Bitrate Override (80 Mbps) |
+| 📸 Screenshot | Unlimited Scrollshot Capture |
+| 🎵 SoundRecorder | Lossless FLAC + 192 kHz Recording |
+| 📱 SystemUI | CC Tile Animation, CC Blur Intensity, Custom Lockscreen Clock |
+| 🏠 Home Launcher | 3D Folder Effect, Icon Shadow/Glow, Hide Status Bar |
+| ⚙️ System Framework | Force GPU Render, Disable Background WiFi Scan, High Refresh in Power Save |
+| 🌐 Browser | Ad Block, Force Desktop Mode, Night Mode |
+| 🤖 AI Sidebar | Unlock All Tools, Float on All Apps |
+| 📝 Notes | Unlock Premium Fonts, Remove Ads |
+| 📞 Phone/Dialer | Auto-Record All Calls, Disable Ring Timeout |
+| ⚡ PowerKeeper | No CPU Throttle, Force Game Mode Boost |
+| 🔍 Scanner | Batch Scan Mode, High Resolution Scan |
+| 💬 Messages | Remove SMS Character Limit |
+| 🌤️ Weather | Remove Ads |
+| 🎨 ThemeManager | Unlock Premium Themes, Allow Local .mtz Install |
+| ⚙️ MiSettings | Unlock Hidden Developer Menus |
+| 🎵 MediaEditor Audio | AI Audio Eraser, Voice Eraser, Noise Eraser (One UI–style) |
+
+> ⚠️ Experimental features are disabled by default and must be manually enabled. Use with caution — they may not work on all devices/ROMs.
 
 ## Currently supported versions
 
