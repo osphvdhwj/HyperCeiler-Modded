@@ -1,15 +1,14 @@
 package com.sevtinge.hyperceiler.hook.module.hook.weather;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
-import de.robv.android.xposed.XC_MethodHook;
 
 public class ExperimentWeatherRemoveAds extends BaseHook {
     @Override
     public void init() {
         try {
-            findAndHookMethod("com.miui.weather2.model.AdInfo", "isAdValid", new XC_MethodHook() {
+            findAndHookMethod("com.miui.weather2.model.AdInfo", "isAdValid", new MethodHook() {
                 @Override
-                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                protected void before(MethodHookParam param) {
                     param.setResult(false);
                 }
             });

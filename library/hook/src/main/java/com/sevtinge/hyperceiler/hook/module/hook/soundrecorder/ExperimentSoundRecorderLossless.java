@@ -1,46 +1,40 @@
 package com.sevtinge.hyperceiler.hook.module.hook.soundrecorder;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
-import de.robv.android.xposed.XC_MethodHook;
 
 /**
  * [Experiment] Enable lossless FLAC audio recording in Sound Recorder.
- * Forces FLAC encoding format and removes bitrate/format restrictions.
  */
 public class ExperimentSoundRecorderLossless extends BaseHook {
     @Override
     public void init() {
-        // Hook 1: Override output format to FLAC (AudioFormat.ENCODING_PCM_FLOAT)
-        findAndHookMethod("com.android.soundrecorder.RecorderParameters",
-            "getAudioOutputFormat", new XC_MethodHook() {
+        findAndHookMethodSilently("com.android.soundrecorder.RecorderParameters", "getAudioOutputFormat",
+            new MethodHook() {
                 @Override
-                protected void afterHookedMethod(MethodHookParam param) {
-                    // MediaRecorder.OutputFormat.OGG = 11, use custom format
-                    param.result = 11; // OUTPUT_FORMAT_OGG/FLAC-compatible
+                protected void after(MethodHookParam param) {
+                    // MediaRecorder.OutputFormat.OGG = 11 (FLAC-compatible lossless)
+                    param.setResult(11);
                 }
             });
-        // Hook 2: Force lossless format availability
-        findAndHookMethod("com.android.soundrecorder.RecorderParameters",
-            "isLosslessSupported", new XC_MethodHook() {
+        findAndHookMethodSilently("com.android.soundrecorder.RecorderParameters", "isLosslessSupported",
+            new MethodHook() {
                 @Override
-                protected void afterHookedMethod(MethodHookParam param) {
-                    param.result = true;
+                protected void after(MethodHookParam param) {
+                    param.setResult(true);
                 }
             });
-        // Hook 3: Miui SoundRecorder variant - enable FLAC option
-        findAndHookMethod("com.miui.soundrecorder.RecordingConfig",
-            "isFLACEnabled", new XC_MethodHook() {
+        findAndHookMethodSilently("com.miui.soundrecorder.RecordingConfig", "isFLACEnabled",
+            new MethodHook() {
                 @Override
-                protected void afterHookedMethod(MethodHookParam param) {
-                    param.result = true;
+                protected void after(MethodHookParam param) {
+                    param.setResult(true);
                 }
             });
-        // Hook 4: Override sample rate to maximum (192kHz)
-        findAndHookMethod("com.android.soundrecorder.RecorderParameters",
-            "getMaxSampleRate", new XC_MethodHook() {
+        findAndHookMethodSilently("com.android.soundrecorder.RecorderParameters", "getMaxSampleRate",
+            new MethodHook() {
                 @Override
-                protected void afterHookedMethod(MethodHookParam param) {
-                    param.result = 192000;
+                protected void after(MethodHookParam param) {
+                    param.setResult(192000);
                 }
             });
     }
