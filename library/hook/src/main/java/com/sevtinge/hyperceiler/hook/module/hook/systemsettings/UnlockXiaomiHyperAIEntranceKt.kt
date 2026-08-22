@@ -25,7 +25,6 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object UnlockXiaomiHyperAIEntranceKt : BaseHook() {
 
-    @Override
     override fun init() {
         loadClass("com.android.settings.InternalDeviceUtils").methodFinder()
             .filterByName("isAiSupported")

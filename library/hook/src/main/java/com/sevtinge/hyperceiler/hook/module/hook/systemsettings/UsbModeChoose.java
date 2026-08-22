@@ -140,10 +140,12 @@ public class UsbModeChoose extends BaseHook {
                 "initDialog", new MethodHook() {
                     @Override
                     protected void before(MethodHookParam param) {
-                        String action = activity.getIntent().getAction();
-                        if (action == null) {
-                            param.setResult(null);
-                            activity.finish();
+                        if (activity != null && activity.getIntent() != null) {
+                            String action = activity.getIntent().getAction();
+                            if (action == null) {
+                                param.setResult(null);
+                                activity.finish();
+                            }
                         }
                     }
                 }
