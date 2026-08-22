@@ -112,7 +112,7 @@ object DisableAppInfoUpload : BaseHook() {
         /**
          * methods invoke api '/info/layout'
          */
-        val infoLayoutInvokerList = DexKit.findMemberList<Method>("interceptCheckInvokerList") {
+        val infoLayoutInvokerList = DexKit.findMemberList<Method>("infoLayoutInvokerList") {
             it.findMethod {
                 matcher {
                     paramCount(7)
@@ -162,7 +162,7 @@ object DisableAppInfoUpload : BaseHook() {
         logD(
             TAG, lpparam.packageName,
             "'${prefix}' find methods: " + list.stream().map {
-                "${it.javaClass.name}#${
+                "${it.declaringClass.name}#${
                     it.name
                 }"
             }.collect(Collectors.joining(" | "))

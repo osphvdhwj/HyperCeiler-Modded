@@ -39,8 +39,9 @@ object AllAsSystemApp : BaseHook() {
     override fun init() {
         systemMethod.createHooks {
             before { param ->
-                (param.args[0] as ApplicationInfo).flags =
-                    (param.args[0] as ApplicationInfo).flags.or(ApplicationInfo.FLAG_SYSTEM)
+                (param.args[0] as? ApplicationInfo)?.let { appInfo ->
+                    appInfo.flags = appInfo.flags.or(ApplicationInfo.FLAG_SYSTEM)
+                }
             }
         }
     }

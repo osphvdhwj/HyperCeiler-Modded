@@ -56,7 +56,7 @@ object DisableSafeModelTip : BaseHook() {
                 val classIfExists =
                     "com.miui.packageInstaller.ui.listcomponets.${letter}0".findClassOrNull()
                 classIfExists?.let {
-                    it.methodFinder().filterByName("a").first().createHook {
+                    it.methodFinder().filterByName("a").firstOrNull()?.createHook {
                         after { hookParam ->
                             try {
                                 hookParam.thisObject.setBooleanField("m", false)
@@ -66,9 +66,8 @@ object DisableSafeModelTip : BaseHook() {
                         }
                     }
                 }
-            } catch (_: Throwable) {
-                letter++
-            }
+            } catch (_: Throwable) { }
+            letter++
         }
     }
 }

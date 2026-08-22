@@ -63,51 +63,57 @@ public class DisableAds extends BaseHook {
                 "isPassiveSplashAd"
         };
 
-        for (String method : appDetailMethodsTrue) {
-            hookAllMethods(appDetailV3Cls, method, new MethodHook() {
-                @Override
-                protected void after(MethodHookParam param) throws Throwable {
-                    param.setResult(true);
-                }
-            });
-        }
-
-        for (String method : appDetailMethodsFalse) {
-            hookAllMethods(appDetailV3Cls, method, new MethodHook() {
-                @Override
-                protected void after(MethodHookParam param) throws Throwable {
-                    param.setResult(false);
-                }
-            });
-        }
-
-        for (String method : new String[]{
-                "canRequestSplashAd",
-                "isRequesting",
-                "isOpenFromMsa"
-        }) {
-            hookAllMethods(detailSplashAdManagerCls, method, new MethodHook() {
-                @Override
-                protected void after(MethodHookParam param) throws Throwable {
-                    param.setResult(false);
-                }
-            });
-        }
-
-        hookAllMethods(detailSplashAdManagerCls, "tryToRequestSplashAd", new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                param.setResult(null);
+        if (appDetailV3Cls != null) {
+            for (String method : appDetailMethodsTrue) {
+                hookAllMethods(appDetailV3Cls, method, new MethodHook() {
+                    @Override
+                    protected void after(MethodHookParam param) throws Throwable {
+                        param.setResult(true);
+                    }
+                });
             }
-        });
 
-        for (String method : splashMethodsFalse) {
-            hookAllMethods(splashManagerCls, method, new MethodHook() {
+            for (String method : appDetailMethodsFalse) {
+                hookAllMethods(appDetailV3Cls, method, new MethodHook() {
+                    @Override
+                    protected void after(MethodHookParam param) throws Throwable {
+                        param.setResult(false);
+                    }
+                });
+            }
+        }
+
+        if (detailSplashAdManagerCls != null) {
+            for (String method : new String[]{
+                    "canRequestSplashAd",
+                    "isRequesting",
+                    "isOpenFromMsa"
+            }) {
+                hookAllMethods(detailSplashAdManagerCls, method, new MethodHook() {
+                    @Override
+                    protected void after(MethodHookParam param) throws Throwable {
+                        param.setResult(false);
+                    }
+                });
+            }
+
+            hookAllMethods(detailSplashAdManagerCls, "tryToRequestSplashAd", new MethodHook() {
                 @Override
-                protected void after(MethodHookParam param) throws Throwable {
-                    param.setResult(false);
+                protected void before(MethodHookParam param) throws Throwable {
+                    param.setResult(null);
                 }
             });
+        }
+
+        if (splashManagerCls != null) {
+            for (String method : splashMethodsFalse) {
+                hookAllMethods(splashManagerCls, method, new MethodHook() {
+                    @Override
+                    protected void after(MethodHookParam param) throws Throwable {
+                        param.setResult(false);
+                    }
+                });
+            }
         }
     }
 }
