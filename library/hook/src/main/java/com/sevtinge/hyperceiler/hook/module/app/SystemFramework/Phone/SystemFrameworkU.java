@@ -176,6 +176,8 @@ public class SystemFrameworkU extends BaseModule {
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.ToastBlur(), mPrefsMap.getBoolean("system_framework_toast_blur"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.FlightModeHotSpot(), mPrefsMap.getBoolean("system_framework_flight_mode_hotspot"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.LocationSimulation(), mPrefsMap.getBoolean("system_framework_location_simulation"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.UnlockAlwaysOnDisplay(), mPrefsMap.getBoolean("aod_unlock_always_on_display_hyper"));
+        initHook(com.sevtinge.hyperceiler.hook.module.hook.systemframework.BackgroundBlurDrawable.INSTANCE, mPrefsMap.getBoolean("system_framework_background_blur_supported"));
     }
 
 }

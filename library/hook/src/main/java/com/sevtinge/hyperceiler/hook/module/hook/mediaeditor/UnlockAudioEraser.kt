@@ -16,7 +16,6 @@
  *
  * Copyright (C) 2023-2025 HyperCeiler Contributions
  */
-
 package com.sevtinge.hyperceiler.hook.module.hook.mediaeditor
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
@@ -28,7 +27,15 @@ import java.lang.reflect.Method
 object UnlockAudioEraser : BaseHook() {
     override fun init() {
         runCatching {
-            // Hook AISupportItem constructors in MediaEditor and Gallery
+            val aiFeatures = listOf(
+                "audio_eraser", "audioEraser", "ai_audio_eraser",
+                "audio_denoise", "audioDenoise",
+                "voice_eraser", "voiceEraser",
+                "audio_separation", "audioSeparation", "audio_track_separation",
+                "sound_eraser", "soundEraser", "ai_audio", "*"
+            )
+
+            // 1. Hook AISupportItem constructors across MediaEditor & Gallery
             for (className in listOf(
                 "com.miui.mediaeditor.aigc.AISupportItem",
                 "com.miui.gallery.editor.aigc.AISupportItem",
@@ -37,21 +44,46 @@ object UnlockAudioEraser : BaseHook() {
                 findClassIfExists(className)?.let { clazz ->
                     hookAllConstructors(clazz, object : MethodHook() {
                         override fun before(param: MethodHookParam) {
-                            if (param.args.size > 1 && param.args[1] is MutableList<*>) {
+                            val listIdx = param.args.indexOfFirst { it is List<*> }
+                            if (listIdx != -1) {
                                 @Suppress("UNCHECKED_CAST")
-                                val list = param.args[1] as MutableList<String>
-                                list.addAll(listOf("audio_eraser", "audio_denoise", "voice_eraser", "audio_separation", "sound_eraser", "ai_audio", "*"))
+                                val origList = param.args[listIdx] as? List<String> ?: emptyList()
+                                val newList = ArrayList(origList).apply { addAll(aiFeatures) }
+                                param.args[listIdx] = newList
                             }
                         }
                     })
                 }
             }
 
-            // Hook Audio Eraser / Denoise / Separation capability getters
+            // 2. Hook MediaEditorApiHelper AI audio capability methods
+            findClassIfExists("com.miui.mediaeditor.api.MediaEditorApiHelper")?.let { helperClass ->
+                val audioMethods = listOf(
+                    "isAudioEraserAvailable", "isAudioDenoiseAvailable",
+                    "isAudioTrackSeparationAvailable", "isAiAudioAvailable"
+                )
+                audioMethods.forEach { methodName ->
+                    runCatching {
+                        findAndHookMethod(helperClass, methodName, object : MethodHook() {
+                            override fun before(param: MethodHookParam) {
+                                param.result = true
+                            }
+                        })
+                    }
+                }
+            }
+
+            // 3. DexKit method finding for boolean capability getters across HyperOS 1.0 & 2.0
             val audioMethods = DexKit.findMemberList<Method>("AudioEraserMethods") { bridge ->
                 bridge.findMethod(FindMethod.create().matcher(
                     MethodMatcher.create().usingStrings(
-                        "audio_eraser", "audio_denoise", "voice_eraser", "audio_separation", "sound_eraser", "AudioTrackSeparate"
+                        "audio_eraser", "audioEraser", "ai_audio_eraser",
+                        "audio_denoise", "audioDenoise",
+                        "voice_eraser", "voiceEraser",
+                        "audio_separation", "audioSeparation", "audio_track_separation",
+                        "sound_eraser", "soundEraser",
+                        "AudioTrackSeparate", "AudioTrackSeparation",
+                        "isAudioEraserSupported", "isAudioTrackSeparationSupport"
                     ).returnType(Boolean::class.javaPrimitiveType ?: java.lang.Boolean.TYPE)
                 ))
             }

@@ -56,6 +56,9 @@ public class VariousThirdApps extends BaseModule {
             }
         }
         initHook(new UnlockIme(), mPrefsMap.getBoolean("various_unlock_ime") && isInputMethod(mPackageName) && !mPrefsMap.getBoolean("various_phrase_clipboardlist"));
+        if (mPrefsMap.getBoolean("various_unlock_ime") && isInputMethod(mPackageName)) {
+            new LoadInputMethodDex(new com.sevtinge.hyperceiler.hook.module.hook.various.clipboard.NewUnlockIme()).onLoadPackage();
+        }
         initHook(new SoGouClipboard(), mPrefsMap.getBoolean("sogou_xiaomi_clipboard") &&
                 ("com.sohu.inputmethod.sogou.xiaomi".equals(mPackageName) || "com.sohu.inputmethod.sogou".equals(mPackageName)));
         initHook(new BaiduClipboard(), mPrefsMap.getBoolean("sogou_xiaomi_clipboard") &&

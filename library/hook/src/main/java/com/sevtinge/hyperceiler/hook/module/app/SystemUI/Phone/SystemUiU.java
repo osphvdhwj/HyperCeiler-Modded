@@ -319,5 +319,9 @@ public class SystemUiU extends BaseModule {
         initHook(new AllowManageAllNotifications(), mPrefsMap.getBoolean("system_framework_allow_manage_all_notifications"));
 
         initHook(new AutoSEffSwitchForSystemUi(), mPrefsMap.getBoolean("misound_bluetooth"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.UseNativeRecents(), mPrefsMap.getBoolean("system_ui_use_native_recents"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.QSLabelsHook(), mPrefsMap.getBoolean("system_ui_qs_labels"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.ClockCenterHook(), mPrefsMap.getBoolean("system_ui_clock_center"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.BluetoothRestrict(), mPrefsMap.getBoolean("various_disable_bluetooth_restrict"));
     }
 }

@@ -22,6 +22,7 @@ import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreSm
 
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
+import com.sevtinge.hyperceiler.hook.module.hook.aod.AodBlurButton;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.UnlockAlwaysOnDisplay;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.UnlockAodAon;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.UnlockShortCuts;
@@ -33,5 +34,8 @@ public class Aod extends BaseModule {
         initHook(UnlockShortCuts.INSTANCE, isMoreSmallVersion(200, 2f));
         initHook(UnlockAlwaysOnDisplay.INSTANCE, mPrefsMap.getBoolean("aod_unlock_always_on_display_hyper"));
         initHook(new UnlockAodAon(), mPrefsMap.getBoolean("aod_unlock_aon"));
+        if (mPrefsMap.getBoolean("system_ui_lock_screen_hyper_blur_button")) {
+            AodBlurButton.INSTANCE.initLoader(mLoadPackageParam.classLoader);
+        }
     }
 }
