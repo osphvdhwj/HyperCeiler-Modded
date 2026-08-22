@@ -47,4 +47,22 @@
             android:title="@string/system_framework_corepatch_title" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/experiment_category">
+        <SwitchPreference
+            android:key="experiment_systemframework_force_gpu_render"
+            android:title="@string/experiment_systemframework_force_gpu_render"
+            android:summary="@string/experiment_systemframework_force_gpu_render_summary"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="experiment_systemframework_disable_wifi_scan"
+            android:title="@string/experiment_systemframework_disable_wifi_scan"
+            android:summary="@string/experiment_systemframework_disable_wifi_scan_summary"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="experiment_systemframework_high_refresh_low_power"
+            android:title="@string/experiment_systemframework_high_refresh_low_power"
+            android:summary="@string/experiment_systemframework_high_refresh_low_power_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

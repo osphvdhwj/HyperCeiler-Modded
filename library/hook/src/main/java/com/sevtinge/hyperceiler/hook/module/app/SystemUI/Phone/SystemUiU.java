@@ -22,6 +22,9 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAni
 import java.util.Collections;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.ExperimentControlCenterTileAnimation;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.ExperimentControlCenterBlurIntensity;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.ExperimentLockscreenCustomClock;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AllowManageAllNotifications;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AutoCollapse;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AutoSEffSwitchForSystemUi;
@@ -132,6 +135,9 @@ public class SystemUiU extends BaseModule {
     public void handleLoadPackage() {
         // PluginHelper
         initHook(NewPluginHelperKt.INSTANCE);
+        initHook(ExperimentControlCenterTileAnimation.INSTANCE, mPrefsMap.getBoolean("experiment_systemui_cc_tile_animation"));
+        initHook(ExperimentControlCenterBlurIntensity.INSTANCE, mPrefsMap.getBoolean("experiment_systemui_cc_blur_intensity"));
+        initHook(ExperimentLockscreenCustomClock.INSTANCE, mPrefsMap.getBoolean("experiment_systemui_lockscreen_custom_clock"));
         // initHook(Island.INSTANCE, true); // 灵动岛
 
         // 小窗

@@ -58,6 +58,18 @@
             android:key="prefs_key_scanner_doc_ppt"
             android:defaultValue="false" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_scanner_batch_mode"
+            android:title="@string/experiment_scanner_batch_mode"
+            android:summary="@string/experiment_scanner_batch_mode_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_scanner_high_res"
+            android:title="@string/experiment_scanner_high_res"
+            android:summary="@string/experiment_scanner_high_res_desc" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

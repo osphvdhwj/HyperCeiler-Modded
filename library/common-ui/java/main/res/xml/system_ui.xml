@@ -40,4 +40,22 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/experiment_category">
+        <SwitchPreference
+            android:key="experiment_systemui_cc_tile_animation"
+            android:title="@string/experiment_systemui_cc_tile_animation"
+            android:summary="@string/experiment_systemui_cc_tile_animation_summary"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="experiment_systemui_cc_blur_intensity"
+            android:title="@string/experiment_systemui_cc_blur_intensity"
+            android:summary="@string/experiment_systemui_cc_blur_intensity_summary"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="experiment_systemui_lockscreen_custom_clock"
+            android:title="@string/experiment_systemui_lockscreen_custom_clock"
+            android:summary="@string/experiment_systemui_lockscreen_custom_clock_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

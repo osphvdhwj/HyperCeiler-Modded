@@ -42,5 +42,17 @@
             app:entryValues="@array/theme_manager_version_code_value"
             app:isPreferenceVisible="false" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_thememanager_unlock_premium"
+            android:title="@string/experiment_thememanager_unlock_premium"
+            android:summary="@string/experiment_thememanager_unlock_premium_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_thememanager_local_install"
+            android:title="@string/experiment_thememanager_local_install"
+            android:summary="@string/experiment_thememanager_local_install_desc" />
+
     </PreferenceCategory>
 </PreferenceScreen>

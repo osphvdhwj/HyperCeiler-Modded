@@ -24,6 +24,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.screenrecorder.ForceSupportPlay
 import com.sevtinge.hyperceiler.hook.module.hook.screenrecorder.SaveToMovies;
 import com.sevtinge.hyperceiler.hook.module.hook.screenrecorder.ScreenRecorderConfig;
 import com.sevtinge.hyperceiler.hook.module.hook.screenrecorder.UnlockMoreVolumeFromNew;
+import com.sevtinge.hyperceiler.hook.module.hook.screenrecorder.ExperimentScreenRecorderMaxBitrate;
 
 @HookBase(targetPackage = "com.miui.screenrecorder")
 public class ScreenRecorder extends BaseModule {
@@ -34,5 +35,6 @@ public class ScreenRecorder extends BaseModule {
         initHook(UnlockMoreVolumeFromNew.INSTANCE, mPrefsMap.getBoolean("screenrecorder_more_volume"));
         initHook(new ScreenRecorderConfig(), mPrefsMap.getBoolean("screenrecorder_config"));
         initHook(SaveToMovies.INSTANCE, mPrefsMap.getBoolean("screenrecorder_save_to_movies"));
+        initHook(new ExperimentScreenRecorderMaxBitrate(), mPrefsMap.getBoolean("experiment_screenrecorder_max_bitrate"));
     }
 }

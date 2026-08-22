@@ -28,6 +28,9 @@ import com.sevtinge.hyperceiler.hook.module.hook.scanner.document.EnableDocument
 import com.sevtinge.hyperceiler.hook.module.hook.scanner.document.EnableExcel;
 import com.sevtinge.hyperceiler.hook.module.hook.scanner.document.EnablePpt;
 
+import com.sevtinge.hyperceiler.hook.module.hook.scanner.ExperimentScannerBatchMode;
+import com.sevtinge.hyperceiler.hook.module.hook.scanner.ExperimentScannerHighRes;
+
 @HookBase(targetPackage = "com.xiaomi.scanner")
 public class Scanner extends BaseModule {
 
@@ -40,5 +43,7 @@ public class Scanner extends BaseModule {
         initHook(new EnableTranslation(), mPrefsMap.getBoolean("scanner_translation"));
         initHook(new EnableDocument(), mPrefsMap.getBoolean("scanner_document"));
         initHook(new EnableDocPpt(), mPrefsMap.getBoolean("scanner_doc_ppt"));
+        initHook(new ExperimentScannerBatchMode(), mPrefsMap.getBoolean("experiment_scanner_batch_mode"));
+        initHook(new ExperimentScannerHighRes(), mPrefsMap.getBoolean("experiment_scanner_high_res"));
     }
 }

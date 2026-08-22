@@ -35,6 +35,12 @@
             app:entries="@array/weather_card_display_type"
             app:entryValues="@array/weather_card_display_type_value" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_weather_remove_ads"
+            android:title="@string/experiment_weather_remove_ads"
+            android:summary="@string/experiment_weather_remove_ads_desc" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

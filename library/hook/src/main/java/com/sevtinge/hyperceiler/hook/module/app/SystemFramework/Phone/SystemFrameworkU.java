@@ -21,6 +21,9 @@ package com.sevtinge.hyperceiler.hook.module.app.SystemFramework.Phone;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.GlobalActions;
+import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ExperimentForceGpuRender;
+import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ExperimentDisableWifiScan;
+import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ExperimentAllowHighRefreshInLowPower;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowAutoStart;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowDisableProtectedPackage;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowUntrustedTouch;
@@ -89,6 +92,9 @@ public class SystemFrameworkU extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
+        initHook(ExperimentForceGpuRender.INSTANCE, mPrefsMap.getBoolean("experiment_systemframework_force_gpu_render"));
+        initHook(ExperimentDisableWifiScan.INSTANCE, mPrefsMap.getBoolean("experiment_systemframework_disable_wifi_scan"));
+        initHook(ExperimentAllowHighRefreshInLowPower.INSTANCE, mPrefsMap.getBoolean("experiment_systemframework_high_refresh_low_power"));
         initHook(new DisableMiuiWatermark(), mPrefsMap.getBoolean("system_framework_disable_miui_watermark"));
         initHook(new AntiQues(), mPrefsMap.getBoolean("system_settings_anti_ques"));
         // 小窗

@@ -1829,4 +1829,74 @@
 
     <string name="open_source">开源项目</string>
     <string name="close_source">闭源项目</string>
+
+    <string name="experiment_mms_remove_char_limit">实验：移除短信字符限制</string>
+    <string name="experiment_mms_remove_char_limit_desc">移除短信字符限制警告</string>
+    <string name="experiment_weather_remove_ads">实验：移除天气广告</string>
+    <string name="experiment_weather_remove_ads_desc">尝试屏蔽天气应用中的广告</string>
+    <string name="experiment_thememanager_unlock_premium">实验：解锁付费主题</string>
+    <string name="experiment_thememanager_unlock_premium_desc">绕过主题商店的付费检查</string>
+    <string name="experiment_thememanager_local_install">实验：允许本地安装</string>
+    <string name="experiment_thememanager_local_install_desc">允许无验证安装本地 .mtz 主题包</string>
+    <string name="experiment_category">实验性功能</string>
+    <string name="experiment_systemui_cc_tile_animation">控制中心磁贴动画</string>
+    <string name="experiment_systemui_cc_tile_animation_summary">控制中心磁贴滑入动画</string>
+    <string name="experiment_systemui_cc_blur_intensity">控制中心模糊强度</string>
+    <string name="experiment_systemui_cc_blur_intensity_summary">自定义控制中心背景模糊强度</string>
+    <string name="experiment_systemui_lockscreen_custom_clock">锁屏自定义时钟</string>
+    <string name="experiment_systemui_lockscreen_custom_clock_summary">锁屏时钟自定义字体/大小</string>
+    <string name="experiment_home_folder_effect">文件夹 3D 动效</string>
+    <string name="experiment_home_folder_effect_summary">打开文件夹时添加 3D 翻转动画</string>
+    <string name="experiment_home_icon_shadow">图标阴影/发光</string>
+    <string name="experiment_home_icon_shadow_summary">可自定义的图标阴影或发光效果</string>
+    <string name="experiment_home_status_bar_hide">隐藏状态栏</string>
+    <string name="experiment_home_status_bar_hide_summary">在主屏幕上完全隐藏状态栏</string>
+    <string name="experiment_systemframework_force_gpu_render">强制 GPU 渲染</string>
+    <string name="experiment_systemframework_force_gpu_render_summary">强制为所有窗口使用 GPU 渲染</string>
+    <string name="experiment_systemframework_disable_wifi_scan">禁用 Wi-Fi 扫描</string>
+    <string name="experiment_systemframework_disable_wifi_scan_summary">禁用后台 Wi-Fi 扫描以节省电量</string>
+    <string name="experiment_systemframework_high_refresh_low_power">省电模式高刷新率</string>
+    <string name="experiment_systemframework_high_refresh_low_power_summary">在省电模式下依然保持高刷新率</string>
+
+    <!-- Phone -->
+    <string name="experiment_phone_record_all">实验：自动录音所有通话</string>
+    <string name="experiment_phone_record_all_desc">静默为所有通话开启录音。</string>
+    <string name="experiment_phone_no_ring_timeout">实验：禁用响铃超时</string>
+    <string name="experiment_phone_no_ring_timeout_desc">禁用通话自动拒接的响铃超时。</string>
+
+    <!-- Notes -->
+    <string name="experiment_notes_unlock_all_fonts">实验：解锁所有字体</string>
+    <string name="experiment_notes_unlock_all_fonts_desc">解锁笔记中的所有高级字体。</string>
+    <string name="experiment_notes_remove_ads">实验：移除广告</string>
+    <string name="experiment_notes_remove_ads_desc">移除笔记应用中的广告横幅。</string>
+
+    <!-- Browser -->
+    <string name="experiment_browser_adblock">实验：广告拦截</string>
+    <string name="experiment_browser_adblock_desc">在浏览器网络请求中拦截常见的广告域名。</string>
+    <string name="experiment_browser_desktop_mode">实验：默认桌面模式</string>
+    <string name="experiment_browser_desktop_mode_desc">默认强制使用桌面 User-Agent。</string>
+    <string name="experiment_browser_night_mode">实验：强制夜间模式</string>
+    <string name="experiment_browser_night_mode_desc">强制所有页面使用深色模式/夜间渲染。</string>
+
+    <!-- Scanner -->
+    <string name="experiment_scanner_batch_mode">实验：批量模式</string>
+    <string name="experiment_scanner_batch_mode_desc">启用连续多重扫描模式，无需重置。</string>
+    <string name="experiment_scanner_high_res">实验：高分辨率</string>
+    <string name="experiment_scanner_high_res_desc">强制扫描使用最高相机分辨率。</string>
+
+    <!-- MiSettings -->
+    <string name="experiment_misettings_unlock_hidden_menus">实验：解锁隐藏菜单</string>
+    <string name="experiment_misettings_unlock_hidden_menus_desc">显示隐藏的开发者/测试菜单。</string>
+
+    <!-- PowerKeeper -->
+    <string name="experiment_powerkeeper_no_throttle">实验：无降频</string>
+    <string name="experiment_powerkeeper_no_throttle_desc">防止电量和性能进行 CPU 降频。</string>
+    <string name="experiment_game_mode_boost">实验：游戏模式加速</string>
+    <string name="experiment_game_mode_boost_desc">在游戏模式下强制使用性能配置文件。</string>
+
+    <!-- ContentExtension -->
+    <string name="experiment_sidebar_unlock_all_tools">实验：解锁所有侧边栏工具</string>
+    <string name="experiment_sidebar_unlock_all_tools_desc">无视地区限制，解锁 AI 侧边栏中的所有工具。</string>
+    <string name="experiment_sidebar_float_on_all">实验：侧边栏在所有应用上悬浮</string>
+    <string name="experiment_sidebar_float_on_all_desc">允许 AI 侧边栏在所有应用上悬浮（不仅是白名单应用）。</string>
 </resources>

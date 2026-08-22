@@ -1657,4 +1657,73 @@
     <string name="system_framework_volume_skip_songs_desc">Long press volume up/down to skip/rewind songs when the screen is off</string>
     <string name="system_ui_statusbar_brightness_control">Statusbar brightness control</string>
     <string name="system_ui_statusbar_brightness_control_desc">Slide across the status bar to adjust screen brightness</string>
+    <string name="experiment_mms_remove_char_limit">Experiment: Remove SMS Char Limit</string>
+    <string name="experiment_mms_remove_char_limit_desc">Removes the character limit warning for SMS messages.</string>
+    <string name="experiment_weather_remove_ads">Experiment: Remove Weather Ads</string>
+    <string name="experiment_weather_remove_ads_desc">Attempts to block ad units in the Weather app.</string>
+    <string name="experiment_thememanager_unlock_premium">Experiment: Unlock Premium Themes</string>
+    <string name="experiment_thememanager_unlock_premium_desc">Bypasses premium checks for themes.</string>
+    <string name="experiment_thememanager_local_install">Experiment: Allow Local Installs</string>
+    <string name="experiment_thememanager_local_install_desc">Allows installing local .mtz themes without verification.</string>
+    <string name="experiment_category">Experimental Features</string>
+    <string name="experiment_systemui_cc_tile_animation">CC Tile Animation</string>
+    <string name="experiment_systemui_cc_tile_animation_summary">Slide-in animation to control center tiles</string>
+    <string name="experiment_systemui_cc_blur_intensity">CC Blur Intensity</string>
+    <string name="experiment_systemui_cc_blur_intensity_summary">Custom blur intensity for CC background</string>
+    <string name="experiment_systemui_lockscreen_custom_clock">Lockscreen Custom Clock</string>
+    <string name="experiment_systemui_lockscreen_custom_clock_summary">Custom font/size for lockscreen clock</string>
+    <string name="experiment_home_folder_effect">Folder 3D Effect</string>
+    <string name="experiment_home_folder_effect_summary">Add 3D flip animation when opening folders</string>
+    <string name="experiment_home_icon_shadow">Icon Shadow/Glow</string>
+    <string name="experiment_home_icon_shadow_summary">Customizable icon shadow/glow effect</string>
+    <string name="experiment_home_status_bar_hide">Hide Status Bar</string>
+    <string name="experiment_home_status_bar_hide_summary">Completely hide status bar on home screen</string>
+    <string name="experiment_systemframework_force_gpu_render">Force GPU Rendering</string>
+    <string name="experiment_systemframework_force_gpu_render_summary">Force GPU rendering for all windows</string>
+    <string name="experiment_systemframework_disable_wifi_scan">Disable Wifi Scanning</string>
+    <string name="experiment_systemframework_disable_wifi_scan_summary">Disable background wifi scanning for battery</string>
+    <string name="experiment_systemframework_high_refresh_low_power">High Refresh Rate in Low Power</string>
+    <string name="experiment_systemframework_high_refresh_low_power_summary">Keep high refresh rate even in power saving mode</string>
+
+    <!-- Phone -->
+    <string name="experiment_phone_record_all">Experiment: Auto Record All Calls</string>
+    <string name="experiment_phone_record_all_desc">Silently enable call recording for all calls.</string>
+    <string name="experiment_phone_no_ring_timeout">Experiment: Disable Ring Timeout</string>
+    <string name="experiment_phone_no_ring_timeout_desc">Disable call auto-reject ring timeout.</string>
+
+    <!-- Notes -->
+    <string name="experiment_notes_unlock_all_fonts">Experiment: Unlock All Fonts</string>
+    <string name="experiment_notes_unlock_all_fonts_desc">Unlock all premium fonts.</string>
+    <string name="experiment_notes_remove_ads">Experiment: Remove Ads</string>
+    <string name="experiment_notes_remove_ads_desc">Remove ad banners from Notes.</string>
+
+    <!-- Browser -->
+    <string name="experiment_browser_adblock">Experiment: AdBlock</string>
+    <string name="experiment_browser_adblock_desc">Block common ad domains in browser network requests.</string>
+    <string name="experiment_browser_desktop_mode">Experiment: Desktop Mode Default</string>
+    <string name="experiment_browser_desktop_mode_desc">Force desktop User-Agent by default.</string>
+    <string name="experiment_browser_night_mode">Experiment: Force Night Mode</string>
+    <string name="experiment_browser_night_mode_desc">Force dark mode/night rendering for all pages.</string>
+
+    <!-- Scanner -->
+    <string name="experiment_scanner_batch_mode">Experiment: Batch Mode</string>
+    <string name="experiment_scanner_batch_mode_desc">Enable continuous multi-scan mode without reset.</string>
+    <string name="experiment_scanner_high_res">Experiment: High Resolution</string>
+    <string name="experiment_scanner_high_res_desc">Force maximum camera resolution for scanning.</string>
+
+    <!-- MiSettings -->
+    <string name="experiment_misettings_unlock_hidden_menus">Experiment: Unlock Hidden Menus</string>
+    <string name="experiment_misettings_unlock_hidden_menus_desc">Show hidden developer/test menus.</string>
+
+    <!-- PowerKeeper -->
+    <string name="experiment_powerkeeper_no_throttle">Experiment: No Throttling</string>
+    <string name="experiment_powerkeeper_no_throttle_desc">Prevent CPU throttling from PowerKeeper.</string>
+    <string name="experiment_game_mode_boost">Experiment: Game Mode Boost</string>
+    <string name="experiment_game_mode_boost_desc">Force performance profile in game mode.</string>
+
+    <!-- ContentExtension -->
+    <string name="experiment_sidebar_unlock_all_tools">Experiment: Unlock All Sidebar Tools</string>
+    <string name="experiment_sidebar_unlock_all_tools_desc">Unlock all tools in AI sidebar regardless of region.</string>
+    <string name="experiment_sidebar_float_on_all">Experiment: Sidebar Float On All</string>
+    <string name="experiment_sidebar_float_on_all_desc">Allow AI sidebar to float on all apps.</string>
 </resources>

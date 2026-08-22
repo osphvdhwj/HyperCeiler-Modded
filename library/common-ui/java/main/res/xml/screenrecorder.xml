@@ -48,4 +48,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_screenrecorder_max_bitrate"
+            android:title="[Exp] Max Bitrate Override (80Mbps)"
+            android:summary="Remove screen recording bitrate cap and allow recording at up to 80Mbps quality." />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

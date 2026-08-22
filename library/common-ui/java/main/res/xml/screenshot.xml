@@ -44,4 +44,15 @@
             android:key="prefs_key_screenshot_device_customize" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_screenshot_scroll_unlimited"
+            android:title="[Exp] Unlimited Scrollshot Capture"
+            android:summary="Remove the page and height limit in long/scroll screenshot mode." />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

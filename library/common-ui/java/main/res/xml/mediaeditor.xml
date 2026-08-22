@@ -158,4 +158,20 @@
             app:entryValues="@array/customize_disney_type_value" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_mediaeditor_unlock_all_ai_filters"
+            android:title="[Exp] Unlock All AI Filters"
+            android:summary="Force-enable all AI visual styles and effects regardless of device tier." />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_mediaeditor_remove_aigc_watermark"
+            android:title="[Exp] Remove AIGC Watermark"
+            android:summary="Suppress AI-generated content watermark from being embedded in exported media." />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

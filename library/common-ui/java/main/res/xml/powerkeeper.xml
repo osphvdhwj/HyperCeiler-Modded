@@ -57,6 +57,18 @@
             android:title="@string/powerkeeper_prevent_recovery_of_battery_optimization_whitelist"
             android:key="prefs_key_powerkeeper_prevent_recovery_of_battery_optimization_whitelist"
             android:defaultValue="false" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_powerkeeper_no_throttle"
+            android:title="@string/experiment_powerkeeper_no_throttle"
+            android:summary="@string/experiment_powerkeeper_no_throttle_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_game_mode_boost"
+            android:title="@string/experiment_game_mode_boost"
+            android:summary="@string/experiment_game_mode_boost_desc" />
     </PreferenceCategory>
 
 </PreferenceScreen>

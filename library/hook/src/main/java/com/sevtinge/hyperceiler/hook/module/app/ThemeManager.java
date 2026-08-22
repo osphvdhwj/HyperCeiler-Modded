@@ -24,6 +24,8 @@ import com.sevtinge.hyperceiler.hook.module.hook.thememanager.AllowDownloadMore;
 import com.sevtinge.hyperceiler.hook.module.hook.thememanager.AllowThirdTheme;
 import com.sevtinge.hyperceiler.hook.module.hook.thememanager.DisableThemeAdNew;
 import com.sevtinge.hyperceiler.hook.module.hook.thememanager.VersionCodeModify;
+import com.sevtinge.hyperceiler.hook.module.hook.thememanager.ExperimentThemeUnlockPremium;
+import com.sevtinge.hyperceiler.hook.module.hook.thememanager.ExperimentThemeLocalInstall;
 
 @HookBase(targetPackage = "com.android.thememanager")
 public class ThemeManager extends BaseModule {
@@ -36,6 +38,9 @@ public class ThemeManager extends BaseModule {
 
         // 修改版本号
         initHook(new VersionCodeModify(), mPrefsMap.getStringAsInt("theme_manager_new_version_code_modify", 0) != 0);
+        
+        initHook(new ExperimentThemeUnlockPremium(), mPrefsMap.getBoolean("experiment_thememanager_unlock_premium"));
+        initHook(new ExperimentThemeLocalInstall(), mPrefsMap.getBoolean("experiment_thememanager_local_install"));
     }
 
 }

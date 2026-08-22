@@ -24,6 +24,10 @@ import com.sevtinge.hyperceiler.hook.module.hook.browser.DebugMode;
 import com.sevtinge.hyperceiler.hook.module.hook.browser.DisableReadFiles;
 import com.sevtinge.hyperceiler.hook.module.hook.browser.EnableDebugEnvironment;
 
+import com.sevtinge.hyperceiler.hook.module.hook.browser.ExperimentBrowserAdBlock;
+import com.sevtinge.hyperceiler.hook.module.hook.browser.ExperimentBrowserDesktopMode;
+import com.sevtinge.hyperceiler.hook.module.hook.browser.ExperimentBrowserNightMode;
+
 @HookBase(targetPackage = "com.android.browser")
 public class Browser extends BaseModule {
 
@@ -32,5 +36,8 @@ public class Browser extends BaseModule {
         initHook(new DebugMode(), mPrefsMap.getBoolean("browser_debug_mode"));
         initHook(new DisableReadFiles(), mPrefsMap.getBoolean("browser_disable_blacklist"));
         initHook(new EnableDebugEnvironment(), mPrefsMap.getBoolean("browser_enable_debug_environment"));
+        initHook(new ExperimentBrowserAdBlock(), mPrefsMap.getBoolean("experiment_browser_adblock"));
+        initHook(new ExperimentBrowserDesktopMode(), mPrefsMap.getBoolean("experiment_browser_desktop_mode"));
+        initHook(new ExperimentBrowserNightMode(), mPrefsMap.getBoolean("experiment_browser_night_mode"));
     }
 }

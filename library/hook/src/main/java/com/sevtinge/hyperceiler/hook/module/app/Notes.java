@@ -22,11 +22,16 @@ import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.notes.DisableAiWatermark;
 
+import com.sevtinge.hyperceiler.hook.module.hook.notes.ExperimentNotesUnlockAllFonts;
+import com.sevtinge.hyperceiler.hook.module.hook.notes.ExperimentNotesRemoveAds;
+
 @HookBase(targetPackage = "com.miui.notes")
 public class Notes extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
         initHook(new DisableAiWatermark(), mPrefsMap.getBoolean("notes_disable_ai_watermark"));
+        initHook(new ExperimentNotesUnlockAllFonts(), mPrefsMap.getBoolean("experiment_notes_unlock_all_fonts"));
+        initHook(new ExperimentNotesRemoveAds(), mPrefsMap.getBoolean("experiment_notes_remove_ads"));
     }
 }

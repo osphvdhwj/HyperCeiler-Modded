@@ -30,4 +30,10 @@
         android:key="prefs_key_sound_recorder_unlock_recording_scene"
         android:defaultValue="false" />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefs_key_experiment_soundrecorder_lossless"
+        android:title="[Exp] Lossless FLAC Recording"
+        android:summary="Enable FLAC format and maximum 192kHz sample rate for lossless audio recording." />
+
 </PreferenceScreen>

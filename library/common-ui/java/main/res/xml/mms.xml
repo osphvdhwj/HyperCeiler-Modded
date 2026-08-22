@@ -44,6 +44,12 @@
             android:key="prefs_key_mms_im_old_device"
             android:title="@string/mms_im_old_device" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_mms_remove_char_limit"
+            android:title="@string/experiment_mms_remove_char_limit"
+            android:summary="@string/experiment_mms_remove_char_limit_desc" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

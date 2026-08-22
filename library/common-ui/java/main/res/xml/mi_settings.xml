@@ -27,4 +27,10 @@
         android:key="prefs_key_mi_settings_show_fps"
         android:defaultValue="false" />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefs_key_experiment_misettings_unlock_hidden_menus"
+        android:title="@string/experiment_misettings_unlock_hidden_menus"
+        android:summary="@string/experiment_misettings_unlock_hidden_menus_desc" />
+
 </PreferenceScreen>

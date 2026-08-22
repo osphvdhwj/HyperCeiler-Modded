@@ -108,4 +108,27 @@
             android:summary="Allows third-party gallery apps like Google Photos to be opened from the Camera app." />
 
     </PreferenceCategory>
+
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_camera_unlock_astro_mode"
+            android:title="[Exp] Unlock Astrophotography Mode"
+            android:summary="Force-enable night sky / astrophoto shooting mode on all devices." />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_camera_max_zoom"
+            android:title="[Exp] Max Zoom Override (100x)"
+            android:summary="Remove digital zoom limit and allow up to 100x magnification." />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_camera_video_hdr"
+            android:title="[Exp] Force HDR Video Recording"
+            android:summary="Enable HDR10/HDR10+ video recording mode on supported hardware." />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

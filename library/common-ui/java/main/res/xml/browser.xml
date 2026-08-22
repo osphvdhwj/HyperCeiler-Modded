@@ -40,6 +40,24 @@
             android:key="prefs_key_browser_disable_blacklist"
             android:defaultValue="false" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_browser_adblock"
+            android:title="@string/experiment_browser_adblock"
+            android:summary="@string/experiment_browser_adblock_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_browser_desktop_mode"
+            android:title="@string/experiment_browser_desktop_mode"
+            android:summary="@string/experiment_browser_desktop_mode_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_browser_night_mode"
+            android:title="@string/experiment_browser_night_mode"
+            android:summary="@string/experiment_browser_night_mode_desc" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -28,6 +28,8 @@ import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockCustomPhotoFr
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockDisney;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockLeicaFilter;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockMinimumCropLimit2;
+import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.ExperimentUnlockAllAiFilters;
+import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.ExperimentRemoveAigcWatermark;
 
 import java.util.Objects;
 
@@ -52,6 +54,10 @@ public class MediaEditor extends BaseModule {
             initHook(UnlockCustomPhotoFrames.INSTANCE, mPrefsMap.getBoolean("mediaeditor_unlock_custom_photo_frames_v2"));
             initHook(UnlockDisney.INSTANCE, mPrefsMap.getBoolean("mediaeditor_unlock_disney_some_func_v2"));
         }
+
+        // Experimental
+        initHook(new ExperimentUnlockAllAiFilters(), mPrefsMap.getBoolean("experiment_mediaeditor_unlock_all_ai_filters"));
+        initHook(new ExperimentRemoveAigcWatermark(), mPrefsMap.getBoolean("experiment_mediaeditor_remove_aigc_watermark"));
     }
 
 }

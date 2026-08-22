@@ -30,6 +30,9 @@ import com.sevtinge.hyperceiler.hook.module.hook.contentextension.Taplus;
 import com.sevtinge.hyperceiler.hook.module.hook.contentextension.UnlockTaplus;
 import com.sevtinge.hyperceiler.hook.module.hook.contentextension.UseThirdPartyBrowser;
 
+import com.sevtinge.hyperceiler.hook.module.hook.contentextension.ExperimentSidebarUnlockAllTools;
+import com.sevtinge.hyperceiler.hook.module.hook.contentextension.ExperimentSidebarFloatOnAll;
+
 @HookBase(targetPackage = "com.miui.contentextension")
 public class ContentExtension extends BaseModule {
 
@@ -42,5 +45,7 @@ public class ContentExtension extends BaseModule {
         initHook(new LinkOpenMode(), true);
         initHook(HorizontalContentExtension.INSTANCE, mPrefsMap.getBoolean("content_extension_unlock_taplus_horizontal"));
         initHook(UnlockTaplus.INSTANCE, mPrefsMap.getBoolean("content_extension_unlock_taplus") && isPad());
+        initHook(new ExperimentSidebarUnlockAllTools(), mPrefsMap.getBoolean("experiment_sidebar_unlock_all_tools"));
+        initHook(new ExperimentSidebarFloatOnAll(), mPrefsMap.getBoolean("experiment_sidebar_float_on_all"));
     }
 }

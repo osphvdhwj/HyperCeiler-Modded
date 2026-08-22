@@ -30,6 +30,9 @@ import com.sevtinge.hyperceiler.hook.module.hook.phone.N5N8BandPhone;
 import com.sevtinge.hyperceiler.hook.module.hook.phone.UnlockVoiceLink;
 import com.sevtinge.hyperceiler.hook.module.hook.phone.ViceSlotVolteButton;
 
+import com.sevtinge.hyperceiler.hook.module.hook.phone.ExperimentPhoneRecordAll;
+import com.sevtinge.hyperceiler.hook.module.hook.phone.ExperimentPhoneNoRingTimeout;
+
 @HookBase(targetPackage = "com.android.phone")
 public class Phone extends BaseModule {
     @Override
@@ -44,5 +47,7 @@ public class Phone extends BaseModule {
         initHook(N1BandPhone.INSTANCE, mPrefsMap.getBoolean("phone_n1"));
         initHook(N5N8BandPhone.INSTANCE, mPrefsMap.getBoolean("phone_n5_n8"));
         initHook(N28BandPhone.INSTANCE, mPrefsMap.getBoolean("phone_n28"));
+        initHook(new ExperimentPhoneRecordAll(), mPrefsMap.getBoolean("experiment_phone_record_all"));
+        initHook(new ExperimentPhoneNoRingTimeout(), mPrefsMap.getBoolean("experiment_phone_no_ring_timeout"));
     }
 }

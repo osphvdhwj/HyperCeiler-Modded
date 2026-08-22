@@ -78,4 +78,22 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/experiment_category">
+        <SwitchPreference
+            android:key="experiment_home_folder_effect"
+            android:title="@string/experiment_home_folder_effect"
+            android:summary="@string/experiment_home_folder_effect_summary"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="experiment_home_icon_shadow"
+            android:title="@string/experiment_home_icon_shadow"
+            android:summary="@string/experiment_home_icon_shadow_summary"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="experiment_home_status_bar_hide"
+            android:title="@string/experiment_home_status_bar_hide"
+            android:summary="@string/experiment_home_status_bar_hide_summary"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

@@ -100,4 +100,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_gallery_unlock_cloud_ai"
+            android:title="[Exp] Unlock All Cloud AI Features"
+            android:summary="Force-enable AI smart albums, AI search and cloud AI capabilities regardless of region or device tier." />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
