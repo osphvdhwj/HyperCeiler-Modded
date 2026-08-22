@@ -78,6 +78,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.HideLockScr
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.HideLockscreenZenMode;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.LinkageAnimCustomer;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.LockScreenDoubleTapToSleep;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.NotificationShowOnKeyguard;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.RemoveCamera;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.RemoveSmartScreen;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.lockscreen.ScramblePIN;

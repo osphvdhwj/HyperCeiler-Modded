@@ -28,6 +28,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnableOcr;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnableOcrForm;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnablePdf;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnablePhotoMovie;
+import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnableVideoEditor;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnableVideoPost;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.UnPrivacyWatermark;
 

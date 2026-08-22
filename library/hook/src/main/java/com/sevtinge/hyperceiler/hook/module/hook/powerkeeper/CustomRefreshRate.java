@@ -21,6 +21,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.powerkeeper;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit;
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.IDexKit;
+import de.robv.android.xposed.XposedHelpers;
 
 import org.luckypray.dexkit.DexKitBridge;
 import org.luckypray.dexkit.query.FindMethod;
