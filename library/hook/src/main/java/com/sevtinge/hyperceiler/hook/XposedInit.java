@@ -140,16 +140,37 @@ public class XposedInit implements IXposedHookZygoteInit, IXposedHookLoadPackage
             if (allPrefs != null && !allPrefs.isEmpty()) {
                 mPrefsMap.clear();
                 mPrefsMap.putAll(allPrefs);
-            } else {
-                XSharedPreferences fallbackPrefs = new XSharedPreferences(new File(PrefsUtils.mPrefsFile));
-                fallbackPrefs.makeWorldReadable();
-                fallbackPrefs.reload();
-                Map<String, ?> fallbackAll = fallbackPrefs.getAll();
-                if (fallbackAll != null && !fallbackAll.isEmpty()) {
-                    mPrefsMap.clear();
-                    mPrefsMap.putAll(fallbackAll);
-                }
+                return;
             }
+
+            XSharedPreferences fallbackPrefs = new XSharedPreferences(new File(PrefsUtils.mPrefsFile));
+            fallbackPrefs.makeWorldReadable();
+            fallbackPrefs.reload();
+            Map<String, ?> fallbackAll = fallbackPrefs.getAll();
+            if (fallbackAll != null && !fallbackAll.isEmpty()) {
+                mPrefsMap.clear();
+                mPrefsMap.putAll(fallbackAll);
+                return;
+            }
+
+            // SELinux IPC Provider Fallback for Android 14/15
+            com.sevtinge.hyperceiler.hook.utils.ContextUtils.getWaitContext(context -> {
+                if (context != null) {
+                    try {
+                        android.net.Uri uri = android.net.Uri.parse("content://" + com.sevtinge.hyperceiler.hook.provider.SharedPrefsProvider.AUTHORITY);
+                        android.os.Bundle bundle = context.getContentResolver().call(uri, "getAll", null, null);
+                        if (bundle != null && !bundle.isEmpty()) {
+                            for (String key : bundle.keySet()) {
+                                Object val = bundle.get(key);
+                                if (val != null) {
+                                    mPrefsMap.put(key, val);
+                                }
+                            }
+                        }
+                    } catch (Throwable ignored) {
+                    }
+                }
+            }, false);
         } catch (Throwable t) {
             logE("setXSharedPrefs", t);
         }

@@ -131,6 +131,36 @@ public class SharedPrefsProvider extends ContentProvider {
     }
 
     @Override
+    public Bundle call(@NonNull String method, @Nullable String arg, @Nullable Bundle extras) {
+        if ("getAll".equals(method)) {
+            Bundle bundle = new Bundle();
+            if (prefs == null) {
+                Context context = getContext();
+                if (context != null) {
+                    prefs = PrefsUtils.getSharedPrefs(context, true);
+                }
+            }
+            if (prefs != null) {
+                java.util.Map<String, ?> all = prefs.getAll();
+                for (java.util.Map.Entry<String, ?> entry : all.entrySet()) {
+                    String k = entry.getKey();
+                    Object v = entry.getValue();
+                    if (v instanceof Boolean) bundle.putBoolean(k, (Boolean) v);
+                    else if (v instanceof Integer) bundle.putInt(k, (Integer) v);
+                    else if (v instanceof String) bundle.putString(k, (String) v);
+                    else if (v instanceof Set) {
+                        @SuppressWarnings("unchecked")
+                        Set<String> set = (Set<String>) v;
+                        bundle.putStringArrayList(k, new java.util.ArrayList<>(set));
+                    }
+                }
+            }
+            return bundle;
+        }
+        return super.call(method, arg, extras);
+    }
+
+    @Override
     public String getType(@NonNull Uri uri) {
         return null;
     }
