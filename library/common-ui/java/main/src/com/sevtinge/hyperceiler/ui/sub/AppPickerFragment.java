@@ -225,17 +225,26 @@ public class AppPickerFragment extends Fragment {
                         }
 
                         selectedApps = new LinkedHashSet<>(PrefsUtils.mSharedPreferences.getStringSet(key, new LinkedHashSet<>()));
+                        Set<String> appLockEnforcedApps = (key != null && key.contains("applock_fingerprint")) 
+                                ? PackagesUtils.getAppLockApps(getContext()) 
+                                : new java.util.HashSet<>();
+
                         List<AppData> selectedAppList = new ArrayList<>();
+                        List<AppData> lockedAppList = new ArrayList<>();
                         List<AppData> remainingAppList = new ArrayList<>();
+
                         for (AppData appData : appDataList) {
                             if (selectedApps.contains(appData.packageName)) {
                                 selectedAppList.add(appData);
+                            } else if (appLockEnforcedApps.contains(appData.packageName)) {
+                                lockedAppList.add(appData);
                             } else {
                                 remainingAppList.add(appData);
                             }
                         }
                         appDataList.clear();
                         appDataList.addAll(selectedAppList);
+                        appDataList.addAll(lockedAppList);
                         appDataList.addAll(remainingAppList);
 
                         mAppListAdapter = new AppDataAdapter(requireActivity(),

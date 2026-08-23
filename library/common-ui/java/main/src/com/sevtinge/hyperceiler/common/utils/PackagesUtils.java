@@ -48,6 +48,40 @@ import java.util.Objects;
 public class PackagesUtils {
     private static final String TAG = ITAG.TAG;
 
+    public static java.util.Set<String> getAppLockApps(Context context) {
+        java.util.Set<String> lockedApps = new java.util.HashSet<>();
+        if (context == null) return lockedApps;
+        try {
+            android.content.ContentResolver cr = context.getContentResolver();
+            String data = android.provider.Settings.Secure.getString(cr, "access_control_lock_enabled");
+            if (android.text.TextUtils.isEmpty(data)) {
+                data = android.provider.Settings.Secure.getString(cr, "access_control_lock_apps");
+            }
+            if (!android.text.TextUtils.isEmpty(data)) {
+                if (data.startsWith("{")) {
+                    org.json.JSONObject json = new org.json.JSONObject(data);
+                    java.util.Iterator<String> keys = json.keys();
+                    while (keys.hasNext()) {
+                        String key = keys.next();
+                        if (json.optInt(key) == 1 || json.optBoolean(key)) {
+                            lockedApps.add(key);
+                        }
+                    }
+                } else {
+                    String[] split = data.split(",");
+                    for (String pkg : split) {
+                        if (!pkg.trim().isEmpty()) {
+                            lockedApps.add(pkg.trim());
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            AndroidLogUtils.logE(TAG, e);
+        }
+        return lockedApps;
+    }
+
     /**
      * 通过 flag 获取系统内已经安装的软件。
      *
@@ -66,6 +100,35 @@ public class PackagesUtils {
      */
     public static List<AppData> getPackageByIntent(String flag) {
         return getPackagesByIntent(flag);
+    }
+
+    /**
+     * Extracts list of package names that currently have App Lock enabled in Security Center.
+     */
+    public static java.util.Set<String> getAppLockPackages(Context context) {
+        java.util.Set<String> lockedPkgs = new java.util.HashSet<>();
+        if (context == null) return lockedPkgs;
+        try {
+            Uri uri = Uri.parse("content://com.miui.securitycenter.provider/access_control");
+            android.database.Cursor cursor = context.getContentResolver().query(uri, new String[]{"package_name", "access_control"}, null, null, null);
+            if (cursor != null) {
+                while (cursor.moveToNext()) {
+                    int colPkg = cursor.getColumnIndex("package_name");
+                    int colLock = cursor.getColumnIndex("access_control");
+                    if (colPkg != -1) {
+                        String pkg = cursor.getString(colPkg);
+                        int lockState = (colLock != -1) ? cursor.getInt(colLock) : 1;
+                        if (lockState == 1 && pkg != null && !pkg.isEmpty()) {
+                            lockedPkgs.add(pkg);
+                        }
+                    }
+                }
+                cursor.close();
+            }
+        } catch (Throwable t) {
+            AndroidLogUtils.logE(TAG, "getAppLockPackages failed: " + t);
+        }
+        return lockedPkgs;
     }
 
     /**

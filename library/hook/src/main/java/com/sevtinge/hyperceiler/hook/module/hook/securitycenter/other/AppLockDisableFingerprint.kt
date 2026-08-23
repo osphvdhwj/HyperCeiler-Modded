@@ -13,6 +13,15 @@ import de.robv.android.xposed.XposedHelpers
 object AppLockDisableFingerprint : BaseHook() {
     private var currentPkgName: String? = null
 
+    private fun getDisabledFingerprintApps(): Set<String> {
+        val apps = mutableSetOf<String>()
+        runCatching {
+            apps.addAll(mPrefsMap.getStringSet("security_center_disable_applock_fingerprint_apps"))
+            apps.addAll(mPrefsMap.getStringSet("prefs_key_security_center_disable_applock_fingerprint_apps"))
+        }
+        return apps
+    }
+
     override fun init() {
         val confirmAccessControlClass = findClassIfExists("com.miui.applicationlock.ConfirmAccessControl")
         confirmAccessControlClass?.let { clazz ->
@@ -57,6 +66,26 @@ object AppLockDisableFingerprint : BaseHook() {
                     }
                 }
             }
+
+            // Hook ConfirmAccessControl fingerprint availability methods directly
+            runCatching {
+                clazz.hookBeforeAllMethods("isFingerprintEnable") { param ->
+                    val disabledApps = getDisabledFingerprintApps()
+                    val target = currentPkgName
+                    if (target != null && disabledApps.any { it.equals(target, ignoreCase = true) }) {
+                        param.result = false
+                    }
+                }
+            }
+            runCatching {
+                clazz.hookBeforeAllMethods("shouldUseFingerprint") { param ->
+                    val disabledApps = getDisabledFingerprintApps()
+                    val target = currentPkgName
+                    if (target != null && disabledApps.any { it.equals(target, ignoreCase = true) }) {
+                        param.result = false
+                    }
+                }
+            }
         }
 
         val fingerprintHelperClass = findClassIfExists("com.miui.applicationlock.FingerprintHelperImpl") 
@@ -64,9 +93,9 @@ object AppLockDisableFingerprint : BaseHook() {
             ?: return
 
         val cancelFingerprintHook: (de.robv.android.xposed.XC_MethodHook.MethodHookParam) -> Unit = { param ->
-            val disabledApps = mPrefsMap.getStringSet("security_center_disable_applock_fingerprint_apps")
+            val disabledApps = getDisabledFingerprintApps()
             val target = currentPkgName
-            if (target != null && disabledApps.contains(target)) {
+            if (target != null && disabledApps.any { it.equals(target, ignoreCase = true) }) {
                 param.result = false
             }
         }
@@ -75,7 +104,19 @@ object AppLockDisableFingerprint : BaseHook() {
         runCatching { fingerprintHelperClass.hookBeforeAllMethods("isHardwareDetectedAppLock", hooker = cancelFingerprintHook) }
         runCatching { fingerprintHelperClass.hookBeforeAllMethods("isFingerprintEnable", hooker = cancelFingerprintHook) }
         runCatching { fingerprintHelperClass.hookBeforeAllMethods("isFingerprintUnlockEnable", hooker = cancelFingerprintHook) }
-        runCatching { fingerprintHelperClass.hookBeforeAllMethods("startAuthenticate", hooker = cancelFingerprintHook) }
-        runCatching { fingerprintHelperClass.hookBeforeAllMethods("authenticate", hooker = cancelFingerprintHook) }
+        runCatching { fingerprintHelperClass.hookBeforeAllMethods("startAuthenticate", hooker = hooker@{ param ->
+            val disabledApps = getDisabledFingerprintApps()
+            val target = currentPkgName
+            if (target != null && disabledApps.any { it.equals(target, ignoreCase = true) }) {
+                param.result = null
+            }
+        }) }
+        runCatching { fingerprintHelperClass.hookBeforeAllMethods("authenticate", hooker = hooker@{ param ->
+            val disabledApps = getDisabledFingerprintApps()
+            val target = currentPkgName
+            if (target != null && disabledApps.any { it.equals(target, ignoreCase = true) }) {
+                param.result = null
+            }
+        }) }
     }
 }

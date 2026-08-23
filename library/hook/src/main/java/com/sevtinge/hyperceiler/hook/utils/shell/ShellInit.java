@@ -38,16 +38,18 @@ public class ShellInit {
     }
 
     public static void init(IResult result) {
-        try {
-            if (mShell != null && !mShell.isDestroy()) {
-                return;
-            }
-            mResult = result;
-            mShell = new ShellExec(true, true, result);
-            lastReady = mShell.ready();
-        } catch (RuntimeException e) {
-            AndroidLogUtils.logE(TAG, e);
+        if (mShell != null && !mShell.isDestroy()) {
+            return;
         }
+        mResult = result;
+        new Thread(() -> {
+            try {
+                mShell = new ShellExec(true, true, result);
+                lastReady = mShell.ready();
+            } catch (RuntimeException e) {
+                AndroidLogUtils.logE(TAG, e);
+            }
+        }).start();
     }
 
     public static void destroy() {
