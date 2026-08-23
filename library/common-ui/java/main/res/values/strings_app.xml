@@ -6,7 +6,7 @@
     <string name="navigation_settings_title" translatable="false">@string/settings</string>
     <string name="navigation_about_title" translatable="false">@string/about</string>
     <string name="version_update">New version found</string>
-    <string name="about_copy_right" translatable="false">© 2023-2025 Sevtinge &amp; HyperCeiler Contributors.</string>
+    <string name="about_copy_right" translatable="false">© 2023-2025 Sevtinge &amp; HyperHand Contributors.</string>
     <string name="empty_lable" translatable="false" />
     <string name="system_ui_status_bar_icon_nfc" translatable="false">NFC</string>
     <string name="system_ui_status_bar_icon_vpn" translatable="false">VPN</string>
@@ -55,18 +55,18 @@
     <string name="new_permission_location_desc">Used to provide services such as latitude and longitude</string>
     <string name="new_cta_agree_desc">During usage, in order to provide you with more features, we may apply for Root/Su permission from you. You can go to Permission Management at any time to adjust the authorization status of all permissions, and please go to your Root/Su manager to grant Root/Su permissions.</string>
     <string name="new_cta_app_main_purpose">Modify system apps</string>
-    <string name="new_cta_app_all_purpose_title">Welcome to HyperCeiler! This app relies on the Xposed framework to run. You can use this app to hijack and modify other supported apps to enhance the system. During usage, in order to provide you with more functions, we may apply for Root/Su permissions from you. You can manage it at any time by going to your Root/Su manager.</string>
+    <string name="new_cta_app_all_purpose_title">Welcome to HyperHand! This app relies on the Xposed framework to run. You can use this app to hijack and modify other supported apps to enhance the system. During usage, in order to provide you with more functions, we may apply for Root/Su permissions from you. You can manage it at any time by going to your Root/Su manager.</string>
     <string name="language">English</string>
-    <string name="translator">HyperCeiler Official</string>
+    <string name="translator">HyperHand Official</string>
     <string name="translator_url">https://github.com/ReChronoRain</string>
     <string name="home">Home</string>
     <string name="help">Help</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="about_use">References</string>
-    <string name="about_use_desc">HyperCeiler uses some or all of the following projects, thanks to the developers of these projects for their support (in no particular order)</string>
+    <string name="about_use_desc">HyperHand uses some or all of the following projects, thanks to the developers of these projects for their support (in no particular order)</string>
     <string name="about_contributer">Contributors</string>
-    <string name="about_contributer_desc">Thanks to the following contributors for their help in the development of HyperCeiler (in no particular order)</string>
+    <string name="about_contributer_desc">Thanks to the following contributors for their help in the development of HyperHand (in no particular order)</string>
     <string name="about_donation">Sponsor</string>
     <string name="about_donation_desc">You can support us by donating here</string>
     <string name="about_device_info_device">Device</string>
@@ -80,11 +80,11 @@
     <string name="set_homepage_entrance_about">Note: Modifying this setting only hides the visibility of the feature on the homepage, and features that have been turned on won\'t be turned off!\nHiding the feature on the homepage will take effect immediately, and the app will need to be restarted to reappear.</string>
     <string name="help_cant_see_apps_guide">Can\'t find the app features?</string>
     <string name="help_cant_see_apps_title">Can\'t find the app features on the homepage?</string>
-    <string name="help_cant_see_apps_desc">To maintain the simplicity and usability of the homepage, we\'ve hidden access to the following types of app features:\n\n • Those currently disabled or hidden\n • Those not found in your device\n • Those incompatible with the current version of the system or the app\n • Not selected as scoped\n\nPlease troubleshoot based on the above information, restart HyperCeiler, and try again. If you still can\'t find the app features, it may be a bug. Please provide timely and effective feedback to us.\n\nCurrently hidden app features:</string>
+    <string name="help_cant_see_apps_desc">To maintain the simplicity and usability of the homepage, we\'ve hidden access to the following types of app features:\n\n • Those currently disabled or hidden\n • Those not found in your device\n • Those incompatible with the current version of the system or the app\n • Not selected as scoped\n\nPlease troubleshoot based on the above information, restart HyperHand, and try again. If you still can\'t find the app features, it may be a bug. Please provide timely and effective feedback to us.\n\nCurrently hidden app features:</string>
     <string name="help_cant_see_apps_uninstall">Uninstalled apps:\n</string>
     <string name="help_cant_see_apps_disable">Disabled or hidden apps:\n</string>
     <string name="help_cant_see_apps_scope">Not selected as scoped:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">To maintain the simplicity and usability of the homepage, we\'ve hidden access to the following types of app features:\n\n • Those currently disabled or hidden\n • Those not found in your device\n • Those incompatible with the current version of the system or the app\n • Not selected as scoped\n\nPlease troubleshoot based on the above information, restart HyperCeiler, and try again. If you still can\'t find the app features, it may be a bug. Please provide timely and effective feedback to us.\n\nThere are currently no hidden features!</string>
+    <string name="help_cant_see_apps_desc_no_hidden">To maintain the simplicity and usability of the homepage, we\'ve hidden access to the following types of app features:\n\n • Those currently disabled or hidden\n • Those not found in your device\n • Those incompatible with the current version of the system or the app\n • Not selected as scoped\n\nPlease troubleshoot based on the above information, restart HyperHand, and try again. If you still can\'t find the app features, it may be a bug. Please provide timely and effective feedback to us.\n\nThere are currently no hidden features!</string>
     <string name="help_cant_see_apps_switch">Hide this help in homepage</string>
     <string name="help_cant_see_apps_switch_desc">You can still find this page in About &gt; Help. Reboot app to apply.</string>
     <string name="help_support_version_title">Current app version support system version list</string>
@@ -165,7 +165,7 @@
     <string name="about_github_desc">This project is open source based on the AGPL-3.0 license</string>
     <string name="about_offical">Official website</string>
     <string name="about_crwd">Crowdin</string>
-    <string name="about_crwd_desc">Help us translate HyperCeiler into you language</string>
+    <string name="about_crwd_desc">Help us translate HyperHand into you language</string>
     <string name="about_privacy">Privacy Policy</string>
     <string name="about_protocol">User Agreement</string>
     <string name="expand_button_title">High level</string>
@@ -517,7 +517,7 @@
     <string name="community">Xiaomi Community</string>
     <string name="community_device_modify">Spoof model</string>
     <string name="community_fuck_detection">Block detection</string>
-    <string name="community_fuck_detection_desc">Prevent detection of HyperCeiler and upload it while giving feedback. Please ensure that the problem isn\'t caused by you, but a real system issue before providing feedback, to avoid unnecessary trouble.</string>
+    <string name="community_fuck_detection_desc">Prevent detection of HyperHand and upload it while giving feedback. Please ensure that the problem isn\'t caused by you, but a real system issue before providing feedback, to avoid unnecessary trouble.</string>
     <string name="fileexplorer">File Manager</string>
     <string name="file_explorer_can_selectable">Allow directly long press folder name and do action</string>
     <string name="file_explorer_is_single_line">Show folder name in single line</string>
@@ -1726,4 +1726,90 @@
     <string name="experiment_sidebar_unlock_all_tools_desc">Unlock all tools in AI sidebar regardless of region.</string>
     <string name="experiment_sidebar_float_on_all">Experiment: Sidebar Float On All</string>
     <string name="experiment_sidebar_float_on_all_desc">Allow AI sidebar to float on all apps.</string>
+
+    <!-- InCallUi -->
+    <string name="experiment_incallui_full_avatar">Experiment: Full Screen Avatar</string>
+    <string name="experiment_incallui_full_avatar_desc">Forces full screen high-resolution contact avatar during calls.</string>
+    <string name="experiment_incallui_show_call_info">Experiment: Show Detailed Call Info</string>
+    <string name="experiment_incallui_show_call_info_desc">Displays additional call info such as codec, HD voice, and network stats.</string>
+
+    <!-- GuardProvider -->
+    <string name="experiment_guardprovider_bypass_scan">Experiment: Bypass Security Scan</string>
+    <string name="experiment_guardprovider_bypass_scan_desc">Bypasses antivirus and security scanning checks in GuardProvider.</string>
+
+    <!-- Barrage -->
+    <string name="experiment_barrage_custom_style">Experiment: Custom Barrage Style</string>
+    <string name="experiment_barrage_custom_style_desc">Unlocks expanded style, color, and font scaling options for screen barrage.</string>
+
+    <!-- MiShare -->
+    <string name="experiment_mishare_unlimited_speed">Experiment: Unlimited Transfer Speed</string>
+    <string name="experiment_mishare_unlimited_speed_desc">Removes speed limits and enables maximum bandwidth for MiShare transfers.</string>
+
+    <!-- MiCloudService -->
+    <string name="experiment_micloud_bypass_quota_alert">Experiment: Bypass Quota Alert</string>
+    <string name="experiment_micloud_bypass_quota_alert_desc">Suppresses storage full and quota exceeded warning notifications.</string>
+
+    <!-- Community -->
+    <string name="experiment_community_remove_ads">Experiment: Remove Community Ads</string>
+    <string name="experiment_community_remove_ads_desc">Removes splash and feed advertisements from Xiaomi Community.</string>
+
+    <!-- GetApps -->
+    <string name="experiment_getapps_remove_ads">Experiment: Remove GetApps Ads</string>
+    <string name="experiment_getapps_remove_ads_desc">Removes banner ads, promotion cards, and ad popups in GetApps.</string>
+
+    <!-- VoiceAssist -->
+    <string name="experiment_voiceassist_unlock_pro">Experiment: Unlock XiaoAI Pro</string>
+    <string name="experiment_voiceassist_unlock_pro_desc">Unlocks Pro features and advanced AI capabilities in XiaoAI.</string>
+
+    <!-- FileExplorer -->
+    <string name="experiment_file_explorer_show_hidden">Experiment: Show Hidden Files</string>
+    <string name="experiment_file_explorer_show_hidden_desc">Force File Explorer to always show hidden files, dotfiles, and system folders.</string>
+    <string name="experiment_file_explorer_fast_search">Experiment: Fast Search &amp; Deep Indexing</string>
+    <string name="experiment_file_explorer_fast_search_desc">Unlock full-disk indexing and bypass search query throttling in File Explorer.</string>
+
+    <!-- PackageInstaller -->
+    <string name="experiment_package_installer_bypass_risk_check">Experiment: Bypass Risk Checks</string>
+    <string name="experiment_package_installer_bypass_risk_check_desc">Bypass security risk scans, harmful app warnings, and installation blockers.</string>
+    <string name="experiment_package_installer_auto_install">Experiment: Auto Install &amp; Skip Timers</string>
+    <string name="experiment_package_installer_auto_install_desc">Skip countdown delay buttons and automatically confirm package installations.</string>
+
+    <!-- PersonalAssistant -->
+    <string name="experiment_personal_assistant_unlock_all_widgets">Experiment: Unlock All Widgets</string>
+    <string name="experiment_personal_assistant_unlock_all_widgets_desc">Unlock all widget types including tablet and restricted widgets in App Vault.</string>
+
+    <!-- Updater -->
+    <string name="experiment_updater_force_local_update">Experiment: Force Local Update</string>
+    <string name="experiment_updater_force_local_update_desc">Enable local package selection menu and bypass ROM validation checks.</string>
+
+    <!-- Aod -->
+    <string name="experiment_aod_unlock_all_styles">Experiment: Unlock All AOD Styles</string>
+    <string name="experiment_aod_unlock_all_styles_desc">Unlock all Always On Display clock styles and super wallpaper screen-off effects.</string>
+
+    <!-- Calendar -->
+    <string name="experiment_calendar_remove_ads">Experiment: Remove Ads</string>
+    <string name="experiment_calendar_remove_ads_desc">Remove commercial ads, recommendation cards, and promotional feeds from Calendar.</string>
+
+    <!-- Joyose -->
+    <string name="experiment_joyose_disable_limits">Experiment: Disable Joyose Limits</string>
+    <string name="experiment_joyose_disable_limits_desc">Disable thermal throttling, FPS caps, and background performance limits in Joyose.</string>
+
+    <!-- Huanji -->
+    <string name="experiment_huanji_fast_transfer">Experiment: High-Speed File Transfer</string>
+    <string name="experiment_huanji_fast_transfer_desc">Unlock 5GHz Wi-Fi Direct and remove speed limits in Mi Mover (Huanji).</string>
+
+    <!-- Pro About Section -->
+    <string name="about_modded_title">HyperHand Modded Edition</string>
+    <string name="about_modded_subtitle">Community-Enhanced System Hijack Framework</string>
+    <string name="about_modded_desc">A state-of-the-art HyperOS modification suite powered by Xposed &amp; DexKit, containing 55+ experimental hooks, AI audio tools, and deep optimizations across 20+ system applications.</string>
+    <string name="about_features_title">Experimental Suite</string>
+    <string name="about_features_summary">Astro Mode, 100x Zoom, One UI Audio Eraser, 3D Folder Depth, 120Hz Low Power, GPU Acceleration &amp; more</string>
+    <string name="about_architecture_title">Architecture &amp; Engine</string>
+    <string name="about_architecture_summary">Targeting HyperOS 1.0 &amp; 2.0 (Android 14–15) · LSPosed / Zygisk Engine</string>
+    <string name="about_releases_title">Releases &amp; Build Artifacts</string>
+    <string name="about_releases_summary">Get the latest canary builds, changelogs, and APK artifacts</string>
+    <string name="about_telegram_release">Telegram Releases</string>
+    <string name="about_telegram_release_summary">Join official Telegram channel for instant release announcements</string>
+    <string name="about_dev_harry_desc">Lead Modder &amp; Core Maintainer</string>
+    <string name="about_dev_sevtinge_desc">Original HyperCeiler Creator &amp; Core Contributor</string>
 </resources>
+

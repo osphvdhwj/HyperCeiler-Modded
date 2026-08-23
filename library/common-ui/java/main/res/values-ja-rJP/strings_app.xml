@@ -24,7 +24,7 @@
     <string name="new_permission_location_desc">緯度や経度などのサービスを提供するために使用</string>
     <string name="new_cta_agree_desc">使用中、より多くの機能を提供するために root/su 権限の許可を求める場合があります。アクセス許可の管理に移動すると、いつでもすべてのアクセス許可を変更できます。root/su 権限については、お使いの root/su マネージャーにアクセスして変更してください。</string>
     <string name="new_cta_app_main_purpose">システムアプリの変更</string>
-    <string name="new_cta_app_all_purpose_title">HyperCeiler へようこそ。このアプリはシステムの機能強化をするために Xposed フレームワークを利用して対応アプリを改変します。使用中、より多くの機能を提供するために root/su 権限の許可を求める場合があります。お使いの root/su マネージャーにアクセスして許可してください。</string>
+    <string name="new_cta_app_all_purpose_title">HyperHand へようこそ。このアプリはシステムの機能強化をするために Xposed フレームワークを利用して対応アプリを改変します。使用中、より多くの機能を提供するために root/su 権限の許可を求める場合があります。お使いの root/su マネージャーにアクセスして許可してください。</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">Japanese (日本語)</string>
     <string name="translator">AndroPlus</string>
@@ -34,9 +34,9 @@
     <string name="settings">設定</string>
     <string name="about">アプリについて</string>
     <string name="about_use">引用</string>
-    <string name="about_use_desc">HyperCeiler は、以下のオープンソースプロジェクトのソースを一部または全部使用しています。これらのプロジェクトの開発者の方々に感謝をします。 (順不同)</string>
+    <string name="about_use_desc">HyperHand は、以下のオープンソースプロジェクトのソースを一部または全部使用しています。これらのプロジェクトの開発者の方々に感謝をします。 (順不同)</string>
     <string name="about_contributer">貢献者</string>
-    <string name="about_contributer_desc">HyperCeiler の開発に協力をして頂いた以下の方々に感謝をします。 (順不同)</string>
+    <string name="about_contributer_desc">HyperHand の開発に協力をして頂いた以下の方々に感謝をします。 (順不同)</string>
     <string name="about_donation">スポンサー</string>
     <string name="about_donation_desc">寄付はこちらから</string>
     <string name="about_device_info_device">デバイス</string>
@@ -49,11 +49,11 @@
     <string name="set_homepage_entrance_about">注意:\nこの設定はホームページのエントリーの表示設定だけで、有効にした機能は無効にはなりません!\nポータルを閉じるとすぐ変更が反映されます。再表示するにはアプリの再起動が必要です</string>
     <string name="help_cant_see_apps_guide">アプリの機能が見つかりませんか？</string>
     <string name="help_cant_see_apps_title">ホームページでアプリの機能が見つかりませんか？</string>
-    <string name="help_cant_see_apps_desc">ホームページのシンプルさと使いやすさを維持するため、以下のタイプのアプリ機能を非表示にしています:\n\n - 現在無効か非表示になっているアプリ向けの機能\n - デバイスにないアプリ向けの機能\n - 現在のアプリやバージョンに非対応の機能\n\n上記に当てはまるか確認し、修正したら HyperCeiler を再起動してください。それでも出てこなければバグかもしれません。開発者にフィードバックしてください。\n\n現在非表示になっているアプリ機能:</string>
+    <string name="help_cant_see_apps_desc">ホームページのシンプルさと使いやすさを維持するため、以下のタイプのアプリ機能を非表示にしています:\n\n - 現在無効か非表示になっているアプリ向けの機能\n - デバイスにないアプリ向けの機能\n - 現在のアプリやバージョンに非対応の機能\n\n上記に当てはまるか確認し、修正したら HyperHand を再起動してください。それでも出てこなければバグかもしれません。開発者にフィードバックしてください。\n\n現在非表示になっているアプリ機能:</string>
     <string name="help_cant_see_apps_uninstall">アンインストールされたアプリ:\n</string>
     <string name="help_cant_see_apps_disable">無効または非表示のアプリ:\n</string>
     <string name="help_cant_see_apps_scope">スコープとして未選択:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">ホームページのシンプルさと使いやすさを維持するため、以下のタイプのアプリ機能を非表示にしています:\n\n - 現在無効か非表示になっているアプリ向けの機能\n - デバイスにないアプリ向けの機能\n - 現在のアプリやバージョンに非対応の機能\n\n上記に当てはまるか確認し、修正したら HyperCeiler を再起動してください。それでも出てこなければバグかもしれません。開発者にフィードバックしてください。\n\n現在非表示になっているアプリ機能はありません</string>
+    <string name="help_cant_see_apps_desc_no_hidden">ホームページのシンプルさと使いやすさを維持するため、以下のタイプのアプリ機能を非表示にしています:\n\n - 現在無効か非表示になっているアプリ向けの機能\n - デバイスにないアプリ向けの機能\n - 現在のアプリやバージョンに非対応の機能\n\n上記に当てはまるか確認し、修正したら HyperHand を再起動してください。それでも出てこなければバグかもしれません。開発者にフィードバックしてください。\n\n現在非表示になっているアプリ機能はありません</string>
     <string name="help_cant_see_apps_switch">ホームページでこのヘルプを隠す</string>
     <string name="help_cant_see_apps_switch_desc">このページは「設定 - ホームページのエントリを設定」で確認できます。適用するにはアプリを再起動してください。</string>
     <string name="help_support_version_title">現在のアプリバージョンとサポートしているシステムバージョンの一覧</string>
@@ -134,7 +134,7 @@
     <string name="about_github_desc">このプロジェクトは、AGPL-3.0ライセンスに基づいたオープンソースです</string>
     <string name="about_offical">公式 Web サイト</string>
     <string name="about_crwd">Crowdin</string>
-    <string name="about_crwd_desc">HyperCeiler の翻訳にご協力ください</string>
+    <string name="about_crwd_desc">HyperHand の翻訳にご協力ください</string>
     <string name="about_privacy">プライバシーポリシー</string>
     <string name="about_protocol">利用規約</string>
     <!--Pop-up window/miuix part-->
@@ -495,7 +495,7 @@
     <string name="community">Xiaomi コミュニティ</string>
     <string name="community_device_modify">モデル名を偽装する</string>
     <string name="community_fuck_detection">検出をブロックする</string>
-    <string name="community_fuck_detection_desc">HyperCeiler の検出を防止し、フィードバックを行いながらアップロードしてください。不必要なトラブルを避けるため、フィードバックする前に、その問題があなたに起因するものではなく、実際のシステムの問題であることを確認してください。</string>
+    <string name="community_fuck_detection_desc">HyperHand の検出を防止し、フィードバックを行いながらアップロードしてください。不必要なトラブルを避けるため、フィードバックする前に、その問題があなたに起因するものではなく、実際のシステムの問題であることを確認してください。</string>
     <!--File Manager-->
     <string name="fileexplorer">ファイルマネージャー</string>
     <string name="file_explorer_can_selectable">フォルダ名の長押しで選択可能にする</string>

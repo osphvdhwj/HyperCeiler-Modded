@@ -20,6 +20,7 @@ package com.sevtinge.hyperceiler.hook.module.app;
 
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
+import com.sevtinge.hyperceiler.hook.module.hook.mishare.ExperimentMiShareUnlimitedSpeed;
 import com.sevtinge.hyperceiler.hook.module.hook.mishare.NoAutoTurnOff;
 import com.sevtinge.hyperceiler.hook.module.hook.mishare.NoAutoTurnOnLocation;
 import com.sevtinge.hyperceiler.hook.module.hook.mishare.UnlockTurboMode;
@@ -32,5 +33,6 @@ public class MiShare extends BaseModule {
         initHook(NoAutoTurnOff.INSTANCE, mPrefsMap.getBoolean("disable_mishare_auto_off")); // 禁用 10 分钟自动关闭
         initHook(NoAutoTurnOnLocation.INSTANCE, mPrefsMap.getBoolean("disable_mishare_auto_on_location")); // 禁用分享时自动开启位置信息
         initHook(UnlockTurboMode.INSTANCE, mPrefsMap.getBoolean("unlock_turbo_mode")); // 解锁极速传输模式
+        initHook(new ExperimentMiShareUnlimitedSpeed(), mPrefsMap.getBoolean("experiment_mishare_unlimited_speed"));
     }
 }

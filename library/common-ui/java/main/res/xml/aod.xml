@@ -34,4 +34,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_aod_unlock_all_styles"
+            android:summary="@string/experiment_aod_unlock_all_styles_desc"
+            android:title="@string/experiment_aod_unlock_all_styles" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

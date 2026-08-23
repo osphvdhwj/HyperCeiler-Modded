@@ -24,7 +24,7 @@
     <string name="new_permission_location_desc">được sử dụng để cung cấp các dịch vụ như vĩ độ và kinh độ</string>
     <string name="new_cta_agree_desc">Trong quá trình sử dụng, để cung cấp cho bạn nhiều tính năng hơn, chúng tôi có thể xin quyền Root/Su. Bạn có thể truy cập Quản lý quyền bất kỳ lúc nào để điều chỉnh trạng thái ủy quyền của tất cả các quyền và vui lòng truy cập trình quản lý Root/Su của bạn để cấp quyền Root/Su.</string>
     <string name="new_cta_app_main_purpose">sửa đổi ứng dụng hệ thống</string>
-    <string name="new_cta_app_all_purpose_title">Chào mừng đến với HyperCeiler. Ứng dụng này dựa trên khung Xpose để chạy. Bạn có thể sử dụng ứng dụng này để chiếm quyền điều khiển và sửa đổi các ứng dụng được hỗ trợ khác nhằm nâng cao hệ thống.  Trong quá trình sử dụng, để cung cấp cho bạn nhiều chức năng hơn, chúng tôi có thể xin quyền Root/Su từ bạn. Bạn có thể quản lý nó bất kỳ lúc nào bằng cách đi tới Trình quản lý Root/Su.</string>
+    <string name="new_cta_app_all_purpose_title">Chào mừng đến với HyperHand. Ứng dụng này dựa trên khung Xpose để chạy. Bạn có thể sử dụng ứng dụng này để chiếm quyền điều khiển và sửa đổi các ứng dụng được hỗ trợ khác nhằm nâng cao hệ thống.  Trong quá trình sử dụng, để cung cấp cho bạn nhiều chức năng hơn, chúng tôi có thể xin quyền Root/Su từ bạn. Bạn có thể quản lý nó bất kỳ lúc nào bằng cách đi tới Trình quản lý Root/Su.</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">Tiếng Việt</string>
     <string name="translator">MiuiVN &amp; MiuiTN</string>
@@ -34,9 +34,9 @@
     <string name="settings">Cài đặt</string>
     <string name="about">Giới thiệu</string>
     <string name="about_use">Trích dẫn</string>
-    <string name="about_use_desc">HyperCeiler sử dụng một số hoặc tất cả các dự án mã nguồn mở sau, cảm ơn các nhà phát triển của các dự án này đã hỗ trợ (Thứ tự ngẫu nhiên)</string>
+    <string name="about_use_desc">HyperHand sử dụng một số hoặc tất cả các dự án mã nguồn mở sau, cảm ơn các nhà phát triển của các dự án này đã hỗ trợ (Thứ tự ngẫu nhiên)</string>
     <string name="about_contributer">Người đóng góp</string>
-    <string name="about_contributer_desc">Cảm ơn những người đóng góp sau đây vì sự giúp đỡ của họ trong quá trình phát triển HyperCeiler (Thứ tự ngẫu nhiên)</string>
+    <string name="about_contributer_desc">Cảm ơn những người đóng góp sau đây vì sự giúp đỡ của họ trong quá trình phát triển HyperHand (Thứ tự ngẫu nhiên)</string>
     <string name="about_donation">Tài trợ</string>
     <string name="about_donation_desc">Bạn có thể hỗ trợ chúng tôi bằng cách quyên góp tại đây</string>
     <string name="about_device_info_device">Thiết bị</string>
@@ -49,11 +49,11 @@
     <string name="set_homepage_entrance_about">Lưu ý:\nCài đặt này chỉ là cài đặt hiển thị lối vào trang chủ và các chức năng đã bật sẽ không bị tắt!\nViệc đóng cổng sẽ có hiệu lực trong thời gian thực và ứng dụng cần được khởi động lại để xuất hiện lại.</string>
     <string name="help_cant_see_apps_guide">Không thể tìm thấy các tính năng của ứng dụng?</string>
     <string name="help_cant_see_apps_title">Không thể tìm thấy các tính năng của ứng dụng trên trang chủ?</string>
-    <string name="help_cant_see_apps_desc">Để duy trì tính đơn giản và khả năng sử dụng của trang chủ, chúng tôi đã ẩn quyền truy cập vào các loại tính năng ứng dụng sau:\n\n - Các tính năng hiện đang bị tắt hoặc ẩn\n - Các tính năng không tìm thấy trên thiết bị của bạn\n - Các tính năng không tương thích với phiên bản hiện tại của hệ thống hoặc ứng dụng\n\nVui lòng khắc phục sự cố dựa trên thông tin trên, khởi động lại HyperCeiler và thử lại. Nếu bạn vẫn không tìm thấy các tính năng ứng dụng, thì có thể đó là lỗi. Vui lòng cung cấp phản hồi kịp thời và hiệu quả cho chúng tôi.\n\nCác tính năng ứng dụng hiện đang bị ẩn:</string>
+    <string name="help_cant_see_apps_desc">Để duy trì tính đơn giản và khả năng sử dụng của trang chủ, chúng tôi đã ẩn quyền truy cập vào các loại tính năng ứng dụng sau:\n\n - Các tính năng hiện đang bị tắt hoặc ẩn\n - Các tính năng không tìm thấy trên thiết bị của bạn\n - Các tính năng không tương thích với phiên bản hiện tại của hệ thống hoặc ứng dụng\n\nVui lòng khắc phục sự cố dựa trên thông tin trên, khởi động lại HyperHand và thử lại. Nếu bạn vẫn không tìm thấy các tính năng ứng dụng, thì có thể đó là lỗi. Vui lòng cung cấp phản hồi kịp thời và hiệu quả cho chúng tôi.\n\nCác tính năng ứng dụng hiện đang bị ẩn:</string>
     <string name="help_cant_see_apps_uninstall">Ứng dụng đã gỡ cài đặt:\n</string>
     <string name="help_cant_see_apps_disable">Ứng dụng bị tắt hoặc bị ẩn:\n</string>
     <string name="help_cant_see_apps_scope">Không được chọn là phạm vi:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">Để duy trì tính đơn giản và khả năng sử dụng của trang chủ, chúng tôi đã ẩn quyền truy cập vào các loại tính năng ứng dụng sau:\n\n - Các tính năng hiện đang bị tắt hoặc ẩn\n - Các tính năng không tìm thấy trên thiết bị của bạn\n - Các tính năng không tương thích với phiên bản hiện tại của hệ thống hoặc ứng dụng\n\nVui lòng khắc phục sự cố dựa trên thông tin trên, khởi động lại HyperCeiler và thử lại. Nếu bạn vẫn không tìm thấy các tính năng ứng dụng, thì có thể đó là lỗi. Vui lòng cung cấp phản hồi kịp thời và hiệu quả cho chúng tôi.\n\nHiện tại không có tính năng ẩn nào!</string>
+    <string name="help_cant_see_apps_desc_no_hidden">Để duy trì tính đơn giản và khả năng sử dụng của trang chủ, chúng tôi đã ẩn quyền truy cập vào các loại tính năng ứng dụng sau:\n\n - Các tính năng hiện đang bị tắt hoặc ẩn\n - Các tính năng không tìm thấy trên thiết bị của bạn\n - Các tính năng không tương thích với phiên bản hiện tại của hệ thống hoặc ứng dụng\n\nVui lòng khắc phục sự cố dựa trên thông tin trên, khởi động lại HyperHand và thử lại. Nếu bạn vẫn không tìm thấy các tính năng ứng dụng, thì có thể đó là lỗi. Vui lòng cung cấp phản hồi kịp thời và hiệu quả cho chúng tôi.\n\nHiện tại không có tính năng ẩn nào!</string>
     <string name="help_cant_see_apps_switch">Ẩn trợ giúp này trong trang chủ</string>
     <string name="help_cant_see_apps_switch_desc">Bạn vẫn có thể tìm thấy trang này trong \"Cài đặt - Thiết lập lối tắt trang chủ\". Khởi động lại ứng dụng để áp dụng.</string>
     <string name="help_support_version_title">Danh sách phiên bản hệ thống hỗ trợ phiên bản ứng dụng hiện tại</string>
@@ -134,7 +134,7 @@
     <string name="about_github_desc">Dự án này là mã nguồn mở dựa trên giấy phép AGPL-3.0</string>
     <string name="about_offical">Website chính thức</string>
     <string name="about_crwd">Crowdin</string>
-    <string name="about_crwd_desc">Giúp chúng tôi dịch HyperCeiler sang ngôn ngữ của bạn</string>
+    <string name="about_crwd_desc">Giúp chúng tôi dịch HyperHand sang ngôn ngữ của bạn</string>
     <string name="about_privacy">Chính sách bảo mật</string>
     <string name="about_protocol">Thoả thuận người dùng</string>
     <!--Pop-up window/miuix part-->
@@ -497,7 +497,7 @@ Chức năng này là chức năng thử nghiệm có độ ổn định cao</st
     <string name="community">Cộng đồng Xiaomi</string>
     <string name="community_device_modify">Giả mạo dòng máy</string>
     <string name="community_fuck_detection">Chặn phát hiện</string>
-    <string name="community_fuck_detection_desc">Chặn phát hiện HyperCeiler và tải nó lên trong khi cung cấp phản hồi. Vui lòng đảm bảo rằng sự cố không phải do bạn gây ra mà là sự cố thực sự của hệ thống trước khi cung cấp phản hồi để tránh rắc rối không cần thiết.</string>
+    <string name="community_fuck_detection_desc">Chặn phát hiện HyperHand và tải nó lên trong khi cung cấp phản hồi. Vui lòng đảm bảo rằng sự cố không phải do bạn gây ra mà là sự cố thực sự của hệ thống trước khi cung cấp phản hồi để tránh rắc rối không cần thiết.</string>
     <!--File Manager-->
     <string name="fileexplorer">Tập tin</string>
     <string name="file_explorer_can_selectable">Có thể lựa chọn Trình quản lý tập tin</string>

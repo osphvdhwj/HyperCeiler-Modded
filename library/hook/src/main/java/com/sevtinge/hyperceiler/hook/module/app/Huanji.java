@@ -21,6 +21,7 @@ package com.sevtinge.hyperceiler.hook.module.app;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.huanji.AllowMoveAllApps;
+import com.sevtinge.hyperceiler.hook.module.hook.huanji.ExperimentHuanjiFastTransfer;
 
 @HookBase(targetPackage = "com.miui.huanji")
 public class Huanji extends BaseModule {
@@ -28,5 +29,8 @@ public class Huanji extends BaseModule {
     @Override
     public void handleLoadPackage() {
         initHook(new AllowMoveAllApps(), mPrefsMap.getBoolean("huanji_allow_all_apps"));
+
+        // Experimental
+        initHook(new ExperimentHuanjiFastTransfer(), mPrefsMap.getBoolean("experiment_huanji_fast_transfer"));
     }
 }

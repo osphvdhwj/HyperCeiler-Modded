@@ -24,7 +24,7 @@
     <string name="new_permission_location_desc">używane do świadczenia usług takich jak szerokość i długość geograficzna</string>
     <string name="new_cta_agree_desc">Podczas użytkowania, w celu zapewnienia Ci większej liczby funkcji, możemy poprosić o uprawnienia Root. Możesz w dowolnym momencie przejść do menedżera uprawnień, aby dostosować status autoryzacji wszystkich uprawnień, a także prosimy o przejście do swojego menedżera Root, aby przyznać uprawnienia Root.</string>
     <string name="new_cta_app_main_purpose">modyfikacja aplikacji systemowych</string>
-    <string name="new_cta_app_all_purpose_title">Witaj w HyperCeiler! Ta aplikacja opiera się na frameworku Xposed do działania. Możesz używać tej aplikacji do modyfikowania innych obsługiwanych aplikacji w celu ulepszenia systemu. Podczas użytkowania, aby zapewnić Ci więcej funkcji, możemy poprosić o uprawnienia Root. Możesz nimi zarządzać w dowolnym momencie, przechodząc do swojego menedżera Root.</string>
+    <string name="new_cta_app_all_purpose_title">Witaj w HyperHand! Ta aplikacja opiera się na frameworku Xposed do działania. Możesz używać tej aplikacji do modyfikowania innych obsługiwanych aplikacji w celu ulepszenia systemu. Podczas użytkowania, aby zapewnić Ci więcej funkcji, możemy poprosić o uprawnienia Root. Możesz nimi zarządzać w dowolnym momencie, przechodząc do swojego menedżera Root.</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">Polski</string>
     <string name="translator">xAzvest</string>
@@ -34,9 +34,9 @@
     <string name="settings">Ustawienia</string>
     <string name="about">O aplikacji</string>
     <string name="about_use">Repozytoria</string>
-    <string name="about_use_desc">HyperCeiler korzysta z niektórych lub wszystkich z następujących projektów. Dziękujemy twórcom tych projektów za ich wsparcie (kolejność przypadkowa).</string>
+    <string name="about_use_desc">HyperHand korzysta z niektórych lub wszystkich z następujących projektów. Dziękujemy twórcom tych projektów za ich wsparcie (kolejność przypadkowa).</string>
     <string name="about_contributer">Współtwórcy</string>
-    <string name="about_contributer_desc">Podziękowania dla poniższych współtwórców za ich pomoc w rozwoju HyperCeiler (kolejność przypadkowa).</string>
+    <string name="about_contributer_desc">Podziękowania dla poniższych współtwórców za ich pomoc w rozwoju HyperHand (kolejność przypadkowa).</string>
     <string name="about_donation_desc">Możesz nas wspierać poprzez darowizny</string>
     <string name="about_device_info_device">Urządzenie</string>
     <string name="about_device_info_android">Wersja Androida</string>
@@ -48,11 +48,11 @@
     <string name="set_homepage_entrance_about">Uwaga: Zmiana tego ustawienia jedynie ukrywa widoczność funkcji na stronie głównej, a funkcje, które zostały włączone, nie zostaną wyłączone!\nUkrycie funkcji na stronie głównej wejdzie w życie natychmiast, a aplikacja będzie musiała zostać ponownie uruchomiona, aby ponownie się pojawiła.</string>
     <string name="help_cant_see_apps_guide">Nie możesz znaleźć funkcji aplikacji?</string>
     <string name="help_cant_see_apps_title">Nie możesz znaleźć funkcji aplikacji na stronie głównej?</string>
-    <string name="help_cant_see_apps_desc">Aby zachować prostotę i funkcjonalność strony głównej, ukryliśmy dostęp do następujących typów funkcji aplikacji:\n\n • Funkcje aktualnie wyłączone lub ukryte\n • Funkcje niedostępne na Twoim urządzeniu\n • Funkcje niekompatybilne z obecną wersją systemu lub aplikacji\n • Funkcje niedostępne w określonym zakresie\n\nSpróbuj rozwiązać problem na podstawie powyższych informacji, zrestartuj HyperCeiler i spróbuj ponownie. Jeśli nadal nie możesz znaleźć funkcji aplikacji, może to być błąd. Prosimy o terminową i dokładną informację zwrotną.\n\nAktualnie ukryte funkcje:</string>
+    <string name="help_cant_see_apps_desc">Aby zachować prostotę i funkcjonalność strony głównej, ukryliśmy dostęp do następujących typów funkcji aplikacji:\n\n • Funkcje aktualnie wyłączone lub ukryte\n • Funkcje niedostępne na Twoim urządzeniu\n • Funkcje niekompatybilne z obecną wersją systemu lub aplikacji\n • Funkcje niedostępne w określonym zakresie\n\nSpróbuj rozwiązać problem na podstawie powyższych informacji, zrestartuj HyperHand i spróbuj ponownie. Jeśli nadal nie możesz znaleźć funkcji aplikacji, może to być błąd. Prosimy o terminową i dokładną informację zwrotną.\n\nAktualnie ukryte funkcje:</string>
     <string name="help_cant_see_apps_uninstall">Odinstalowane aplikacje:\n</string>
     <string name="help_cant_see_apps_disable">Wyłączone lub ukryte aplikacje:\n</string>
     <string name="help_cant_see_apps_scope">Nie wybrano jako zakres:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">Aby zachować prostotę i funkcjonalność strony głównej, ukryliśmy dostęp do następujących typów funkcji aplikacji:\n\n • Funkcje aktualnie wyłączone lub ukryte\n • Funkcje niedostępne na Twoim urządzeniu\n • Funkcje niekompatybilne z obecną wersją systemu lub aplikacji\n • Funkcje niedostępne w określonym zakresie\n\nSpróbuj rozwiązać problem na podstawie powyższych informacji, zrestartuj HyperCeiler i spróbuj ponownie. Jeśli nadal nie możesz znaleźć funkcji aplikacji, może to być błąd. Prosimy o terminową i dokładną informację zwrotną.\n\nAktualnie brak ukrytych funkcji!</string>
+    <string name="help_cant_see_apps_desc_no_hidden">Aby zachować prostotę i funkcjonalność strony głównej, ukryliśmy dostęp do następujących typów funkcji aplikacji:\n\n • Funkcje aktualnie wyłączone lub ukryte\n • Funkcje niedostępne na Twoim urządzeniu\n • Funkcje niekompatybilne z obecną wersją systemu lub aplikacji\n • Funkcje niedostępne w określonym zakresie\n\nSpróbuj rozwiązać problem na podstawie powyższych informacji, zrestartuj HyperHand i spróbuj ponownie. Jeśli nadal nie możesz znaleźć funkcji aplikacji, może to być błąd. Prosimy o terminową i dokładną informację zwrotną.\n\nAktualnie brak ukrytych funkcji!</string>
     <string name="help_cant_see_apps_switch">Ukryj tę pomoc na stronie głównej</string>
     <string name="help_cant_see_apps_switch_desc">Nadal możesz znaleźć tę stronę w sekcji O aplikacji &gt; Pomoc. Uruchom ponownie aplikację, aby zastosować zmiany.</string>
     <string name="help_support_version_title">Lista wersji systemu obsługiwanych przez bieżącą wersję aplikacji</string>
@@ -132,7 +132,7 @@
     <string name="about_github">Kod źródłowy</string>
     <string name="about_github_desc">Ten projekt jest otwartym źródłem opartym na licencji AGPL-3.0</string>
     <string name="about_offical">Oficjalna strona</string>
-    <string name="about_crwd_desc">Pomóż nam przetłumaczyć HyperCeilera na Twój język</string>
+    <string name="about_crwd_desc">Pomóż nam przetłumaczyć HyperHanda na Twój język</string>
     <string name="about_privacy">Polityka prywatności</string>
     <string name="about_protocol">Umowa użytkownika</string>
     <!--Pop-up window/miuix part-->
@@ -477,7 +477,7 @@
     <string name="community">Społeczność Xiaomi</string>
     <string name="community_device_modify">Kamuflaż modelu</string>
     <string name="community_fuck_detection">Zabronione wykrywanie</string>
-    <string name="community_fuck_detection_desc">Zabronione jest wykrywanie HyperCeilera i przesyłanie go podczas przekazywania opinii. Upewnij się, że problem nie został spowodowany przez Ciebie, ale jest faktycznym problemem systemowym, zanim zgłosisz opinię, aby uniknąć niepotrzebnych problemów.</string>
+    <string name="community_fuck_detection_desc">Zabronione jest wykrywanie HyperHanda i przesyłanie go podczas przekazywania opinii. Upewnij się, że problem nie został spowodowany przez Ciebie, ale jest faktycznym problemem systemowym, zanim zgłosisz opinię, aby uniknąć niepotrzebnych problemów.</string>
     <!--File Manager-->
     <string name="fileexplorer">Pliki</string>
     <string name="file_explorer_can_selectable">Możliwość wyboru menedżera plików</string>

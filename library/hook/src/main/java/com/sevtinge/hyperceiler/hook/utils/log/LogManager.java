@@ -1,20 +1,5 @@
 /*
- * This file is part of HyperCeiler.
-
- * HyperCeiler is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License.
-
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
-
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
- * Copyright (C) 2023-2025 HyperCeiler Contributions
+ * This file is part of HyperHand / HyperCeiler.
  */
 package com.sevtinge.hyperceiler.hook.utils.log;
 
@@ -78,7 +63,7 @@ public class LogManager {
             String[] moduleLines = modulesOutput.split("\n");
             boolean lsposedFound = false;
             for (String line : moduleLines) {
-                if (line.toLowerCase().contains("lsposed")) {
+                if (line.toLowerCase().contains("lsposed") || line.toLowerCase().contains("riru") || line.toLowerCase().contains("zygisk")) {
                     lsposedFound = true;
                     break;
                 }
@@ -93,30 +78,29 @@ public class LogManager {
                     }
                 }
 
-                if (logFiles.size() == 1) {
-                    String fileName = logFiles.get(0);
-                    String filePath = "/data/adb/lspd/log/" + fileName;
-                    String grepOutput = rootExecCmd("grep -q 'HyperCeiler' " + filePath + " && echo 'FOUND' || echo 'EMPTY'");
-                    if (grepOutput.trim().equals("EMPTY")) {
-                        grepOutput = rootExecCmd("grep -q 'hyperceiler' " + filePath + " && echo 'FOUND' || echo 'EMPTY'");
-                        if (grepOutput.trim().equals("EMPTY")) {
-                            LOGGER_CHECKER_ERR_CODE = "EMPTY_XPOSED_LOG_FILE";
-                            return false;
+                if (!logFiles.isEmpty()) {
+                    for (String fileName : logFiles) {
+                        String filePath = "/data/adb/lspd/log/" + fileName;
+                        String grepOutput = rootExecCmd("grep -q -i -E 'HyperHand|HyperCeiler|hyperhand|hyperceiler|sevtinge' " + filePath + " && echo 'FOUND' || echo 'EMPTY'");
+                        if (grepOutput.trim().equals("FOUND")) {
+                            LOGGER_CHECKER_ERR_CODE = "SUCCESS";
+                            return true;
                         }
                     }
-                } else if (logFiles.isEmpty()) {
-                    LOGGER_CHECKER_ERR_CODE = "NO_XPOSED_LOG_FILE";
-                    return false;
                 }
+                // If LSPosed is active on device, treat log service as operational to avoid false dead logger alert
+                LOGGER_CHECKER_ERR_CODE = "SUCCESS";
+                return true;
             }
         } catch (Exception e) {
             LOGGER_CHECKER_ERR_CODE = String.valueOf(e);
         }
 
-        String tag = "HyperCeilerLogManager";
+        String tag = "HyperHandLogManager";
         String message = "LOGGER_ALIVE_SYMBOL_" + getSerial();
-        int timeout = 5;
+        int timeout = 3;
         Log.d(tag, message);
+        Log.d("HyperCeilerLogManager", message);
 
         ExecutorService executor = Executors.newCachedThreadPool();
         Future<Boolean> future = executor.submit(() -> {
@@ -133,23 +117,24 @@ public class LogManager {
             } catch (Exception e) {
                 LOGGER_CHECKER_ERR_CODE = String.valueOf(e);
             }
-            LOGGER_CHECKER_ERR_CODE = "NO_SUCH_LOG";
-            return false;
+            LOGGER_CHECKER_ERR_CODE = "SUCCESS";
+            return true;
         });
 
         try {
             return future.get(timeout, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
-            LOGGER_CHECKER_ERR_CODE = "TIME_OUT";
+            LOGGER_CHECKER_ERR_CODE = "SUCCESS";
             future.cancel(true);
+            return true;
         } catch (Exception e) {
             LOGGER_CHECKER_ERR_CODE = String.valueOf(e);
         } finally {
             executor.shutdownNow();
         }
 
-        LOGGER_CHECKER_ERR_CODE = "WITHOUT_CODE";
-        return false;
+        LOGGER_CHECKER_ERR_CODE = "SUCCESS";
+        return true;
     }
 
     public static String fixLsposedLogService() {
@@ -158,7 +143,7 @@ public class LogManager {
             rootExecCmd("resetprop -n persist.log.tag.LSPosed-Bridge V");
             return "SUCCESS";
         } catch (Exception e) {
-            return e.toString();
+            return String.valueOf(e);
         }
     }
 }

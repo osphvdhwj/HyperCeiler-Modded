@@ -21,6 +21,7 @@ package com.sevtinge.hyperceiler.hook.module.app;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.cloudservice.CloudList;
+import com.sevtinge.hyperceiler.hook.module.hook.cloudservice.ExperimentMiCloudBypassQuotaAlert;
 
 @HookBase(targetPackage = "com.miui.cloudservice")
 public class MiCloudService extends BaseModule {
@@ -28,5 +29,6 @@ public class MiCloudService extends BaseModule {
     @Override
     public void handleLoadPackage() {
         initHook(new CloudList(), mPrefsMap.getBoolean("micloud_service_list"));
+        initHook(new ExperimentMiCloudBypassQuotaAlert(), mPrefsMap.getBoolean("experiment_micloud_bypass_quota_alert"));
     }
 }

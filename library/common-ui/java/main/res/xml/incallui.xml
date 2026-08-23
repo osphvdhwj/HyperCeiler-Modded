@@ -31,6 +31,18 @@
             android:key="prefs_key_incallui_answer_in_head_up"
             android:defaultValue="false" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_incallui_full_avatar"
+            android:summary="@string/experiment_incallui_full_avatar_desc"
+            android:title="@string/experiment_incallui_full_avatar" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_incallui_show_call_info"
+            android:summary="@string/experiment_incallui_show_call_info_desc"
+            android:title="@string/experiment_incallui_show_call_info" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

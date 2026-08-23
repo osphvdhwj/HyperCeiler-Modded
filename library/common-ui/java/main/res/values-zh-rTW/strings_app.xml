@@ -24,7 +24,7 @@
     <string name="new_permission_location_desc">用於提供緯度和經度等服務</string>
     <string name="new_cta_agree_desc">在使用過程中，為了提供您更多功能，我們可能會向您申請 Root/Su 權限。您可以隨時到權限管理調整所有權限的授權狀態，並請到您的 Root/Su 管理員管理 Root/Su 權限。</string>
     <string name="new_cta_app_main_purpose">修改系統應用程式</string>
-    <string name="new_cta_app_all_purpose_title">歡迎使用 HyperCeiler，這個應用程式執行在 Xposed 框架上，您可以使用這個應用程式來劫持和修改其他支援的應用程式，以實現系統的增強功能。在使用過程中，為了提供您更多功能，我們可能會向您申請 Root/Su 權限。您可以到您的 Root/Su 管理員管理 Root/Su 權限。</string>
+    <string name="new_cta_app_all_purpose_title">歡迎使用 HyperHand，這個應用程式執行在 Xposed 框架上，您可以使用這個應用程式來劫持和修改其他支援的應用程式，以實現系統的增強功能。在使用過程中，為了提供您更多功能，我們可能會向您申請 Root/Su 權限。您可以到您的 Root/Su 管理員管理 Root/Su 權限。</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">繁體中文 (台灣)</string>
     <string name="translator">聖小熊</string>
@@ -34,9 +34,9 @@
     <string name="settings">設定</string>
     <string name="about">關於</string>
     <string name="about_use">項目引用</string>
-    <string name="about_use_desc">HyperCeiler 使用了以下開源項目的部分或全部內容，感謝這些項目的開發者提供的大力支持（排名順序不分先後）</string>
+    <string name="about_use_desc">HyperHand 使用了以下開源項目的部分或全部內容，感謝這些項目的開發者提供的大力支持（排名順序不分先後）</string>
     <string name="about_contributer">貢獻者</string>
-    <string name="about_contributer_desc">感謝以下貢獻者為 HyperCeiler 的開發提供了不同程度的幫助（排名順序不分先後）</string>
+    <string name="about_contributer_desc">感謝以下貢獻者為 HyperHand 的開發提供了不同程度的幫助（排名順序不分先後）</string>
     <string name="about_donation">贊助</string>
     <string name="about_donation_desc">您可以在此處贊助以支持我們</string>
     <string name="about_device_info_device">裝置</string>
@@ -49,11 +49,11 @@
     <string name="set_homepage_entrance_about">注意：\n此設定只是主頁入口可見性設定，已開啟的功能不會關閉！\n關閉入口會即時生效，需要重新啟動應用程式才能重新出現。</string>
     <string name="help_cant_see_apps_guide">找不到應用程式功能？</string>
     <string name="help_cant_see_apps_title">在主頁找不到應用程式功能？</string>
-    <string name="help_cant_see_apps_desc">為了保持主頁的簡單性和可用性，我們隱藏了對以下類型的應用程式功能的存取：\n\n - 目前已停用或隱藏的應用程式\n - 在您的裝置中未找到的應用程式\n -與目前版本不相容的應用程式系統或應用程式版本\n\n請根據上述資訊排查問題，重新啟動 HyperCeiler，然後重試。如果您仍然找不到應用程式功能，則可能是錯誤。請提供我們及時有效的回饋。\n\n目前隱藏的應用功能：</string>
+    <string name="help_cant_see_apps_desc">為了保持主頁的簡單性和可用性，我們隱藏了對以下類型的應用程式功能的存取：\n\n - 目前已停用或隱藏的應用程式\n - 在您的裝置中未找到的應用程式\n -與目前版本不相容的應用程式系統或應用程式版本\n\n請根據上述資訊排查問題，重新啟動 HyperHand，然後重試。如果您仍然找不到應用程式功能，則可能是錯誤。請提供我們及時有效的回饋。\n\n目前隱藏的應用功能：</string>
     <string name="help_cant_see_apps_uninstall">已解除安裝的應用程式:\n</string>
     <string name="help_cant_see_apps_disable">停用或隱藏的應用程式:\n</string>
     <string name="help_cant_see_apps_scope">未選擇範圍:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">為了保持主頁的簡單性和可用性，我們隱藏了對以下類型的應用程式功能的存取：\n\n - 目前已停用或隱藏的應用程式\n - 在您的裝置中未找到的應用程式\n -與目前版本不相容的應用程式系統或應用程式版本\n\n請根據上述資訊排查問題，重新啟動 HyperCeiler，然後重試。如果您仍然找不到應用程式功能，則可能是錯誤。請及時有效的回饋給我們。\n\n目前沒有隱藏入口！</string>
+    <string name="help_cant_see_apps_desc_no_hidden">為了保持主頁的簡單性和可用性，我們隱藏了對以下類型的應用程式功能的存取：\n\n - 目前已停用或隱藏的應用程式\n - 在您的裝置中未找到的應用程式\n -與目前版本不相容的應用程式系統或應用程式版本\n\n請根據上述資訊排查問題，重新啟動 HyperHand，然後重試。如果您仍然找不到應用程式功能，則可能是錯誤。請及時有效的回饋給我們。\n\n目前沒有隱藏入口！</string>
     <string name="help_cant_see_apps_switch">在主頁中隱藏此幫助</string>
     <string name="help_cant_see_apps_switch_desc">您仍然可以在「設定-設定主頁入口」中找到該頁面。重新啟動應用程式即可套用。</string>
     <string name="help_support_version_title">目前應用程式版本支援系統版本列表</string>
@@ -495,7 +495,7 @@
     <string name="community">小米社區</string>
     <string name="community_device_modify">機型偽裝</string>
     <string name="community_fuck_detection">禁止偵測</string>
-    <string name="community_fuck_detection_desc">禁止在回饋的同時偵測 HyperCeiler 並上傳。請確認問題不是您自己造成的，而是真正的系統問題，然後回饋，以免造成不必要的麻煩。</string>
+    <string name="community_fuck_detection_desc">禁止在回饋的同時偵測 HyperHand 並上傳。請確認問題不是您自己造成的，而是真正的系統問題，然後回饋，以免造成不必要的麻煩。</string>
     <!--File Manager-->
     <string name="fileexplorer">檔案管理</string>
     <string name="file_explorer_can_selectable">資料夾名稱可以選擇操作</string>

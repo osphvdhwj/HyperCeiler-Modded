@@ -25,6 +25,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.getapps.DeviceModify;
 import com.sevtinge.hyperceiler.hook.module.hook.getapps.DisableAds;
 import com.sevtinge.hyperceiler.hook.module.hook.getapps.DisablePackageMonitor;
 import com.sevtinge.hyperceiler.hook.module.hook.getapps.DisableStartPushDialog;
+import com.sevtinge.hyperceiler.hook.module.hook.getapps.ExperimentGetAppsRemoveAds;
 
 @HookBase(targetPackage = "com.xiaomi.market")
 public class GetApps extends BaseModule {
@@ -37,5 +38,6 @@ public class GetApps extends BaseModule {
 
         initHook(DisablePackageMonitor.INSTANCE, mPrefsMap.getBoolean("market_package_monitor"));
         initHook(DisableStartPushDialog.INSTANCE, mPrefsMap.getBoolean("market_disable_start_push_dialog"));
+        initHook(new ExperimentGetAppsRemoveAds(), mPrefsMap.getBoolean("experiment_getapps_remove_ads"));
     }
 }

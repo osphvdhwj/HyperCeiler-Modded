@@ -23,6 +23,7 @@ import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreSm
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.AodBlurButton;
+import com.sevtinge.hyperceiler.hook.module.hook.aod.ExperimentAodUnlockAllStyles;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.UnlockAlwaysOnDisplay;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.UnlockAodAon;
 import com.sevtinge.hyperceiler.hook.module.hook.aod.UnlockShortCuts;
@@ -37,5 +38,8 @@ public class Aod extends BaseModule {
         if (mPrefsMap.getBoolean("system_ui_lock_screen_hyper_blur_button")) {
             AodBlurButton.INSTANCE.initLoader(mLoadPackageParam.classLoader);
         }
+
+        // Experimental
+        initHook(new ExperimentAodUnlockAllStyles(), mPrefsMap.getBoolean("experiment_aod_unlock_all_styles"));
     }
 }

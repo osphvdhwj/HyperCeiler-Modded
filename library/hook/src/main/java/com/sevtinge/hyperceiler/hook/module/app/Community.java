@@ -22,6 +22,7 @@ package com.sevtinge.hyperceiler.hook.module.app;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.community.DeviceModify;
+import com.sevtinge.hyperceiler.hook.module.hook.community.ExperimentCommunityRemoveAds;
 import com.sevtinge.hyperceiler.hook.module.hook.community.FuckDetection;
 
 @HookBase(targetPackage = "com.xiaomi.vipaccount")
@@ -31,5 +32,6 @@ public class Community extends BaseModule {
     public void handleLoadPackage() {
         initHook(new DeviceModify(), mPrefsMap.getBoolean("community_device_modify"));
         initHook(new FuckDetection(), mPrefsMap.getBoolean("community_fuck_detection"));
+        initHook(new ExperimentCommunityRemoveAds(), mPrefsMap.getBoolean("experiment_community_remove_ads"));
     }
 }

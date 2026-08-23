@@ -72,4 +72,20 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_package_installer_bypass_risk_check"
+            android:summary="@string/experiment_package_installer_bypass_risk_check_desc"
+            android:title="@string/experiment_package_installer_bypass_risk_check" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_package_installer_auto_install"
+            android:summary="@string/experiment_package_installer_auto_install_desc"
+            android:title="@string/experiment_package_installer_auto_install" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

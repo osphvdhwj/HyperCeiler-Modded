@@ -80,9 +80,9 @@ public class SecurityCenterV extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
+        initHook(AppLockDisableFingerprint.INSTANCE, true);
         if ("com.miui.securitycenter.remote".equals(mLoadPackageParam.processName)) {
             initHook(new AppLockPinScramble(), mPrefsMap.getBoolean("security_center_applock_pin_scramble"));
-            initHook(AppLockDisableFingerprint.INSTANCE, true);
             return;
         }
 

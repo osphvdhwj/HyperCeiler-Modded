@@ -25,4 +25,10 @@
         android:key="prefs_key_voiceassist_disable_watermark"
         android:defaultValue="false" />
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="prefs_key_experiment_voiceassist_unlock_pro"
+        android:summary="@string/experiment_voiceassist_unlock_pro_desc"
+        android:title="@string/experiment_voiceassist_unlock_pro" />
+
 </PreferenceScreen>

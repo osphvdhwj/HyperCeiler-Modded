@@ -24,7 +24,7 @@
     <string name="new_permission_location_desc">ser usado para fornecer serviços como latitude e longitude</string>
     <string name="new_cta_agree_desc">Durante o uso, para fornecer mais recursos, podemos solicitar permissão Root/Su. Você pode acessar o Gerenciador de permissões a qualquer momento para ajustar o status de autorização de todas as permissões e ir ao seu gerenciador Root/Su para obter permissões Root/Su.</string>
     <string name="new_cta_app_main_purpose">modificar apps do sistema</string>
-    <string name="new_cta_app_all_purpose_title">Bem-vindo ao HyperCeiler! Este app depende do LSPosed para ser executado. Você pode usar este app para sequestrar e modificar outros apps suportados para aprimorar o sistema. Durante o uso, para fornecer mais funções, podemos solicitar suas permissões Root/Su. Você pode gerenciá-lo a qualquer momento acessando seu gerenciador Root/Su.</string>
+    <string name="new_cta_app_all_purpose_title">Bem-vindo ao HyperHand! Este app depende do LSPosed para ser executado. Você pode usar este app para sequestrar e modificar outros apps suportados para aprimorar o sistema. Durante o uso, para fornecer mais funções, podemos solicitar suas permissões Root/Su. Você pode gerenciá-lo a qualquer momento acessando seu gerenciador Root/Su.</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">Português (Brasil)</string>
     <string name="translator">Igor</string>
@@ -34,9 +34,9 @@
     <string name="settings">Configurações</string>
     <string name="about">Sobre</string>
     <string name="about_use">Referências</string>
-    <string name="about_use_desc">O HyperCeiler usa alguns ou todos os projetos a seguir, graças ao apoio dos desenvolvedores desses projetos (em nenhuma ordem em particular).</string>
+    <string name="about_use_desc">O HyperHand usa alguns ou todos os projetos a seguir, graças ao apoio dos desenvolvedores desses projetos (em nenhuma ordem em particular).</string>
     <string name="about_contributer">Colaboradores</string>
-    <string name="about_contributer_desc">Obrigado aos seguintes colaboradores pela sua ajuda no desenvolvimento do HyperCeiler (em nenhuma ordem em particular)</string>
+    <string name="about_contributer_desc">Obrigado aos seguintes colaboradores pela sua ajuda no desenvolvimento do HyperHand (em nenhuma ordem em particular)</string>
     <string name="about_donation">Patrocinadores</string>
     <string name="about_donation_desc">Você pode nos apoiar doando aqui</string>
     <string name="about_device_info_device">Dispositivo</string>
@@ -49,11 +49,11 @@
     <string name="set_homepage_entrance_about">Observação: Ao modificar esta configuração ela oculta apenas a visibilidade do recurso na página inicial e os recursos que foram ativados não serão desativados!\nOcultar o recurso na página inicial terá efeito imediato e o app precisara ser reiniciado para reaparecer.</string>
     <string name="help_cant_see_apps_guide">Não consegue encontrar os recursos do app?</string>
     <string name="help_cant_see_apps_title">Não consegue encontrar os recursos do app na página inicial?</string>
-    <string name="help_cant_see_apps_desc">Para manter a simplicidade e a usabilidade da página inicial, ocultamos o acesso aos seguintes tipos de recursos do app:\n\n • Aqueles atualmente desativados ou ocultos\n • Aqueles que não foram encontrados em seu dispositivo\n • Aqueles incompatíveis com a versão atual do sistema ou do app\n • Não selecionado como escopo\n\nPor favor, solucione o problema com base nas informações acima, reinicie o HyperCeiler e tente novamente. Se você ainda não conseguir encontrar o recurso do app, pode ser um bug. Por favor, forneça-nos feedbacks oportunos e eficazes.\n\nRecursos do app atualmente ocultos:</string>
+    <string name="help_cant_see_apps_desc">Para manter a simplicidade e a usabilidade da página inicial, ocultamos o acesso aos seguintes tipos de recursos do app:\n\n • Aqueles atualmente desativados ou ocultos\n • Aqueles que não foram encontrados em seu dispositivo\n • Aqueles incompatíveis com a versão atual do sistema ou do app\n • Não selecionado como escopo\n\nPor favor, solucione o problema com base nas informações acima, reinicie o HyperHand e tente novamente. Se você ainda não conseguir encontrar o recurso do app, pode ser um bug. Por favor, forneça-nos feedbacks oportunos e eficazes.\n\nRecursos do app atualmente ocultos:</string>
     <string name="help_cant_see_apps_uninstall">Apps desinstalados:\n</string>
     <string name="help_cant_see_apps_disable">Apps desativados ou ocultos:\n</string>
     <string name="help_cant_see_apps_scope">Não selecionado como escopo:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">Para manter a simplicidade e a usabilidade da página inicial, ocultamos o acesso aos seguintes tipos de recursos do app:\n\n • Aqueles atualmente desativados ou ocultos\n • Aqueles que não foram encontrados em seu dispositivo\n • Aqueles incompatíveis com a versão atual do sistema ou do app\n • Não selecionado como escopo\n\nPor favor, solucione o problema com base nas informações acima, reinicie o HyperCeiler e tente novamente. Se você ainda não conseguir encontrar o recurso do app, pode ser um bug. Por favor, forneça-nos feedbacks oportunos e eficazes.\n\nAtualmente não há recursos ocultos!</string>
+    <string name="help_cant_see_apps_desc_no_hidden">Para manter a simplicidade e a usabilidade da página inicial, ocultamos o acesso aos seguintes tipos de recursos do app:\n\n • Aqueles atualmente desativados ou ocultos\n • Aqueles que não foram encontrados em seu dispositivo\n • Aqueles incompatíveis com a versão atual do sistema ou do app\n • Não selecionado como escopo\n\nPor favor, solucione o problema com base nas informações acima, reinicie o HyperHand e tente novamente. Se você ainda não conseguir encontrar o recurso do app, pode ser um bug. Por favor, forneça-nos feedbacks oportunos e eficazes.\n\nAtualmente não há recursos ocultos!</string>
     <string name="help_cant_see_apps_switch">Ocultar esta ajuda na página inicial</string>
     <string name="help_cant_see_apps_switch_desc">Você ainda pode encontrar esta página em Sobre &gt; Ajuda. Reinicie o app para aplicar</string>
     <string name="help_support_version_title">Lista de versões do sistema com suporte à versão atual do app</string>
@@ -134,7 +134,7 @@
     <string name="about_github_desc">Este projeto é de código aberto baseado na licença AGPL-3.0</string>
     <string name="about_offical">Site oficial</string>
     <string name="about_crwd">Crowdin</string>
-    <string name="about_crwd_desc">Ajude-nos a traduzir o HyperCeiler para o seu idioma</string>
+    <string name="about_crwd_desc">Ajude-nos a traduzir o HyperHand para o seu idioma</string>
     <string name="about_privacy">Política de Privacidade</string>
     <string name="about_protocol">Contrato do Usuário</string>
     <!--Pop-up window/miuix part-->
@@ -495,7 +495,7 @@
     <string name="community">Xiaomi Community</string>
     <string name="community_device_modify">Disfarçar modelo</string>
     <string name="community_fuck_detection">Bloquear detecção</string>
-    <string name="community_fuck_detection_desc">Evite a detecção do HyperCeiler ao fornecer feedback. Por favor, certifique-se de que o problema não seja causado por você, mas sim por um problema real do sistema, antes de fornecer feedback para evitar problemas desnecessários.</string>
+    <string name="community_fuck_detection_desc">Evite a detecção do HyperHand ao fornecer feedback. Por favor, certifique-se de que o problema não seja causado por você, mas sim por um problema real do sistema, antes de fornecer feedback para evitar problemas desnecessários.</string>
     <!--File Manager-->
     <string name="fileexplorer">Arquivos</string>
     <string name="file_explorer_can_selectable">Permitir pressionar o nome da pasta e executar a ação</string>

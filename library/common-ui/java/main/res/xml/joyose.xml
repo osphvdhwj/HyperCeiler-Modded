@@ -37,4 +37,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_joyose_disable_limits"
+            android:summary="@string/experiment_joyose_disable_limits_desc"
+            android:title="@string/experiment_joyose_disable_limits" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

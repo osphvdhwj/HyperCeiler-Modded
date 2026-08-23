@@ -29,6 +29,8 @@ import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.DisableCountCh
 import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.DisableInstallerFullSafeVersion;
 import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.DisableSafeModelTip;
 import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.DisplayMoreApkInfoNew;
+import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.ExperimentPackageInstallerAutoInstall;
+import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.ExperimentPackageInstallerBypassRiskCheck;
 import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.InstallRiskDisable;
 import com.sevtinge.hyperceiler.hook.module.hook.packageinstaller.InstallSource;
 
@@ -65,6 +67,10 @@ public class PackageInstaller extends BaseModule {
 
         // 禁用安装前后上传应用信息, 开启后会无法扫描病毒
         initHook(DisableAppInfoUpload.INSTANCE, mPrefsMap.getBoolean("miui_package_installer_upload_appinfo"));
+
+        // Experimental
+        initHook(new ExperimentPackageInstallerBypassRiskCheck(), mPrefsMap.getBoolean("experiment_package_installer_bypass_risk_check"));
+        initHook(new ExperimentPackageInstallerAutoInstall(), mPrefsMap.getBoolean("experiment_package_installer_auto_install"));
 
     }
 }

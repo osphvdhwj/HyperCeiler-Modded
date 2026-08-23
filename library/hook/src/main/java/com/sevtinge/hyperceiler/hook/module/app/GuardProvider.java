@@ -22,6 +22,7 @@ import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.guardprovider.DisableRootedCheck;
 import com.sevtinge.hyperceiler.hook.module.hook.guardprovider.DisableUploadAppListNew;
+import com.sevtinge.hyperceiler.hook.module.hook.guardprovider.ExperimentGuardProviderBypassScan;
 
 @HookBase(targetPackage = "com.miui.guardprovider")
 public class GuardProvider extends BaseModule {
@@ -29,5 +30,6 @@ public class GuardProvider extends BaseModule {
     public void handleLoadPackage() {
         initHook(new DisableRootedCheck(), mPrefsMap.getBoolean("guard_provider_disable_root_check"));
         initHook(new DisableUploadAppListNew(), mPrefsMap.getBoolean("disable_upload_applist"));
+        initHook(new ExperimentGuardProviderBypassScan(), mPrefsMap.getBoolean("experiment_guardprovider_bypass_scan"));
     }
 }

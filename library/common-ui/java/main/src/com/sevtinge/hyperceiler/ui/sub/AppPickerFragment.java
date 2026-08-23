@@ -226,16 +226,17 @@ public class AppPickerFragment extends Fragment {
 
                         selectedApps = new LinkedHashSet<>(PrefsUtils.mSharedPreferences.getStringSet(key, new LinkedHashSet<>()));
                         List<AppData> selectedAppList = new ArrayList<>();
-                        for (String packageName : selectedApps) {
-                            for (AppData appData : appDataList) {
-                                if (packageName.equals(appData.packageName)) {
-                                    selectedAppList.add(appData);
-                                    appDataList.remove(appData);
-                                    break;
-                                }
+                        List<AppData> remainingAppList = new ArrayList<>();
+                        for (AppData appData : appDataList) {
+                            if (selectedApps.contains(appData.packageName)) {
+                                selectedAppList.add(appData);
+                            } else {
+                                remainingAppList.add(appData);
                             }
                         }
-                        appDataList.addAll(0, selectedAppList);
+                        appDataList.clear();
+                        appDataList.addAll(selectedAppList);
+                        appDataList.addAll(remainingAppList);
 
                         mAppListAdapter = new AppDataAdapter(requireActivity(),
                                 R.layout.item_app_list, appDataList, key, modeSelection);

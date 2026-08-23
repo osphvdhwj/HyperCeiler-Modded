@@ -21,6 +21,8 @@ package com.sevtinge.hyperceiler.hook.module.app;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.incallui.AnswerInHeadUp;
+import com.sevtinge.hyperceiler.hook.module.hook.incallui.ExperimentInCallUiFullAvatar;
+import com.sevtinge.hyperceiler.hook.module.hook.incallui.ExperimentInCallUiShowCallInfo;
 import com.sevtinge.hyperceiler.hook.module.hook.incallui.HideCrbt;
 
 @HookBase(targetPackage = "com.android.incallui")
@@ -30,5 +32,7 @@ public class InCallUi extends BaseModule {
     public void handleLoadPackage() {
         initHook(new HideCrbt(), mPrefsMap.getBoolean("incallui_hide_crbt"));
         initHook(new AnswerInHeadUp(), mPrefsMap.getBoolean("incallui_answer_in_head_up"));
+        initHook(new ExperimentInCallUiFullAvatar(), mPrefsMap.getBoolean("experiment_incallui_full_avatar"));
+        initHook(new ExperimentInCallUiShowCallInfo(), mPrefsMap.getBoolean("experiment_incallui_show_call_info"));
     }
 }

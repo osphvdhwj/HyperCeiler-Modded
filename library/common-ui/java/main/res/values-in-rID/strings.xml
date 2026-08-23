@@ -36,10 +36,10 @@
     <string name="restart_app_desc">Apakah Anda yakin untuk memulai ulang sekarang %1$s?</string>
     <string name="hyperceiler_restart_quick">Mulai ulang aplikasi dengan cepat</string>
     <string name="hook_failed">Modul belum diaktifkan.\nSilakan periksa apakah manajer Xposed telah diaktifkan. Jika sudah, silakan mulai ulang atau optimalkan kembali modul.</string>
-    <string name="kill_failed">Gagal mengakhiri proses, periksa apakah HyperCeiler telah diberikan izin Root/Su?</string>
-    <string name="start_failed">Gagal memulai aktivitas, periksa apakah HyperCeiler telah diberikan izin Root/SU.</string>
+    <string name="kill_failed">Gagal mengakhiri proses, periksa apakah HyperHand telah diberikan izin Root/Su?</string>
+    <string name="start_failed">Gagal memulai aktivitas, periksa apakah HyperHand telah diberikan izin Root/SU.</string>
     <string name="pid_failed">Aplikasi target tidak berjalan dan tidak perlu di-restart.</string>
-    <string name="reboot_failed">Reboot gagal, periksa apakah HyperCeiler diberikan izin Root/Su?</string>
+    <string name="reboot_failed">Reboot gagal, periksa apakah HyperHand diberikan izin Root/Su?</string>
     <!--HyperCeiler Tips-->
     <string name="safe_mode_history">Lihat catatan pengecualian</string>
     <string name="safe_mode_recorder_title">Catatan pengecualian</string>
@@ -47,10 +47,10 @@
     <string name="safe_mode_recorder_class">Kelas</string>
     <string name="safe_mode_recorder_method">metode</string>
     <string name="safe_mode_recorder_line">Garis</string>
-    <string name="tip_default">Tip: Ini tip default. Jika Anda dapat melihat saya, berarti ada masalah dengan HyperCeiler, harap laporkan kepada pengembang secara tepat waktu dan sopan.</string>
+    <string name="tip_default">Tip: Ini tip default. Jika Anda dapat melihat saya, berarti ada masalah dengan HyperHand, harap laporkan kepada pengembang secara tepat waktu dan sopan.</string>
     <string name="headtip_warn_not_offical_rom">Sumber ROM yang Anda gunakan mungkin tidak resmi dari Xiaomi, dan beberapa fungsi mungkin tidak berfungsi, silakan hubungi penyedia yang Anda gunakan untuk detailnya.</string>
-    <string name="headtip_warn_sign_verification_failed">Verifikasi tanda tangan gagal, dan versi yang Anda gunakan saat ini mungkin bukan dari versi resmi HyperCeiler, dan mungkin berisi kode berbahaya.</string>
-    <string name="happy_birthday_hyperceiler">Hari ini adalah hari ulang tahun HyperCeiler!\nTerima kasih atas dukungan Anda selama setahun terakhir, dan mari terus bekerja sama tahun ini!</string>
+    <string name="headtip_warn_sign_verification_failed">Verifikasi tanda tangan gagal, dan versi yang Anda gunakan saat ini mungkin bukan dari versi resmi HyperHand, dan mungkin berisi kode berbahaya.</string>
+    <string name="happy_birthday_hyperceiler">Hari ini adalah hari ulang tahun HyperHand!\nTerima kasih atas dukungan Anda selama setahun terakhir, dan mari terus bekerja sama tahun ini!</string>
     <!--System UI-->
     <string name="system_ui">UI Sistem</string>
     <!--System launcher-->

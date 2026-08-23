@@ -25,10 +25,10 @@
     <string name="new_permission_location_desc">用于提供经纬度等服务</string>
     <string name="new_cta_agree_desc">在使用过程中，为了为您提供更多功能，我们可能会向您申请 Root/Su 权限。您可随时前往权限管理调整所有权限的授权情况，Root/Su 权限请前往您的 Root/Su 管理器进行管理.</string>
     <string name="new_cta_app_main_purpose">修改系统应用</string>
-    <string name="new_cta_app_all_purpose_title">欢迎使用 HyperCeiler，本应用依赖 Xposed 框架运行，你可以使用本应用劫持并修改其他受支持的应用以实现对系统的增强功能。在使用过程中，为了为您提供更多功能，我们可能会向您申请 Root/Su 权限。您可随时前往您的 Root/Su 管理器进行管理。</string>
+    <string name="new_cta_app_all_purpose_title">欢迎使用 HyperHand，本应用依赖 Xposed 框架运行，你可以使用本应用劫持并修改其他受支持的应用以实现对系统的增强功能。在使用过程中，为了为您提供更多功能，我们可能会向您申请 Root/Su 权限。您可随时前往您的 Root/Su 管理器进行管理。</string>
     <!--HyperCeiler 设置/关于页-->
     <string name="language">简体中文</string>
-    <string name="translator">HyperCeiler 官方</string>
+    <string name="translator">HyperHand 官方</string>
     <string name="translator_url">https://github.com/ReChronoRain</string>
 
     <string name="home">主页</string>
@@ -36,9 +36,9 @@
     <string name="settings">设置</string>
     <string name="about">关于</string>
     <string name="about_use">引用</string>
-    <string name="about_use_desc">HyperCeiler 使用了以下项目的部分或全部内容，感谢这些项目的开发者提供的大力支持（排名顺序不分先后）</string>
+    <string name="about_use_desc">HyperHand 使用了以下项目的部分或全部内容，感谢这些项目的开发者提供的大力支持（排名顺序不分先后）</string>
     <string name="about_contributer">贡献者</string>
-    <string name="about_contributer_desc">感谢以下贡献者为 HyperCeiler 的开发提供了不同程度的帮助（排名顺序不分先后）</string>
+    <string name="about_contributer_desc">感谢以下贡献者为 HyperHand 的开发提供了不同程度的帮助（排名顺序不分先后）</string>
     <string name="about_donation">支持</string>
     <string name="about_donation_desc">您可以在此处捐赠以支持我们</string>
     <string name="about_device_info_device">设备型号</string>
@@ -55,11 +55,11 @@
     <string name="set_homepage_entrance_about">仅主页设置生效，已经开启的功能不会被关闭。\n关闭后实时生效，重新显示需重启应用。</string>
     <string name="help_cant_see_apps_guide">列表中没有您想要找的应用？</string>
     <string name="help_cant_see_apps_title">无法在首页找到应用功能入口</string>
-    <string name="help_cant_see_apps_desc">为了保持首页的简洁和易用性，我们对以下类型的应用功能入口进行了隐藏：\n\n - 当前应用被禁用或隐藏的\n - 设备上不存在当前应用的\n - 当前系统或应用版本不适合使用功能的\n - 未被选择为作用域的\n\n请根据以上内容排查后，重启 HyperCeiler 再试。若仍旧找不到应用功能入口，那可能是一个错误，请及时且有效的向我们反馈。\n\n当前被隐藏的应用功能入口：</string>
+    <string name="help_cant_see_apps_desc">为了保持首页的简洁和易用性，我们对以下类型的应用功能入口进行了隐藏：\n\n - 当前应用被禁用或隐藏的\n - 设备上不存在当前应用的\n - 当前系统或应用版本不适合使用功能的\n - 未被选择为作用域的\n\n请根据以上内容排查后，重启 HyperHand 再试。若仍旧找不到应用功能入口，那可能是一个错误，请及时且有效的向我们反馈。\n\n当前被隐藏的应用功能入口：</string>
     <string name="help_cant_see_apps_uninstall">设备上不存在的应用：\n</string>
     <string name="help_cant_see_apps_disable">被禁用或隐藏的应用：\n</string>
     <string name="help_cant_see_apps_scope">未被选择为作用域的：\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">为了保持首页的简洁和易用性，我们对以下类型的应用功能入口进行了隐藏：\n\n - 当前应用被禁用或隐藏的\n - 设备上不存在当前应用的\n - 当前系统或应用版本不适合使用功能的\n - 未被选择为作用域的\n\n请根据以上内容排查后，重启 HyperCeiler 再试。若仍旧找不到应用功能入口，那可能是一个错误，请及时且有效的向我们反馈。</string>
+    <string name="help_cant_see_apps_desc_no_hidden">为了保持首页的简洁和易用性，我们对以下类型的应用功能入口进行了隐藏：\n\n - 当前应用被禁用或隐藏的\n - 设备上不存在当前应用的\n - 当前系统或应用版本不适合使用功能的\n - 未被选择为作用域的\n\n请根据以上内容排查后，重启 HyperHand 再试。若仍旧找不到应用功能入口，那可能是一个错误，请及时且有效的向我们反馈。</string>
     <string name="help_cant_see_apps_switch">在主页隐藏此帮助</string>
     <string name="help_cant_see_apps_switch_desc">您仍可以在 \"关于-帮助\" 找到此帮助，重启模块生效</string>
     <string name="help_support_version_title">当前应用版本适配系统情况</string>
@@ -550,7 +550,7 @@
     <string name="community">小米社区</string>
     <string name="community_device_modify">机型伪装</string>
     <string name="community_fuck_detection">禁止检测</string>
-    <string name="community_fuck_detection_desc">禁止在反馈时检测 HyperCeiler 并上传。请确保问题不是由自身引起，而是确实的系统问题，再进行反馈，以免带来不必要的麻烦</string>
+    <string name="community_fuck_detection_desc">禁止在反馈时检测 HyperHand 并上传。请确保问题不是由自身引起，而是确实的系统问题，再进行反馈，以免带来不必要的麻烦</string>
     <!--文件管理-->
     <string name="fileexplorer">文件管理</string>
     <string name="file_explorer_can_selectable">文件夹名称允许长按选择操作</string>
@@ -1899,4 +1899,90 @@
     <string name="experiment_sidebar_unlock_all_tools_desc">无视地区限制，解锁 AI 侧边栏中的所有工具。</string>
     <string name="experiment_sidebar_float_on_all">实验：侧边栏在所有应用上悬浮</string>
     <string name="experiment_sidebar_float_on_all_desc">允许 AI 侧边栏在所有应用上悬浮（不仅是白名单应用）。</string>
+
+    <!-- InCallUi -->
+    <string name="experiment_incallui_full_avatar">实验：全屏大头像</string>
+    <string name="experiment_incallui_full_avatar_desc">在通话界面强制显示全屏高清联系人头像。</string>
+    <string name="experiment_incallui_show_call_info">实验：显示详细通话信息</string>
+    <string name="experiment_incallui_show_call_info_desc">显示通话编解码器、高清语音与网络状态等详细信息。</string>
+
+    <!-- GuardProvider -->
+    <string name="experiment_guardprovider_bypass_scan">实验：跳过安全扫描</string>
+    <string name="experiment_guardprovider_bypass_scan_desc">跳过安全守护中的病毒和风险应用扫描检测。</string>
+
+    <!-- Barrage -->
+    <string name="experiment_barrage_custom_style">实验：自定义弹幕样式</string>
+    <string name="experiment_barrage_custom_style_desc">解锁屏幕弹幕的更多样式、颜色和文字缩放选项。</string>
+
+    <!-- MiShare -->
+    <string name="experiment_mishare_unlimited_speed">实验：解除快传速率限制</string>
+    <string name="experiment_mishare_unlimited_speed_desc">解除小米快传的传输速率限制，开启最高带宽传输。</string>
+
+    <!-- MiCloudService -->
+    <string name="experiment_micloud_bypass_quota_alert">实验：屏蔽空间不足提示</string>
+    <string name="experiment_micloud_bypass_quota_alert_desc">屏蔽小米云服务空间已满或不足的弹窗与通知警告。</string>
+
+    <!-- Community -->
+    <string name="experiment_community_remove_ads">实验：移除社区广告</string>
+    <string name="experiment_community_remove_ads_desc">移除小米社区中的开屏广告和信息流推广内容。</string>
+
+    <!-- GetApps -->
+    <string name="experiment_getapps_remove_ads">实验：移除应用商店广告</string>
+    <string name="experiment_getapps_remove_ads_desc">移除小米应用商店中的横幅广告、推广卡片和弹窗。</string>
+
+    <!-- VoiceAssist -->
+    <string name="experiment_voiceassist_unlock_pro">实验：解锁超级小爱高级版</string>
+    <string name="experiment_voiceassist_unlock_pro_desc">解锁超级小爱高级功能与大模型 VIP 特权。</string>
+
+    <!-- FileExplorer -->
+    <string name="experiment_file_explorer_show_hidden">实验：显示隐藏文件</string>
+    <string name="experiment_file_explorer_show_hidden_desc">强制文件管理器始终显示隐藏文件、以点开头的文件和系统文件夹。</string>
+    <string name="experiment_file_explorer_fast_search">实验：快速搜索与深度索引</string>
+    <string name="experiment_file_explorer_fast_search_desc">解锁全盘索引并消除文件管理器中的搜索延迟限制。</string>
+
+    <!-- PackageInstaller -->
+    <string name="experiment_package_installer_bypass_risk_check">实验：绕过风险检测</string>
+    <string name="experiment_package_installer_bypass_risk_check_desc">绕过安装包安全风险扫描、恶意应用警告及拦截提示。</string>
+    <string name="experiment_package_installer_auto_install">实验：自动安装与跳过倒计时</string>
+    <string name="experiment_package_installer_auto_install_desc">跳过安装倒计时等待，自动确认并开始应用安装。</string>
+
+    <!-- PersonalAssistant -->
+    <string name="experiment_personal_assistant_unlock_all_widgets">实验：解锁所有小部件</string>
+    <string name="experiment_personal_assistant_unlock_all_widgets_desc">在负一屏/智能助理中解锁所有小部件类型，包含平板及受限小部件。</string>
+
+    <!-- Updater -->
+    <string name="experiment_updater_force_local_update">实验：强制本地更新</string>
+    <string name="experiment_updater_force_local_update_desc">开启本地安装包选择菜单并绕过系统升级包校验限制。</string>
+
+    <!-- Aod -->
+    <string name="experiment_aod_unlock_all_styles">实验：解锁所有熄屏样式</string>
+    <string name="experiment_aod_unlock_all_styles_desc">解锁所有熄屏显示时钟样式及超级壁纸熄屏特效。</string>
+
+    <!-- Calendar -->
+    <string name="experiment_calendar_remove_ads">实验：移除广告</string>
+    <string name="experiment_calendar_remove_ads_desc">移除日历中的商业广告、推荐卡片及推广信息流。</string>
+
+    <!-- Joyose -->
+    <string name="experiment_joyose_disable_limits">实验：解除 Joyose 性能限制</string>
+    <string name="experiment_joyose_disable_limits_desc">禁用 Joyose 中的温控降频、帧率限制和后台优化策略。</string>
+
+    <!-- Huanji -->
+    <string name="experiment_huanji_fast_transfer">实验：高速文件互传</string>
+    <string name="experiment_huanji_fast_transfer_desc">在小米换机中解锁 5GHz Wi-Fi 直连并解除传输速度与并发限制。</string>
+
+    <!-- Pro About Section -->
+    <string name="about_modded_title">HyperHand 社区增强版</string>
+    <string name="about_modded_subtitle">小米 HyperOS 系统级劫持与增强框架</string>
+    <string name="about_modded_desc">基于 Xposed 与 DexKit 的极客修饰套件，涵盖 20+ 款系统应用中的 55+ 项实验性 Hook、AI 音频擦除器及深层性能优化。</string>
+    <string name="about_features_title">实验性功能全家桶</string>
+    <string name="about_features_summary">星空摄影、100x 变焦、One UI 声纹擦除、3D 桌面文件夹、省电模式保持 120Hz、GPU 强制渲染等</string>
+    <string name="about_architecture_title">架构与运行环境</string>
+    <string name="about_architecture_summary">适配 HyperOS 1.0 / 2.0 (Android 14–15) · LSPosed / Zygisk 引擎</string>
+    <string name="about_releases_title">版本更新与构建产物</string>
+    <string name="about_releases_summary">获取最新的 Canary 测试版、更新日志与 APK 构建文件</string>
+    <string name="about_telegram_release">Telegram 发布频道</string>
+    <string name="about_telegram_release_summary">加入官方频道，第一时间接收版本推送与更新公告</string>
+    <string name="about_dev_harry_desc">项目主导与核心维护者</string>
+    <string name="about_dev_sevtinge_desc">HyperCeiler 原作者与核心贡献者</string>
 </resources>
+

@@ -24,7 +24,7 @@
     <string name="new_permission_location_desc">usato per fornire servizi come latitudine e longitudine</string>
     <string name="new_cta_agree_desc">Durante l\'uso, in modo da poterti fornire più funzionalità, potremmo chiederti i permessi di Root/SU. Puoi andare su Gestione permessi in qualsiasi momento per gestire tutte le autorizzazioni, e per favore controlla il tuo manager Root/SU per i permessi di Root/SU.</string>
     <string name="new_cta_app_main_purpose">modifica applicazioni di sistema</string>
-    <string name="new_cta_app_all_purpose_title">Benvenuto in HyperCeiler. Questa applicazione si basa sul framework Xposed per funzionare. Puoi utilizzare questa applicazione per modificare altre applicazioni supportate per migliorare il sistema. Durante l\'uso, al fine di fornire ulteriori funzioni, possiamo richiederti permessi Root/Su. Puoi gestirlo in qualsiasi momento andando al tuo gestore di Root/Su.</string>
+    <string name="new_cta_app_all_purpose_title">Benvenuto in HyperHand. Questa applicazione si basa sul framework Xposed per funzionare. Puoi utilizzare questa applicazione per modificare altre applicazioni supportate per migliorare il sistema. Durante l\'uso, al fine di fornire ulteriori funzioni, possiamo richiederti permessi Root/Su. Puoi gestirlo in qualsiasi momento andando al tuo gestore di Root/Su.</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">Inglese</string>
     <string name="translator">Stefano Lo Casto</string>
@@ -33,19 +33,19 @@
     <string name="settings">Impostazioni</string>
     <string name="about">Info</string>
     <string name="about_use">Citazione</string>
-    <string name="about_use_desc">HyperCeiler utilizza alcuni o tutti i seguenti progetti, grazie agli sviluppatori di questi progetti per il loro sostegno (in nessun ordine specifico)</string>
+    <string name="about_use_desc">HyperHand utilizza alcuni o tutti i seguenti progetti, grazie agli sviluppatori di questi progetti per il loro sostegno (in nessun ordine specifico)</string>
     <string name="about_contributer">Collaboratore</string>
-    <string name="about_contributer_desc">Grazie ai seguenti contributori per il loro aiuto nello sviluppo di HyperCeiler (in nessun ordine specifico)</string>
+    <string name="about_contributer_desc">Grazie ai seguenti contributori per il loro aiuto nello sviluppo di HyperHand (in nessun ordine specifico)</string>
     <string name="about_donation_desc">Puoi sostenerci donando qui</string>
     <string name="hyperceiler_notice">Scorri verso il basso la barra di stato per visualizzare le scorciatoie e le notifiche di sistema</string>
     <string name="set_homepage_entrance">Imposta la voce della home page</string>
     <string name="set_homepage_entrance_about">Nota:\nQuesta impostazione è solo l\'impostazione della visibilità della voce della home page e le funzioni che sono state attivate non verranno disattivate!\nLa chiusura del portale avrà effetto in tempo reale e l\'applicazione dovrà essere riavviata per riapparire.</string>
     <string name="help_cant_see_apps_guide">Non riesci a trovare le funzionalità dell\'app?</string>
     <string name="help_cant_see_apps_title">Non riesci a trovare le funzionalità dell\'app nella home page?</string>
-    <string name="help_cant_see_apps_desc">Per mantenere la semplicità e l\'usabilità della home page, abbiamo nascosto l\'accesso ai seguenti tipi di funzionalità dell\'app:\n\n - Quelle attualmente disabilitate o nascoste\n - Quelle app che non sono state trovate nel tuo dispositivo\n - Quelle incompatibili con il sistema attuale o la versione dell\'app\n\nRisolvi il problema in base alle informazioni di cui sopra, riavvia HyperCeiler e riprova. Se ancora non riesci a trovare la funzionalità dell\'app, potrebbe trattarsi di un bug. Forniscici un feedback tempestivo ed efficace.\n\nFunzionalità delle app attualmente nascoste:</string>
+    <string name="help_cant_see_apps_desc">Per mantenere la semplicità e l\'usabilità della home page, abbiamo nascosto l\'accesso ai seguenti tipi di funzionalità dell\'app:\n\n - Quelle attualmente disabilitate o nascoste\n - Quelle app che non sono state trovate nel tuo dispositivo\n - Quelle incompatibili con il sistema attuale o la versione dell\'app\n\nRisolvi il problema in base alle informazioni di cui sopra, riavvia HyperHand e riprova. Se ancora non riesci a trovare la funzionalità dell\'app, potrebbe trattarsi di un bug. Forniscici un feedback tempestivo ed efficace.\n\nFunzionalità delle app attualmente nascoste:</string>
     <string name="help_cant_see_apps_uninstall">App disinstallate:\n</string>
     <string name="help_cant_see_apps_disable">App disattivate o nascoste:\n</string>
-    <string name="help_cant_see_apps_desc_no_hidden">Per mantenere la semplicità e l\'usabilità della home page, hanno accesso nascosto ai seguenti tipi di funzionalità dell\'app:\n\n - Quelle attualmente disabilitate o nascoste\n - Quelle app che non sono state trovate nel tuo dispositivo\n - Quelle incompatibili con l\'attuale sistema o versione dell\'app\n\nRisolvi il problema in base a le informazioni di cui sopra, riavviare HyperCeiler e riprovare. Se ancora non riesci a trovare la funzionalità dell\'app, potrebbe trattarsi di un bug. Ti preghiamo di fornirci un feedback tempestivo ed efficace.\n\nAl momento non esiste un\'entrata nascosta!</string>
+    <string name="help_cant_see_apps_desc_no_hidden">Per mantenere la semplicità e l\'usabilità della home page, hanno accesso nascosto ai seguenti tipi di funzionalità dell\'app:\n\n - Quelle attualmente disabilitate o nascoste\n - Quelle app che non sono state trovate nel tuo dispositivo\n - Quelle incompatibili con l\'attuale sistema o versione dell\'app\n\nRisolvi il problema in base a le informazioni di cui sopra, riavviare HyperHand e riprovare. Se ancora non riesci a trovare la funzionalità dell\'app, potrebbe trattarsi di un bug. Ti preghiamo di fornirci un feedback tempestivo ed efficace.\n\nAl momento non esiste un\'entrata nascosta!</string>
     <string name="help_cant_see_apps_switch">Nascondi questo aiuto nella home page</string>
     <string name="help_cant_see_apps_switch_desc">Puoi ancora trovare questa pagina in \"Impostazioni - Configura la voce della home page\". Riavvia l\'app per applicare.</string>
     <string name="location_add">Aggiungi</string>
@@ -114,7 +114,7 @@
     <string name="about_github">Codice sorgente</string>
     <string name="about_github_desc">Questo progetto è open source basato sulla licenza AGPL-3.0</string>
     <string name="about_offical">Sito web ufficiale</string>
-    <string name="about_crwd_desc">Aiutaci a tradurre HyperCeiler nella tua lingua</string>
+    <string name="about_crwd_desc">Aiutaci a tradurre HyperHand nella tua lingua</string>
     <string name="about_privacy">Informativa sulla privacy</string>
     <string name="about_protocol">Accordo Utente</string>
     <!--Pop-up window/miuix part-->

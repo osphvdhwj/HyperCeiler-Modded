@@ -1,20 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ This file is part of HyperCeiler.
-  ~
-  ~ HyperCeiler is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Affero General Public License as
-  ~ published by the Free Software Foundation, either version 3 of the
-  ~ License.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Affero General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Affero General Public License
-  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
-  ~
-  ~ Copyright (C) 2023-2025 HyperCeiler Contributions
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ HyperHand Modded — Pro About Section Layout
   -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -25,34 +11,35 @@
         android:summary="@string/xposed_description"
         app:isPreferenceVisible="false" />
 
-    <PreferenceCategory>
+    <!-- DEVICE & ENVIRONMENT INFORMATION -->
+    <PreferenceCategory android:title="📱 Device &amp; System Telemetry">
 
         <Preference
             android:enabled="false"
             android:key="prefs_key_about_device_name"
             android:layout="@layout/preference_big_title"
-            android:title="HyperCeiler User's Device" />
+            android:title="HyperHand Active Host" />
 
         <Preference
             android:enabled="false"
             android:key="prefs_key_about_device_info_device"
             android:layout="@layout/preference_second_title"
             android:summary="@string/about_device_info_device"
-            android:title="HyperCeiler Device" />
+            android:title="Xiaomi / Redmi Host" />
 
         <Preference
             android:enabled="false"
             android:key="prefs_key_about_device_info_android"
             android:layout="@layout/preference_second_title"
             android:summary="@string/about_device_info_android"
-            android:title="15" />
+            android:title="Android 15 (API 35)" />
 
         <Preference
             android:enabled="false"
             android:key="prefs_key_about_device_info_os"
             android:layout="@layout/preference_second_title"
             android:summary="@string/about_device_info_os"
-            android:title="OS2.0.1.0.UNBCNXM" />
+            android:title="HyperOS 2.0" />
 
         <Preference
             android:enabled="false"
@@ -62,41 +49,57 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="🔮 HyperHand Modded">
+    <!-- HYPERHAND MODDED CORE SUITE -->
+    <PreferenceCategory android:title="🔮 HyperHand Modded Edition">
 
         <Preference
             android:enabled="false"
-            android:summary="Community-enhanced fork with 35+ experimental features, AI Audio Eraser, deep hook analysis, and fixes across 20+ apps."
-            android:title="About HyperHand" />
+            android:summary="@string/about_modded_desc"
+            android:title="@string/about_modded_subtitle" />
 
         <Preference
-            android:summary="Camera, MediaEditor, Gallery, SystemUI, Launcher, Browser, Notes, Phone, PowerKeeper, Scanner, ThemeManager &amp; more"
-            android:title="🧪 Experimental Features">
+            android:summary="@string/about_features_summary"
+            android:title="🧪 55+ Experimental Features">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/osphvdhwj/HyperCeiler-Modded#-experimental-features-hyperhand-additions" />
         </Preference>
 
         <Preference
-            android:summary="Latest canary APK builds with all experiments"
-            android:title="📦 Releases &amp; APKs">
+            android:summary="@string/about_releases_summary"
+            android:title="📦 Releases &amp; Build Artifacts">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/osphvdhwj/HyperCeiler-Modded/releases" />
         </Preference>
 
+        <Preference
+            android:summary="@string/about_architecture_summary"
+            android:title="⚡ Hook Engine &amp; DexKit Runtime" />
+
     </PreferenceCategory>
 
+    <!-- DEVELOPERS & CONTRIBUTORS -->
     <PreferenceCategory android:title="@string/about_developer_title">
 
         <Preference
             android:icon="@drawable/ic_sevtinge"
             android:layout="@layout/preference_round_layout"
-            android:summary="Developer"
-            android:title="Harry">
+            android:summary="@string/about_dev_harry_desc"
+            android:title="Harry (HyperHand Project)">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/osphvdhwj/HyperCeiler-Modded" />
+        </Preference>
+
+        <Preference
+            android:icon="@drawable/ic_hyperceiler"
+            android:layout="@layout/preference_round_layout"
+            android:summary="@string/about_dev_sevtinge_desc"
+            android:title="Sevtinge">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/Sevtinge" />
         </Preference>
 
         <Preference
@@ -106,26 +109,20 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/about_translator_title">
-
-        <Preference
-            android:summary="@string/language"
-            android:title="@string/translator">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="@string/translator_url" />
-        </Preference>
-
-    </PreferenceCategory>
-
+    <!-- COMMUNITY & TELEGRAM -->
     <PreferenceCategory android:title="@string/about_chat_title">
-        <Preference android:title="@string/about_tg_group">
+
+        <Preference
+            android:summary="@string/about_telegram_release_summary"
+            android:title="@string/about_telegram_release">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://t.me/HyperHand_Release" />
         </Preference>
 
-        <Preference android:title="@string/about_tg_channel">
+        <Preference
+            android:summary="Join the community chat to discuss features &amp; report bugs"
+            android:title="@string/about_tg_group">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://t.me/HyperHand_Release" />
@@ -133,15 +130,8 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/about_other_title">
-
-        <Preference
-            android:summary="@string/about_github_desc"
-            android:title="@string/about_github">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:data="https://github.com/osphvdhwj/HyperCeiler-Modded" />
-        </Preference>
+    <!-- TRANSLATION & LOCALIZATION -->
+    <PreferenceCategory android:title="@string/about_translator_title">
 
         <Preference
             android:summary="@string/about_crwd_desc"
@@ -151,10 +141,17 @@
                 android:data="https://crowdin.com/project/cemiuiler" />
         </Preference>
 
-        <Preference android:title="@string/about_offical">
+    </PreferenceCategory>
+
+    <!-- OPEN SOURCE & RESOURCES -->
+    <PreferenceCategory android:title="@string/about_other_title">
+
+        <Preference
+            android:summary="@string/about_github_desc"
+            android:title="@string/about_github">
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://hyperceiler.sevtinge.com" />
+                android:data="https://github.com/osphvdhwj/HyperCeiler-Modded" />
         </Preference>
 
         <Preference

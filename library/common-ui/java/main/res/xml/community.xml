@@ -49,6 +49,12 @@
             android:dependency="prefs_key_community_device_modify"
             android:key="prefs_key_community_device_modify_manufacturer" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_community_remove_ads"
+            android:summary="@string/experiment_community_remove_ads_desc"
+            android:title="@string/experiment_community_remove_ads" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

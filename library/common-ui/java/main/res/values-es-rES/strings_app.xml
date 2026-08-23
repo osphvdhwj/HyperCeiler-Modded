@@ -25,7 +25,7 @@
     <string name="new_cta_agree_desc">En el uso, para proporcionarle más características, es posible que solicitemos permiso de Root/Su. Puede ir a administración de permisos en cualquier momento para ajustar el estado de autorización de todos los permisos, y por favor vaya a su administrador de Root/Su para obtener permisos.</string>
     <string name="new_cta_app_main_purpose">modificar
 aplicaciones del sistema</string>
-    <string name="new_cta_app_all_purpose_title">Bienvenido a HyperCeiler, que funciona en Xposed framework, por eso puede utilizarla para descifrar y modificar otras aplicaciones soportadas para obtener mejoras de HyperOS/MIUI. En el uso, para proporcionarle más características, es posible que le solicitemos permiso de Root/Su. Puede ir a su administrador de Root/Su para obtener permisos.</string>
+    <string name="new_cta_app_all_purpose_title">Bienvenido a HyperHand, que funciona en Xposed framework, por eso puede utilizarla para descifrar y modificar otras aplicaciones soportadas para obtener mejoras de HyperOS/MIUI. En el uso, para proporcionarle más características, es posible que le solicitemos permiso de Root/Su. Puede ir a su administrador de Root/Su para obtener permisos.</string>
     <!--HyperCeiler Settings/About Page-->
     <string name="language">Español</string>
     <string name="translator">Mateo795</string>
@@ -35,9 +35,9 @@ aplicaciones del sistema</string>
     <string name="settings">Configuraciones</string>
     <string name="about">Sobre nosotros</string>
     <string name="about_use">Referencias</string>
-    <string name="about_use_desc">HyperCeiler utiliza algunos o todos de los siguientes proyectos de código abierto. Agradecimos a sus desarrolladores por los apoyos (en ningún orden particular)</string>
+    <string name="about_use_desc">HyperHand utiliza algunos o todos de los siguientes proyectos de código abierto. Agradecimos a sus desarrolladores por los apoyos (en ningún orden particular)</string>
     <string name="about_contributer">Colaborador</string>
-    <string name="about_contributer_desc">Gracias a los siguientes colaboradores por su ayuda en el desarrollo de HyperCeiler (en ningún orden particular)</string>
+    <string name="about_contributer_desc">Gracias a los siguientes colaboradores por su ayuda en el desarrollo de HyperHand (en ningún orden particular)</string>
     <string name="about_donation">Donar</string>
     <string name="about_donation_desc">Usted puede ayudarnos donando aquí</string>
     <string name="about_device_info_device">Dispositivo</string>
@@ -126,7 +126,7 @@ aplicaciones del sistema</string>
     <string name="about_github_desc">Este proyecto se basa en los códigos abiertos bajo la licencia de AGPL-3.0</string>
     <string name="about_offical">Página Web Oficial</string>
     <string name="about_crwd">Traducir en Crowdin</string>
-    <string name="about_crwd_desc">Ayúdenos a traducir HyperCeiler a su idioma</string>
+    <string name="about_crwd_desc">Ayúdenos a traducir HyperHand a su idioma</string>
     <string name="about_privacy">Políticas de privacidad</string>
     <string name="about_protocol">Acuerdo de usuario</string>
     <!--Pop-up window/miuix part-->

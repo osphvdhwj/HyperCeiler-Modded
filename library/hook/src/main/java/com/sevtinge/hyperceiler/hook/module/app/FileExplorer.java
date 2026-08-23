@@ -20,6 +20,8 @@ package com.sevtinge.hyperceiler.hook.module.app;
 
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
+import com.sevtinge.hyperceiler.hook.module.hook.fileexplorer.ExperimentFileExplorerFastSearch;
+import com.sevtinge.hyperceiler.hook.module.hook.fileexplorer.ExperimentFileExplorerShowHidden;
 import com.sevtinge.hyperceiler.hook.module.hook.fileexplorer.SelectName;
 import com.sevtinge.hyperceiler.hook.module.hook.fileexplorer.UnlockFileParse;
 
@@ -30,5 +32,9 @@ public class FileExplorer extends BaseModule {
     public void handleLoadPackage() {
         initHook(new UnlockFileParse(), mPrefsMap.getBoolean("file_explorer_unlock_file_parse"));
         initHook(SelectName.INSTANCE, mPrefsMap.getBoolean("file_explorer_can_selectable") || mPrefsMap.getBoolean("file_explorer_is_single_line"));
+
+        // Experimental
+        initHook(new ExperimentFileExplorerShowHidden(), mPrefsMap.getBoolean("experiment_file_explorer_show_hidden"));
+        initHook(new ExperimentFileExplorerFastSearch(), mPrefsMap.getBoolean("experiment_file_explorer_fast_search"));
     }
 }

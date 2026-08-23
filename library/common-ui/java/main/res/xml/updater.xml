@@ -73,4 +73,14 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="⚗️ Experimental">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_experiment_updater_force_local_update"
+            android:summary="@string/experiment_updater_force_local_update_desc"
+            android:title="@string/experiment_updater_force_local_update" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
