@@ -99,6 +99,9 @@ public class XposedInit implements IXposedHookZygoteInit, IXposedHookLoadPackage
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
         if (isInSafeMode(lpparam.packageName)) return;
 
+        // Force reload shared preferences for target app process
+        setXSharedPrefs();
+
         // load EzXHelper and set log tag
         EzXposed.initHandleLoadPackage(lpparam);
 
@@ -128,29 +131,27 @@ public class XposedInit implements IXposedHookZygoteInit, IXposedHookLoadPackage
     }
 
     private void setXSharedPrefs() {
-        if (mPrefsMap.isEmpty()) {
-            XSharedPreferences mXSharedPreferences;
-            try {
-                mXSharedPreferences = new XSharedPreferences(ProjectApi.mAppModulePkg, PrefsUtils.mPrefsName);
-                mXSharedPreferences.makeWorldReadable();
-                Map<String, ?> allPrefs = mXSharedPreferences.getAll();
+        try {
+            XSharedPreferences mXSharedPreferences = new XSharedPreferences(ProjectApi.mAppModulePkg, PrefsUtils.mPrefsName);
+            mXSharedPreferences.makeWorldReadable();
+            mXSharedPreferences.reload();
+            Map<String, ?> allPrefs = mXSharedPreferences.getAll();
 
-                if (allPrefs != null && !allPrefs.isEmpty()) {
-                    mPrefsMap.putAll(allPrefs);
-                } else {
-                    mXSharedPreferences = new XSharedPreferences(new File(PrefsUtils.mPrefsFile));
-                    mXSharedPreferences.makeWorldReadable();
-                    allPrefs = mXSharedPreferences.getAll();
-
-                    if (allPrefs != null && !allPrefs.isEmpty()) {
-                        mPrefsMap.putAll(allPrefs);
-                    } else {
-                        logE("[UID" + Process.myUid() + "]", "Cannot read SharedPreferences, some mods might not work!");
-                    }
+            if (allPrefs != null && !allPrefs.isEmpty()) {
+                mPrefsMap.clear();
+                mPrefsMap.putAll(allPrefs);
+            } else {
+                XSharedPreferences fallbackPrefs = new XSharedPreferences(new File(PrefsUtils.mPrefsFile));
+                fallbackPrefs.makeWorldReadable();
+                fallbackPrefs.reload();
+                Map<String, ?> fallbackAll = fallbackPrefs.getAll();
+                if (fallbackAll != null && !fallbackAll.isEmpty()) {
+                    mPrefsMap.clear();
+                    mPrefsMap.putAll(fallbackAll);
                 }
-            } catch (Throwable t) {
-                logE("setXSharedPrefs", t);
             }
+        } catch (Throwable t) {
+            logE("setXSharedPrefs", t);
         }
     }
 
