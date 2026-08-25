@@ -26,17 +26,25 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 public class DisableAiWatermark extends BaseHook {
     @Override
     public void init() throws NoSuchMethodException {
-        findAndHookMethod("com.miui.notes.ai.ui.AiWaterMarkView", "onDraw", Canvas.class, new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                param.setResult(null);
-            }
-        });
-        findAndHookMethod("com.miui.notes.ai.ui.WaterMarkView", "onDraw", Canvas.class, new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                param.setResult(null);
-            }
-        });
+        try {
+            findAndHookMethod("com.miui.notes.ai.ui.AiWaterMarkView", "onDraw", Canvas.class, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    param.setResult(null);
+                }
+            });
+        } catch (Throwable t) {
+            // ignore
+        }
+        try {
+            findAndHookMethod("com.miui.notes.ai.ui.WaterMarkView", "onDraw", Canvas.class, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    param.setResult(null);
+                }
+            });
+        } catch (Throwable t) {
+            // ignore
+        }
     }
 }
