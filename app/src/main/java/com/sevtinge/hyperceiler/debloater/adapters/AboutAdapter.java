@@ -67,12 +67,12 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
                 UpdateCheck.isManualUpdate(true);
                 new UpdateCheck().initialize(0, (Activity) holder.mRVLayout.getContext());
             } else if (position == 8) {
-                new sTranslatorUtils(v.getContext().getString(R.string.app_name), "https://poeditor.com/join/project?hash=BZS89Ev3WG",
+                new sTranslatorUtils(v.getContext().getString(R.string.debloater_app_name), "https://poeditor.com/join/project?hash=BZS89Ev3WG",
                         (Activity) v.getContext()).show();
             } else if (position == 10) {
                 Intent shareapp = new Intent();
                 shareapp.setAction(Intent.ACTION_SEND);
-                shareapp.putExtra(Intent.EXTRA_SUBJECT, holder.mRVLayout.getContext().getString(R.string.app_name));
+                shareapp.putExtra(Intent.EXTRA_SUBJECT, holder.mRVLayout.getContext().getString(R.string.debloater_app_name));
                 shareapp.putExtra(Intent.EXTRA_TEXT, holder.mRVLayout.getContext().getString(R.string.share_app_message, BuildConfig.VERSION_NAME) + Utils.getAppStoreURL(holder.mRVLayout.getContext()));
                 shareapp.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(shareapp, null);

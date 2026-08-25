@@ -191,7 +191,7 @@ public class InactivePackagesFragment extends Fragment {
                                     Utils.create(obj.toString(), jsonFile.getAbsolutePath());
                                     new MaterialAlertDialogBuilder(requireActivity())
                                             .setIcon(R.mipmap.ic_launcher)
-                                            .setTitle(R.string.app_name)
+                                            .setTitle(R.string.debloater_app_name)
                                             .setMessage(getString(R.string.backup_message, jsonFile.getAbsolutePath()) + "\n\n" + getString(R.string.backup_share_message))
                                             .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                                             })
@@ -200,7 +200,7 @@ public class InactivePackagesFragment extends Fragment {
                                                         "com.sevtinge.hyperceiler.debloater.provider", jsonFile);
                                                 Intent share = new Intent(Intent.ACTION_SEND);
                                                 share.setType("*/*");
-                                                share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+                                                share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.debloater_app_name));
                                                 share.putExtra(Intent.EXTRA_TEXT, "De-Bloater profile for " + Build.MODEL + " (SDK: " + Build.VERSION.SDK_INT + ").");
                                                 share.putExtra(Intent.EXTRA_STREAM, uriFile);
                                                 share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -292,7 +292,7 @@ public class InactivePackagesFragment extends Fragment {
                             }
                             new MaterialAlertDialogBuilder(requireActivity())
                                     .setIcon(R.mipmap.ic_launcher)
-                                    .setTitle(R.string.app_name)
+                                    .setTitle(R.string.debloater_app_name)
                                     .setMessage(Restore.isJSONMatched(jsonString) ? getString(R.string.restore_question,
                                             Restore.getFileName(Objects.requireNonNull(uri), requireActivity())) : getString(R.string.restore_mismatch_message))
                                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {

@@ -193,7 +193,7 @@ public class UpdateCheck {
                     } else {
                         new MaterialAlertDialogBuilder(activity)
                                 .setIcon(R.mipmap.ic_launcher)
-                                .setTitle(R.string.app_name)
+                                .setTitle(R.string.debloater_app_name)
                                 .setMessage(R.string.updated_dialog)
                                 .setPositiveButton(activity.getString(R.string.cancel), (dialog, id) -> {
                                 }).show();
