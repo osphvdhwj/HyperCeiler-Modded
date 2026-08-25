@@ -1,5 +1,7 @@
 package com.sevtinge.hyperceiler.debloater;
 
+import com.sevtinge.hyperceiler.R;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
