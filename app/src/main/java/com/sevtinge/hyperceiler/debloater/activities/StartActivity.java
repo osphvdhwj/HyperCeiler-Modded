@@ -1,0 +1,78 @@
+package com.sevtinge.hyperceiler.debloater.activities;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textview.MaterialTextView;
+import com.sevtinge.hyperceiler.debloater.MainActivity;
+import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.debloater.utils.Common;
+import com.sevtinge.hyperceiler.debloater.utils.PackageTasks;
+
+import in.sunilpaulmathew.sCommon.CommonUtils.sCommonUtils;
+import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
+
+/*
+ * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 1, 2020
+ */
+
+public class StartActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start);
+
+        MaterialCardView mStartCard = findViewById(R.id.start_card);
+        MaterialTextView mWarning = findViewById(R.id.warning);
+        ProgressBar mProgress = findViewById(R.id.progress);
+
+        if (!sCommonUtils.getBoolean("warning_message", false, this)) {
+            mProgress.setVisibility(View.GONE);
+            mWarning.setVisibility(View.VISIBLE);
+            mStartCard.setVisibility(View.VISIBLE);
+        } else {
+            loadUI(mProgress, StartActivity.this);
+        }
+
+        mStartCard.setOnClickListener(v -> {
+            mProgress.setVisibility(View.VISIBLE);
+            mWarning.setVisibility(View.GONE);
+            mStartCard.setVisibility(View.GONE);
+            loadUI(mProgress, StartActivity.this);
+        });
+    }
+
+    private static void loadUI(ProgressBar progressBar, Activity activity) {
+        new sExecutor() {
+
+            @Override
+            public void onPreExecute() {
+                if (!sCommonUtils.getBoolean("warning_message", false, activity)) {
+                    sCommonUtils.saveBoolean("warning_message", true, activity);
+                }
+            }
+
+            @Override
+            public void doInBackground() {
+                // Acquire information about installed apps
+                Common.setRawData(PackageTasks.getRawData(progressBar, activity));
+            }
+
+            @Override
+            public void onPostExecute() {
+                // Launch MainActivity
+                Intent mainActivity = new Intent(activity, MainActivity.class);
+                activity.startActivity(mainActivity);
+                activity.finish();
+            }
+        }.execute();
+    }
+
+}

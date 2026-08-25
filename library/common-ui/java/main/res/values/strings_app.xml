@@ -1814,5 +1814,7 @@
     <string name="about_telegram_release_summary">Join official Telegram channel for instant release announcements</string>
     <string name="about_dev_harry_desc">Lead Modder &amp; Core Maintainer</string>
     <string name="about_dev_sevtinge_desc">Original HyperCeiler Creator &amp; Core Contributor</string>
+    <string name="various_unhardcode_notes">Replace MIUI Notes with Google Keep</string>
+    <string name="various_unhardcode_notes_summary">Redirects system intents from MIUI Notes to Google Keep.</string>
 </resources>
 

@@ -1,0 +1,157 @@
+08-24 21:37:51.655  1869 13943 I InputMethodManagerService: IMMS.showSoftInput(), client = com.android.internal.inputmethod.IInputMethodClient$Stub$Proxy@f39d8d3
+08-24 21:37:51.655  1869 13943 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 0
+08-24 21:37:51.665  1869 13943 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 21:37:51.731  1869  7040 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{f12ab9f mUid=10261 mPid=3399 mSelfReportedDisplayId=0}
+08-24 21:37:54.012  1869 14618 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = false, mCurclient = ClientState{f12ab9f mUid=10261 mPid=3399 mSelfReportedDisplayId=0}
+08-24 21:56:52.583  1869  3013 D ActivityManager: checkAllowBackground: uid=10128 pkg=com.android.mms rec=null always=false idle=false
+08-24 21:56:52.663  1869  2937 I ActivityManager: Start proc 4400:com.android.mms/u0a128 for service {com.android.mms/com.miui.smsextra.service.TemplateUpdateService} caller=android
+08-24 21:56:53.228  1869 17149 I SmartPower: com.android.mms/10128(4400): died->background(3801559ms) R(process start ) adj=-10000.
+08-24 21:56:53.421  4400  4400 W PackageParser: Ignoring duplicate uses-permissions/uses-permissions-sdk-m: android.permission.WRITE_CALENDAR in package: com.android.mms at: Binary XML file line #127
+08-24 21:56:53.421  4400  4400 W PackageParser: Ignoring duplicate uses-permissions/uses-permissions-sdk-m: android.permission.READ_CALENDAR in package: com.android.mms at: Binary XML file line #128
+08-24 21:56:53.422  4400  4400 W PackageParser: Unknown element under <application>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #216
+08-24 21:56:53.422  4400  4400 W PackageParser: Unknown element under <application>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #224
+08-24 21:56:53.426  4400  4400 W PackageParser: Unknown element under <application>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #316
+08-24 21:56:53.426  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.426  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #330
+08-24 21:56:53.433  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.433  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #533
+08-24 21:56:53.433  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.433  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #545
+08-24 21:56:53.433  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.433  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #586
+08-24 21:56:53.434  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.434  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #629
+08-24 21:56:53.434  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.434  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #671
+08-24 21:56:53.435  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.435  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #811
+08-24 21:56:53.435  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.435  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #826
+08-24 21:56:53.435  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.435  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #840
+08-24 21:56:53.436  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.436  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #902
+08-24 21:56:53.438  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.439  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1268
+08-24 21:56:53.439  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.439  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1297
+08-24 21:56:53.439  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.439  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1354
+08-24 21:56:53.441  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.441  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1675
+08-24 21:56:53.450  4400  4400 W PackageParser: Ignoring duplicate uses-permissions/uses-permissions-sdk-m: android.permission.WRITE_CALENDAR in package: com.android.mms at: Binary XML file line #127
+08-24 21:56:53.450  4400  4400 W PackageParser: Ignoring duplicate uses-permissions/uses-permissions-sdk-m: android.permission.READ_CALENDAR in package: com.android.mms at: Binary XML file line #128
+08-24 21:56:53.451  4400  4400 W PackageParser: Unknown element under <application>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #216
+08-24 21:56:53.451  4400  4400 W PackageParser: Unknown element under <application>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #224
+08-24 21:56:53.451  4400  4400 W PackageParser: Unknown element under <application>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #316
+08-24 21:56:53.452  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.452  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #330
+08-24 21:56:53.453  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.453  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #533
+08-24 21:56:53.453  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.453  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #545
+08-24 21:56:53.454  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.454  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #586
+08-24 21:56:53.454  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.454  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #629
+08-24 21:56:53.454  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.454  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #671
+08-24 21:56:53.455  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.455  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #811
+08-24 21:56:53.455  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.455  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #826
+08-24 21:56:53.455  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.455  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #840
+08-24 21:56:53.455  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.455  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #902
+08-24 21:56:53.457  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.458  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1268
+08-24 21:56:53.458  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.458  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1297
+08-24 21:56:53.458  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.458  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1354
+08-24 21:56:53.460  4400  4400 W PackageParser: Problem in package /product/priv-app/Mms/Mms.apk:
+08-24 21:56:53.460  4400  4400 W PackageParser: Unknown element under <activity>: property at /product/priv-app/Mms/Mms.apk Binary XML file line #1675
+08-24 21:56:53.742  1869 12907 D ActivityManager: checkAllowBackground: uid=10128 pkg=com.android.mms rec=UidRecord{1f2d176 u0a128 CEM  idle change:cached|procstate procs:0 seq(30220,30218)} caps=------ always=false idle=true
+08-24 21:56:56.221  1869 17149 I ActivityManager: Background started FGS: Allowed [callingPackage: com.android.mms; callingUid: 10128; uidState: CEM ; uidBFSL: n/a; intent: Intent { act=com.xiaomi.mms.mx.ACTION_START_TRACK pkg=com.android.mms }; code:SYSTEM_ALERT_WINDOW_PERMISSION; tempAllowListReason:<,reasonCode:SYSTEM_ALLOW_LISTED,duration:9223372036854775807,callingUid:-1>; targetSdkVersion:34; callerTargetSdkVersion:34; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+08-24 21:56:56.229  1869 17149 I ActivityManager: Launched service must call startForeground() within timeout: ServiceRecord{4e3373f u0 com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService}
+08-24 21:56:56.239  1869 17149 I ActivityManager: Service called startForeground() as required: ServiceRecord{4e3373f u0 com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService}
+08-24 21:56:56.240  1869 17149 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService
+08-24 21:56:56.243  1869  2936 V ActivityManager: Attempted to start a foreground service (com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService) with a broken notification (no icon: Notification(channel=Channel_Foreground_Service shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 groupKey=mms_foreground_service_group vis=PRIVATE))
+08-24 21:56:56.245  1869 12907 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService
+08-24 21:56:56.247  1869 12907 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService
+08-24 21:56:56.255  1869 13950 W ActivityManager: Foreground service started from background can not have location/camera/microphone access: service com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService
+08-24 21:56:56.259  1869  2936 V ActivityManager: Attempted to start a foreground service (com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService) with a broken notification (no icon: Notification(channel=Channel_Foreground_Service shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 groupKey=mms_foreground_service_group vis=PRIVATE))
+08-24 21:56:56.262  1869  2936 V ActivityManager: Attempted to start a foreground service (com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService) with a broken notification (no icon: Notification(channel=Channel_Foreground_Service shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 groupKey=mms_foreground_service_group vis=PRIVATE))
+08-24 21:56:56.265  1869  2936 V ActivityManager: Attempted to start a foreground service (com.android.mms/com.xiaomi.mms.transaction.MxMessageTrackService) with a broken notification (no icon: Notification(channel=Channel_Foreground_Service shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 groupKey=mms_foreground_service_group vis=PRIVATE))
+08-24 21:56:56.306  1869 13950 I ActivityManager: Cancel FGS notification userId: 0 definingUid: 10128 packageName: com.android.mms processName:com.android.mms ChannelId:Channel_Foreground_Service foregroundNotiWhen:1787588816266 Notiflags:64
+08-24 21:56:56.710  1869  6167 I SmartPower: com.android.mms/10128(4400): background->idle(3481ms) R(adj below visible) adj=905.
+08-24 21:59:32.052  1869 17142 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 1
+08-24 21:59:32.081  1869 17142 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 21:59:32.083  1869 17142 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 1
+08-24 21:59:32.084  1869 17142 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 21:59:32.220  1869  6684 I InputMethodManagerService: IMMS.showSoftInput(), client = com.android.internal.inputmethod.IInputMethodClient$Stub$Proxy@fc0b866
+08-24 21:59:32.220  1869  6684 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 0
+08-24 21:59:32.221  1869  6684 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 21:59:32.312  1869 17157 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{46a6b93 mUid=10280 mPid=14365 mSelfReportedDisplayId=0}
+08-24 21:59:32.316  1869 17157 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{46a6b93 mUid=10280 mPid=14365 mSelfReportedDisplayId=0}
+08-24 21:59:32.355  1869 17157 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{46a6b93 mUid=10280 mPid=14365 mSelfReportedDisplayId=0}
+08-24 22:00:58.233  1869 15273 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = false, mCurclient = ClientState{65e355c mUid=10096 mPid=6905 mSelfReportedDisplayId=0}
+08-24 22:01:04.723  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.723  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:04.723  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.736  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.746  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.746  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:04.747  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.750  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.759  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.759  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:04.767  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.774  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.774  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:04.783  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:04.790  6905  6905 W GestureStateMachine: AppWaitToDragState msg=11, mMsgUpType = -1
+08-24 22:01:04.793  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.801  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.810  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.817  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.826  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.834  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.842  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.850  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.919  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.924  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.937  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:04.945  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:05.013  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:05.015  6905  6905 D ShortcutMenuLayerElement: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:05.016  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:05.993  1869  7444 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 1
+08-24 22:01:05.993  1869  7444 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 22:01:05.994  1869  7444 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 1
+08-24 22:01:05.994  1869  7444 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 22:01:06.082  1869  7444 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{46a6b93 mUid=10280 mPid=14365 mSelfReportedDisplayId=0}
+08-24 22:01:06.106  1869  7444 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{46a6b93 mUid=10280 mPid=14365 mSelfReportedDisplayId=0}
+08-24 22:01:06.178  1869  7444 I InputMethodManagerService: IMMS.showSoftInput(), client = com.android.internal.inputmethod.IInputMethodClient$Stub$Proxy@a47e620
+08-24 22:01:06.178  1869  7444 I InputMethodManagerService: IMMS.showCurrentInputLocked(), flags = 0
+08-24 22:01:06.179  1869  7444 I DefaultImeVisibilityApplier: IMMS.showCurrentInputLocked request ims to show inputMethod.
+08-24 22:01:06.193  1869  7444 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = true, mCurclient = ClientState{46a6b93 mUid=10280 mPid=14365 mSelfReportedDisplayId=0}
+08-24 22:01:07.974  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:07.974  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:07.974  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.009  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.009  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:08.010  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.016  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.024  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.024  6905  6905 W GestureStateMachine: AppWaitToDragState msg=2, mMsgUpType = -1
+08-24 22:01:08.032  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.041  6905  6905 W GestureStateMachine: AppWaitToDragState msg=3, mMsgUpType = -1
+08-24 22:01:08.041  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:08.042  6905  6905 W GestureStateMachine: AppWaitToDragState msg=11, mMsgUpType = -1
+08-24 22:01:08.043  6905  6905 I RectFSpringAnim: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:08.044  6905  6905 D OnGlobalListenerError: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:08.044  6905  6905 D ShortcutMenuLayerElement: 	at com.android.internal.util.StateMachine$SmHandler.processMsg(Unknown Source:54)
+08-24 22:01:08.556  1869  7041 I InputMethodManagerService: IMMS.applyImeVisibility(), setVisible = false, mCurclient = ClientState{65e355c mUid=10096 mPid=6905 mSelfReportedDisplayId=0}
+08-24 22:01:13.859 24749 25371 I GDAppManager: loadDockApps: mDockAppList=[AppInfo{uid=10110, pkg='org.telegram.messenger', activity='org.telegram.messenger.NoxIcon', from='1'}, AppInfo{uid=10280, pkg='com.termux', activity='com.termux.app.TermuxActivity', from='1'}, AppInfo{uid=1000, pkg='com.android.settings', activity='com.android.settings.MainSettings', from='1'}, AppInfo{uid=10249, pkg='com.whatsapp', activity='com.whatsapp.Main', from='1'}, AppInfo{uid=10145, pkg='com.android.deskclock', activity='com.android.deskclock.DeskClockTabActivity', from='1'}, AppInfo{uid=10128, pkg='com.android.mms', activity='com.android.mms.ui.MmsTabActivity', from='1'}, AppInfo{uid=10270, pkg='com.brave.browser', activity='com.google.android.apps.chrome.Main', from='1'}, AppInfo{uid=10141, pkg='com.miui.calculator', activity='com.miui.calculator.cal.CalculatorActivity', from='1'}, AppInfo{uid=10134, pkg='com.android.soundrecorder', activity='com.android.soundrecorder.StartActivity', from='1'}, AppInfo{uid=10258, pkg='com.google.android.gm', activity='com.google.android.gm.ConversationListActivityGmail', from='1'}, AppInfo{uid=10302, pkg='com.google.android.keep', activity='com.google.android.keep.activities.BrowseActivity', from='1'}, AppInfo{uid=10108, pkg='org.adaway', activity='org.adaway.ui.home.HomeActivity', from='1'}, AppInfo{uid=10074, pkg='com.aistra.hail', activity='com.aistra.hail.ui.main.MainActivity', from='1'}, AppInfo{uid=10247, pkg='bin.mt.plus', activity='bin.mt.plus.MainLightIcon', from='1'}, AppInfo{uid=10271, pkg='com.cxinventor.file.explorer', activity='com.alphainventor.filemanager.activity.MainActivity', from='1'}, AppInfo{uid=10304, pkg='com.dts.freefiremax', activity='com.dts.freefireth.FFMainActivity', from='1'}, AppInfo{uid=10256, pkg='com.leanbitlab.leantype.offlinelite', activity='helium314.keyboard.settings.SettingsActivity', from='1'}, AppInfo{uid=10106, pkg='com.google.android.apps.paidtasks', activity='com.google.android.apps.paidtasks.activity.LaunchActivity', from='1'}, AppInfo{uid=10212, pkg='com.axiel7.anihyou', activity='com.axiel7.anihyou.ui.screens.main.MainActivity', from='1'}, AppInfo{uid=10311, pkg='com.dark.animetailv2.module', activity='com.dark.animetailv2.module.SettingsActivity', from='1'}, AppInfo{uid=10252, pkg='com.dark.animetailv2', activity='eu.kanade.tachiyomi.ui.main.MainActivity', from='1'}, AppInfo{uid=10300, pkg='moe.rukamori.archivetune', activity='moe.rukamori.archivetune.launcher.IconAlias7e8ad21dc797a86d2b9bc23d', from='1'}, AppInfo{uid=10109, pkg='com.sevtinge.hyperceiler', activity='com.sevtinge.hyperceiler.ui.LauncherActivity', from='1'}, AppInfo{uid=10091, pkg='org.lsposed.manager', activity='org.lsposed.manager.ui.activity.MainActivity', from='1'}, AppInfo{uid=10196, pkg='net.myanimelist.app', activity='net.myanimelist.presentation.activity.HomeActivity', from='1'}, AppInfo{uid=10250, pkg='org.mozilla.firefox', activity='org.mozilla.firefox.App', from='2'}, AppInfo{uid=10097, pkg='com.google.android.apps.photos', activity='com.google.android.apps.photos.home.HomeActivity', from='2'}, AppInfo{uid=10262, pkg='fbtivvg.rmq', activity='pQi.I.j', from='2'}, AppInfo{uid=10263, pkg='com.sunilpaulmathew.debloater', activity='com.sunilpaulmathew.debloater.activities.StartActivity', from='2'}, AppInfo{uid=10112, pkg='InfinityLoop1309.NewPipeEnhanced', activity='org.schabi.newpipe.MainActivity', from='2'}]
