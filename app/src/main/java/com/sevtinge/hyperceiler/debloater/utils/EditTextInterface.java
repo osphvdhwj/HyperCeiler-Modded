@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.R;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on February 04, 2023

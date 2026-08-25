@@ -9,8 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.sevtinge.hyperceiler.debloater.BuildConfig;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.BuildConfig;
+import com.sevtinge.hyperceiler.R;
 import com.topjohnwu.superuser.Shell;
 import com.topjohnwu.superuser.ShellUtils;
 

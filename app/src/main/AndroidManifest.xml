@@ -194,6 +194,22 @@
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name="com.sevtinge.hyperceiler.debloater.activities.StartActivity"
+            android:exported="true" />
+            
+        <activity android:name="com.sevtinge.hyperceiler.debloater.MainActivity"
+            android:exported="true" />
+            
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.sevtinge.hyperceiler.debloater.provider"
+            android:grantUriPermissions="true"
+            android:exported="false" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
     </application>
 
 </manifest>

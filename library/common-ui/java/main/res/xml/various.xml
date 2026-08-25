@@ -38,6 +38,16 @@
             android:title="@string/various_mipad_title"
             app:isPreferenceVisible="true" />
 
+        <Preference
+            android:key="prefs_key_various_debloater"
+            android:title="System App Debloater"
+            android:summary="Launch the integrated Debloater tool"
+            app:isPreferenceVisible="true">
+            <intent
+                android:targetPackage="com.sevtinge.hyperceiler"
+                android:targetClass="com.sevtinge.hyperceiler.debloater.activities.StartActivity" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/various">

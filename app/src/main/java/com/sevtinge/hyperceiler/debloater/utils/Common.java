@@ -8,7 +8,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.R;
 
 import java.util.List;
 

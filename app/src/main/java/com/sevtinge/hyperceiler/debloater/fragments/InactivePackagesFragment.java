@@ -30,8 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
-import com.sevtinge.hyperceiler.debloater.BuildConfig;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.BuildConfig;
+import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.adapters.InactivePackagesAdapter;
 import com.sevtinge.hyperceiler.debloater.utils.EditTextInterface;
 import com.sevtinge.hyperceiler.debloater.utils.PackageTasks;
@@ -197,7 +197,7 @@ public class InactivePackagesFragment extends Fragment {
                                             })
                                             .setPositiveButton(getString(R.string.share_profile), (dialogInterface, i) -> {
                                                 Uri uriFile = FileProvider.getUriForFile(activity,
-                                                        BuildConfig.APPLICATION_ID + ".provider", jsonFile);
+                                                        "com.sevtinge.hyperceiler.debloater.provider", jsonFile);
                                                 Intent share = new Intent(Intent.ACTION_SEND);
                                                 share.setType("*/*");
                                                 share.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));

@@ -11,8 +11,8 @@ import android.content.pm.Signature;
 import android.preference.PreferenceManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.sevtinge.hyperceiler.debloater.BuildConfig;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.BuildConfig;
+import com.sevtinge.hyperceiler.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

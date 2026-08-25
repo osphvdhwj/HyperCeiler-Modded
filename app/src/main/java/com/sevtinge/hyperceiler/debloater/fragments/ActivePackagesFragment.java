@@ -25,7 +25,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.adapters.ActivePackagesAdapter;
 import com.sevtinge.hyperceiler.debloater.utils.PackageTasks;
 import com.sevtinge.hyperceiler.debloater.utils.UpdateCheck;

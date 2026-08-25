@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sevtinge.hyperceiler.debloater.BuildConfig;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.BuildConfig;
+import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.adapters.AboutAdapter;
 import com.sevtinge.hyperceiler.debloater.utils.Utils;
 

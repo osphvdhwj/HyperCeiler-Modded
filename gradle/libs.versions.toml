@@ -1,4 +1,7 @@
 [versions]
+libsu = "6.0.0"
+material = "1.14.0"
+scommon = "0a9f4f410f"
 agp = "8.11.1"
 kotlin-android = "2.2.0"
 lsparanoid = "0.6.0"
@@ -29,6 +32,17 @@ coreKtx = "1.16.0"
 proguard-rules = "proguard-rules.pro"
 
 [libraries]
+
+adapters = { module = "com.github.sunilpaulmathew.sCommon:adapters", version.ref = "scommon" }
+apkutils = { module = "com.github.sunilpaulmathew.sCommon:apkutils", version.ref = "scommon" }
+fileutils = { module = "com.github.sunilpaulmathew.sCommon:fileutils", version.ref = "scommon" }
+jsonutils = { module = "com.github.sunilpaulmathew.sCommon:jsonutils", version.ref = "scommon" }
+packageutils = { module = "com.github.sunilpaulmathew.sCommon:packageutils", version.ref = "scommon" }
+permissionutils = { module = "com.github.sunilpaulmathew.sCommon:permissionutils", version.ref = "scommon" }
+themeutils = { module = "com.github.sunilpaulmathew.sCommon:themeutils", version.ref = "scommon" }
+translatorutils = { module = "com.github.sunilpaulmathew.sCommon:translatorutils", version.ref = "scommon" }
+libsu = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 core = { group = "androidx.core", name = "core", version.ref = "core" }
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }

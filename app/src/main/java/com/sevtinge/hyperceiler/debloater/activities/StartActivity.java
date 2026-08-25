@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.sevtinge.hyperceiler.debloater.MainActivity;
-import com.sevtinge.hyperceiler.debloater.R;
+import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.utils.Common;
 import com.sevtinge.hyperceiler.debloater.utils.PackageTasks;
 
