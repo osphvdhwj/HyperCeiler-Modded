@@ -116,6 +116,7 @@ public class SystemFrameworkU extends BaseModule {
         initHook(new VolumeDisableSafe(), mPrefsMap.getStringAsInt("system_framework_volume_disable_safe_new", 0) != 0);
         initHook(SkipSongsWithVolumeKeys.INSTANCE, mPrefsMap.getBoolean("system_framework_volume_skip_songs"));
         initHook(new VolumeScreenOffLimit(), true);
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.ChargeLimit(), true);
 
         // 其他
         initHook(new SystemLockApp(), mPrefsMap.getBoolean("system_framework_guided_access"));

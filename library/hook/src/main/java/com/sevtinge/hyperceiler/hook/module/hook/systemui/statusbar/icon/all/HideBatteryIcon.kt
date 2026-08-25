@@ -27,19 +27,19 @@ import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreAndroidVersion
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
 import com.sevtinge.hyperceiler.hook.utils.getObjectFieldAs
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object HideBatteryIcon : BaseHook() {
     override fun init() {
         val mBatteryMeterViewClass by lazy {
-            loadClass("com.android.systemui.statusbar.views.MiuiBatteryMeterView")
+            loadClassOrNull("com.android.systemui.statusbar.views.MiuiBatteryMeterView")
         }
 
         if(isMoreAndroidVersion(35)) {
-            mBatteryMeterViewClass.methodFinder()
-                .filterByName("onBatteryStyleChanged")
-                .first().createHook {
+            mBatteryMeterViewClass?.methodFinder()
+                ?.filterByName("onBatteryStyleChanged")
+                ?.firstOrNull()?.createHook {
                     after { param ->
                         if (param.thisObject != null) {
                             // 隐藏电池图标
@@ -58,12 +58,12 @@ object HideBatteryIcon : BaseHook() {
         }
 
         if (isMoreAndroidVersion(35)) {
-            mBatteryMeterViewClass.methodFinder()
-                .filterByName("updateAll\$1")
+            mBatteryMeterViewClass?.methodFinder()
+                ?.filterByName("updateAll\$1")
         } else {
-            mBatteryMeterViewClass.methodFinder()
-                .filterByName("updateAll")
-        }.single().createHook {
+            mBatteryMeterViewClass?.methodFinder()
+                ?.filterByName("updateAll")
+        }?.firstOrNull()?.createHook {
             after { param ->
                 if (param.thisObject != null) {
                     // 隐藏电池图标
@@ -91,9 +91,9 @@ object HideBatteryIcon : BaseHook() {
             }
         }
 
-        mBatteryMeterViewClass.methodFinder()
-            .filterByName("updateChargeAndText")
-            .single().createHook {
+        mBatteryMeterViewClass?.methodFinder()
+            ?.filterByName("updateChargeAndText")
+            ?.firstOrNull()?.createHook {
                 after { param ->
                     if (param.thisObject != null) {
                         if (isMoreAndroidVersion(35)) {

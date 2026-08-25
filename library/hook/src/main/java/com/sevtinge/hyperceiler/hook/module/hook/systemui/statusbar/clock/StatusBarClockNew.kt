@@ -45,7 +45,7 @@ import java.util.TimerTask
 
 object StatusBarClockNew : BaseHook() {
     private val statusBarClass by lazy {
-        loadClass("com.android.systemui.statusbar.views.MiuiClock")
+        loadClassOrNull("com.android.systemui.statusbar.views.MiuiClock")
     }
 
     private val sBold by lazy {
@@ -170,11 +170,11 @@ object StatusBarClockNew : BaseHook() {
     }
 
     override fun init() {
-        statusBarClass.constructorFinder()
-            .filterByParamCount(3)
-            .filterByParamTypes {
+        statusBarClass?.constructorFinder()
+            ?.filterByParamCount(3)
+            ?.filterByParamTypes {
                 it[0] == Context::class.java
-            }.first().createAfterHook { param ->
+            }?.firstOrNull()?.createAfterHook { param ->
                 runCatching {
                     val regex = Regex("(ss|s)")
                     val miuiClock = param.thisObject as TextView
@@ -230,34 +230,34 @@ object StatusBarClockNew : BaseHook() {
             }
 
         if (isMoreHyperOSVersion(2f) && bBold) {
-            loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback$1").methodFinder()
-                .filterByName("onExpansionChanged").first().createAfterHook {
+            loadClassOrNull("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback$1")?.methodFinder()
+                ?.filterByName("onExpansionChanged")?.firstOrNull()?.createAfterHook {
                     val notificationHeaderExpandController =
                         it.thisObject.getObjectField("this\$0")
-                    notificationHeaderExpandController!!.callMethod("updateWeight", 0.3f)
+                    notificationHeaderExpandController?.callMethod("updateWeight", 0.3f)
                 }
         } else if (isHyperOSVersion(1f)) {
             runCatching {
-                loadClassOrNull("com.android.systemui.statusbar.policy.FakeStatusBarClockController")!!
-                    .methodFinder().filterByName("initState")
-                    .first().createHook {
+                loadClassOrNull("com.android.systemui.statusbar.policy.FakeStatusBarClockController")
+                    ?.methodFinder()?.filterByName("initState")
+                    ?.firstOrNull()?.createHook {
                         replace { null }
                     }
             }
         }
 
         // 设置格式
-        statusBarClass.methodFinder()
-            .filterByName("updateTime")
-            .single().createBeforeHook {
+        statusBarClass?.methodFinder()
+            ?.filterByName("updateTime")
+            ?.firstOrNull()?.createBeforeHook {
                 runCatching {
                     applyMiuiClockStyleAndFormat(it)
                 }
             }
 
-        mNewClockClass.methodFinder()
-            .filterByName("updateTime")
-            .single().createBeforeHook {
+        mNewClockClass?.methodFinder()
+            ?.filterByName("updateTime")
+            ?.firstOrNull()?.createBeforeHook {
                 runCatching {
                     applyMiuiClockStyleAndFormat(it)
                 }

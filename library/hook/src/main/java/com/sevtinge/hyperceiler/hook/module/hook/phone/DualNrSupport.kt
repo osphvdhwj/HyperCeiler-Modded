@@ -25,9 +25,9 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object DualNrSupport : BaseHook() {
     override fun init() {
-        loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
-            .filterByName("isDualNrSupported")
-            .single().createHook {
+        loadClassOrNull("miui.telephony.TelephonyManagerEx")?.methodFinder()
+            ?.filterByName("isDualNrSupported")
+            ?.firstOrNull()?.createHook {
                 returnConstant(true)
             }
     }

@@ -30,7 +30,7 @@ public class ToastSlideAgain extends BaseHook {
 
     @Override
     public void init() {
-        findAndHookMethod("com.miui.home.recents.NavStubView",
+        findAndHookMethodSilently("com.miui.home.recents.NavStubView",
             "onPointerEvent", MotionEvent.class,
             new MethodHook() {
                 @Override
@@ -46,7 +46,7 @@ public class ToastSlideAgain extends BaseHook {
             }
         );
 
-        findAndHookMethod("com.miui.home.recents.GestureModeApp",
+        findAndHookMethodSilently("com.miui.home.recents.GestureModeApp",
             lpparam.classLoader, "onStartGesture", new MethodHook() {
                 @Override
                 protected void before(MethodHookParam param) {

@@ -184,6 +184,7 @@ public class SystemFrameworkV extends BaseModule {
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.ToastBlur(), mPrefsMap.getBoolean("system_framework_toast_blur"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.FlightModeHotSpot(), mPrefsMap.getBoolean("system_framework_flight_mode_hotspot"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.LocationSimulation(), mPrefsMap.getBoolean("system_framework_location_simulation"));
+        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.ChargeLimit(), true);
     }
 
 }

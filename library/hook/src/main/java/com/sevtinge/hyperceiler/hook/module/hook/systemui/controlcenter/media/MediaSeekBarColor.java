@@ -34,6 +34,7 @@ public class MediaSeekBarColor extends BaseHook {
         Class SeekBarObserver = isMoreAndroidVersion(35) ?
                 findClassIfExists("com.android.systemui.media.controls.ui.binder.SeekBarObserver") :
                 findClassIfExists("com.android.systemui.media.controls.models.player.SeekBarObserver");
+        if (SeekBarObserver == null) return;
 
         int progressColor = mPrefsMap.getInt("system_ui_control_center_media_control_seekbar_color", -1);
         int thumbColor = mPrefsMap.getInt("system_ui_control_center_media_control_seekbar_thumb_color", -1);

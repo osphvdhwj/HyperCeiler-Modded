@@ -41,15 +41,17 @@ public class NotificationVolumeSeparateSlider {
         ResInjectTool.setResReplacement("miui.systemui.plugin", "dimen", "miui_volume_column_width_expanded", R.dimen.miui_volume_column_width_expanded);
         ResInjectTool.setResReplacement("miui.systemui.plugin", "dimen", "miui_volume_column_margin_horizontal_expanded", R.dimen.miui_volume_column_margin_horizontal_expanded);
 
-        HookTool.hookAllMethods(mMiuiVolumeDialogImpl, "addColumn", new HookTool.MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) {
-                if (param.args.length != 4) return;
-                int streamType = (int) param.args[0];
-                if (streamType == 4) {
-                    XposedHelpers.callMethod(param.thisObject, "addColumn", 5, notifVolumeOnResId, notifVolumeOffResId, true, false);
+        if (mMiuiVolumeDialogImpl != null) {
+            HookTool.hookAllMethods(mMiuiVolumeDialogImpl, "addColumn", new HookTool.MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) {
+                    if (param.args.length != 4) return;
+                    int streamType = (int) param.args[0];
+                    if (streamType == 4) {
+                        XposedHelpers.callMethod(param.thisObject, "addColumn", 5, notifVolumeOnResId, notifVolumeOffResId, true, false);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

@@ -26,26 +26,26 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfte
 object ModemFeature : BaseHook() {
     override fun init() {
         runCatching {
-            loadClass("com.android.phone.FiveGManagerBase").methodFinder()
-                .filterByName("getModemFeatureMode")
-                .single().createAfterHook {
+            loadClassOrNull("com.android.phone.FiveGManagerBase")?.methodFinder()
+                ?.filterByName("getModemFeatureMode")
+                ?.firstOrNull()?.createAfterHook {
                     it.args[0] = -1
                     it.result = true
                 }
         }
 
         runCatching {
-            loadClass("com.android.phone.MiuiPhoneUtils").methodFinder()
-                .filterByName("isModemFeatureSupported")
-                .single().createAfterHook {
+            loadClassOrNull("com.android.phone.MiuiPhoneUtils")?.methodFinder()
+                ?.filterByName("isModemFeatureSupported")
+                ?.firstOrNull()?.createAfterHook {
                     it.args[0] = -1
                 }
         }
 
         runCatching {
-            loadClass("com.android.phone.MiuiPhoneUtils").methodFinder()
-                .filterByName("getModemFeatureFromDb")
-                .single().createAfterHook {
+            loadClassOrNull("com.android.phone.MiuiPhoneUtils")?.methodFinder()
+                ?.filterByName("getModemFeatureFromDb")
+                ?.firstOrNull()?.createAfterHook {
                         it.args[0] = -1
                     }
         }

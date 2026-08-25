@@ -26,9 +26,9 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 object N1BandPhone : BaseHook() {
     override fun init() {
         runCatching {
-            loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
-                .filterByName("isN1Supported")
-                .single().createHook {
+            loadClassOrNull("miui.telephony.TelephonyManagerEx")?.methodFinder()
+                ?.filterByName("isN1Supported")
+                ?.firstOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

@@ -65,5 +65,20 @@
             android:summary="@string/security_center_unlock_smart_charge_title_summary"
             android:title="@string/security_center_unlock_smart_charge_title" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_security_center_charge_limit_enable"
+            android:title="@string/security_center_charge_limit"
+            android:summary="@string/security_center_charge_limit_desc" />
+
+        <com.sevtinge.hyperceiler.common.prefs.SeekBarPreference
+            android:defaultValue="80"
+            android:key="prefs_key_security_center_charge_limit_value"
+            app:dependency="prefs_key_security_center_charge_limit_enable"
+            app:min="50"
+            android:max="100"
+            app:step="5"
+            app:units="%" />
+
     </PreferenceCategory>
 </PreferenceScreen>

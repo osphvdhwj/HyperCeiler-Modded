@@ -33,7 +33,7 @@ import com.sevtinge.hyperceiler.hook.utils.getObjectField
 import com.sevtinge.hyperceiler.hook.utils.getObjectFieldOrNull
 import com.sevtinge.hyperceiler.hook.utils.getObjectFieldOrNullAs
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 
 object NewShowVolumePct {
@@ -41,14 +41,14 @@ object NewShowVolumePct {
     fun initLoader(classLoader: ClassLoader) {
         if (isMoreHyperOSVersion(2f)) {
             val volumePanelViewControllerClazz by lazy {
-                loadClass("com.android.systemui.miui.volume.VolumePanelViewController", classLoader)
+                loadClassOrNull("com.android.systemui.miui.volume.VolumePanelViewController", classLoader)
             }
             val volumePanelViewControllerListener by lazy {
-                loadClass("com.android.systemui.miui.volume.VolumePanelViewController\$VolumeSeekBarChangeListener", classLoader)
+                loadClassOrNull("com.android.systemui.miui.volume.VolumePanelViewController\$VolumeSeekBarChangeListener", classLoader)
             }
 
-            volumePanelViewControllerClazz.methodFinder().filterByName("showVolumePanelH")
-                .first().createAfterHook {
+            volumePanelViewControllerClazz?.methodFinder()?.filterByName("showVolumePanelH")
+                ?.firstOrNull()?.createAfterHook {
                     val mVolumeView =
                         it.thisObject.getObjectField("mVolumeView") as View
                     val windowView = mVolumeView.parent as FrameLayout
@@ -59,14 +59,14 @@ object NewShowVolumePct {
             onProgressChanged(volumePanelViewControllerListener, mSupportSV)
         } else {
             val miuiVolumeDialogImplClazz by lazy {
-                loadClass("com.android.systemui.miui.volume.MiuiVolumeDialogImpl", classLoader)
+                loadClassOrNull("com.android.systemui.miui.volume.MiuiVolumeDialogImpl", classLoader)
             }
             val miuiVolumeDialogImplListener by lazy {
-                loadClass("com.android.systemui.miui.volume.MiuiVolumeDialogImpl\$VolumeSeekBarChangeListener", classLoader)
+                loadClassOrNull("com.android.systemui.miui.volume.MiuiVolumeDialogImpl\$VolumeSeekBarChangeListener", classLoader)
             }
 
-            miuiVolumeDialogImplClazz.methodFinder().filterByName("showVolumeDialogH")
-                .first().createAfterHook {
+            miuiVolumeDialogImplClazz?.methodFinder()?.filterByName("showVolumeDialogH")
+                ?.firstOrNull()?.createAfterHook {
                     val mVolumeView =
                         it.thisObject.getObjectField("mDialogView") as View
                     val windowView = mVolumeView.parent as FrameLayout
@@ -78,17 +78,17 @@ object NewShowVolumePct {
         }
     }
 
-    private fun mVolumeDisable(clazz: Class<*>) {
-        clazz.methodFinder().filterByName("dismissH")
-            .first().createAfterHook {
+    private fun mVolumeDisable(clazz: Class<*>?) {
+        clazz?.methodFinder()?.filterByName("dismissH")
+            ?.firstOrNull()?.createAfterHook {
                 removePct(mPct)
             }
     }
 
     @SuppressLint("SetTextI18n")
-    private fun onProgressChanged(clazz: Class<*>, mSupportSV: Boolean) {
-        clazz.methodFinder().filterByName("onProgressChanged")
-            .first().createAfterHook {
+    private fun onProgressChanged(clazz: Class<*>?, mSupportSV: Boolean) {
+        clazz?.methodFinder()?.filterByName("onProgressChanged")
+            ?.firstOrNull()?.createAfterHook {
                 var nowLevel = -233
                 var mTag = 0
                 var currentLevel: Int

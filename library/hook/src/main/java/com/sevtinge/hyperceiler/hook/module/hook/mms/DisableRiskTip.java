@@ -65,25 +65,33 @@ public class DisableRiskTip extends BaseHook {
                 param.setResult(false);
             }
         });
-        hookMethod(method1, new MethodHook(){
-            @Override
-            protected void after(MethodHookParam param) throws Throwable {
-                // logD("smsrisk g3.a "+getObjectField(param.args[0], "mRiskType"));
-                // 不知道为什么set两遍才能跑，先留在这里吧
-                if (getObjectField(param.args[0], "mRiskType") == "11" && mPrefsMap.getBoolean("mms_disable_overseas_risk_tip")) setObjectField(param.args[0], "mRiskType", ""); setObjectField(param.args[0], "mRiskType", "");
-                if (getObjectField(param.args[0], "mRiskType") == "12" && mPrefsMap.getBoolean("mms_disable_fraud_risk_tip")) setObjectField(param.args[0], "mRiskType", ""); setObjectField(param.args[0], "mRiskType", "");
-                // logD("smsrisk 2 g3.a "+getObjectField(param.args[0], "mRiskType"));
-            }
-        });
-        hookMethod(method2, new MethodHook(){
-            @Override
-            protected void after(MethodHookParam param) throws Throwable {
-                // logD("smsrisk n6.p "+getObjectField(param.args[0], "mRiskType"));
-                // 不知道为什么set两遍才能跑，先留在这里吧
-                if (getObjectField(param.args[0], "mRiskType") == "11" && mPrefsMap.getBoolean("mms_disable_overseas_risk_tip")) setObjectField(param.args[0], "mRiskType", ""); setObjectField(param.args[0], "mRiskType", "");
-                if (getObjectField(param.args[0], "mRiskType") == "12" && mPrefsMap.getBoolean("mms_disable_fraud_risk_tip")) setObjectField(param.args[0], "mRiskType", ""); setObjectField(param.args[0], "mRiskType", "");
-                // logD("smsrisk 2 n6.p "+getObjectField(param.args[0], "mRiskType"));
-            }
-        });
+        if (method1 != null) {
+            hookMethod(method1, new MethodHook(){
+                @Override
+                protected void after(MethodHookParam param) throws Throwable {
+                    Object riskType = getObjectField(param.args[0], "mRiskType");
+                    if ("11".equals(riskType) && mPrefsMap.getBoolean("mms_disable_overseas_risk_tip")) {
+                        setObjectField(param.args[0], "mRiskType", "");
+                    }
+                    if ("12".equals(riskType) && mPrefsMap.getBoolean("mms_disable_fraud_risk_tip")) {
+                        setObjectField(param.args[0], "mRiskType", "");
+                    }
+                }
+            });
+        }
+        if (method2 != null) {
+            hookMethod(method2, new MethodHook(){
+                @Override
+                protected void after(MethodHookParam param) throws Throwable {
+                    Object riskType = getObjectField(param.args[0], "mRiskType");
+                    if ("11".equals(riskType) && mPrefsMap.getBoolean("mms_disable_overseas_risk_tip")) {
+                        setObjectField(param.args[0], "mRiskType", "");
+                    }
+                    if ("12".equals(riskType) && mPrefsMap.getBoolean("mms_disable_fraud_risk_tip")) {
+                        setObjectField(param.args[0], "mRiskType", "");
+                    }
+                }
+            });
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.huanji;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
 /**
- * [Experiment] Unlock 5GHz Wi-Fi Direct, increase buffer and chunk sizes, and bypass speed limits in Mi Mover (Huanji).
+ * [Target Feature 3] Unlock 5GHz Wi-Fi Direct, increase buffer/chunk sizes, and bypass speed limits in Mi Mover (Huanji).
  */
 public class ExperimentHuanjiFastTransfer extends BaseHook {
 

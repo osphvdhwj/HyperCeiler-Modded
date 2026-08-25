@@ -46,7 +46,7 @@ public class ClockCenterHook extends BaseHook {
 
         mStatusBarView = findClassIfExists("com.android.systemui.statusbar.phone.CollapsedStatusBarFragment");
 
-        findAndHookMethod(mStatusBarView, "onViewCreated", View.class, Bundle.class, new MethodHook() {
+        findAndHookMethodSilently(mStatusBarView, "onViewCreated", View.class, Bundle.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
                 ViewGroup miuiPhoneStatusBarView = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mStatusBar");

@@ -113,18 +113,18 @@ object HideFakeStatusBar : MusicBaseHook() {
                 }, mFilter)
             }
 
-        loadClass("com.android.systemui.statusbar.phone.MiuiPhoneStatusBarView").methodFinder()
-            .filterByName("onFinishInflate").first().createAfterHook {
+        loadClassOrNull("com.android.systemui.statusbar.phone.MiuiPhoneStatusBarView")?.methodFinder()
+            ?.filterByName("onFinishInflate")?.firstOrNull()?.createAfterHook {
                 logD(TAG, lpparam.packageName, "onFinishInflate")
                 // 通知栏左边部分(包含时间和通知图标)
                 mStatusBarLeftContainer =
                     it.thisObject.getObjectFieldOrNullAs<View>("mStatusBarLeftContainer") ?: return@createAfterHook
                 // mStatusBarLeftContainer!!.visibility = View.INVISIBLE
             }
-        loadClass("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment").methodFinder()
-            .filterByName("onViewCreated").first().createAfterHook {
+        loadClassOrNull("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment")?.methodFinder()
+            ?.filterByName("onViewCreated")?.firstOrNull()?.createAfterHook {
                 val isObj = if (isAndroidVersion(34)) {
-                    loadClass("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment")
+                    loadClassOrNull("com.android.systemui.statusbar.phone.fragment.CollapsedStatusBarFragment")
                 } else {
                     it.thisObject
                 }
@@ -134,15 +134,15 @@ object HideFakeStatusBar : MusicBaseHook() {
                 mClockSeat = isObj.getObjectFieldOrNullAs<View>("mClockSeat") ?: return@createAfterHook
             }
 
-        miuiNotificationClass.methodFinder()
-            .filterByName("onFinishInflate").first().createAfterHook {
+        miuiNotificationClass?.methodFinder()
+            ?.filterByName("onFinishInflate")?.firstOrNull()?.createAfterHook {
                 // 大时钟布局
                 mBigTime = it.thisObject.getObjectFieldOrNullAs<TextView>("mBigTime") ?: return@createAfterHook
             }
 
         runCatching {
-            miuiNotificationClass.methodFinder()
-                .filterByName("updateBigTimeColor").first().replaceMethod {
+            miuiNotificationClass?.methodFinder()
+                ?.filterByName("updateBigTimeColor")?.firstOrNull()?.replaceMethod {
                     if (isShowingFocusedLyric) {
                         // 显示歌词的时候取消设置大时钟颜色(假时钟动画会设置颜色,显示歌词的时候取消了假时钟动画,所以可能会下拉通知栏之后时间是黑色)
                         null
@@ -153,78 +153,82 @@ object HideFakeStatusBar : MusicBaseHook() {
         }
 
         var unhook0: XC_MethodHook.Unhook? = null
-        loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback$1").methodFinder()
-            .filterByName("onExpansionChanged").first().createHook {
-                before {
-                    unhook0 = miuiConfigs.methodFinder()
-                        .filterByName("isVerticalMode").first().replaceMethod {
-                            if (isShowingFocusedLyric) {
-                                // 如果在显示歌词,就伪装成横屏,用来取消假时钟动画
-                                false
-                            } else {
-                                it.invokeOriginalMethod()
+        loadClassOrNull("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback$1")?.let { clazz ->
+            clazz.methodFinder()
+                .filterByName("onExpansionChanged").firstOrNull()?.createHook {
+                    before {
+                        unhook0 = miuiConfigs.methodFinder()
+                            .filterByName("isVerticalMode").first().replaceMethod {
+                                if (isShowingFocusedLyric) {
+                                    // 如果在显示歌词,就伪装成横屏,用来取消假时钟动画
+                                    false
+                                } else {
+                                    it.invokeOriginalMethod()
+                                }
                             }
-                        }
-                }
-                after {
-                    if (isShowingFocusedLyric) {
-                        // 在显示歌词的时候固定通知栏顶部时间和日期的位置和缩放
-                        val notificationHeaderExpandController =
-                            it.thisObject.getObjectField("this$0")
-                        val combinedHeaderController =
-                            notificationHeaderExpandController?.getObjectFieldOrNull("headerController")!!
-                                .callMethod("get")
-                        val notificationBigTime =
-                            combinedHeaderController!!.getObjectFieldAs<TextView>("notificationBigTime")
-                        notificationBigTime.translationX = 0f
-                        notificationBigTime.translationY = 0f
-                        notificationBigTime.scaleX = 1f
-                        notificationBigTime.scaleY = 1f
-                        notificationBigTime.setTextColor(Color.WHITE)
-                        val notificationDateTime =
-                            combinedHeaderController.getObjectFieldAs<TextView>("notificationDateTime")
-                        notificationDateTime.translationX = 0f
-                        notificationDateTime.translationY = 0f
-                        // 设置时钟的宽度
-                        if (isBold) {
-                            notificationHeaderExpandController.callMethod("updateWeight", 0.3f)
-                        } else {
-                            notificationHeaderExpandController.callMethod("updateWeight", 1.0f)
-                        }
-                        // 设置通知图标位置
-                        combinedHeaderController.getObjectField("notificationShortcut")?.callMethod("setTranslationY", 0f)
-
                     }
-                    unhook0?.unhook()
-                }
-            }
-        loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback\$1").methodFinder()
-            .filterByName("onAppearanceChanged").first().createHook {
-                before {
-                }
-                after {
-                    if (isShowingFocusedLyric) {
-                        // 显示歌词的时候手动调用动画,防止大时钟突然出现
-                        val notificationHeaderExpandController =
-                            it.thisObject.getObjectField("this$0")
-                        val combinedHeaderController =
-                            notificationHeaderExpandController?.getObjectField("headerController")!!
-                                .callMethod("get")
-                        loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController")
-                            .callStaticMethod(
-                                "access\$startFolmeAnimationAlpha",
-                                notificationHeaderExpandController,
-                                combinedHeaderController!!.getObjectField("notificationBigTime"),
-                                combinedHeaderController.getObjectField("notificationBigTimeFolme"),
-                                if (!(it.args[0] as Boolean)) 0f else 1f,
-                                true
-                            )
+                    after {
+                        if (isShowingFocusedLyric) {
+                            // 在显示歌词的时候固定通知栏顶部时间和日期的位置和缩放
+                            val notificationHeaderExpandController =
+                                it.thisObject.getObjectField("this$0")
+                            val combinedHeaderController =
+                                notificationHeaderExpandController?.getObjectFieldOrNull("headerController")!!
+                                    .callMethod("get")
+                            val notificationBigTime =
+                                combinedHeaderController!!.getObjectFieldAs<TextView>("notificationBigTime")
+                            notificationBigTime.translationX = 0f
+                            notificationBigTime.translationY = 0f
+                            notificationBigTime.scaleX = 1f
+                            notificationBigTime.scaleY = 1f
+                            notificationBigTime.setTextColor(Color.WHITE)
+                            val notificationDateTime =
+                                combinedHeaderController.getObjectFieldAs<TextView>("notificationDateTime")
+                            notificationDateTime.translationX = 0f
+                            notificationDateTime.translationY = 0f
+                            // 设置时钟的宽度
+                            if (isBold) {
+                                notificationHeaderExpandController.callMethod("updateWeight", 0.3f)
+                            } else {
+                                notificationHeaderExpandController.callMethod("updateWeight", 1.0f)
+                            }
+                            // 设置通知图标位置
+                            combinedHeaderController.getObjectField("notificationShortcut")?.callMethod("setTranslationY", 0f)
+
+                        }
+                        unhook0?.unhook()
                     }
                 }
-            }
+        }
+        loadClassOrNull("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController\$notificationCallback\$1")?.let { clazz ->
+            clazz.methodFinder()
+                .filterByName("onAppearanceChanged").firstOrNull()?.createHook {
+                    before {
+                    }
+                    after {
+                        if (isShowingFocusedLyric) {
+                            // 显示歌词的时候手动调用动画,防止大时钟突然出现
+                            val notificationHeaderExpandController =
+                                it.thisObject.getObjectField("this$0")
+                            val combinedHeaderController =
+                                notificationHeaderExpandController?.getObjectField("headerController")!!
+                                    .callMethod("get")
+                            loadClassOrNull("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController")
+                                ?.callStaticMethod(
+                                    "access\$startFolmeAnimationAlpha",
+                                    notificationHeaderExpandController,
+                                    combinedHeaderController!!.getObjectField("notificationBigTime"),
+                                    combinedHeaderController.getObjectField("notificationBigTimeFolme"),
+                                    if (!(it.args[0] as Boolean)) 0f else 1f,
+                                    true
+                                )
+                        }
+                    }
+                }
+        }
 
-        loadClass("com.android.systemui.statusbar.phone.FocusedNotifPromptController").methodFinder()
-            .filterByName("notifyNotifBeanChanged").first().createHook {
+        loadClassOrNull("com.android.systemui.statusbar.phone.FocusedNotifPromptController")?.methodFinder()
+            ?.filterByName("notifyNotifBeanChanged")?.firstOrNull()?.createHook {
                 before {
                     // 焦点通知更新的事件,通过这个判断当前展示的焦点通知是不是歌词
                     val sbn = it.args[0]?.getObjectFieldOrNullAs<StatusBarNotification?>("sbn") ?: return@before
@@ -233,9 +237,9 @@ object HideFakeStatusBar : MusicBaseHook() {
                 }
             }
 
-        loadClass("com.android.systemui.recents.OverviewProxyService").methodFinder()
-            .filterByName("onFocusedNotifUpdate").first()
-            .createBeforeHook { m ->
+        loadClassOrNull("com.android.systemui.recents.OverviewProxyService")?.methodFinder()
+            ?.filterByName("onFocusedNotifUpdate")?.firstOrNull()
+            ?.createBeforeHook { m ->
                 // 代码中的动画目标位置
                 val rect = m.args[2] as Rect
                 /**
@@ -275,8 +279,8 @@ object HideFakeStatusBar : MusicBaseHook() {
                 }
             }
 
-        loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder()
-            .filterByName("updateStatusBarVisibilities").first().createAfterHook {
+        loadClassOrNull("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment")?.methodFinder()
+            ?.filterByName("updateStatusBarVisibilities")?.firstOrNull()?.createAfterHook {
                 // 获取是否在显示焦点通知
                 // 更新一次 isShowingFocused
                 isShowingFocused.value =

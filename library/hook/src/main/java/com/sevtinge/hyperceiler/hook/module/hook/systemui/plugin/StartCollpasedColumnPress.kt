@@ -41,8 +41,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
-import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createBeforeHook
 import kotlinx.coroutines.CoroutineScope
@@ -55,13 +54,13 @@ import kotlin.collections.get
 object StartCollpasedColumnPress {
     fun initLoaderHook(classLoader: ClassLoader) {
         val miuiVolumeDialogView by lazy {
-            loadClass("com.android.systemui.miui.volume.MiuiVolumeDialogView", classLoader)
+            loadClassOrNull("com.android.systemui.miui.volume.MiuiVolumeDialogView", classLoader)
         }
         val miuiVolumeDialogMotion by lazy {
-            loadClass("com.android.systemui.miui.volume.MiuiVolumeDialogMotion", classLoader)
+            loadClassOrNull("com.android.systemui.miui.volume.MiuiVolumeDialogMotion", classLoader)
         }
         val miuiVolumeSeekBar by lazy {
-            loadClass("com.android.systemui.miui.volume.MiuiVolumeSeekBar", classLoader)
+            loadClassOrNull("com.android.systemui.miui.volume.MiuiVolumeSeekBar", classLoader)
         }
 
         var longClick = false
@@ -85,9 +84,9 @@ object StartCollpasedColumnPress {
                 .start()
         }
 
-        miuiVolumeDialogView.methodFinder().apply {
+        miuiVolumeDialogView?.methodFinder()?.apply {
             filterByName("onFinishInflate")
-                .first().createAfterHook {
+                .firstOrNull()?.createAfterHook {
                     it.thisObject.getObjectFieldAs<View>("mExpandButton").apply {
                         alpha = 0f
                         isClickable = false
@@ -99,7 +98,7 @@ object StartCollpasedColumnPress {
             filterByName("notifyAccessibilityChanged")
                 .filterByParamTypes {
                     it[0] == Boolean::class.java
-                }.first().createAfterHook {
+                }.firstOrNull()?.createAfterHook {
                     it.thisObject.getObjectFieldAs<View>("mExpandButton").apply {
                         isClickable = false
                         visibility = View.GONE
@@ -108,17 +107,17 @@ object StartCollpasedColumnPress {
                 }
         }
 
-        miuiVolumeDialogMotion.methodFinder().apply {
+        miuiVolumeDialogMotion?.methodFinder()?.apply {
             filterByName("lambda\$processExpandTouch\$1")
-                .first().createBeforeHook {
+                .firstOrNull()?.createBeforeHook {
                     it.thisObject.setObjectField("mIsExpandButton",true)
                 }
         }
-        miuiVolumeSeekBar.methodFinder()
-            .filterByName("onTouchEvent")
-            .filterByParamTypes {
+        miuiVolumeSeekBar?.methodFinder()
+            ?.filterByName("onTouchEvent")
+            ?.filterByParamTypes {
                 it[0] == MotionEvent::class.java
-            }.first().createAfterHook {
+            }?.firstOrNull()?.createAfterHook {
                 val mSeekBarOnclickListener = it.thisObject.getObjectField("mSeekBarOnclickListener")
                 val mSeekBarAnimListener = it.thisObject.getObjectField("mSeekBarAnimListener")!!
                 val volumePanelViewController = mSeekBarAnimListener.getObjectField("this\$0")!!

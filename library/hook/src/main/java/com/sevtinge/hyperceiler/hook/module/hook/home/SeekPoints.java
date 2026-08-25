@@ -36,7 +36,7 @@ public class SeekPoints extends BaseHook {
 
     @Override
     public void init() {
-        findAndHookMethod("com.miui.home.launcher.ScreenView",
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView",
             "setSeekBarPosition",
             "android.widget.FrameLayout$LayoutParams",
             new MethodHook() {
@@ -47,7 +47,7 @@ public class SeekPoints extends BaseHook {
             }
         );
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView",
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView",
             "refreshScrollBound",
             new MethodHook() {
                 @Override
@@ -57,7 +57,7 @@ public class SeekPoints extends BaseHook {
             }
         );
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView",
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView",
             "updateSeekPoints", int.class,
             new MethodHook() {
                 @Override
@@ -67,7 +67,7 @@ public class SeekPoints extends BaseHook {
             }
         );
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView",
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView",
             "addView", View.class, int.class, ViewGroup.LayoutParams.class,
             new MethodHook() {
                 @Override
@@ -77,7 +77,7 @@ public class SeekPoints extends BaseHook {
             }
         );
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView",
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView",
             "removeScreen", int.class,
             new MethodHook() {
                 @Override
@@ -87,7 +87,7 @@ public class SeekPoints extends BaseHook {
             }
         );
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView",
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView",
             "removeScreensInLayout", int.class, int.class,
             new MethodHook() {
                 @Override

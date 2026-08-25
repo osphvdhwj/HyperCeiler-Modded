@@ -283,7 +283,13 @@ public class HideDelimiter extends BaseHook {
             boolean hookedFlaresInfo = hookAllMethodsBoolean("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBar",
                     "updateFlaresInfo", hideOperatorHook);
             if (!hookedFlaresInfo) {
+                hookedFlaresInfo = hookAllMethodsBoolean("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBarIcon",
+                        "updateFlaresInfo", hideOperatorHook);
+            }
+            if (!hookedFlaresInfo) {
                 findAndHookMethodSilently("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBar",
+                        "onFinishInflate", hideOperatorHook);
+                findAndHookMethodSilently("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBarIcon",
                         "onFinishInflate", hideOperatorHook);
             }
 

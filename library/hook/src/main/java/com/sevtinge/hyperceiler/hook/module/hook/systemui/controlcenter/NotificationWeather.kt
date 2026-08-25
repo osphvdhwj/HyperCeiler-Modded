@@ -61,16 +61,16 @@ object NotificationWeather : BaseHook() {
     }
 
     private val combinedHeaderController by lazy {
-        loadClass("com.android.systemui.controlcenter.shade.CombinedHeaderController")
+        loadClassOrNull("com.android.systemui.controlcenter.shade.CombinedHeaderController")
     }
     private val notificationHeaderExpandController by lazy {
-        loadClass("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController")
+        loadClassOrNull("com.android.systemui.controlcenter.shade.NotificationHeaderExpandController")
     }
     private val miuiNotificationHeaderView by lazy {
-        loadClass("com.android.systemui.qs.MiuiNotificationHeaderView")
+        loadClassOrNull("com.android.systemui.qs.MiuiNotificationHeaderView")
     }
     private val folme by lazy {
-        loadClass("miuix.animation.Folme")
+        loadClassOrNull("miuix.animation.Folme")
     }
 
     override fun init() {
@@ -87,33 +87,35 @@ object NotificationWeather : BaseHook() {
     }
 
     private fun updateResources() {
-        var method = findMethodExactIfExists(miuiNotificationHeaderView, "updateHeaderResources")
-        if (method == null) {
-            method = findMethodExactIfExists(miuiNotificationHeaderView, "updateResources")
-        }
-
-        method?.createAfterHook { param ->
-            val viewGroup = param.thisObject as ViewGroup
-            val orientation = viewGroup.getObjectFieldAs<Int>("mOrientation")
-            if (orientation == -1) {
-                return@createAfterHook
+        miuiNotificationHeaderView?.let { headerViewClass ->
+            var method = findMethodExactIfExists(headerViewClass, "updateHeaderResources")
+            if (method == null) {
+                method = findMethodExactIfExists(headerViewClass, "updateResources")
             }
 
-            val dateView = viewGroup.getObjectFieldAs<TextView>("mDateView")
-            val landClock = viewGroup.getObjectFieldAs<TextView>("mLandClock")
+            method?.createAfterHook { param ->
+                val viewGroup = param.thisObject as ViewGroup
+                val orientation = viewGroup.getObjectFieldAs<Int>("mOrientation")
+                if (orientation == -1) {
+                    return@createAfterHook
+                }
 
-            vWeatherView?.setTextSize(0, dateView.textSize)
-            vWeatherView?.typeface = dateView.typeface
+                val dateView = viewGroup.getObjectFieldAs<TextView>("mDateView")
+                val landClock = viewGroup.getObjectFieldAs<TextView>("mLandClock")
 
-            hWeatherView?.setTextSize(0, landClock.textSize)
-            hWeatherView?.typeface = landClock.typeface
+                vWeatherView?.setTextSize(0, dateView.textSize)
+                vWeatherView?.typeface = dateView.typeface
+
+                hWeatherView?.setTextSize(0, landClock.textSize)
+                hWeatherView?.typeface = landClock.typeface
+            }
         }
     }
 
     private fun updateLayout() {
-        miuiNotificationHeaderView.methodFinder()
-            .filterByName("updateLayout")
-            .single().createBeforeHook {
+        miuiNotificationHeaderView?.methodFinder()
+            ?.filterByName("updateLayout")
+            ?.firstOrNull()?.createBeforeHook {
                 val viewGroup = it.thisObject as ViewGroup
                 val context = viewGroup.context
                 val configuration = context.resources.configuration
@@ -145,7 +147,7 @@ object NotificationWeather : BaseHook() {
     }
 
     private fun newNotificationWeather() {
-        combinedHeaderController.constructors.single().createAfterHook { param ->
+        combinedHeaderController?.constructors?.firstOrNull()?.createAfterHook { param ->
             val controller = param.thisObject
             val dateView = controller.getObjectFieldAs<View>("notificationDateTime")
             val landClock = controller.getObjectFieldAs<View>("notificationHorizontalTime")
@@ -154,18 +156,20 @@ object NotificationWeather : BaseHook() {
             addWeatherViewAfterOf(landClock, ORIENTATION_LANDSCAPE)
 
             // 创建动画
-            hWeatherView?.let {
-                hWeatherViewFolme = folme.callStaticMethod("useAt", arrayOf<View>(it))
-            }
-            vWeatherView?.let {
-                vWeatherViewFolme = folme.callStaticMethod("useAt", arrayOf<View>(it))
+            folme?.let { folmeClass ->
+                hWeatherView?.let {
+                    hWeatherViewFolme = folmeClass.callStaticMethod("useAt", arrayOf<View>(it))
+                }
+                vWeatherView?.let {
+                    vWeatherViewFolme = folmeClass.callStaticMethod("useAt", arrayOf<View>(it))
+                }
             }
         }
 
-        combinedHeaderController.methodFinder()
-            .filterByName("onSwitchProgressChanged")
-            .filterByParamTypes(Float::class.java)
-            .first().createAfterHook { param ->
+        combinedHeaderController?.methodFinder()
+            ?.filterByName("onSwitchProgressChanged")
+            ?.filterByParamTypes(Float::class.java)
+            ?.firstOrNull()?.createAfterHook { param ->
                 val controller = param.thisObject
                 val dateView = controller.getObjectFieldAs<View>("notificationDateTime")
                 val landClock = controller.getObjectFieldAs<View>("notificationHorizontalTime")
@@ -177,7 +181,7 @@ object NotificationWeather : BaseHook() {
                 hWeatherView?.translationY = landClock.translationY
             }
 
-        notificationHeaderExpandController.constructors.single().createAfterHook { param ->
+        notificationHeaderExpandController?.constructors?.firstOrNull()?.createAfterHook { param ->
             val expandController = param.thisObject
             val callback = expandController.getObjectFieldAs<Any>("notificationCallback")
 
@@ -186,12 +190,12 @@ object NotificationWeather : BaseHook() {
     }
 
     private fun hookNotificationCallback(expandController: Any, clazz: Class<*>) {
-        clazz.methodFinder().filterByName("onAppearanceChanged").first().createAfterHook {
+        clazz.methodFinder().filterByName("onAppearanceChanged").firstOrNull()?.createAfterHook {
             val newAppearance = it.args[0] as Boolean
             val animate = it.args[1] as Boolean
 
             val startFolmeAnimationAlpha = { view: View?, folme: Any? ->
-                notificationHeaderExpandController.callStaticMethod(
+                notificationHeaderExpandController?.callStaticMethod(
                     "access\$startFolmeAnimationAlpha",
                     expandController,
                     view,
@@ -205,7 +209,7 @@ object NotificationWeather : BaseHook() {
             startFolmeAnimationAlpha(vWeatherView, vWeatherViewFolme)
         }
 
-        clazz.methodFinder().filterByName("onExpansionChanged").first().createAfterHook {
+        clazz.methodFinder().filterByName("onExpansionChanged").firstOrNull()?.createAfterHook {
             val headerController = expandController.getObjectFieldAs<Any>("headerController")
                 .callMethodAs<Any>("get")
 
@@ -222,9 +226,9 @@ object NotificationWeather : BaseHook() {
     }
 
     private fun oldNotificationWeather() {
-        miuiNotificationHeaderView.methodFinder()
-            .filterByName("onFinishInflate")
-            .single().createAfterHook { param ->
+        miuiNotificationHeaderView?.methodFinder()
+            ?.filterByName("onFinishInflate")
+            ?.firstOrNull()?.createAfterHook { param ->
                 val viewGroup = param.thisObject as ViewGroup
                 val context = viewGroup.context
 
@@ -243,8 +247,8 @@ object NotificationWeather : BaseHook() {
                     )
                 )
 
-                addWeatherViewAfterOf(dateView, ORIENTATION_PORTRAIT)
-                addWeatherViewAfterOf(landClock, ORIENTATION_LANDSCAPE)
+                if (dateView != null) addWeatherViewAfterOf(dateView, ORIENTATION_PORTRAIT)
+                if (landClock != null) addWeatherViewAfterOf(landClock, ORIENTATION_LANDSCAPE)
             }
     }
 

@@ -57,15 +57,17 @@ public class DisableAd extends BaseHook {
                 return methodData;
             }
         });
-        for (Method method2 : methods) {
-                    if (!Modifier.isAbstract(method2.getModifiers())) {
-                        hookMethod(method2, new MethodHook() {
-                            @Override
-                            protected void before(MethodHookParam param) throws Throwable {
-                                param.args[0] = true;
-                            }
-                        });
-                    }
+        if (methods != null) {
+            for (Method method2 : methods) {
+                if (method2 != null && !Modifier.isAbstract(method2.getModifiers())) {
+                    hookMethod(method2, new MethodHook() {
+                        @Override
+                        protected void before(MethodHookParam param) throws Throwable {
+                            param.args[0] = true;
+                        }
+                    });
+                }
+            }
         }
-}
+    }
 }

@@ -5,10 +5,22 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createBefo
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 
+/**
+ * Always show drag-to-remove and drag-to-uninstall drop targets on home screen.
+ *
+ * Verified via dex analysis of /product/priv-app/MiuiHome/MiuiHome.apk:
+ *   - com.miui.home.launcher.DeleteDropTarget: ❌ DOES NOT EXIST in this build
+ *   - com.miui.home.launcher.UninstallDropTarget: ✅ EXISTS (with UninstallDropTargetMode)
+ *   - com.miui.home.launcher.ButtonDropTarget: ✅ EXISTS (base class for all drop targets)
+ *   - com.miui.home.launcher.DropTargetBar: ✅ EXISTS
+ *
+ * DeleteDropTarget was removed in this HyperOS version and merged into UninstallDropTarget.
+ * The real class that gates supportsDrop is ButtonDropTarget (parent) and UninstallDropTarget.
+ */
 object AlwaysShowDropTargets : BaseHook() {
     override fun init() {
-        // Hook the Remove/Delete target
-        loadClassOrNull("com.miui.home.launcher.DeleteDropTarget")?.let { clazz ->
+        // Hook ButtonDropTarget.supportsDrop (base class for all drop targets, verified in dex)
+        loadClassOrNull("com.miui.home.launcher.ButtonDropTarget")?.let { clazz ->
             clazz.methodFinder()
                 .filterByName("supportsDrop")
                 .firstOrNull()?.createBeforeHook { param ->
@@ -16,7 +28,7 @@ object AlwaysShowDropTargets : BaseHook() {
                 }
         }
 
-        // Hook the Uninstall target
+        // Hook UninstallDropTarget.supportsDrop (verified in dex)
         loadClassOrNull("com.miui.home.launcher.UninstallDropTarget")?.let { clazz ->
             clazz.methodFinder()
                 .filterByName("supportsDrop")
@@ -24,6 +36,8 @@ object AlwaysShowDropTargets : BaseHook() {
                     param.result = true
                 }
         }
+
+        // NOTE: com.miui.home.launcher.DeleteDropTarget does NOT exist in this build.
+        // It was merged into UninstallDropTarget in HyperOS.
     }
 }
-

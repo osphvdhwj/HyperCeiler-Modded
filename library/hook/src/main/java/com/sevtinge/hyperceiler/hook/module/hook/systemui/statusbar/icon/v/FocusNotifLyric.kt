@@ -34,7 +34,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import io.github.kyuubiran.ezxhelper.core.finder.ConstructorFinder.`-Static`.constructorFinder
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createBeforeHook
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
@@ -65,11 +65,11 @@ object FocusNotifLyric : MusicBaseHook() {
     override fun init() {
         // 拦截构建通知的函数
         if (!isShowNotific) {
-            loadClass("com.android.systemui.statusbar.notification.row.NotifBindPipeline").methodFinder()
-                .filterByName("requestPipelineRun").first().createBeforeHook {
+            loadClassOrNull("com.android.systemui.statusbar.notification.row.NotifBindPipeline")?.methodFinder()
+                ?.filterByName("requestPipelineRun")?.firstOrNull()?.createBeforeHook {
                     val statusBarNotification =
                         it.args[0].getObjectFieldOrNullAs<StatusBarNotification>("mSbn")
-                    if (statusBarNotification!!.notification.channelId == CHANNEL_ID) {
+                    if (statusBarNotification?.notification?.channelId == CHANNEL_ID) {
                         it.result = null
                     }
                 }
@@ -77,14 +77,14 @@ object FocusNotifLyric : MusicBaseHook() {
 
         // 拦截初始化状态栏焦点通知文本布局
         var unhook: XC_MethodHook.Unhook? = null
-        loadClass("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment").methodFinder()
-            .filterByName("onCreateView")
-            .first().createHook {
+        loadClassOrNull("com.android.systemui.statusbar.phone.MiuiCollapsedStatusBarFragment")?.methodFinder()
+            ?.filterByName("onCreateView")
+            ?.firstOrNull()?.createHook {
                 before {
                     unhook =
-                        loadClass("com.android.systemui.statusbar.widget.FocusedTextView").constructorFinder()
-                            .filterByParamCount(3)
-                            .first().createAfterHook {
+                        loadClassOrNull("com.android.systemui.statusbar.widget.FocusedTextView")?.constructorFinder()
+                            ?.filterByParamCount(3)
+                            ?.firstOrNull()?.createAfterHook {
                                 focusTextViewList += it.thisObject as TextView
                             }
                 }
@@ -94,12 +94,12 @@ object FocusNotifLyric : MusicBaseHook() {
             }
 
         // 构建通知栏通知函数
-        // loadClass("com.android.systemui.statusbar.notification.row.NotificationContentInflaterInjector").methodFinder()
-        //     .filterByName("createRemoteViews").first())
+        // loadClassOrNull("com.android.systemui.statusbar.notification.row.NotificationContentInflaterInjector")?.methodFinder()
+        //     ?.filterByName("createRemoteViews")?.firstOrNull())
         // 重设 mLastAnimationTime，取消闪烁动画(让代码以为刚播放过动画，所以这次不播放)
-        loadClass("com.android.systemui.statusbar.phone.FocusedNotifPromptView").methodFinder()
-            .filterByName("setData")
-            .first().createBeforeHook {
+        loadClassOrNull("com.android.systemui.statusbar.phone.FocusedNotifPromptView")?.methodFinder()
+            ?.filterByName("setData")
+            ?.firstOrNull()?.createBeforeHook {
                 it.thisObject.setLongField("mLastAnimationTime", System.currentTimeMillis())
             }
 
@@ -107,9 +107,9 @@ object FocusNotifLyric : MusicBaseHook() {
 
     fun initLoader(classLoader: ClassLoader) {
         runCatching {
-            loadClass("miui.systemui.notification.NotificationSettingsManager", classLoader)
-                .methodFinder().filterByName("canShowFocus")
-                .first().createHook {
+            loadClassOrNull("miui.systemui.notification.NotificationSettingsManager", classLoader)
+                ?.methodFinder()?.filterByName("canShowFocus")
+                ?.firstOrNull()?.createHook {
                     // 允许全部应用发送焦点通知
                     returnConstant(true)
                 }
@@ -118,9 +118,9 @@ object FocusNotifLyric : MusicBaseHook() {
             logE(TAG, "canShowFocus failed, ${it.message}")
         }
         runCatching {
-            loadClass("miui.systemui.notification.NotificationSettingsManager", classLoader)
-                .methodFinder().filterByName("canCustomFocus")
-                .first().createHook {
+            loadClassOrNull("miui.systemui.notification.NotificationSettingsManager", classLoader)
+                ?.methodFinder()?.filterByName("canCustomFocus")
+                ?.firstOrNull()?.createHook {
                     // 允许全部应用发送自定义焦点通知
                     returnConstant(true)
                 }
@@ -129,7 +129,7 @@ object FocusNotifLyric : MusicBaseHook() {
             logE(TAG, "canCustomFocus failed, ${it.message}")
         }
         // 启用debug日志
-        // setStaticObject(loadClass("miui.systemui.notification.NotificationUtil", classLoader), "DEBUG", true)
+        // setStaticObject(loadClassOrNull("miui.systemui.notification.NotificationUtil", classLoader), "DEBUG", true)
     }
 
     override fun onSuperLyric(data: SuperLyricData) {

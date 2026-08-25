@@ -5,7 +5,7 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 import de.robv.android.xposed.XposedHelpers;
 
 /**
- * [Experiment] Unlock all Always On Display clock styles, super wallpaper AOD modes, and signature effects.
+ * [Target Feature 4] Unlock all Always On Display clock styles, super wallpaper AOD modes, signature effects, and custom images.
  */
 public class ExperimentAodUnlockAllStyles extends BaseHook {
 
@@ -48,6 +48,12 @@ public class ExperimentAodUnlockAllStyles extends BaseHook {
                 param.setResult(true);
             }
         });
+        findAndHookMethodSilently("com.miui.aod.util.AodStyleManager", "isClockStyleUnlocked", new MethodHook() {
+            @Override
+            protected void after(MethodHookParam param) {
+                param.setResult(true);
+            }
+        });
         findAndHookMethodSilently("com.miui.aod.AodStyleManager", "isStyleSupported", new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
@@ -80,6 +86,12 @@ public class ExperimentAodUnlockAllStyles extends BaseHook {
                 param.setResult(true);
             }
         });
+        findAndHookMethodSilently("com.miui.aod.util.AODUtils", "isAlwaysOnDisplaySupported", new MethodHook() {
+            @Override
+            protected void after(MethodHookParam param) {
+                param.setResult(true);
+            }
+        });
         findAndHookMethodSilently("com.miui.aod.util.FeatureUtils", "isSupportAod", new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
@@ -87,6 +99,12 @@ public class ExperimentAodUnlockAllStyles extends BaseHook {
             }
         });
         findAndHookMethodSilently("com.miui.aod.util.FeatureUtils", "isLowRamDevice", new MethodHook() {
+            @Override
+            protected void after(MethodHookParam param) {
+                param.setResult(false);
+            }
+        });
+        findAndHookMethodSilently("com.miui.aod.util.FeatureUtils", "isAodDisabled", new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
                 param.setResult(false);

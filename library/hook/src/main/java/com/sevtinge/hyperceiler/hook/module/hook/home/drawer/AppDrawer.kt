@@ -31,24 +31,23 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 object AppDrawer : BaseHook() {
     override fun init() {
         if (mPrefsMap.getBoolean("home_drawer_all")) {
-            try {
-                loadClassOrNull("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")!!
-                    .methodFinder()
-                    .filterByName("buildSortCategoryList")
-                    .single()
-            } catch (_: Exception) {
-                loadClassOrNull("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")!!
-                    .methodFinder()
-                    .filterByName("buildSortCategoryList")
-                    .single()
-            }.createHook {
+            val method = loadClassOrNull("com.miui.home.launcher.allapps.category.BaseAllAppsCategoryListContainer")
+                ?.methodFinder()
+                ?.filterByName("buildSortCategoryList")
+                ?.firstOrNull()
+                ?: loadClassOrNull("com.miui.home.launcher.allapps.category.AllAppsCategoryListContainer")
+                    ?.methodFinder()
+                    ?.filterByName("buildSortCategoryList")
+                    ?.firstOrNull()
+
+            method?.createHook {
                 after {
                     try {
-                        val result = it.result as? java.util.List<*>
-                        if (result != null && result.size > 1) {
-                            val list = ArrayList(result)
-                            list.removeAt(0)
-                            it.result = list
+                        val originalList = it.result as? List<Any?>
+                        if (originalList != null && originalList.isNotEmpty()) {
+                            val newList = java.util.ArrayList(originalList)
+                            newList.removeAt(0)
+                            it.result = newList
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

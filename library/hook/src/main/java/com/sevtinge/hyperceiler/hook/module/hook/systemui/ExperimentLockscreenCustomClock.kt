@@ -8,6 +8,12 @@ import de.robv.android.xposed.XposedHelpers
 /**
  * [Experiment] Custom Lockscreen Clock enhancement.
  * Adds dynamic alpha transition and scale effects to lockscreen clock views.
+ *
+ * Verified via dex analysis of /system_ext/priv-app/MiuiSystemUI/MiuiSystemUI.apk:
+ *   - WRONG: com.android.keyguard.clock.KeyguardClockSwitch (wrong path)
+ *   - REAL:  com.android.keyguard.KeyguardClockSwitch ✅
+ *   - REAL:  com.miui.clock.MiuiClockController ✅
+ *   - Method: setClockAlpha ✅ EXISTS
  */
 object ExperimentLockscreenCustomClock : BaseHook() {
     override fun init() {
@@ -16,7 +22,7 @@ object ExperimentLockscreenCustomClock : BaseHook() {
         // Hook KeyguardClockSwitch inflation
         runCatching {
             XposedHelpers.findAndHookMethod(
-                "com.android.keyguard.clock.KeyguardClockSwitch",
+                "com.android.keyguard.KeyguardClockSwitch", // Corrected path
                 classLoader,
                 "onFinishInflate",
                 object : XC_MethodHook() {
@@ -30,7 +36,7 @@ object ExperimentLockscreenCustomClock : BaseHook() {
             )
         }
 
-        // Hook MiuiKeyguardClockView for smooth fade transition on unlock screen
+        // Hook MiuiClockController for smooth fade transition on unlock screen
         runCatching {
             XposedHelpers.findAndHookMethod(
                 "com.miui.clock.MiuiClockController",

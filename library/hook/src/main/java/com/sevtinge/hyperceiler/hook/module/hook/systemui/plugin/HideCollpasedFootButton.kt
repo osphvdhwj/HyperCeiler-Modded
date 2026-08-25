@@ -31,13 +31,13 @@ import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 object HideCollpasedFootButton {
     fun initLoaderHook(classLoader: ClassLoader) {
 
-        loadClass(
+        loadClassOrNull(
             "com.android.systemui.miui.volume.MiuiVolumeDialogView",
             classLoader
-        ).methodFinder()
-            .filterByName("updateFooterVisibility")
-            .filterByParamTypes { it[0] == Boolean::class.java }
-            .first().replaceMethod {
+        )?.methodFinder()
+            ?.filterByName("updateFooterVisibility")
+            ?.filterByParamTypes { it[0] == Boolean::class.java }
+            ?.firstOrNull()?.replaceMethod {
                 val thisObj = it.thisObject
                 val mRingerModeLayout = thisObj.getObjectFieldAs<View>("mRingerModeLayout")
                 val mExpandButton = thisObj.getObjectFieldAs<View>("mExpandButton")

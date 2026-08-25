@@ -46,11 +46,13 @@ public class ImOldDevice extends BaseHook {
                 return methodData;
             }
         });
-        hookMethod(method, new MethodHook() {
-            @Override
-            protected void before(XC_MethodHook.MethodHookParam param) throws Throwable {
-                param.setResult(false);
-            }
-        });
+        if (method != null) {
+            hookMethod(method, new MethodHook() {
+                @Override
+                protected void before(XC_MethodHook.MethodHookParam param) throws Throwable {
+                    param.setResult(false);
+                }
+            });
+        }
     }
 }

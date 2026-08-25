@@ -20,15 +20,15 @@ package com.sevtinge.hyperceiler.hook.module.hook.systemsettings
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object UnlockXiaomiHyperAIEntranceKt : BaseHook() {
 
     override fun init() {
-        loadClass("com.android.settings.InternalDeviceUtils").methodFinder()
-            .filterByName("isAiSupported")
-            .first().createHook {
+        loadClassOrNull("com.android.settings.InternalDeviceUtils")?.methodFinder()
+            ?.filterByName("isAiSupported")
+            ?.firstOrNull()?.createHook {
                 returnConstant(true)
             }
     }

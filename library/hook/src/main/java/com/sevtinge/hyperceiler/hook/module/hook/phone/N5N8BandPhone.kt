@@ -20,23 +20,20 @@ package com.sevtinge.hyperceiler.hook.module.hook.phone
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object N5N8BandPhone : BaseHook() {
     override fun init() {
         runCatching {
-            loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
-                .filterByName("isN5Supported")
-                .single().createHook {
+            loadClassOrNull("miui.telephony.TelephonyManagerEx")?.methodFinder()
+                ?.filterByName("isN5Supported")
+                ?.firstOrNull()?.createHook {
                     returnConstant(true)
                 }
-        }
-
-        runCatching {
-            loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
-                .filterByName("isN8Supported")
-                .single().createHook {
+            loadClassOrNull("miui.telephony.TelephonyManagerEx")?.methodFinder()
+                ?.filterByName("isN8Supported")
+                ?.firstOrNull()?.createHook {
                     returnConstant(true)
                 }
         }

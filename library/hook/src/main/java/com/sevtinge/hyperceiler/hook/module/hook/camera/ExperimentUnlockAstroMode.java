@@ -3,40 +3,30 @@ package com.sevtinge.hyperceiler.hook.module.hook.camera;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
 /**
- * [Experiment] Unlock Astrophotography / Night Sky / SuperMoon mode in MIUI &amp; HyperOS Camera.
+ * [Feature 1] Unlock SuperMoon mode in Xiaomi Camera.
+ *
+ * Verified via dex analysis of /product/priv-app/MiuiCamera/MiuiCamera.apk:
+ *   - Real class: com.android.camera.data.cloud.DataCloudItemFeature
+ *   - Real method: isSupportSuperMoonMode() -> boolean
+ *   - Real class: com.android.camera.module.SuperMoonModule (exists, gated by above)
+ *   - Real class: com.mi.device.ConfigConstant$SuperMoonSupportType (enum)
+ *
+ * Previously WRONG hooks: isAstroSupported, isSupportAstroMode, isAstroPhotoSupported,
+ *   isSupportAstro, isSupportSuperMoon, isSupportNightSky (NONE of these exist in APK)
  */
 public class ExperimentUnlockAstroMode extends BaseHook {
     @Override
     public void init() {
-        findAndHookMethodSilently("com.android.camera.CameraFeatureConfig", "isAstroSupported", new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) {
-                param.setResult(true);
+        // The ONLY real method that gates SuperMoon mode in this Camera build
+        findAndHookMethodSilently(
+            "com.android.camera.data.cloud.DataCloudItemFeature",
+            "isSupportSuperMoonMode",
+            new MethodHook() {
+                @Override
+                protected void after(MethodHookParam param) {
+                    param.setResult(true);
+                }
             }
-        });
-        findAndHookMethodSilently("com.android.camera.device.DeviceCapabilityManager", "isSupportAstroMode", new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) {
-                param.setResult(true);
-            }
-        });
-        findAndHookMethodSilently("com.android.camera.MiCameraFeature", "isAstroPhotoSupported", new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) {
-                param.setResult(true);
-            }
-        });
-        findAndHookMethodSilently("com.android.camera.data.data.config.DataItemFeature", "isSupportAstro", new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) {
-                param.setResult(true);
-            }
-        });
-        findAndHookMethodSilently("com.android.camera.data.data.config.DataItemFeature", "isSupportSuperMoon", new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) {
-                param.setResult(true);
-            }
-        });
+        );
     }
 }

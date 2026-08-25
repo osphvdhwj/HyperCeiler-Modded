@@ -27,7 +27,7 @@ public class InfiniteScroll extends BaseHook {
     @Override
     public void init() {
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView", "getSnapToScreenIndex", int.class, int.class, int.class, new MethodHook() {
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView", "getSnapToScreenIndex", int.class, int.class, int.class, new MethodHook() {
             @Override
             protected void after(final MethodHookParam param) throws Throwable {
                 if (param.args[0] != param.getResult()) return;
@@ -39,7 +39,7 @@ public class InfiniteScroll extends BaseHook {
             }
         });
 
-        findAndHookMethod("com.miui.home.launcher.ScreenView", "getSnapUnitIndex", int.class, new MethodHook() {
+        findAndHookMethodSilently("com.miui.home.launcher.ScreenView", "getSnapUnitIndex", int.class, new MethodHook() {
             @Override
             protected void after(final MethodHookParam param) throws Throwable {
                 int index = (int) param.getResult();

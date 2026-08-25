@@ -42,9 +42,11 @@ public class MediaButton extends BaseHook {
 
         if (isMoreHyperOSVersion(2f)) {
             MediaControlPanel = findClassIfExists("com.android.systemui.media.controls.ui.controller.MediaControlPanel", lpparam.classLoader);
-        } else {
+        }
+        if (MediaControlPanel == null) {
             MediaControlPanel = findClassIfExists("com.android.systemui.media.controls.ui.MediaControlPanel", lpparam.classLoader);
         }
+        if (MediaControlPanel == null) return;
         Class<?> DrawableUtils = findClassIfExists("com.miui.utils.DrawableUtils", lpparam.classLoader);
 
         hookAllMethods(MediaControlPanel, "bindButtonCommon", new MethodHook() {

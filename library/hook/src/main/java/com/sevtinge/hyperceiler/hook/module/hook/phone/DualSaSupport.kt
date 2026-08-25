@@ -25,9 +25,9 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object DualSaSupport : BaseHook() {
     override fun init() {
-        loadClass("miui.telephony.TelephonyManagerEx").methodFinder()
-            .filterByName("isDualSaSupported")
-            .single().createHook {
+        loadClassOrNull("miui.telephony.TelephonyManagerEx")?.methodFinder()
+            ?.filterByName("isDualSaSupported")
+            ?.firstOrNull()?.createHook {
                 returnConstant(true)
             }
     }

@@ -44,13 +44,15 @@ public class AutoTurnOffRadios extends BaseHook {
         });
     }
 
+    private static Object mSoftApCallbackProxy;
+
     private void registerReceivers(Context context) {
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
         filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
         filter.addAction(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED);
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
-        filter.addAction("android.net.wifi.WIFI_AP_STATE_CHANGED");
+        // We don't need WIFI_AP_STATE_CHANGED anymore, we'll use SoftApCallback
 
         context.registerReceiver(new BroadcastReceiver() {
             @Override
@@ -62,11 +64,66 @@ public class AutoTurnOffRadios extends BaseHook {
                     handleWifiStateChange(ctx);
                 } else if (BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED.equals(action) || BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
                     handleBluetoothStateChange(ctx);
-                } else if ("android.net.wifi.WIFI_AP_STATE_CHANGED".equals(action)) {
-                    handleHotspotStateChange(ctx, intent);
                 }
             }
         }, filter);
+
+        try {
+            WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+            if (wifiManager != null && mSoftApCallbackProxy == null) {
+                Class<?> callbackClass = Class.forName("android.net.wifi.WifiManager$SoftApCallback");
+                mSoftApCallbackProxy = java.lang.reflect.Proxy.newProxyInstance(
+                    context.getClassLoader(),
+                    new Class<?>[]{callbackClass},
+                    (proxy, method, args) -> {
+                        String methodName = method.getName();
+                        if ("onConnectedClientsChanged".equals(methodName)) {
+                            handleHotspotClientsChanged(context, args);
+                        } else if ("onStateChanged".equals(methodName)) {
+                            int state = (int) args[0];
+                            if (state != 13 && mHotspotRunnable != null) { // 13 is WIFI_AP_STATE_ENABLED
+                                mHandler.removeCallbacks(mHotspotRunnable);
+                            } else if (state == 13) {
+                                // when enabled, assume 0 clients initially, start timer
+                                handleHotspotClientsChanged(context, new Object[]{java.util.Collections.emptyList()});
+                            }
+                        }
+                        return null;
+                    }
+                );
+                java.util.concurrent.Executor executor = Runnable::run;
+                XposedHelpers.callMethod(wifiManager, "registerSoftApCallback", executor, mSoftApCallbackProxy);
+            }
+        } catch (Throwable t) {
+            // SoftApCallback not found or failed to register
+        }
+    }
+
+    private void handleHotspotClientsChanged(Context context, Object[] args) {
+        if (!mPrefsMap.getBoolean("system_framework_auto_turn_off_hotspot")) return;
+        if (args == null || args.length == 0) return;
+
+        int clientCount = 0;
+        if (args[0] instanceof java.util.List) {
+            clientCount = ((java.util.List<?>) args[0]).size();
+        } else if (args.length > 1 && args[1] instanceof java.util.List) {
+            clientCount = ((java.util.List<?>) args[1]).size();
+        }
+
+        if (mHotspotRunnable != null) {
+            mHandler.removeCallbacks(mHotspotRunnable);
+        }
+
+        if (clientCount == 0) {
+            int minutes = mPrefsMap.getInt("system_framework_auto_turn_off_hotspot_timer", 5);
+            mHotspotRunnable = () -> {
+                try {
+                    WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                    XposedHelpers.callMethod(wifiManager, "setWifiApEnabled", null, false);
+                } catch (Exception ignored) {}
+            };
+            mHandler.postDelayed(mHotspotRunnable, minutes * 60 * 1000L);
+        }
     }
 
     private void handleWifiStateChange(Context context) {
@@ -128,34 +185,5 @@ public class AutoTurnOffRadios extends BaseHook {
             };
             mHandler.postDelayed(mBluetoothRunnable, minutes * 60 * 1000L);
         }
-    }
-
-    private void handleHotspotStateChange(Context context, Intent intent) {
-        if (!mPrefsMap.getBoolean("system_framework_auto_turn_off_hotspot")) return;
-
-        int state = intent.getIntExtra("wifi_state", 11);
-        if (state != 13) { // 13 is WIFI_AP_STATE_ENABLED
-            if (mHotspotRunnable != null) mHandler.removeCallbacks(mHotspotRunnable);
-            return;
-        }
-
-        // We assume 0 clients right after enable, or we can check via WifiManager
-        // Since Android API doesn't expose hotspot client count publicly, we schedule the turn off,
-        // and ideally we'd also listen for client connect/disconnect. 
-        // A common broadcast on MIUI for hotspot clients is "android.net.wifi.WIFI_AP_STA_STATUS_CHANGED" or similar.
-        // We will just do a basic timeout from when it's enabled if we can't reliably get client count.
-        
-        if (mHotspotRunnable != null) {
-            mHandler.removeCallbacks(mHotspotRunnable);
-        }
-
-        int minutes = mPrefsMap.getInt("system_framework_auto_turn_off_hotspot_timer", 5);
-        mHotspotRunnable = () -> {
-            try {
-                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-                XposedHelpers.callMethod(wifiManager, "setWifiApEnabled", null, false);
-            } catch (Exception ignored) {}
-        };
-        mHandler.postDelayed(mHotspotRunnable, minutes * 60 * 1000L);
     }
 }

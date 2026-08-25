@@ -35,16 +35,16 @@ object ViceSlotVolteButton : BaseHook() {
                 "vice_slot_volte_data_enabled",
                 1
             )
-            loadClass("com.android.phone.MiuiPhoneUtils").methodFinder()
-                .filterByName("shouldHideViceSlotVolteDataButton")
-                .single().createHook {
+            loadClassOrNull("com.android.phone.MiuiPhoneUtils")?.methodFinder()
+                ?.filterByName("shouldHideViceSlotVolteDataButton")
+                ?.firstOrNull()?.createHook {
                     returnConstant(false)
                 }
         }
         runCatching {
-            loadClass("com.android.phone.MiuiPhoneUtils").methodFinder()
-                .filterByName("shouldHideSmartDualSimButton")
-                .single().createHook {
+            loadClassOrNull("com.android.phone.MiuiPhoneUtils")?.methodFinder()
+                ?.filterByName("shouldHideSmartDualSimButton")
+                ?.firstOrNull()?.createHook {
                     returnConstant(false)
                 }
         }

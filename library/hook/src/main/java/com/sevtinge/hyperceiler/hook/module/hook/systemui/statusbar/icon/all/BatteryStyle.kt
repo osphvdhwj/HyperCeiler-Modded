@@ -28,7 +28,7 @@ import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreAndroidVersion
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 
 object BatteryStyle : BaseHook() {
@@ -61,17 +61,17 @@ object BatteryStyle : BaseHook() {
     }
 
     private val mBatteryMeterViewClass by lazy {
-        loadClass("com.android.systemui.statusbar.views.MiuiBatteryMeterView")
+        loadClassOrNull("com.android.systemui.statusbar.views.MiuiBatteryMeterView")
     }
 
     override fun init() {
         if (isMoreAndroidVersion(35)) {
-            mBatteryMeterViewClass.methodFinder()
-                .filterByName("updateAll\$1")
+            mBatteryMeterViewClass?.methodFinder()
+                ?.filterByName("updateAll\$1")
         } else {
-            mBatteryMeterViewClass.methodFinder()
-                .filterByName("updateAll")
-        }.single().createAfterHook { param ->
+            mBatteryMeterViewClass?.methodFinder()
+                ?.filterByName("updateAll")
+        }?.firstOrNull()?.createAfterHook { param ->
             hookStatusBattery(param)
         }
     }

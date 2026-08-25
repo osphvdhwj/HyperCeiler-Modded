@@ -24,70 +24,68 @@ import com.sevtinge.hyperceiler.hook.utils.findClass
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeMethod
 import com.sevtinge.hyperceiler.hook.utils.replaceMethod
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHooks
 
 object SetDeviceLevel : BaseHook() {
     private val mDeviceLevelUtilsClass by lazy {
-        loadClass("com.miui.home.launcher.common.DeviceLevelUtils")
+        loadClassOrNull("com.miui.home.launcher.common.DeviceLevelUtils")
     }
     private val mDeviceConfigClass by lazy {
-        loadClass("com.miui.home.launcher.DeviceConfig")
+        loadClassOrNull("com.miui.home.launcher.DeviceConfig")
     }
 
     override fun init() {
-        runCatching {
-            loadClass("com.miui.home.launcher.common.CpuLevelUtils").methodFinder()
-                .filterByName("getQualcommCpuLevel")
-                .filterByParamCount(1)
-                .single()
-        }.recoverCatching {
-            loadClass("miuix.animation.utils.DeviceUtils").methodFinder()
-                .filterByName("getQualcommCpuLevel")
-                .filterByParamCount(1)
-                .single()
-        }.getOrElse {
-            loadClass("miuix.device.DeviceUtils").methodFinder()
-                .filterByName("getQualcommCpuLevel")
-                .filterByParamCount(1)
-                .single()
-        }.createHook {
+        val cpuLevelMethod = loadClassOrNull("com.miui.home.launcher.common.CpuLevelUtils")?.methodFinder()
+            ?.filterByName("getQualcommCpuLevel")
+            ?.filterByParamCount(1)
+            ?.firstOrNull()
+            ?: loadClassOrNull("miuix.animation.utils.DeviceUtils")?.methodFinder()
+                ?.filterByName("getQualcommCpuLevel")
+                ?.filterByParamCount(1)
+                ?.firstOrNull()
+            ?: loadClassOrNull("miuix.device.DeviceUtils")?.methodFinder()
+                ?.filterByName("getQualcommCpuLevel")
+                ?.filterByParamCount(1)
+                ?.firstOrNull()
+
+        cpuLevelMethod?.createHook {
             returnConstant(2)
         }
 
         runCatching {
-            mDeviceConfigClass.methodFinder()
-                .filterByName("isUseSimpleAnim")
-                .single().createHook {
+            mDeviceConfigClass?.methodFinder()
+                ?.filterByName("isUseSimpleAnim")
+                ?.firstOrNull()?.createHook {
                     returnConstant(false)
             }
         }
         runCatching {
-            mDeviceLevelUtilsClass.methodFinder()
-                .filterByName("getDeviceLevel")
-                .single().createHook {
+            mDeviceLevelUtilsClass?.methodFinder()
+                ?.filterByName("getDeviceLevel")
+                ?.firstOrNull()?.createHook {
                     returnConstant(2)
             }
         }
         runCatching {
-            mDeviceConfigClass.methodFinder()
-                .filterByName("isSupportCompleteAnimation")
-                .single().createHook {
+            mDeviceConfigClass?.methodFinder()
+                ?.filterByName("isSupportCompleteAnimation")
+                ?.firstOrNull()?.createHook {
                     returnConstant(true)
             }
         }
         runCatching {
-            mDeviceLevelUtilsClass.methodFinder()
-                .filterByName("isLowLevelOrLiteDevice")
-                .single().createHook {
+            mDeviceLevelUtilsClass?.methodFinder()
+                ?.filterByName("isLowLevelOrLiteDevice")
+                ?.firstOrNull()?.createHook {
                     returnConstant(false)
             }
         }
         runCatching {
-            mDeviceConfigClass.methodFinder()
-                .filterByName("isMiuiLiteVersion")
-                .single().createHook {
+            mDeviceConfigClass?.methodFinder()
+                ?.filterByName("isMiuiLiteVersion")
+                ?.firstOrNull()?.createHook {
                     returnConstant(false)
             }
         }

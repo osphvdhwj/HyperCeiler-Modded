@@ -197,9 +197,11 @@ class DualDataUsageHook : BaseHook() {
             }
         }
 
-        // Hook ControlCenterStatusBar
+        // Hook ControlCenterStatusBar & ControlCenterStatusBarIcon
         hookAllMethodsSilently("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBar", "updateFlaresInfo", updateTextHook)
         findAndHookMethodSilently("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBar", "onFinishInflate", updateTextHook)
+        hookAllMethodsSilently("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBarIcon", "updateFlaresInfo", updateTextHook)
+        findAndHookMethodSilently("com.android.systemui.controlcenter.phone.widget.ControlCenterStatusBarIcon", "onFinishInflate", updateTextHook)
 
         // Hook MiuiQSHeaderView
         findAndHookMethodSilently("com.android.systemui.qs.MiuiQSHeaderView", "updateCarrierVisibility", updateTextHook)
