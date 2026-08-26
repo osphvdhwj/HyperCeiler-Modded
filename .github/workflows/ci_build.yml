@@ -61,13 +61,13 @@ jobs:
 
       - name: Find APKs
         run: |
-          if [ ${{ env.IS_DEBUG }} = true ]; then
-            APK_FILE=$(find app/build/outputs/apk/debug -name '*.apk')
+          if [ "${{ env.IS_DEBUG }}" = "true" ]; then
+            APK_FILE=$(find app/build/outputs/apk/debug -name '*.apk' | head -n 1)
           else
-            APK_FILE=$(find app/build/outputs/apk/canary -name '*.apk')
+            APK_FILE=$(find app/build/outputs/apk/canary -name '*.apk' | head -n 1)
           fi
           echo "APK_FILE=$APK_FILE" >> $GITHUB_ENV
-          echo "APK_FILE_NAME=$(basename $APK_FILE .apk)" >> $GITHUB_ENV
+          echo "APK_FILE_NAME=$(basename "$APK_FILE" .apk)" >> $GITHUB_ENV
 
       - name: Show APKs SHA256
         if: success()
@@ -75,8 +75,8 @@ jobs:
           echo "### Build Success" >> $GITHUB_STEP_SUMMARY
           echo "|Artifact|SHA256|" >> $GITHUB_STEP_SUMMARY
           echo "|:---:|:---|" >> $GITHUB_STEP_SUMMARY
-          APK_SHA256=($(shasum -a 256 ${{ env.APK_FILE }}))
-          if [ ${{ env.IS_DEBUG }} = true ]; then
+          APK_SHA256=($(shasum -a 256 "${{ env.APK_FILE }}"))
+          if [ "${{ env.IS_DEBUG }}" = "true" ]; then
             echo "|Debug|$APK_SHA256" >> $GITHUB_STEP_SUMMARY
           else
             echo "|Canary|$APK_SHA256" >> $GITHUB_STEP_SUMMARY
