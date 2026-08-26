@@ -1,4 +1,8 @@
--keep class com.sevtinge.hyperceiler.ui.**{ *; }
+-keep class com.sevtinge.hyperceiler.**{ *; }
+-keep class com.github.sunilpaulmathew.**{ *; }
+-keep class com.topjohnwu.libsu.**{ *; }
+-dontwarn com.github.sunilpaulmathew.**
+-dontwarn com.topjohnwu.libsu.**
 
 -keep class androidx.preference.**{ *; }
 -keep class fan.**{ *; }
