@@ -75,7 +75,7 @@ class PackageInstallReceiver : BroadcastReceiver() {
             .setSmallIcon(android.R.drawable.ic_dialog_info) 
             .setContentTitle("New app installed")
             .setContentText("Add $appName to Force Stop list?")
-            .addAction(android.R.drawable.ic_input_add, "Add", pendingIntent)
+            .addAction(android.R.drawable.ic_menu_add, "Add", pendingIntent)
             .setAutoCancel(true)
             .build()
 

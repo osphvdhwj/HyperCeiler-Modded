@@ -61,6 +61,9 @@ java {
 
 dependencies {
 
+    api(libs.core)
+    api(libs.core.ktx)
+
     api(libs.miuix.animation)
     api(libs.miuix.appcompat)
     api(libs.miuix.basewidget)
