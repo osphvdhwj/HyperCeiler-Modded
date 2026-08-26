@@ -9,18 +9,8 @@ if (gprUser.isEmpty() || gprKey.isEmpty()) {
         val gprInfo = java.util.Properties().apply {
             gprInfoFile.inputStream().use { load(it) }
         }
-
-        // 在构建时请在 signing.properties 中添加 gpr.user（GitHub 用户名）和 gpr.key（GitHub 个人令牌密钥）
-        // 提交时请勿提交以上字段，以免个人账号泄露
-        //
-        // When building, add gpr.user (GitHub username) and gpr.key (GitHub personal access token) to signing.properties.
-        // Do not commit these fields to version control to avoid leaking personal account information.
         gprUser = gprInfo.getProperty("gpr.user") ?: ""
         gprKey = gprInfo.getProperty("gpr.key") ?: ""
-
-        if (gprUser.isEmpty() || gprKey.isEmpty()) {
-            throw GradleException("\'gpr.user\' and \'gpr.key\' must be set in \'signing.properties\'")
-        }
     }
 }
 
@@ -40,11 +30,13 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
-        maven {
-            url = uri("https://maven.pkg.github.com/ReChronoRain/HyperCeiler")
-            credentials {
-                username = gprUser
-                password = gprKey
+        if (gprUser.isNotEmpty() && gprKey.isNotEmpty()) {
+            maven {
+                url = uri("https://maven.pkg.github.com/ReChronoRain/HyperCeiler")
+                credentials {
+                    username = gprUser
+                    password = gprKey
+                }
             }
         }
         maven("https://jitpack.io")
