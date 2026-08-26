@@ -208,11 +208,24 @@ public class FreeformShortcutMenu extends BaseHook {
                 Context mContext1 = view.getContext();
                 ComponentName mComponentName = (ComponentName) callMethod(obj, "getComponentName", new Object[0]);
                 String packageName = mComponentName.getPackageName();
-                android.app.ActivityManager am = (android.app.ActivityManager) mContext1.getSystemService(Context.ACTIVITY_SERVICE);
-                java.lang.reflect.Method forceStopPackageMethod = am.getClass().getDeclaredMethod("forceStopPackage", String.class);
-                forceStopPackageMethod.setAccessible(true);
-                forceStopPackageMethod.invoke(am, packageName);
-                android.widget.Toast.makeText(mContext1, "Force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
+
+                // Execute Hyper Hand (Hail) Root force stop
+                new Thread(() -> {
+                    try {
+                        Runtime.getRuntime().exec(new String[]{"su", "-c", "am force-stop " + packageName});
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+
+                try {
+                    android.app.ActivityManager am = (android.app.ActivityManager) mContext1.getSystemService(Context.ACTIVITY_SERVICE);
+                    java.lang.reflect.Method forceStopPackageMethod = am.getClass().getDeclaredMethod("forceStopPackage", String.class);
+                    forceStopPackageMethod.setAccessible(true);
+                    forceStopPackageMethod.invoke(am, packageName);
+                } catch (Exception ignored) {}
+
+                android.widget.Toast.makeText(mContext1, "Hyper Hand force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 e.printStackTrace();
             }

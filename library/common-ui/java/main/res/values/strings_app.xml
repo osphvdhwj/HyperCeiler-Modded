@@ -767,6 +767,7 @@
     <string name="system_ui_control_center_tile_margin_h">Horizontal tile spacing</string>
     <string name="system_ui_control_center_tile_margin_v">Vertical tile spacing</string>
     <string name="system_ui_control_center_grid_padding_h">Container edge horizontal padding</string>
+    <string name="system_ui_control_center_grid_padding_v">Container edge vertical padding</string>
     <string name="system_ui_control_center_data_usage_category">Data Usage Display</string>
     <string name="system_ui_control_center_dual_data_usage">Dual Data Usage (Mobile &amp; Wi-Fi)</string>
     <string name="system_ui_control_center_dual_data_usage_desc">Display simultaneous Mobile and Wi-Fi data in Control Center. Long-press to open Security Center data stats.</string>

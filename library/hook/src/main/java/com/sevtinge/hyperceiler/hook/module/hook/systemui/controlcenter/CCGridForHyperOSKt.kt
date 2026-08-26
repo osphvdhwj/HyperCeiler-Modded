@@ -205,6 +205,7 @@ object CCGridForHyperOSKt {
             "prefs_key_system_ui_control_center_tile_margin_h",
             "prefs_key_system_ui_control_center_tile_margin_v",
             "prefs_key_system_ui_control_center_grid_padding_h",
+            "prefs_key_system_ui_control_center_grid_padding_v",
             "prefs_key_system_ui_control_center_rounded_rect",
             "prefs_key_system_ui_control_center_rounded_rect_radius",
             "prefs_key_system_ui_control_center_tile_scale"
@@ -269,10 +270,12 @@ object CCGridForHyperOSKt {
             val marginHDp = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_tile_margin_h", 8)
             val marginVDp = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_tile_margin_v", 8)
             val paddingHDp = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_grid_padding_h", 16)
+            val paddingVDp = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_grid_padding_v", 16)
 
             val marginHPx = (marginHDp * density).toInt()
             val marginVPx = (marginVDp * density).toInt()
             val paddingHPx = (paddingHDp * density).toInt()
+            val paddingVPx = (paddingVDp * density).toInt()
 
             // 1. Set column count
             runCatching { XposedHelpers.setIntField(view, "mColumns", cols) }
@@ -285,10 +288,12 @@ object CCGridForHyperOSKt {
             runCatching { XposedHelpers.setIntField(view, "mTileMargin", marginHPx) }
             runCatching { XposedHelpers.setIntField(view, "mCellMargin", marginHPx) }
 
-            // 3. Set container edge padding
-            view.setPaddingRelative(paddingHPx, view.paddingTop, paddingHPx, view.paddingBottom)
+            // 3. Set container edge padding (both horizontal and vertical)
+            view.setPaddingRelative(paddingHPx, paddingVPx, paddingHPx, paddingVPx)
             runCatching { XposedHelpers.setIntField(view, "mPaddingStart", paddingHPx) }
             runCatching { XposedHelpers.setIntField(view, "mPaddingEnd", paddingHPx) }
+            runCatching { XposedHelpers.setIntField(view, "mPaddingTop", paddingVPx) }
+            runCatching { XposedHelpers.setIntField(view, "mPaddingBottom", paddingVPx) }
         }.onFailure {
             logE("initCCGridForHyperOS", "applyGridLayout failed: $it")
         }
