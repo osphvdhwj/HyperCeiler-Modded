@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 val srcDir = arrayOf (
@@ -58,6 +59,8 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+
+kotlin.jvmToolchain(21)
 
 dependencies {
 
