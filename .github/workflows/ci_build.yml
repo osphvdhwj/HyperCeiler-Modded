@@ -48,8 +48,8 @@ jobs:
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
-          ./gradlew assembleCanary
-          echo "IS_DEBUG=false" >> $GITHUB_ENV
+          ./gradlew assembleDebug
+          echo "IS_DEBUG=true" >> $GITHUB_ENV
 
       - name: Build with Gradle (Debug)
         if: github.event_name == 'pull_request'
