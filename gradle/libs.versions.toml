@@ -1,7 +1,7 @@
 [versions]
 libsu = "6.0.0"
 material = "1.12.0"
-scommon = "0a9f4f410f"
+scommon = "d532608ca4"
 agp = "8.11.1"
 kotlin-android = "2.2.0"
 lsparanoid = "0.6.0"
