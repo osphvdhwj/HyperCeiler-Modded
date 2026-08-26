@@ -126,6 +126,7 @@ android {
     val gitHash = getGitHash()
 
     signingConfigs {
+        getByName("debug")
         create("hasProperties") {
             if (properties != null) {
                 storeFile = file(getString("storeFile", "STORE_FILE", "Store file"))
