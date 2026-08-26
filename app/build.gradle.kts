@@ -181,9 +181,9 @@ android {
             buildConfigField("String", "GIT_HASH", "\"${getGitHashLong()}\"")
             buildConfigField("String", "GIT_CODE", "\"$gitCode\"")
             signingConfig = if (properties != null) {
-                signingConfigs["hasProperties"]
+                signingConfigs.getByName("hasProperties")
             } else {
-                signingConfigs["debug"]
+                signingConfigs.getByName("debug")
             }
         }
         debug {
