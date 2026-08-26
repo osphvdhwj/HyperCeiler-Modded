@@ -4,13 +4,13 @@
     <item
         android:id="@+id/nav_active"
         android:icon="@drawable/ic_active"
-        android:title="@string/active" />
+        android:title="@string/debloater_active" />
     <item
         android:id="@+id/nav_inactive"
         android:icon="@drawable/ic_inactive"
-        android:title="@string/inactive" />
+        android:title="@string/debloater_inactive" />
     <item
         android:id="@+id/nav_about"
         android:icon="@drawable/ic_about"
-        android:title="@string/about" />
+        android:title="@string/debloater_about" />
 </menu>
