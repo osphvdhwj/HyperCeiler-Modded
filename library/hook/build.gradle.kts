@@ -7,7 +7,7 @@ plugins {
 lsparanoid {
     seed = 227263
     classFilter = { true }
-    includeDependencies = true
+    includeDependencies = false
     variantFilter = { variant ->
         variant.buildType != "debug"
     }
