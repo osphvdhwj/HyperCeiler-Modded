@@ -8,7 +8,7 @@ import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.sevtinge.hyperceiler.R
+import com.sevtinge.hyperceiler.ui.R
 
 class InterceptorActivity : Activity() {
 
