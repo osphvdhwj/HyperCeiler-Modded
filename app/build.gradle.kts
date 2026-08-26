@@ -55,7 +55,6 @@ fun loadPropertiesFromFile(fileName: String): Properties? {
 android {
     namespace = "com.sevtinge.hyperceiler"
     compileSdk = 36
-    buildToolsVersion = "36.0.0"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_21
