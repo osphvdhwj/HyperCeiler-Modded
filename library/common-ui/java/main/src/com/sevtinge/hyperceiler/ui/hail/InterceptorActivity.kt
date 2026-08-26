@@ -17,6 +17,7 @@ class InterceptorActivity : Activity() {
         setContentView(R.layout.activity_hail_interceptor)
         
         val targetPkg = intent.getStringExtra("target_pkg")
+        @Suppress("DEPRECATION")
         val originalIntent = intent.getParcelableExtra<Intent>("original_intent")
 
         if (targetPkg == null) {
