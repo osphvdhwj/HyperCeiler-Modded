@@ -45,5 +45,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "HyperCeilerModded"
-include("app")
-include(":library:common-ui", ":library:hook", "library:processor", "library:hidden-api")
+include(":app")
+include(":library:common-ui", ":library:hook", ":library:processor", ":library:hidden-api")

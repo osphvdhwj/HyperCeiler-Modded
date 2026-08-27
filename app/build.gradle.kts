@@ -117,6 +117,7 @@ android {
     }
 
     val properties: Properties? = loadPropertiesFromFile("signing.properties")
+    val hasSigningProperties = properties != null && properties.getProperty("storeFile")?.let { file(it).exists() } == true
     val getString: (String, String, String) -> String = { propertyName, environmentName, prompt ->
         properties?.getProperty(propertyName)
             ?: System.getenv(environmentName)
@@ -128,7 +129,7 @@ android {
     signingConfigs {
         getByName("debug")
         create("hasProperties") {
-            if (properties != null) {
+            if (hasSigningProperties) {
                 storeFile = file(getString("storeFile", "STORE_FILE", "Store file"))
                 storePassword = getString("storePassword", "STORE_PASSWORD", "Store password")
                 keyAlias = getString("keyAlias", "KEY_ALIAS", "Key alias")
@@ -152,7 +153,7 @@ android {
             versionNameSuffix = "_${DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDateTime.now())}"
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "GIT_CODE", "\"$gitCode\"")
-            signingConfig = if (properties != null) {
+            signingConfig = if (hasSigningProperties) {
                 signingConfigs["hasProperties"]
             } else {
                 signingConfigs["debug"]
@@ -167,7 +168,7 @@ android {
             versionNameSuffix = "_${DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDateTime.now())}"
             buildConfigField("String", "GIT_HASH", "\"${getGitHashLong()}\"")
             buildConfigField("String", "GIT_CODE", "\"$gitCode\"")
-            signingConfig = if (properties != null) {
+            signingConfig = if (hasSigningProperties) {
                 signingConfigs["hasProperties"]
             } else {
                 signingConfigs["debug"]
@@ -182,7 +183,7 @@ android {
             versionNameSuffix = "_${gitHash}_r${gitCode}"
             buildConfigField("String", "GIT_HASH", "\"${getGitHashLong()}\"")
             buildConfigField("String", "GIT_CODE", "\"$gitCode\"")
-            signingConfig = if (properties != null) {
+            signingConfig = if (hasSigningProperties) {
                 signingConfigs.getByName("hasProperties")
             } else {
                 signingConfigs.getByName("debug")
@@ -192,7 +193,7 @@ android {
             versionNameSuffix = "_${gitHash}_r${gitCode}"
             buildConfigField("String", "GIT_HASH", "\"${getGitHashLong()}\"")
             buildConfigField("String", "GIT_CODE", "\"$gitCode\"")
-            if (properties != null) {
+            if (hasSigningProperties) {
                 signingConfig = signingConfigs["hasProperties"]
             }
         }
