@@ -49,7 +49,13 @@ jobs:
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
-          ./gradlew assembleDebug
+          if ! ./gradlew assembleDebug --stacktrace --full-stacktrace 2>&1 | tee build.log; then
+            echo "### Gradle Build Failed" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -n 100 build.log >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
           echo "IS_DEBUG=true" >> $GITHUB_ENV
 
       - name: Build with Gradle (Debug)
