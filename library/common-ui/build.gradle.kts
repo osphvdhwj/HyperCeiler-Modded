@@ -31,11 +31,13 @@ android {
         getByName("main") {
             //java.srcDir("java")
             java.srcDirs("java/main/src")
+            kotlin.srcDirs("java/main/src")
             res.srcDirs("java/main/res")
             manifest.srcFile("java/AndroidManifest.xml")
 
             srcDir.forEach {
                 java.srcDirs("java/$it/src")
+                kotlin.srcDirs("java/$it/src")
                 res.srcDirs("java/$it/res")
             }
         }
