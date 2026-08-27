@@ -86,5 +86,5 @@ dependencies {
     api(libs.miuix.viewpager)
     api(libs.miuix.transition)
 
-    api(projects.library.hook)
+    api(project(":library:hook"))
 }

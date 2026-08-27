@@ -65,7 +65,7 @@ dependencies {
 
     api(libs.core.ktx)
     api(libs.expansion)
-    compileOnly(projects.library.hiddenApi)
+    compileOnly(project(":library:hidden-api"))
     compileOnly(libs.xposed.api)
 
     api(libs.dexkit)
@@ -80,6 +80,6 @@ dependencies {
     api(libs.superlyricapi)
     api(libs.lunarcalendar)
 
-    api(projects.library.processor)
-    annotationProcessor(projects.library.processor)
+    api(project(":library:processor"))
+    annotationProcessor(project(":library:processor"))
 }

@@ -216,7 +216,7 @@ kotlin.jvmToolchain(21)
 
 dependencies {
     implementation(libs.expansion)
-    implementation(projects.library.commonUi)
+    implementation(project(":library:common-ui"))
     implementation(libs.adapters)
     implementation(libs.apkutils)
     implementation(libs.fileutils)
