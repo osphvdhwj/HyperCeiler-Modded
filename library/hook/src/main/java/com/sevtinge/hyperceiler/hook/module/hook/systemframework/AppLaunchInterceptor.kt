@@ -42,10 +42,9 @@ class AppLaunchInterceptor : BaseHook() {
                             if (targetPkg == null || targetPkg == ProjectApi.mAppModulePkg) return
 
                             // Read hail apps
-                            val appsStr = mPrefsMap.getString("hail_apps", "")
-                            if (appsStr.isNullOrEmpty()) return
+                            val hailApps = mPrefsMap.getStringSet("hail_apps", emptySet())
+                            if (hailApps == null || hailApps.isEmpty()) return
                             
-                            val hailApps = appsStr.split(",").toSet()
                             if (!hailApps.contains(targetPkg)) return
                             
                             // Check for temporary grant using Context

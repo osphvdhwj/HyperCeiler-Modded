@@ -20,6 +20,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:myLocation="@string/system_framework_other_title"
     app:quick_restart="system">
+    <PreferenceCategory android:title="Hail Force Stop">
+        <Preference
+            android:key="hail_apps"
+            android:title="Select Apps to Force Stop"
+            android:summary="Select which apps to automatically force stop" />
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/system_framework_screen_title">
         <fan.preference.DropDownPreference
             android:defaultValue="0"

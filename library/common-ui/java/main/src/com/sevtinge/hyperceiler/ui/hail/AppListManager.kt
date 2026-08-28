@@ -23,13 +23,11 @@ class AppListManager(context: Context) {
     }
 
     private fun saveApps(apps: Set<String>) {
-        prefs.edit().putString("hail_apps", apps.joinToString(",")).apply()
+        prefs.edit().putStringSet("hail_apps", apps).apply()
     }
 
     fun getApps(): Set<String> {
-        val appsStr = prefs.getString("hail_apps", "") ?: ""
-        if (appsStr.isEmpty()) return emptySet()
-        return appsStr.split(",").toSet()
+        return prefs.getStringSet("hail_apps", emptySet()) ?: emptySet()
     }
 
     fun isAppInList(pkg: String): Boolean {

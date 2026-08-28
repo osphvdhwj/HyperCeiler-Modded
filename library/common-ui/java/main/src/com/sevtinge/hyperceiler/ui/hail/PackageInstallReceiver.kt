@@ -37,10 +37,20 @@ class PackageInstallReceiver : BroadcastReceiver() {
             
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.cancel(pkg.hashCode())
+        } else if (intent.action == ACTION_PROMPT_ADD_HAIL) {
+            val pkg = intent.getStringExtra("extra_pkg") ?: return
+            try {
+                val pm = context.packageManager
+                val appInfo = pm.getApplicationInfo(pkg, 0)
+                val appName = pm.getApplicationLabel(appInfo).toString()
+                showNotification(context, pkg, appName, isForceStop = true)
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }
         }
     }
 
-    private fun showNotification(context: Context, pkg: String, appName: String) {
+    private fun showNotification(context: Context, pkg: String, appName: String, isForceStop: Boolean = false) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId = "hail_new_app_channel"
 
@@ -71,10 +81,13 @@ class PackageInstallReceiver : BroadcastReceiver() {
             flags
         )
 
+        val title = if (isForceStop) "App Force Stopped" else "New app installed"
+        val text = "Add $appName to Force Stop list?"
+
         val notification = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_info) 
-            .setContentTitle("New app installed")
-            .setContentText("Add $appName to Force Stop list?")
+            .setContentTitle(title)
+            .setContentText(text)
             .addAction(android.R.drawable.ic_menu_add, "Add", pendingIntent)
             .setAutoCancel(true)
             .build()
@@ -84,6 +97,7 @@ class PackageInstallReceiver : BroadcastReceiver() {
 
     companion object {
         const val ACTION_ADD_APP = "com.sevtinge.hyperceiler.intent.action.ADD_APP"
+        const val ACTION_PROMPT_ADD_HAIL = "com.sevtinge.hyperceiler.intent.action.PROMPT_ADD_HAIL"
         const val EXTRA_PKG = "extra_pkg"
     }
 }
