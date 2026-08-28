@@ -27,9 +27,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
+import android.widget.Button;
+import fan.appcompat.app.AlertDialog;
+import android.widget.TextView;
 import com.sevtinge.hyperceiler.BuildConfig;
 import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.adapters.InactivePackagesAdapter;
@@ -58,9 +58,9 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
 public class InactivePackagesFragment extends Fragment {
 
     private AppCompatEditText mSearchWord;
-    private MaterialButton mMenu;
+    private Button mMenu;
     private LinearLayout mProgressLayout;
-    private MaterialTextView mProgressText;
+    private TextView mProgressText;
     private RecyclerView mRecyclerView;
     private InactivePackagesAdapter mRecycleViewAdapter;
     private String mSearchText = null;
@@ -77,8 +77,8 @@ public class InactivePackagesFragment extends Fragment {
         mRecyclerView = mRootView.findViewById(R.id.recycler_view);
         mRecyclerView = mRootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-        MaterialTextView mTitle = mRootView.findViewById(R.id.page_title);
-        MaterialButton mSearchButton = mRootView.findViewById(R.id.search_button);
+        TextView mTitle = mRootView.findViewById(R.id.page_title);
+        Button mSearchButton = mRootView.findViewById(R.id.search_button);
         mMenu = mRootView.findViewById(R.id.menu_button);
 
         mTitle.setText(getString(R.string.apps, getString(R.string.inactive)));
@@ -189,7 +189,7 @@ public class InactivePackagesFragment extends Fragment {
                                         obj.put("DeBloater", DeBloater);
                                     }
                                     Utils.create(obj.toString(), jsonFile.getAbsolutePath());
-                                    new MaterialAlertDialogBuilder(requireActivity())
+                                    new AlertDialog.Builder(requireActivity())
                                             .setIcon(R.mipmap.ic_launcher)
                                             .setTitle(R.string.debloater_app_name)
                                             .setMessage(getString(R.string.backup_message, jsonFile.getAbsolutePath()) + "\n\n" + getString(R.string.backup_share_message))
@@ -290,7 +290,7 @@ public class InactivePackagesFragment extends Fragment {
                                 sCommonUtils.snackBar(mRecyclerView, getString(R.string.restore_error_message)).show();
                                 return;
                             }
-                            new MaterialAlertDialogBuilder(requireActivity())
+                            new AlertDialog.Builder(requireActivity())
                                     .setIcon(R.mipmap.ic_launcher)
                                     .setTitle(R.string.debloater_app_name)
                                     .setMessage(Restore.isJSONMatched(jsonString) ? getString(R.string.restore_question,

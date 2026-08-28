@@ -14,7 +14,7 @@
         android:indeterminateTint="?attr/colorPrimary"
         android:layout_gravity="center" />
 
-    <com.google.android.material.textview.MaterialTextView
+    <android.widget.TextView
         android:id="@+id/progress_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

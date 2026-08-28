@@ -14,12 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageButton;
+import android.widget.ImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textview.MaterialTextView;
+import android.widget.TextView;
+import fan.appcompat.app.AlertDialog;
 import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.utils.Common;
 import com.sevtinge.hyperceiler.debloater.utils.DebloaterEntry;
@@ -81,8 +80,8 @@ public class ActivePackagesAdapter extends RecyclerView.Adapter<ActivePackagesAd
             if (this.data.get(position).getRemovalRec() != null) {
                 holder.mStatusIcon.setText(Common.getPriorityText(this.data.get(position).getRemovalRec()));
                 holder.mStatusIcon.setTextColor(sCommonUtils.getColor(Common.getPriorityTextColor(this.data.get(position).getRemovalRec()), holder.mStatusIcon.getContext()));
-                holder.mStatusIcon.setIconTint(ColorStateList.valueOf(sCommonUtils.getColor(Common.getPriorityTextColor(this.data.get(position).getRemovalRec()), holder.mStatusIcon.getContext())));
-                holder.mStatusIcon.setIcon(sCommonUtils.getDrawable(Common.getPriorityIcon(this.data.get(position).getRemovalRec()), holder.mStatusIcon.getContext()));
+                holder.mStatusIcon.setCompoundDrawableTintList(ColorStateList.valueOf(sCommonUtils.getColor(Common.getPriorityTextColor(this.data.get(position).getRemovalRec()), holder.mStatusIcon.getContext())));
+                holder.mStatusIcon.setCompoundDrawablesWithIntrinsicBounds(sCommonUtils.getDrawable(Common.getPriorityIcon(this.data.get(position).getRemovalRec()), holder.mStatusIcon.getContext()), null, null, null);
                 holder.mStatusIcon.setBackgroundTintList(ColorStateList.valueOf(sCommonUtils.getColor(Common.getPriorityColor(this.data.get(position).getRemovalRec()), holder.mStatusIcon.getContext())));
                 holder.mStatusIcon.setVisibility(VISIBLE);
             } else {
@@ -93,33 +92,33 @@ public class ActivePackagesAdapter extends RecyclerView.Adapter<ActivePackagesAd
                 holder.mActionIcon.setAlpha(1.0f);
                 if (Utils.exist(PackageTasks.getModulePath() + this.data.get(position).getAPKPath()) || Utils.exist(PackageTasks.getModulePath() + PackageTasks.getAdjAPKPath(this.data.get(position).getAPKPath()))) {
                     holder.mActionIcon.setText(holder.mActionIcon.getContext().getString(R.string.restore));
-                    holder.mActionIcon.setIcon(sCommonUtils.getDrawable(R.drawable.ic_restore, holder.mActionIcon.getContext()));
+                    holder.mActionIcon.setCompoundDrawablesWithIntrinsicBounds(sCommonUtils.getDrawable(R.drawable.ic_restore, holder.mActionIcon.getContext()), null, null, null);
                     holder.mActionIcon.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
                     holder.statusMessage.setText(holder.statusMessage.getContext().getString(R.string.status_message_remove));
                     holder.mActionIcon.setTextColor(Color.BLACK);
-                    holder.mActionIcon.setIconTint(ColorStateList.valueOf(Color.BLACK));
+                    holder.mActionIcon.setCompoundDrawableTintList(ColorStateList.valueOf(Color.BLACK));
                     holder.statusMessage.setTextColor(Color.RED);
                     holder.statusMessage.setVisibility(View.VISIBLE);
                 } else {
                     holder.mActionIcon.setText(holder.mActionIcon.getContext().getString(R.string.remove));
-                    holder.mActionIcon.setIcon(sCommonUtils.getDrawable(R.drawable.ic_delete, holder.mActionIcon.getContext()));
+                    holder.mActionIcon.setCompoundDrawablesWithIntrinsicBounds(sCommonUtils.getDrawable(R.drawable.ic_delete, holder.mActionIcon.getContext()), null, null, null);
                     holder.mActionIcon.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
                     holder.mActionIcon.setTextColor(Color.WHITE);
-                    holder.mActionIcon.setIconTint(ColorStateList.valueOf(Color.WHITE));
+                    holder.mActionIcon.setCompoundDrawableTintList(ColorStateList.valueOf(Color.WHITE));
                     holder.statusMessage.setText(null);
                     holder.statusMessage.setTextColor(Color.GREEN);
                     holder.statusMessage.setVisibility(View.GONE);
                 }
             } else {
                 holder.mActionIcon.setText(holder.mActionIcon.getContext().getString(R.string.non_removable));
-                holder.mActionIcon.setIcon(sCommonUtils.getDrawable(R.drawable.ic_lock, holder.mActionIcon.getContext()));
+                holder.mActionIcon.setCompoundDrawablesWithIntrinsicBounds(sCommonUtils.getDrawable(R.drawable.ic_lock, holder.mActionIcon.getContext()), null, null, null);
                 holder.mActionIcon.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
-                holder.mActionIcon.setIconTint(ColorStateList.valueOf(Color.WHITE));
+                holder.mActionIcon.setCompoundDrawableTintList(ColorStateList.valueOf(Color.WHITE));
                 holder.mActionIcon.setTextColor(Color.WHITE);
                 holder.mActionIcon.setAlpha(0.5f);
             }
 
-            holder.mStatusIcon.setOnClickListener(v -> new MaterialAlertDialogBuilder(v.getContext())
+            holder.mStatusIcon.setOnClickListener(v -> new AlertDialog.Builder(v.getContext())
                     .setIcon(this.data.get(position).getAppIcon())
                     .setTitle(this.data.get(position).getAppName())
                     .setMessage(debloaterEntries.stream()
@@ -140,7 +139,7 @@ public class ActivePackagesAdapter extends RecyclerView.Adapter<ActivePackagesAd
                         PackageTasks.revertDelete(PackageTasks.getAdjAPKPath(this.data.get(position).getAPKPath()));
                     } else {
                         if (this.data.get(position).isUpdatedSystemApp()) {
-                            new MaterialAlertDialogBuilder(v.getContext())
+                            new AlertDialog.Builder(v.getContext())
                                     .setIcon(this.data.get(position).getAppIcon())
                                     .setTitle(this.data.get(position).getAppName())
                                     .setMessage(v.getContext().getString(R.string.updated_system_app_warning, this.data.get(position).getAppName()))
@@ -167,9 +166,9 @@ public class ActivePackagesAdapter extends RecyclerView.Adapter<ActivePackagesAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final AppCompatImageButton mIcon;
-        private final MaterialButton mActionIcon, mStatusIcon;
-        private final MaterialTextView mName, mPackageName, mPath, statusMessage;
+        private final ImageView mIcon;
+        private final TextView mActionIcon, mStatusIcon;
+        private final TextView mName, mPackageName, mPath, statusMessage;
 
         public ViewHolder(View view) {
             super(view);

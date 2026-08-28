@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textview.MaterialTextView;
+import android.widget.TextView;
 import com.sevtinge.hyperceiler.BuildConfig;
 import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.utils.Common;
@@ -88,8 +88,8 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final AppCompatImageButton mIcon;
-        private final MaterialTextView Title;
-        private final MaterialTextView Description;
+        private final TextView Title;
+        private final TextView Description;
         private final LinearLayout mRVLayout;
 
         public ViewHolder(View view) {

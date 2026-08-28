@@ -21,10 +21,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import android.widget.Button;
+import fan.appcompat.app.AlertDialog;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textview.MaterialTextView;
+import android.widget.TextView;
 import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.adapters.ActivePackagesAdapter;
 import com.sevtinge.hyperceiler.debloater.utils.PackageTasks;
@@ -42,7 +42,7 @@ import in.sunilpaulmathew.sCommon.CommonUtils.sExecutor;
 public class ActivePackagesFragment extends Fragment {
 
     private AppCompatEditText mSearchWord;
-    private MaterialButton mMenu;
+    private Button mMenu;
     private boolean mExit = false;
     private final Handler mHandler = new Handler();
     private LinearLayout mProgressLayout;
@@ -56,9 +56,9 @@ public class ActivePackagesFragment extends Fragment {
         View mRootView = inflater.inflate(R.layout.fragment_packages, container, false);
 
         mSearchWord = mRootView.findViewById(R.id.search_word);
-        MaterialButton mSearchButton = mRootView.findViewById(R.id.search_button);
+        Button mSearchButton = mRootView.findViewById(R.id.search_button);
         AppCompatTextView mSummary = mRootView.findViewById(R.id.about_summary);
-        MaterialTextView mPageTitle = mRootView.findViewById(R.id.page_title);
+        TextView mPageTitle = mRootView.findViewById(R.id.page_title);
         mMenu = mRootView.findViewById(R.id.menu_button);
         mProgressLayout = mRootView.findViewById(R.id.progress_layout);
         mRecyclerView = mRootView.findViewById(R.id.recycler_view);
@@ -136,7 +136,7 @@ public class ActivePackagesFragment extends Fragment {
         loadUI(requireActivity(), mSearchText);
 
         if (UpdateCheck.isSignatureMatched(requireActivity()) && sCommonUtils.getInt("update_enabled", 2, requireActivity()) == 2) {
-            new MaterialAlertDialogBuilder(requireActivity())
+            new AlertDialog.Builder(requireActivity())
                     .setIcon(R.mipmap.ic_launcher_round)
                     .setTitle("Please Note")
                     .setMessage("""

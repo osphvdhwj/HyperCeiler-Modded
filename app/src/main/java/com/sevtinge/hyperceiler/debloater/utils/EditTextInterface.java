@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import fan.appcompat.app.AlertDialog;
 import com.sevtinge.hyperceiler.R;
 
 /*
@@ -18,14 +18,14 @@ import com.sevtinge.hyperceiler.R;
 public abstract class EditTextInterface {
 
     private final Context mContext;
-    private final MaterialAlertDialogBuilder mDialogBuilder;
+    private final AlertDialog.Builder mDialogBuilder;
     private final String mText, mTitle;
 
     public EditTextInterface(String text, String title, Context context) {
         this.mText = text;
         this.mTitle = title;
         this.mContext = context;
-        this.mDialogBuilder = new MaterialAlertDialogBuilder(context);
+        this.mDialogBuilder = new AlertDialog.Builder(context);
     }
 
     private void startDialog() {

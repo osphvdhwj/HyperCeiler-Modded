@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textview.MaterialTextView;
+import android.widget.TextView;
 import com.sevtinge.hyperceiler.debloater.fragments.AboutFragment;
 import com.sevtinge.hyperceiler.debloater.fragments.ActivePackagesFragment;
 import com.sevtinge.hyperceiler.debloater.fragments.InactivePackagesFragment;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView mBottomNav = findViewById(R.id.bottom_navigation);
         FrameLayout mFragmentContainer = findViewById(R.id.fragment_container);
-        MaterialTextView mUnSupported = findViewById(R.id.unsupported);
+        TextView mUnSupported = findViewById(R.id.unsupported);
         View mLayoutRoot = findViewById(R.id.layout_root);
 
         ViewCompat.setOnApplyWindowInsetsListener(mLayoutRoot, (view, insets) -> {

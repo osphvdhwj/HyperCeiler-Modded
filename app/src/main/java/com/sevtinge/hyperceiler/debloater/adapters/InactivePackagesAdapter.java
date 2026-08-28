@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textview.MaterialTextView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.utils.Common;
 import com.sevtinge.hyperceiler.debloater.utils.Utils;
@@ -52,11 +52,11 @@ public class InactivePackagesAdapter extends RecyclerView.Adapter<InactivePackag
         holder.appIcon.setColorFilter(Utils.exist(this.data.get(position)) ? Color.RED : Color.GREEN);
 
         holder.actionIcon.setTextColor(Utils.exist(this.data.get(position)) ? Color.BLACK : Color.WHITE);
-        holder.actionIcon.setIconTint(ColorStateList.valueOf(Utils.exist(this.data.get(position)) ? Color.BLACK : Color.WHITE));
+        holder.actionIcon.setCompoundDrawableTintList(ColorStateList.valueOf(Utils.exist(this.data.get(position)) ? Color.BLACK : Color.WHITE));
         holder.actionIcon.setBackgroundTintList(ColorStateList.valueOf(Utils.exist(this.data.get(position)) ? Color.GREEN : Color.RED));
         holder.actionIcon.setText(Utils.exist(this.data.get(position)) ? holder.actionIcon.getContext().getString(R.string.restore) : holder.actionIcon.getContext().getString(R.string.remove));
-        holder.actionIcon.setIcon(Utils.exist(this.data.get(position)) ? sCommonUtils.getDrawable(R.drawable.ic_restore,
-                holder.actionIcon.getContext()) : sCommonUtils.getDrawable(R.drawable.ic_delete, holder.actionIcon.getContext()));
+        holder.actionIcon.setCompoundDrawablesWithIntrinsicBounds(Utils.exist(this.data.get(position)) ? sCommonUtils.getDrawable(R.drawable.ic_restore,
+                holder.actionIcon.getContext()) : sCommonUtils.getDrawable(R.drawable.ic_delete, holder.actionIcon.getContext()), null, null, null);
 
         holder.statusMessage.setTextColor(Utils.exist(this.data.get(position)) ? Color.RED : Color.GREEN);
         holder.statusMessage.setText(Utils.exist(this.data.get(position)) ? null : holder.statusMessage.getContext().getString(R.string.status_message_restore));
@@ -81,8 +81,8 @@ public class InactivePackagesAdapter extends RecyclerView.Adapter<InactivePackag
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final AppCompatImageButton appIcon;
-        private final MaterialButton actionIcon, mStatusIcon;
-        private final MaterialTextView appName, appID, statusMessage;
+        private final Button actionIcon, mStatusIcon;
+        private final TextView appName, appID, statusMessage;
 
         public ViewHolder(View view) {
             super(view);

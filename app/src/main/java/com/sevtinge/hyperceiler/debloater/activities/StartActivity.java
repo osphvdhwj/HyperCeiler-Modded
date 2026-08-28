@@ -8,8 +8,8 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textview.MaterialTextView;
+import fan.cardview.widget.CardView;
+import android.widget.TextView;
 import com.sevtinge.hyperceiler.debloater.MainActivity;
 import com.sevtinge.hyperceiler.R;
 import com.sevtinge.hyperceiler.debloater.utils.Common;
@@ -29,8 +29,8 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        MaterialCardView mStartCard = findViewById(R.id.start_card);
-        MaterialTextView mWarning = findViewById(R.id.warning);
+        fan.cardview.widget.CardView mStartCard = findViewById(R.id.start_card);
+        TextView mWarning = findViewById(R.id.warning);
         ProgressBar mProgress = findViewById(R.id.progress);
 
         if (!sCommonUtils.getBoolean("warning_message", false, this)) {

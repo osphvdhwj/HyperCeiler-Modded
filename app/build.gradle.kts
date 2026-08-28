@@ -226,6 +226,5 @@ dependencies {
     implementation(libs.themeutils)
     implementation(libs.translatorutils)
     implementation(libs.libsu)
-    implementation(libs.material)
 }
 

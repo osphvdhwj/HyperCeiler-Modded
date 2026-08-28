@@ -10,7 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.preference.PreferenceManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import fan.appcompat.app.AlertDialog;
 import com.sevtinge.hyperceiler.BuildConfig;
 import com.sevtinge.hyperceiler.R;
 
@@ -90,8 +90,8 @@ public class UpdateCheck {
         return mVersionCode;
     }
 
-    private static MaterialAlertDialogBuilder updateAvailableDialog(Activity activity) {
-        return new MaterialAlertDialogBuilder(activity)
+    private static AlertDialog.Builder updateAvailableDialog(Activity activity) {
+        return new AlertDialog.Builder(activity)
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle(activity.getString(R.string.update_available, getVersionName()))
                 .setMessage(activity.getString(R.string.change_logs) + "\n" + getChangeLogs())
@@ -191,7 +191,7 @@ public class UpdateCheck {
                     if (isUpdateAvailable()) {
                         updateAvailableDialog(activity).show();
                     } else {
-                        new MaterialAlertDialogBuilder(activity)
+                        new AlertDialog.Builder(activity)
                                 .setIcon(R.mipmap.ic_launcher)
                                 .setTitle(R.string.debloater_app_name)
                                 .setMessage(R.string.updated_dialog)
@@ -249,7 +249,7 @@ public class UpdateCheck {
                         .contains(Objects.requireNonNull(getChecksum()))) {
                     Utils.runCommand("pm install-commit " + mSid);
                 } else {
-                    new MaterialAlertDialogBuilder(context)
+                    new AlertDialog.Builder(context)
                             .setMessage(context.getString(R.string.download_failed))
                             .setNegativeButton(context.getString(R.string.cancel), (dialog, id) -> {
                             }).show();

@@ -1,4 +1,4 @@
-<com.google.android.material.card.MaterialCardView
+<fan.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,12 +7,12 @@
     app:cardCornerRadius="10dp"
     android:padding="10dp" >
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <android.widget.LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-                <com.google.android.material.textview.MaterialTextView
+                <android.widget.TextView
                     android:id="@+id/status_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -22,14 +22,14 @@
                     android:gravity="center"
                     android:padding="10dp" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <android.widget.LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:orientation="horizontal"
                     android:padding="5dp">
 
-                        <androidx.appcompat.widget.AppCompatImageButton
+                        <android.widget.ImageView
                             android:id="@+id/icon"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
@@ -38,7 +38,7 @@
                             android:layout_marginEnd="10dp"
                             android:scaleType="centerCrop" />
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <android.widget.LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
@@ -47,7 +47,7 @@
                             android:layout_marginEnd="35dp"
                             android:baselineAligned="false">
 
-                                <com.google.android.material.textview.MaterialTextView
+                                <android.widget.TextView
                                     android:id="@+id/title"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                                     android:textStyle="bold"
                                     android:textSize="17sp" />
 
-                                <com.google.android.material.textview.MaterialTextView
+                                <android.widget.TextView
                                     android:id="@+id/packageName"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -64,23 +64,23 @@
                                     android:focusable="true"
                                     android:visibility="gone" />
 
-                                <com.google.android.material.textview.MaterialTextView
+                                <android.widget.TextView
                                     android:id="@+id/description"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textStyle="bold|italic"
                                     android:focusable="true" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                        </android.widget.LinearLayout>
+                </android.widget.LinearLayout>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <android.widget.LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp"
                     android:orientation="horizontal"
                     android:paddingBottom="10dp" >
 
-                        <com.google.android.material.button.MaterialButton
+                        <android.widget.TextView
                             android:id="@+id/status_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -89,24 +89,20 @@
                             android:layout_marginTop="5sp"
                             android:layout_marginEnd="5sp"
                             android:paddingVertical="4dp"
-                            android:insetBottom="0dp"
                             android:textStyle="bold"
                             android:minHeight="0dp"
                             android:elevation="1dp"
                             android:textSize="11sp"
                             android:minWidth="0dp"
-                            android:insetTop="0dp"
-                            app:cornerRadius="8dp"
-                            app:iconPadding="4dp"
-                            app:strokeWidth="0dp"
-                            app:iconSize="14dp" />
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawablePadding="4dp" />
 
                         <View
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_weight="1" />
 
-                        <com.google.android.material.button.MaterialButton
+                        <android.widget.TextView
                             android:id="@+id/action_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -115,17 +111,13 @@
                             android:layout_marginTop="5sp"
                             android:layout_marginEnd="5sp"
                             android:paddingVertical="4dp"
-                            android:insetBottom="0dp"
                             android:textStyle="bold"
                             android:minHeight="0dp"
                             android:elevation="1dp"
                             android:textSize="15sp"
                             android:minWidth="0dp"
-                            android:insetTop="0dp"
-                            app:cornerRadius="8dp"
-                            app:iconPadding="4dp"
-                            app:strokeWidth="0dp"
-                            app:iconSize="17dp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-</com.google.android.material.card.MaterialCardView>
+                            android:background="?android:attr/selectableItemBackground"
+                            android:drawablePadding="4dp" />
+                </android.widget.LinearLayout>
+        </android.widget.LinearLayout>
+</fan.cardview.widget.CardView>

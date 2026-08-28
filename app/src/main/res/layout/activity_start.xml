@@ -19,7 +19,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <android.widget.TextView
             android:id="@+id/warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_gravity="center"
             android:indeterminate="false"/>
 
-        <com.google.android.material.card.MaterialCardView
+        <fan.cardview.widget.CardView
             android:id="@+id/start_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
                 android:orientation="horizontal"
                 android:gravity="center" >
 
-                <com.google.android.material.textview.MaterialTextView
+                <android.widget.TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorPrimary"
@@ -76,6 +76,6 @@
                     android:clickable="false"
                     android:rotation="180" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </com.google.android.material.card.MaterialCardView>
+        </fan.cardview.widget.CardView>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.core.widget.NestedScrollView>

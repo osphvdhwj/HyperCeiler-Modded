@@ -5,8 +5,3 @@ plugins {
     alias(libs.plugins.lsparanoid) apply false
 }
 
-subprojects {
-    configurations.all {
-        exclude(group = "androidx.appcompat", module = "appcompat")
-    }
-}
