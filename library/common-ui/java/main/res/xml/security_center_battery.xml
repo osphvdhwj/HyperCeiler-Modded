@@ -71,14 +71,13 @@
             android:title="@string/security_center_charge_limit"
             android:summary="@string/security_center_charge_limit_desc" />
 
-        <com.sevtinge.hyperceiler.common.prefs.SeekBarPreference
+        <SeekBarPreferenceCompat
             android:defaultValue="80"
             android:key="prefs_key_security_center_charge_limit_value"
             app:dependency="prefs_key_security_center_charge_limit_enable"
-            app:min="50"
-            android:max="100"
-            app:step="5"
-            app:units="%" />
+            app:minValue="50"
+            app:maxValue="100"
+            app:stepValue="5" />
 
     </PreferenceCategory>
 </PreferenceScreen>
