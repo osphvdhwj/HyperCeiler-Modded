@@ -130,9 +130,9 @@ object HideFakeStatusBar : MusicBaseHook() {
                     it.thisObject
                 }
                 // 焦点通知左边竖线
-                mFocusedNotLine = isObj.getObjectFieldOrNullAs<View>("mFocusedNotLine") ?: return@createAfterHook
+                mFocusedNotLine = isObj?.getObjectFieldOrNullAs<View>("mFocusedNotLine") ?: return@createAfterHook
                 // 焦点通知左边占位布局
-                mClockSeat = isObj.getObjectFieldOrNullAs<View>("mClockSeat") ?: return@createAfterHook
+                mClockSeat = isObj?.getObjectFieldOrNullAs<View>("mClockSeat") ?: return@createAfterHook
             }
 
         miuiNotificationClass?.methodFinder()

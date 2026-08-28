@@ -38,6 +38,21 @@ public class PrefsMap<K, V> extends HashMap<K, V> {
         return get(k) == null ? defValue : (Integer) get(k);
     }
 
+    public float getFloat(String key, float defValue) {
+        String k = normalizeKey(key);
+        Object val = get(k);
+        if (val == null) return defValue;
+        if (val instanceof Float) return (Float) val;
+        if (val instanceof String) {
+            try {
+                return Float.parseFloat((String) val);
+            } catch (NumberFormatException e) {
+                return defValue;
+            }
+        }
+        return defValue;
+    }
+
     public String getString(String key, String defValue) {
         String k = normalizeKey(key);
         return get(k) == null ? defValue : (String) get(k);
