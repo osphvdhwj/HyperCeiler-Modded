@@ -217,14 +217,6 @@ kotlin.jvmToolchain(21)
 dependencies {
     implementation(libs.expansion)
     implementation(project(":library:common-ui"))
-    implementation(libs.adapters)
-    implementation(libs.apkutils)
-    implementation(libs.fileutils)
-    implementation(libs.jsonutils)
-    implementation(libs.packageutils)
-    implementation(libs.permissionutils)
-    implementation(libs.themeutils)
-    implementation(libs.translatorutils)
-    implementation(libs.libsu)
+
 }
 
