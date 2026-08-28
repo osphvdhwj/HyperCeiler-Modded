@@ -17,6 +17,8 @@
  * Copyright (C) 2023-2025 HyperCeiler Contributions
  */
 package com.sevtinge.hyperceiler.hook.module.hook.various
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 
 import com.hchen.superlyricapi.SuperLyricData
 import com.sevtinge.hyperceiler.hook.module.base.pack.systemui.MusicBaseHook

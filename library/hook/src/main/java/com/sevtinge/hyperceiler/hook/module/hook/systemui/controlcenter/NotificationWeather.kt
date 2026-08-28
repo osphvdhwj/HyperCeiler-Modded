@@ -17,6 +17,7 @@
   * Copyright (C) 2023-2025 HyperCeiler Contributions
 */
 package com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration.ORIENTATION_LANDSCAPE

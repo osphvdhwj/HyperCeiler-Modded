@@ -17,6 +17,7 @@
  * Copyright (C) 2023-2025 HyperCeiler Contributions
  */
 package com.sevtinge.hyperceiler.hook.module.hook.systemui.plugin
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 
 import android.view.View
 import com.sevtinge.hyperceiler.hook.utils.callMethodAs

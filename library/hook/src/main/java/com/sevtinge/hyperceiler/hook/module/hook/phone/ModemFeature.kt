@@ -17,6 +17,7 @@
   * Copyright (C) 2023-2025 HyperCeiler Contributions
 */
 package com.sevtinge.hyperceiler.hook.module.hook.phone
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
