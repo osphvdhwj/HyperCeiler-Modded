@@ -4,3 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.lsparanoid) apply false
 }
+
+subprojects {
+    configurations.all {
+        exclude(group = "androidx.appcompat", module = "appcompat")
+    }
+}
