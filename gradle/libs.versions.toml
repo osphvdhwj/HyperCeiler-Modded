@@ -33,14 +33,14 @@ proguard-rules = "proguard-rules.pro"
 
 [libraries]
 
-adapters = { module = "com.github.sunilpaulmathew.sCommon:adapters", version.ref = "scommon" }
-apkutils = { module = "com.github.sunilpaulmathew.sCommon:apkutils", version.ref = "scommon" }
-fileutils = { module = "com.github.sunilpaulmathew.sCommon:fileutils", version.ref = "scommon" }
-jsonutils = { module = "com.github.sunilpaulmathew.sCommon:jsonutils", version.ref = "scommon" }
-packageutils = { module = "com.github.sunilpaulmathew.sCommon:packageutils", version.ref = "scommon" }
-permissionutils = { module = "com.github.sunilpaulmathew.sCommon:permissionutils", version.ref = "scommon" }
-themeutils = { module = "com.github.sunilpaulmathew.sCommon:themeutils", version.ref = "scommon" }
-translatorutils = { module = "com.github.sunilpaulmathew.sCommon:translatorutils", version.ref = "scommon" }
+adapters = { module = "com.github.sunilpaulmathew.scommon:adapters", version.ref = "scommon" }
+apkutils = { module = "com.github.sunilpaulmathew.scommon:apkutils", version.ref = "scommon" }
+fileutils = { module = "com.github.sunilpaulmathew.scommon:fileutils", version.ref = "scommon" }
+jsonutils = { module = "com.github.sunilpaulmathew.scommon:jsonutils", version.ref = "scommon" }
+packageutils = { module = "com.github.sunilpaulmathew.scommon:packageutils", version.ref = "scommon" }
+permissionutils = { module = "com.github.sunilpaulmathew.scommon:permissionutils", version.ref = "scommon" }
+themeutils = { module = "com.github.sunilpaulmathew.scommon:themeutils", version.ref = "scommon" }
+translatorutils = { module = "com.github.sunilpaulmathew.scommon:translatorutils", version.ref = "scommon" }
 libsu = { module = "com.github.topjohnwu.libsu:core", version.ref = "libsu" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
