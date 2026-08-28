@@ -49,14 +49,14 @@ jobs:
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace --refresh-dependencies
           echo "IS_DEBUG=true" >> $GITHUB_ENV
 
       - name: Build with Gradle (Debug)
         if: github.event_name == 'pull_request'
         shell: bash
         run: |
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace --refresh-dependencies
           echo "IS_DEBUG=true" >> $GITHUB_ENV
 
       - name: Upload Build Reports on Failure
