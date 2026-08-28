@@ -42,7 +42,7 @@ class AppLaunchInterceptor : BaseHook() {
                             if (targetPkg == null || targetPkg == ProjectApi.mAppModulePkg) return
 
                             // Read hail apps
-                            val hailApps = mPrefsMap.getStringSet("hail_apps", emptySet())
+                            val hailApps = mPrefsMap.getStringSet("hail_apps")
                             if (hailApps == null || hailApps.isEmpty()) return
                             
                             if (!hailApps.contains(targetPkg)) return
