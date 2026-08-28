@@ -39,8 +39,8 @@ dependencyResolutionManagement {
                 }
             }
         }
-        maven("https://jitpack.io")
-        maven("https://api.xposed.info")
+        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://api.xposed.info") }
     }
 }
 
