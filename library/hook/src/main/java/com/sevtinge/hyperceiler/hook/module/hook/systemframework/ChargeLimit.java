@@ -49,17 +49,19 @@ public class ChargeLimit extends BaseHook {
                 findAndHookMethodSilently(batteryServiceClass, "onStart", new MethodHook() {
                     @Override
                     protected void after(MethodHookParam param) throws Throwable {
-                        android.content.Context context = (android.content.Context) getObjectField(param.thisObject, "mContext");
+                        android.content.Context context = (android.content.Context) de.robv.android.xposed.XposedHelpers.getObjectField(param.thisObject, "mContext");
                         if (context != null) {
                             android.content.IntentFilter filter = new android.content.IntentFilter("com.sevtinge.hyperceiler.ACTION_UPDATE_CHARGE_LIMIT");
                             context.registerReceiver(new android.content.BroadcastReceiver() {
                                 @Override
                                 public void onReceive(android.content.Context ctx, android.content.Intent intent) {
-                                    mPrefsMap.reload();
-                                    if (mPrefsMap.getBoolean("prefs_key_security_center_charge_limit_enable")) {
-                                        applyChargeLimit(mPrefsMap.getInt("prefs_key_security_center_charge_limit_value", 80));
-                                    } else {
-                                        applyChargeLimit(100); // Reset to 100% when disabled
+                                    if (intent.hasExtra("enable")) {
+                                        boolean enable = intent.getBooleanExtra("enable", true);
+                                        if (enable) {
+                                            applyChargeLimit(intent.getIntExtra("value", 80));
+                                        } else {
+                                            applyChargeLimit(100); // Reset to 100% when disabled
+                                        }
                                     }
                                 }
                             }, filter);
