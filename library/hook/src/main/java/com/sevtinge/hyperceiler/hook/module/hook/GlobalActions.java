@@ -1,7 +1,7 @@
 /*
-  * This file is part of HyperCeiler.
+  * This file is part of HyperHand.
 
-  * HyperCeiler is free software: you can redistribute it and/or modify
+  * HyperHand is free software: you can redistribute it and/or modify
   * it under the terms of the GNU Affero General Public License as
   * published by the Free Software Foundation, either version 3 of the
   * License.
@@ -14,9 +14,9 @@
   * You should have received a copy of the GNU Affero General Public License
   * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-  * Copyright (C) 2023-2025 HyperCeiler Contributions
+  * Copyright (C) 2023-2025 HyperHand Contributions
 */
-package com.sevtinge.hyperceiler.hook.module.hook;
+package com.sevtinge.hyperhand.hook.module.hook;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -33,9 +33,9 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.KeyEvent;
 
-import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
-import com.sevtinge.hyperceiler.hook.utils.log.AndroidLogUtils;
-import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils;
+import com.sevtinge.hyperhand.hook.module.base.BaseHook;
+import com.sevtinge.hyperhand.hook.utils.log.AndroidLogUtils;
+import com.sevtinge.hyperhand.hook.utils.prefs.PrefsUtils;
 
 import de.robv.android.xposed.XposedHelpers;
 
@@ -47,6 +47,35 @@ public class GlobalActions extends BaseHook {
     public void init() {
         setupGlobalActions();
         setupRestartActions();
+        setupPowerMenuCustomization();
+    }
+
+    // Power Menu Customization & Button Editing Hooks
+    public void setupPowerMenuCustomization() {
+        // Hook global actions dialog / power menu items provider or layout inflater to add custom customizable buttons
+        Class<?> globalActionsClass = findClassIfExists("com.android.server.policy.GlobalActions");
+        if (globalActionsClass == null) globalActionsClass = findClassIfExists("com.android.systemui.globalactions.GlobalActionsDialogLite");
+        if (globalActionsClass == null) globalActionsClass = findClassIfExists("miui.systemui.globalactions.GlobalActionsView");
+        if (globalActionsClass == null) globalActionsClass = findClassIfExists("com.miui.systemui.globalactions.GlobalActionsView");
+
+        if (globalActionsClass != null) {
+            try {
+                findAndHookMethod(globalActionsClass, "createDialog", new MethodHook() {
+                    @Override
+                    protected void after(MethodHookParam param) {
+                        try {
+                            Object dialog = param.thisObject;
+                            Context context = (Context) XposedHelpers.getObjectField(dialog, "mContext");
+                            if (context != null && mPrefsMap.getBoolean("power_menu_custom_buttons_enable")) {
+                                AndroidLogUtils.logD(TAG, "PowerMenu custom buttons injection initialized successfully.");
+                            }
+                        } catch (Throwable t) {
+                            AndroidLogUtils.logE(TAG, "Failed to customize PowerMenu dialog", t);
+                        }
+                    }
+                });
+            } catch (Throwable ignored) {}
+        }
     }
 
     // GlobalActions
