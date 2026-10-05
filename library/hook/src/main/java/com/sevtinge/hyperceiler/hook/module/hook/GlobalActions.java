@@ -16,7 +16,7 @@
 
   * Copyright (C) 2023-2025 HyperHand Contributions
 */
-package com.sevtinge.hyperhand.hook.module.hook;
+package com.sevtinge.hyperceiler.hook.module.hook;
 
 import static java.lang.System.currentTimeMillis;
 
@@ -33,9 +33,9 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.KeyEvent;
 
-import com.sevtinge.hyperhand.hook.module.base.BaseHook;
-import com.sevtinge.hyperhand.hook.utils.log.AndroidLogUtils;
-import com.sevtinge.hyperhand.hook.utils.prefs.PrefsUtils;
+import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
+import com.sevtinge.hyperceiler.hook.utils.log.AndroidLogUtils;
+import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils;
 
 import de.robv.android.xposed.XposedHelpers;
 

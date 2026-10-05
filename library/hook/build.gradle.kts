@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.lsparanoid)
 }
 
@@ -14,7 +13,7 @@ lsparanoid {
 }
 
 android {
-    namespace = "com.sevtinge.hyperceiler.hook"
+    namespace = "com.sevtinge.hyperhand.hook"
     compileSdk = 36
 
     compileOptions {

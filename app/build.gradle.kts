@@ -12,7 +12,6 @@ import java.util.TimeZone
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
 }
 
 val apkId = "HyperHand"
@@ -54,7 +53,7 @@ fun loadPropertiesFromFile(fileName: String): Properties? {
 }
 
 android {
-    namespace = "com.sevtinge.hyperceiler"
+    namespace = "com.sevtinge.hyperhand"
     compileSdk = 36
 
     compileOptions {

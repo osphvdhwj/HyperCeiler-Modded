@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
 }
 
 val srcDir = arrayOf (
@@ -9,7 +8,7 @@ val srcDir = arrayOf (
 )
 
 android {
-    namespace = "com.sevtinge.hyperceiler.ui"
+    namespace = "com.sevtinge.hyperhand.ui"
     compileSdk = 36
 
     compileOptions {
