@@ -67,7 +67,7 @@ public class GlobalActions extends BaseHook {
                             Object dialog = param.thisObject;
                             Context context = (Context) XposedHelpers.getObjectField(dialog, "mContext");
                             if (context != null && PrefsUtils.getSharedBoolPrefs(context, "power_menu_custom_buttons_enable", false)) {
-                                AndroidLogUtils.logD("GlobalActions", "PowerMenu custom buttons injection initialized successfully.");
+                                AndroidLogUtils.logI("GlobalActions", "PowerMenu custom buttons injection initialized successfully.");
                             }
                         } catch (Throwable t) {
                             AndroidLogUtils.logE("GlobalActions", "Failed to customize PowerMenu dialog", t);
