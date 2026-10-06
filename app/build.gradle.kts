@@ -12,6 +12,7 @@ import java.util.TimeZone
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 val apkId = "HyperHand"
