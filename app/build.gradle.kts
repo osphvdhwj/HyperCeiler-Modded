@@ -211,8 +211,6 @@ java {
     }
 }
 
-kotlin.jvmToolchain(21)
-
 dependencies {
     implementation(libs.expansion)
     implementation(project(":library:common-ui"))

@@ -51,8 +51,6 @@ java {
     }
 }
 
-kotlin.jvmToolchain(21)
-
 dependencies {
     api(libs.core)
     api(libs.fragment)
