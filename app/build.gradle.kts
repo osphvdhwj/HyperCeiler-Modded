@@ -54,7 +54,7 @@ fun loadPropertiesFromFile(fileName: String): Properties? {
 }
 
 android {
-    namespace = "com.sevtinge.hyperhand"
+    namespace = "com.sevtinge.hyperceiler"
     compileSdk = 36
 
     compileOptions {

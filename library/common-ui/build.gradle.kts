@@ -9,7 +9,7 @@ val srcDir = arrayOf (
 )
 
 android {
-    namespace = "com.sevtinge.hyperhand.ui"
+    namespace = "com.sevtinge.hyperceiler.ui"
     compileSdk = 36
 
     compileOptions {

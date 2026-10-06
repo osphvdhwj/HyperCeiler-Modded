@@ -14,7 +14,7 @@ lsparanoid {
 }
 
 android {
-    namespace = "com.sevtinge.hyperhand.hook"
+    namespace = "com.sevtinge.hyperceiler.hook"
     compileSdk = 36
 
     compileOptions {
