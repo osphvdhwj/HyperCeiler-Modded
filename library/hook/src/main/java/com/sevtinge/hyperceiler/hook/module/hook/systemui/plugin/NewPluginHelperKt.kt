@@ -90,11 +90,6 @@ object NewPluginHelperKt : BaseHook() {
                         NewShowVolumePct::initLoader
                     ),
                     Triple(
-                        "EnableVolumeBlur",
-                        mPrefsMap.getBoolean("system_ui_plugin_enable_volume_blur"),
-                        EnableVolumeBlur::initEnableVolumeBlur
-                    ),
-                    Triple(
                         "StartCollpasedColumnPress",
                         mPrefsMap.getBoolean("system_ui_volume_collpased_column_press"),
                         StartCollpasedColumnPress::initLoaderHook
