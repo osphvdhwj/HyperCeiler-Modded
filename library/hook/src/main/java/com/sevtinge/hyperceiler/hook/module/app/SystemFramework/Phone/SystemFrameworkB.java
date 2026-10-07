@@ -48,8 +48,6 @@ public class SystemFrameworkB extends BaseModule {
         initHook(new DisableMiuiWatermark(), mPrefsMap.getBoolean("system_framework_disable_miui_watermark"));
 
         // 音量
-        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeScreenOffLimit(), true);
         // 网络
-        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.AutoTurnOffRadios(), true);
     }
 }
