@@ -1,34 +1,21 @@
 <div align="center">
-
 <img src="imgs/icon.webp" width="160" height="160" alt="HyperHand" />
-
 # HyperHand
-
 **A personal fork of HyperCeiler — HyperOS enhancement module**
-
 Make HyperOS Great Again — with hooks that actually run.
-
 [![CI Build](https://github.com/osphvdhwj/HyperCeiler-Modded/actions/workflows/ci_build.yml/badge.svg)](https://github.com/osphvdhwj/HyperCeiler-Modded/actions/workflows/ci_build.yml)
-
 </div>
-
 ---
-
 ## What this fork is
-
 HyperHand is a fork of [HyperCeiler](https://github.com/ReChronoRain/HyperCeiler)
 for personal use on Xiaomi HyperOS 2 (Android 15). It tracks upstream
 closely and adds a small set of **independently verified** features.
-
 Every feature toggle in the settings UI is backed by a hook that has
 been cross-checked against the target app's decompiled classes on a real
 device. If a class, method, or preference cannot be confirmed, the
 toggle is not shipped. There is no dead UI here.
-
 ## Fork-specific features
-
 These are the additions on top of upstream HyperCeiler:
-
 | Feature | Settings path | What it does |
 |---------|---------------|--------------|
 | **Package redirect** | Various → Package Redirect | Rewrites intents from stock apps (Notes, Music, Files, Browser, Gallery) to any installed app. One `source.pkg=target.pkg` rule per line, applied live. |
@@ -39,62 +26,41 @@ These are the additions on top of upstream HyperCeiler:
 | **Volume media steps** | System Framework → Volume | Rewrites `AudioService.MAX_STREAM_VOLUME[STREAM_MUSIC]` before stream states are built. Replaces an upstream version that hooked a property HyperOS 2 never reads. |
 | **Volume: screen-off limit** | System Framework → Volume | Clamps media volume while the screen is off; separate caps for speaker and earphones. |
 | **Volume: skip songs with volume keys** | System Framework → Volume | Screen-off physical VOLUME_UP/DOWN dispatch MEDIA_NEXT/PREVIOUS instead of adjusting volume. |
-
 Anything not listed above is unchanged upstream HyperCeiler functionality.
-
 ## Requirements
-
 - Xiaomi device on **HyperOS 2** (Android 15)
 - Root with **LSPosed** (or a compatible Xposed framework)
 - Module scope must include the target apps — see the scope list below
-
 **Not supported:** heavily modified third-party HyperOS ROMs, modified
 system apps, and some international HyperOS builds.
-
 ## Setup
-
 1. Install the APK.
-2. Enable **HyperCeiler** in LSPosed and select the scope apps you want
-   it to hook.
+2. Enable **HyperCeiler** in LSPosed and select the scope apps you want it to hook.
 3. Open the app, enable the individual features you want.
 4. Reboot, or restart the affected apps.
-
 The module's Xposed scope is identical to HyperCeiler's — the same
 selection LSPosed recommends by default.
-
 ## Build
-
 CI runs on every push to `main` and uploads the debug APK as a build
 artifact.
-
 Local build (JDK 21 + Android SDK required):
-
 ```bash
 ./gradlew assembleDebug
 ```
-
 Output: app/build/outputs/apk/debug/.
-
 The build is arm64-v8a only. versionCode is 5 + git commit count.
-
 Versioning
-
 · versionName is pinned at 2.6.161 and bumped manually on release-worthy changes.
-· versionCode auto-increments with the commit count, so every CI build is installable over the previous one.
-
+· versionCode auto-increases with the commit count, so every CI build is installable over the previous one.
 Compatibility matrix
-
 ROM Status
 HyperOS 2.x (Android 15) ✅ primary target
 HyperOS 1.x (Android 14) Archived at 2.6.160 — no further fixes
 MIUI 13–14 (Android 11–13) Archived; use the historical releases upstream
 HyperOS 3.x (Android 16) Not yet — awaiting device availability
-
 Xposed scope
-
 <details>
 <summary>Tap to expand the full scope list</summary>
-
 App Package
 System Framework system
 System UI com.android.systemui
@@ -158,25 +124,17 @@ Sound Recorder com.android.soundrecorder
 LPA com.miui.euicc
 SIM Activation com.xiaomi.simactivate.service
 SystemUI Plugin miui.systemui.plugin
-
 </details>
-
 Upstream and license
-
 HyperCeiler is licensed AGPL-3.0 — this fork inherits and preserves that license.
 See LICENSE.
-
 Bug reports about upstream functionality should go to
 ReChronoRain/HyperCeiler first.
 Fork-specific issues go here.
-
 Credits
-
 This project would not exist without:
-
 · HyperCeiler team — the original project
 · Sevtinge — HyperCeiler creator and core maintainer
 · All HyperCeiler contributors
-
 HyperCeiler itself reuses code from many open-source projects. The full
 upstream credit list is preserved in the upstream repository's README.
