@@ -287,7 +287,6 @@ public class SystemUiU extends BaseModule {
         initHook(DisableBottomBar.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_bottombar"));
         initHook(UnlockClipboard.INSTANCE, mPrefsMap.getBoolean("system_ui_unlock_clipboard"));
         initHook(new VolumeTimerValuesHook(), mPrefsMap.getBoolean("system_ui_volume_timer"));
-        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.NotificationVolumeSeparateSlider(), mPrefsMap.getBoolean("system_ui_separate_notification_volume"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.ShouldPlayUnmuteSoundHook(), mPrefsMap.getBoolean("system_ui_disable_unmute_sound"));
 
         // 锁屏
