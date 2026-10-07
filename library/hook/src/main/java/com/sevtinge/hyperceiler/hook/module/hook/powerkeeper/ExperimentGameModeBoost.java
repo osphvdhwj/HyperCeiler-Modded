@@ -66,7 +66,7 @@ public class ExperimentGameModeBoost extends BaseHook {
 
         // 2. ScenarioManager — used when the proxy defers.
         Class<?> scenario = findClassIfExists(
-                "com.miui.powerkeeper.scenario.ScenarioManager");
+                "com.miui.powerkeeper.thermal.ScenarioManager");
         if (scenario != null) {
             findAndHookMethodSilently(scenario, "isGameModeApp", String.class, new MethodHook() {
                 @Override
@@ -83,19 +83,19 @@ public class ExperimentGameModeBoost extends BaseHook {
                 "com.miui.powerkeeper.statemachine.PowerStateMachine");
         if (machine == null) return;
 
-        Class<?> stateClass = findClassIfExists(
-                "com.miui.powerkeeper.statemachine.PowerStateMachine$PowerState");
-        if (stateClass == null) return;
-
         findAndHookMethodSilently(machine, "getPrimaryState", String.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
                 if (param.getResult() != null) return;
-                String pkg = (String) param.args[0];
-                if (pkg == null) return;
                 try {
-                    Object synth = XposedHelpers.newInstance(stateClass, GAME_STATE_ID, pkg);
-                    param.setResult(synth);
+                    // PowerState is a non-static inner class of PowerStateMachine,
+                    // so reflection cannot construct one without an outer instance.
+                    // Instead, reuse the instance already cached under the game
+                    // state id — it's built at startup from mAllPowerState.
+                    Object sparse = XposedHelpers.getObjectField(param.thisObject, "mAllPowerState");
+                    if (sparse == null) return;
+                    Object gameState = XposedHelpers.callMethod(sparse, "get", GAME_STATE_ID, null);
+                    if (gameState != null) param.setResult(gameState);
                 } catch (Throwable ignored) { }
             }
         });
