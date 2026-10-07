@@ -20,7 +20,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.incallui;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
-
 public class HideCrbt extends BaseHook {
     Class<?> loadClass;
 

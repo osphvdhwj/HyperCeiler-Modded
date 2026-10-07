@@ -31,7 +31,6 @@ public class UnPrivacyWatermark extends BaseHook {
 
     public int num = mPrefsMap.getInt("gallery_enable_un_privacy_watermark_value", 14);
 
-
     @Override
     public void init() {
         Class<?> oldPrivacyWatermarkActivity = findClassIfExists("com.miui.gallery.editor.photo.app.PrivacyWatermarkActivity");

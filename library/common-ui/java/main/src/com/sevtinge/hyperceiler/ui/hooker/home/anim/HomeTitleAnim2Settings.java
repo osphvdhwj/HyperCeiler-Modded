@@ -18,7 +18,6 @@
  */
 package com.sevtinge.hyperceiler.ui.hooker.home.anim;
 
-
 import com.sevtinge.hyperceiler.ui.R;
 import com.sevtinge.hyperceiler.dashboard.DashboardFragment;
 

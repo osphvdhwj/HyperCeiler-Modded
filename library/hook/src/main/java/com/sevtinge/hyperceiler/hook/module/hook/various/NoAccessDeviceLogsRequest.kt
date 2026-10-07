@@ -25,7 +25,6 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 
-
 object NoAccessDeviceLogsRequest : BaseHook() {
     private lateinit var mActivityManagerInternal: Any
     private lateinit var mLogcatManagerService: Any

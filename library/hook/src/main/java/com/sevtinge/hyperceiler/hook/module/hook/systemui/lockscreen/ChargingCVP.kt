@@ -85,7 +85,6 @@ object ChargingCVP : BaseHook() {
             }
         }
 
-
         // 修改底部文本信息
         loadFirstClass(
             "com.miui.charge.ChargeUtils", "com.android.keyguard.charge.ChargeUtils"

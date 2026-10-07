@@ -18,11 +18,9 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.getapps;
 
-
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
 import java.lang.reflect.Method;
-
 
 public class NewIcon extends BaseHook {
     static Method isDesktopSupportOperationIcon;

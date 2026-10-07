@@ -43,7 +43,6 @@ public class OpenAppInFreeForm extends BaseHook {
             mActivityStarter = findClassIfExists("com.android.server.wm.ActivityStarter");
             mActivityTaskManagerService = findClassIfExists("com.android.server.wm.ActivityTaskManagerService");
 
-
             findAndHookMethod(mActivityTaskManagerService, "onSystemReady", new MethodHook() {
                 @Override
                 protected void after(MethodHookParam param) throws Throwable {

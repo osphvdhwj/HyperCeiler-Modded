@@ -26,7 +26,6 @@ import de.robv.android.xposed.XposedHelpers;
 
 public class MiuiAppNoOverScroll extends BaseHook {
 
-
     @Override
     public void init() {
 
@@ -53,7 +52,6 @@ public class MiuiAppNoOverScroll extends BaseHook {
 
                 findAndHookMethodSilently(mSpringBackCls, "setSpringBackEnable", boolean.class, hookParam);
             }
-
 
             if (mRemixRvCls != null) {
                 hookAllConstructors(mRemixRvCls, new MethodHook() {

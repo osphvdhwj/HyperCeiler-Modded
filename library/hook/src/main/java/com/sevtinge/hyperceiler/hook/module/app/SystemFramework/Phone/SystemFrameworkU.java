@@ -21,9 +21,6 @@ package com.sevtinge.hyperceiler.hook.module.app.SystemFramework.Phone;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.GlobalActions;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ExperimentForceGpuRender;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ExperimentDisableWifiScan;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ExperimentAllowHighRefreshInLowPower;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowAutoStart;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowDisableProtectedPackage;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowUntrustedTouch;
@@ -81,10 +78,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeDe
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeDisableSafe;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeFirstPress;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeMediaSteps;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeScreenOffLimit;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeSteps;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.SkipSongsWithVolumeKeys;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.AutoTurnOffRadios;
 import com.sevtinge.hyperceiler.hook.module.hook.various.NoAccessDeviceLogsRequest;
 
 @HookBase(targetPackage = "android", isPad = 2, targetSdk = 34)
@@ -92,9 +86,6 @@ public class SystemFrameworkU extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
-        initHook(ExperimentForceGpuRender.INSTANCE, mPrefsMap.getBoolean("experiment_systemframework_force_gpu_render"));
-        initHook(ExperimentDisableWifiScan.INSTANCE, mPrefsMap.getBoolean("experiment_systemframework_disable_wifi_scan"));
-        initHook(ExperimentAllowHighRefreshInLowPower.INSTANCE, mPrefsMap.getBoolean("experiment_systemframework_high_refresh_low_power"));
         initHook(new DisableMiuiWatermark(), mPrefsMap.getBoolean("system_framework_disable_miui_watermark"));
         initHook(new AntiQues(), mPrefsMap.getBoolean("system_settings_anti_ques"));
         // 小窗
@@ -115,8 +106,6 @@ public class SystemFrameworkU extends BaseModule {
         initHook(new VolumeSteps(), mPrefsMap.getInt("system_framework_volume_steps", 0) > 0);
         initHook(new VolumeMediaSteps(), mPrefsMap.getBoolean("system_framework_volume_media_steps_enable"));
         initHook(new VolumeDisableSafe(), mPrefsMap.getStringAsInt("system_framework_volume_disable_safe_new", 0) != 0);
-        initHook(SkipSongsWithVolumeKeys.INSTANCE, mPrefsMap.getBoolean("system_framework_volume_skip_songs"));
-        initHook(new VolumeScreenOffLimit(), true);
 
         // 其他
         initHook(new SystemLockApp(), mPrefsMap.getBoolean("system_framework_guided_access"));
@@ -158,7 +147,6 @@ public class SystemFrameworkU extends BaseModule {
         initHook(N1Band.INSTANCE, mPrefsMap.getBoolean("phone_n1"));
         initHook(N5N8Band.INSTANCE, mPrefsMap.getBoolean("phone_n5_n8"));
         initHook(N28Band.INSTANCE, mPrefsMap.getBoolean("phone_n28"));
-        initHook(new AutoTurnOffRadios(), true);
 
         // Other
         initHook(new PackagePermissions(), true);

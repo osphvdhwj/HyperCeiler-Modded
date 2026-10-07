@@ -86,7 +86,6 @@ public class StatusBarActions extends BaseHook {
         });
     }
 
-
     private static final BroadcastReceiver mStatusBarReceiver = new BroadcastReceiver() {
         @SuppressLint("WrongConstant")
         @Override

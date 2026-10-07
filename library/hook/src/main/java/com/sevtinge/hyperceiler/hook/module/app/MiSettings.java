@@ -23,8 +23,6 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.misettings.CustomRefreshRate;
 import com.sevtinge.hyperceiler.hook.module.hook.misettings.ShowMoreFpsList;
 
-import com.sevtinge.hyperceiler.hook.module.hook.misettings.ExperimentMiSettingsUnlockHiddenMenus;
-
 @HookBase(targetPackage = "com.xiaomi.misettings")
 public class MiSettings extends BaseModule {
 
@@ -32,6 +30,5 @@ public class MiSettings extends BaseModule {
     public void handleLoadPackage() {
         initHook(CustomRefreshRate.INSTANCE, mPrefsMap.getBoolean("various_custom_refresh_rate"));
         initHook(ShowMoreFpsList.INSTANCE, mPrefsMap.getBoolean("mi_settings_show_fps"));
-        initHook(new ExperimentMiSettingsUnlockHiddenMenus(), mPrefsMap.getBoolean("experiment_misettings_unlock_hidden_menus"));
     }
 }

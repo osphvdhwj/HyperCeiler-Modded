@@ -28,7 +28,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowUntrustedT
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AntiQues;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AppLinkVerify;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AutoEffectSwitchForSystem;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.AutoTurnOffRadios;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.BackgroundBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.BypassForceDownloadui;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.BypassForceMiAppStore;
@@ -83,12 +82,10 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.DualSAS
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.N1Band;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.N28Band;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.network.N5N8Band;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.SkipSongsWithVolumeKeys;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeDefaultStream;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeDisableSafe;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeFirstPress;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeMediaSteps;
-import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeScreenOffLimit;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeSteps;
 import com.sevtinge.hyperceiler.hook.module.hook.various.NoAccessDeviceLogsRequest;
 
@@ -117,8 +114,6 @@ public class SystemFrameworkV extends BaseModule {
         initHook(new VolumeSteps(), mPrefsMap.getInt("system_framework_volume_steps", 0) > 0);
         initHook(new VolumeMediaSteps(), mPrefsMap.getBoolean("system_framework_volume_media_steps_enable"));
         initHook(new VolumeDisableSafe(), mPrefsMap.getStringAsInt("system_framework_volume_disable_safe_new", 0) != 0);
-        initHook(SkipSongsWithVolumeKeys.INSTANCE, mPrefsMap.getBoolean("system_framework_volume_skip_songs"));
-        initHook(new VolumeScreenOffLimit(), true);
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.ChargeLimit(), true);
 
         // 其他
@@ -170,7 +165,6 @@ public class SystemFrameworkV extends BaseModule {
         initHook(N1Band.INSTANCE, mPrefsMap.getBoolean("phone_n1"));
         initHook(N5N8Band.INSTANCE, mPrefsMap.getBoolean("phone_n5_n8"));
         initHook(N28Band.INSTANCE, mPrefsMap.getBoolean("phone_n28"));
-        initHook(new AutoTurnOffRadios(), true);
 
         // Other
         initHook(new PackagePermissions(), true);

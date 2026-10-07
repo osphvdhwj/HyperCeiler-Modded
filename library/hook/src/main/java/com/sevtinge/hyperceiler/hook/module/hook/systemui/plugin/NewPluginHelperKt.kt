@@ -23,7 +23,6 @@ import android.text.TextUtils
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.hook.aod.AodBlurButton
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.CCGridForHyperOSKt
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ConnectivityPlatterHook
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.CustomCardTiles
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.QSColor
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DefaultPluginTheme

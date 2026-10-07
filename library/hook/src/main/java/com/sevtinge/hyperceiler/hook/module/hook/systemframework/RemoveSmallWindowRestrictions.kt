@@ -27,7 +27,6 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfte
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHooks
 
-
 object RemoveSmallWindowRestrictions : BaseHook() {
     private val mSettingsClass by lazy {
         loadClass("com.android.server.wm.WindowManagerService\$SettingsObserver")

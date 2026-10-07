@@ -22,7 +22,6 @@ import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.barrage.AnyBarrage;
 import com.sevtinge.hyperceiler.hook.module.hook.barrage.CustomBarrageLength;
-import com.sevtinge.hyperceiler.hook.module.hook.barrage.ExperimentBarrageCustomStyle;
 
 @HookBase(targetPackage = "com.xiaomi.barrage")
 public class Barrage extends BaseModule {
@@ -30,6 +29,5 @@ public class Barrage extends BaseModule {
     public void handleLoadPackage() {
         initHook(AnyBarrage.INSTANCE, mPrefsMap.getBoolean("barrage_any_barrage"));
         initHook(CustomBarrageLength.INSTANCE, mPrefsMap.getInt("barrage_custom_barrage_length", 36) != 36);
-        initHook(new ExperimentBarrageCustomStyle(), mPrefsMap.getBoolean("experiment_barrage_custom_style"));
     }
 }

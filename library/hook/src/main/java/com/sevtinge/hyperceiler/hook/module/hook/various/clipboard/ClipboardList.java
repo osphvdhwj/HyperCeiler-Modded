@@ -244,7 +244,6 @@ public class ClipboardList extends BaseHook {
                 }
         );
 
-
         findAndHookMethod("com.miui.inputmethod.MiuiClipboardManager", classLoader, "addClipDataToPhrase", Context.class, boolean.class, "com.miui.inputmethod.ClipboardContentModel", new MethodHook() {
                     @Override
                     protected void before(MethodHookParam param) {

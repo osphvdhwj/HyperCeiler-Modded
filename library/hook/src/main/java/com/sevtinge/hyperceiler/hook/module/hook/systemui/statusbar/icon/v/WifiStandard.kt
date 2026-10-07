@@ -73,7 +73,6 @@ object WifiStandard : BaseHook() {
                 }
             }
 
-
         if (showWifi == 1) {
             val coroutineSingletons = loadClass("kotlin.coroutines.intrinsics.CoroutineSingletons")
             val suspended = coroutineSingletons.getStaticObjectField("COROUTINE_SUSPENDED")

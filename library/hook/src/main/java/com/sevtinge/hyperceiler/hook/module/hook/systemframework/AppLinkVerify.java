@@ -20,7 +20,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.systemframework;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
-
 public class AppLinkVerify extends BaseHook {
 
     @Override

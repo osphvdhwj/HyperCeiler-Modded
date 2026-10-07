@@ -120,7 +120,6 @@ public class DisplayMoreApkInfo extends BaseHook {
                     mAppSdkView.setGravity(Gravity.CENTER);
                     mAppSizeView.setGravity(Gravity.CENTER);
 
-
                     String mAppVersionName;
                     String mAppVersionCode;
                     String mAppSdk;

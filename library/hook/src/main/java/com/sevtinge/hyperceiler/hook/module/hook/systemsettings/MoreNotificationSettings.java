@@ -41,7 +41,6 @@ public class MoreNotificationSettings extends BaseHook {
         mBaseNotificationSettings = findClassIfExists("com.android.settings.notification.BaseNotificationSettings");
         mChannelNotificationSettings = findClassIfExists("com.android.settings.notification.ChannelNotificationSettings");
 
-
         hookAllMethods(mBaseNotificationSettings, "setPrefVisible", new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {

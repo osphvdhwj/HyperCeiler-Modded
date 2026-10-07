@@ -23,7 +23,6 @@ import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import java.lang.reflect.Method
 
-
 object BeautyPc : BaseHook() {
     override fun init() {
         DexKit.findMember<Method>("BeautyPc") {

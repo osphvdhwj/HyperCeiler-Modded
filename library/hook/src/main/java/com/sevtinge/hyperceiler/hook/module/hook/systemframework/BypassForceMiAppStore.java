@@ -19,7 +19,6 @@
 
 package com.sevtinge.hyperceiler.hook.module.hook.systemframework;
 
-
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
@@ -74,7 +73,6 @@ public class BypassForceMiAppStore extends BaseHook {
                             if (!Intent.ACTION_VIEW.equals(intent.getAction()) || data == null)
                                 return;
 
-
                             String uriStr = data.toString();
 
                             if (uriStr != null) {
@@ -104,11 +102,8 @@ public class BypassForceMiAppStore extends BaseHook {
                                 //FLAG_ACTIVITY_RESET_TASK_IF_NEEDED 会导致小米应用商店无法打开，原因未知
                                 intent.removeFlags(intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 
-
                                 // 强制 chooser
                                 intent = Intent.createChooser(intent, null);
-
-
 
                                 logI(TAG, "android", "Forced chooser for market://details intent");
                             }
@@ -128,6 +123,5 @@ public class BypassForceMiAppStore extends BaseHook {
             logE(TAG, "android", "Failed to hook -  " + Log.getStackTraceString(t));
         }
     }
-
 
 }

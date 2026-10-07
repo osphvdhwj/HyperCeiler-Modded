@@ -44,7 +44,6 @@ public class WidgetCornerRadius extends BaseHook {
             }
         });
 
-
         hookAllConstructors("com.miui.home.launcher.LauncherAppWidgetHostView", new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {

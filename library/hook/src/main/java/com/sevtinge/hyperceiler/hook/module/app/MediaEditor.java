@@ -23,13 +23,10 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.CustomWatermark;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.DisableAddAigcWatermark;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockAigc;
-import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockAudioEraser;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockCustomPhotoFrames;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockDisney;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockLeicaFilter;
 import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockMinimumCropLimit2;
-import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.ExperimentUnlockAllAiFilters;
-import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.ExperimentRemoveAigcWatermark;
 
 import java.util.Objects;
 
@@ -40,7 +37,6 @@ public class MediaEditor extends BaseModule {
     public void handleLoadPackage() {
         // AI
         initHook(new UnlockAigc(), mPrefsMap.getBoolean("mediaeditor_unlock_aigc"));
-        initHook(UnlockAudioEraser.INSTANCE, mPrefsMap.getBoolean("mediaeditor_unlock_audio_eraser"));
         initHook(new DisableAddAigcWatermark(), mPrefsMap.getBoolean("mediaeditor_disable_add_aigc_watermark"));
         // 基础
         initHook(UnlockMinimumCropLimit2.INSTANCE, mPrefsMap.getBoolean("mediaeditor_unlock_minimum_crop_limit"));
@@ -56,8 +52,6 @@ public class MediaEditor extends BaseModule {
         }
 
         // Experimental
-        initHook(new ExperimentUnlockAllAiFilters(), mPrefsMap.getBoolean("experiment_mediaeditor_unlock_all_ai_filters"));
-        initHook(new ExperimentRemoveAigcWatermark(), mPrefsMap.getBoolean("experiment_mediaeditor_remove_aigc_watermark"));
     }
 
 }

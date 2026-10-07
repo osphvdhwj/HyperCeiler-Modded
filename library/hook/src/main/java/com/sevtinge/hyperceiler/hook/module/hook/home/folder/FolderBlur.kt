@@ -30,7 +30,6 @@ import com.sevtinge.hyperceiler.hook.utils.hookAfterMethod
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeMethod
 
-
 object FolderBlur : BaseHook() {
     @SuppressLint("SuspiciousIndentation")
     override fun init() {
@@ -55,7 +54,6 @@ object FolderBlur : BaseHook() {
             logE(TAG, this.lpparam.packageName, e)
         }
         var isShouldBlur = false
-
 
         launcherClass.hookAfterMethod("openFolder", folderInfo, View::class.java) {
             val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
@@ -127,7 +125,6 @@ object FolderBlur : BaseHook() {
             val blurRatio = it.args[0] as Float
             if (isShouldBlur && blurRatio == 0.0f) it.result = null
         }
-
 
         if (((mPrefsMap.getStringAsInt("home_recent_blur_level", 6) == 0) && (mPrefsMap.getStringAsInt("home_recent_blur_level", 6) != 5)) ||
             (mPrefsMap.getStringAsInt("home_recent_blur_level", 6) != 0)

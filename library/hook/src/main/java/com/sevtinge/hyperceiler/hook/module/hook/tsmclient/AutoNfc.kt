@@ -36,7 +36,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.lsposed.hiddenapibypass.HiddenApiBypass
 
-
 object AutoNfc : BaseHook() {
     private var isNeed: String = ""
 

@@ -43,8 +43,6 @@ object NewAiCaptions: BaseHook() {
         }
     }
 
-
-
     override fun init() {
         if (mSupportAiSubtitlesUtils == null) {
             getMethod.createHook {

@@ -23,7 +23,6 @@ import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFi
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
-
 object DisableStartPushDialog : BaseHook() {
     override fun init() {
         // 禁用开启推送弹窗

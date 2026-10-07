@@ -135,7 +135,6 @@ public class CleanOpenMenu extends BaseHook {
     // findAndHookMethod(mPackageManagerService, "queryIntentActivitiesInternal", Intent.class, String.class, long.class, int.class, hook);
     //}
 
-
     // 存在问题
     private static Pair<Boolean, Boolean> isRemoveApp(boolean dynamic, Context context, String pkgName, Set<String> selectedApps, String mimeType) {
         String key = "system_framework_clean_open_apps";
@@ -222,6 +221,5 @@ public class CleanOpenMenu extends BaseHook {
             }
         });
     }
-
 
 }

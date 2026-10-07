@@ -57,7 +57,6 @@ public class RoamingActivateHelper extends BaseHook {
     private final int slotId = 1;
     private final boolean isRadical = mPrefsMap.getBoolean("sim_activation_service_disable_activate_when_roaming_radical");
 
-
     @Override
     public void init() throws NoSuchMethodException {
         Method method = DexKit.findMember("StartActivateSim", new IDexKit() {

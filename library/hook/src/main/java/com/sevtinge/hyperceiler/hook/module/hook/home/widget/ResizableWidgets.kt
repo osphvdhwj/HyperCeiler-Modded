@@ -22,7 +22,6 @@ import android.appwidget.AppWidgetProviderInfo
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool
 
-
 object ResizableWidgets : BaseHook() {
     override fun init() {
         hookAllMethods(

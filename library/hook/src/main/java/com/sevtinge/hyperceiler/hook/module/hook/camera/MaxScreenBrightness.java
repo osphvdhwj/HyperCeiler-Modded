@@ -74,7 +74,6 @@ public class MaxScreenBrightness extends BaseHook {
             }
         });
 
-
         findAndHookMethod("com.android.camera.ActivityBase", "onCreate", Bundle.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {

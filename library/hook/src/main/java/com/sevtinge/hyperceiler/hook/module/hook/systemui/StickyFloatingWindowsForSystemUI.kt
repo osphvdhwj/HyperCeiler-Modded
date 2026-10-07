@@ -38,7 +38,6 @@ import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import java.util.concurrent.ConcurrentHashMap
 
-
 class StickyFloatingWindowsForSystemUI : BaseHook() {
     private val fwApps: ConcurrentHashMap<String, Pair<Float, Rect?>> = ConcurrentHashMap()
 
@@ -65,7 +64,6 @@ class StickyFloatingWindowsForSystemUI : BaseHook() {
         intent.putExtra("package", pkgName)
         context.sendBroadcast(intent)
     }
-
 
     fun unserializeFwApps(data: String?) {
         if (data.isNullOrEmpty()) return

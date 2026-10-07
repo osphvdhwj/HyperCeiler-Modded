@@ -247,7 +247,6 @@ object AppBlurAnim : BaseHook() {
                 transitionBlurView?.hide(useAnim || fixSmallWindowAnim)
             }
 
-
         blur.methodFinder().filterByName("resetBlur")
             .first().replaceMethod {
                 mainThreadExecutor.execute {

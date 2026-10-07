@@ -57,7 +57,6 @@ public class LinkOpenMode extends BaseHook {
         });
     }
 
-
     private void setOpenIntent(Context context, Uri uri, int mode) {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -71,7 +70,6 @@ public class LinkOpenMode extends BaseHook {
         }
         context.startActivity(intent);
     }
-
 
     private void setFreeFormIntent(Context context, String packageName) {
         if (mPrefsMap.getBoolean("system_framework_freeform_jump") && mPrefsMap.getBoolean("system_framework_freeform_content_extension")) {

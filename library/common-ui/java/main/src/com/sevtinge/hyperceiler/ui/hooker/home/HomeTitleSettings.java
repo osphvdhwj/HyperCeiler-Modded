@@ -81,7 +81,6 @@ public class HomeTitleSettings extends DashboardFragment {
             return true;
         });
 
-
         Bundle args1 = new Bundle();
         Bundle args2 = new Bundle();
         mRecommend = new RecommendPreference(getContext());

@@ -18,7 +18,6 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.home.gesture;
 
-
 import android.content.Context;
 import android.os.Bundle;
 

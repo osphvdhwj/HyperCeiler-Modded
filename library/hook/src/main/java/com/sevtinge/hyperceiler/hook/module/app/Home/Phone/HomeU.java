@@ -22,9 +22,6 @@ import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreHy
 
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
-import com.sevtinge.hyperceiler.hook.module.hook.home.ExperimentHomeFolderEffect;
-import com.sevtinge.hyperceiler.hook.module.hook.home.ExperimentHomeIconShadow;
-import com.sevtinge.hyperceiler.hook.module.hook.home.ExperimentHomeStatusBarHide;
 import com.sevtinge.hyperceiler.hook.module.hook.home.AnimDurationRatio;
 import com.sevtinge.hyperceiler.hook.module.hook.home.DisablePrestart;
 import com.sevtinge.hyperceiler.hook.module.hook.home.FreeFormCountForHome;
@@ -146,10 +143,6 @@ public class HomeU extends BaseModule {
     @Override
     public void handleLoadPackage() {
 
-        initHook(ExperimentHomeFolderEffect.INSTANCE, mPrefsMap.getBoolean("experiment_home_folder_effect"));
-        initHook(ExperimentHomeIconShadow.INSTANCE, mPrefsMap.getBoolean("experiment_home_icon_shadow"));
-        initHook(ExperimentHomeStatusBarHide.INSTANCE, mPrefsMap.getBoolean("experiment_home_status_bar_hide"));
-
         // 手势
         initHook(new QuickBack(), mPrefsMap.getBoolean("home_navigation_quick_back"));
         initHook(new CornerSlide(),
@@ -186,7 +179,6 @@ public class HomeU extends BaseModule {
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
                 mPrefsMap.getBoolean("home_layout_searchbar_margin_bottom_enable"));
-
 
         // 文件夹
         initHook(FolderAutoClose.INSTANCE, mPrefsMap.getBoolean("home_folder_auto_close"));

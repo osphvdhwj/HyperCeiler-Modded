@@ -181,7 +181,6 @@ public class FreeformShortcutMenu extends BaseHook {
         }
     }
 
-
     private View.OnClickListener getFreeformOnClickListener(Object obj, boolean isNewTaskOnClick) {
         return view -> {
             Intent intent = new Intent();

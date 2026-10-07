@@ -45,7 +45,6 @@ public class CtaUtils {
         edit.apply();
     }
 
-
     public static boolean isCtaEnabled(Context context) {
         return context.getSharedPreferences("HyperCeiler_Permission", 0).getBoolean("key_new_cta_open", false);
     }

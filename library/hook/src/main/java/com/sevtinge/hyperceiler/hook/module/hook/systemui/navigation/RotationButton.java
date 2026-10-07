@@ -72,7 +72,6 @@ public class RotationButton extends BaseHook {
                 }
         );
 
-
         try {
             findAndHookMethod("com.android.systemui.navigationbar.NavigationBarView",
                     "lambda$new$0",

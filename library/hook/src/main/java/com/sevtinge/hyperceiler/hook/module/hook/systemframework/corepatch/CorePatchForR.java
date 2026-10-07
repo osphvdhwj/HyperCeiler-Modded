@@ -241,7 +241,6 @@ public class CorePatchForR extends XposedHelper implements IXposedHookLoadPackag
             }
         });
 
-
         // New package has a different signature
         // 处理覆盖安装但签名不一致
         hookAllMethods(signingDetails, "checkCapability", new XC_MethodHook() {

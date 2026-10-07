@@ -52,7 +52,6 @@ public class PackagePermissions extends BaseHook {
             }
         });
 
-
         hookAllMethodsSilently("com.android.server.pm.PackageManagerServiceUtils", "verifySignatures", new MethodHook() {
             @Override
             protected void before(MethodHookParam param) {
@@ -60,7 +59,6 @@ public class PackagePermissions extends BaseHook {
                 if (systemPackages.contains(pkgName)) param.setResult(true);
             }
         });
-
 
         // Make module appear as system app
         String ActQueryService = isMoreAndroidVersion(Build.VERSION_CODES.TIRAMISU) ? "com.android.server.pm.ComputerEngine" : "com.android.server.pm.PackageManagerService";

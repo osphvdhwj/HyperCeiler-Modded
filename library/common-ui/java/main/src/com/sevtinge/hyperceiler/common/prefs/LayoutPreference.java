@@ -83,7 +83,6 @@ public class LayoutPreference extends Preference implements PreferenceStyle {
         setView(LayoutInflater.from(getContext()).inflate(mLayoutResId, null, false));
     }
 
-
     private void setView(View view) {
         setLayoutResource(R.layout.preference_layout_frame);
         mRootView = view;

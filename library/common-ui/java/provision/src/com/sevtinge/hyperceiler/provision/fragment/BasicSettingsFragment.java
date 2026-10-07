@@ -33,9 +33,7 @@ public class BasicSettingsFragment extends PreferenceFragment {
 
     private boolean mIsScrolledBottom = false;
 
-
     private RecyclerView mRecyclerView;
-
 
     @Override
     public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {

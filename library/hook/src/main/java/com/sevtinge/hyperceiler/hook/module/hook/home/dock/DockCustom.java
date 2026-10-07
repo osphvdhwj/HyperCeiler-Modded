@@ -57,7 +57,6 @@ public class DockCustom extends BaseHook {
         mFolderInfo = findClassIfExists("com.miui.home.launcher.FolderInfo");
         mBlurUtils = findClassIfExists("com.miui.home.launcher.common.BlurUtils");
 
-
         findAndHookMethod(mLauncherCls, "onCreate", Bundle.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
@@ -80,7 +79,6 @@ public class DockCustom extends BaseHook {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     new BlurUtils(mDockView, "home_dock_bg_custom");
                 }
-
 
                 findAndHookMethod(mLauncherCls, "isFolderShowing", new MethodHook() {
                     @Override
@@ -134,7 +132,6 @@ public class DockCustom extends BaseHook {
             }
         });
 
-
         /*findAndHookMethod(mDeviceConfigCls,"calcHotSeatsMarginTop", Context.class, boolean.class, new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {
@@ -151,7 +148,6 @@ public class DockCustom extends BaseHook {
             }
         });*/
     }
-
 
     public GradientDrawable getDockBackground(Context context) {
         GradientDrawable mDockBackground = new GradientDrawable();

@@ -34,7 +34,6 @@ public class WifiStandard extends BaseHook {
         mWifiView = findClassIfExists("com.android.systemui.statusbar.StatusBarWifiView");
         mWifiIconState = findClassIfExists("com.android.systemui.statusbar.phone.StatusBarSignalPolicy$WifiIconState");
 
-
         findAndHookMethod(mWifiView, "applyWifiState", mWifiIconState, new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {

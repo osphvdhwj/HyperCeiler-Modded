@@ -35,7 +35,6 @@ import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.EzXposed
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHooks
 
-
 object AllAppsContainerViewBlur : BaseHook() {
     override fun init() {
         Application::class.java.hookBeforeMethod("attach", Context::class.java) {

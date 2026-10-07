@@ -28,7 +28,6 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfte
 import org.luckypray.dexkit.query.enums.StringMatchType
 import java.lang.reflect.Method
 
-
 object BatteryHealth : BaseHook() {
     private val getSecurityBatteryHealth by lazy<Method> {
         DexKit.findMember("getSecurityBatteryHealth") {
@@ -58,7 +57,6 @@ object BatteryHealth : BaseHook() {
 
     private lateinit var gff: Any
     private var health: Int? = null
-
 
     override fun init() {
         getSecurityBatteryHealth.createAfterHook { param ->

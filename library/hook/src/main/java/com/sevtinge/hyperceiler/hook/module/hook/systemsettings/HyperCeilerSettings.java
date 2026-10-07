@@ -114,7 +114,6 @@ public class HyperCeilerSettings extends BaseHook {
         });
     }
 
-
     private void addIconResource() {
         if (mIconModeInt == 0) {
             settingsIconResId = R.drawable.ic_hyperceiler_settings_v140;

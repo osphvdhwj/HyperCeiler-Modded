@@ -42,7 +42,6 @@ public class LocalBroadcastHelper {
     private final HashMap<String, ArrayList<ReceiverRecord>> mActions = new HashMap<>();
     private final HashMap<BroadcastReceiver, ArrayList<IntentFilter>> mReceivers = new HashMap<>();
 
-
     public static LocalBroadcastHelper getInstance(Context context) {
         LocalBroadcastHelper localBroadcastHelper;
         synchronized (mLock) {

@@ -89,7 +89,6 @@ public class CircleImageView extends ImageView {
         this(context, attrs, 0);
     }
 
-
     public CircleImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 

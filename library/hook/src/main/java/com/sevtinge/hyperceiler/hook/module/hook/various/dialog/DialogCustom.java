@@ -162,7 +162,6 @@ public class DialogCustom extends BaseHook {
             logE(TAG, this.lpparam.packageName, e);
         }
 
-
     }
 
 }

@@ -29,7 +29,6 @@ import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFi
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
-
 object SlideUpOnlyShowDock : BaseHook() {
     override fun init() {
         loadClass("com.miui.home.recents.DockGestureHelper").methodFinder()
@@ -58,7 +57,6 @@ object SlideUpOnlyShowDock : BaseHook() {
                         it.thisObject.getObjectField("mTransitionYStyle")?.callMethod("cancel")
                         it.thisObject.setBooleanField("mIsDockTransitionAnimStart", false)
                     }
-
 
                     // ================
                     // if (!dockController.isFloatingDockShowing()) {
@@ -139,7 +137,6 @@ object SlideUpOnlyShowDock : BaseHook() {
                     // }
                     // 这部分是跳转最近任务或者桌面的逻辑,直接去掉
 
-
                     // ================
                     // if (this.isStartedGesture) {
                     //     this.mGestureInputHelper.dispatchGestureModeTouchEvent(motionEvent);
@@ -147,7 +144,6 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //     launcher.notifyPowerKeeperGesture("gesture_end", !this.mTouchTracker.isKeyboardEventTracker());
                     // }
                     // ================
-
 
                     val isStartedGesture0 = it.thisObject.getBooleanField("isStartedGesture")
                     if (isStartedGesture0) {
@@ -178,6 +174,5 @@ object SlideUpOnlyShowDock : BaseHook() {
                 replace { }
             }
     }
-
 
 }

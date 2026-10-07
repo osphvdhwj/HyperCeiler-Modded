@@ -139,7 +139,6 @@ public class SmallFolderIconBlur extends BaseHook {
             }
         };
 
-
         try {
             findAndHookMethod(mFolderIcon1x1, "onFinishInflate", mDockBlur);
         } catch (Exception e) {

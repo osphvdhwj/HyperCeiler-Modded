@@ -79,7 +79,6 @@ public class NotificationBlur extends BaseHook {
                 field2.setAccessible(true);
                 field2.get(field);
 
-
                 if (field != null && field2 != null) {
                     View view = (View) (Object) field2;
                     if (view.getBackground().getClass().getName().equals("BackgroundBlurDrawable")) {
@@ -108,7 +107,6 @@ public class NotificationBlur extends BaseHook {
                 field.setAccessible(true);
                 field.get(obj2);
                 d = field;
-
 
                 ViewGroup viewGroup = (ViewGroup) d;
                 if (intValue != 1) {
@@ -147,7 +145,6 @@ public class NotificationBlur extends BaseHook {
                 }
             }
         });
-
 
         hookAllMethods(mCls4, "setViewsAlpha", new MethodHook() {
             @Override
@@ -204,13 +201,9 @@ public class NotificationBlur extends BaseHook {
                         }
                     }
 
-
                 }
             }
         });
-
-
-
 
         /*hookAllMethods(mCls,"setHighSamplingFrequency",new MethodHook() {
             @Override
@@ -242,8 +235,6 @@ public class NotificationBlur extends BaseHook {
             }
         });
 
-
-
         hookAllMethods(mCls3,"startEnterAndLaunchMiniWindow",new MethodHook() {
 
             @Override
@@ -261,9 +252,7 @@ public class NotificationBlur extends BaseHook {
             }
         });
 
-
         Class<?> mCls5 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.row.MiuiExpandableNotificationRow", lpparam.classLoader);
-
 
         hookAllMethods(mCls,"updateBackgroundBg",new MethodHook() {
             @Override

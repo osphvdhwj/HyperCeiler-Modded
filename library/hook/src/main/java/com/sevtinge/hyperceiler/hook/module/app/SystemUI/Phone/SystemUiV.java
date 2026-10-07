@@ -19,7 +19,6 @@
 
 package com.sevtinge.hyperceiler.hook.module.app.SystemUI.Phone;
 
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation;
 import java.util.Collections;
 import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreSmallVersion;
 
@@ -43,7 +42,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.base.lockscreen.Keygua
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.AllowAllThemesNotificationBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ControlCenterStyle;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.DisableDeviceManaged;
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.DualDataUsageHook;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ExpandNotificationKt;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.FiveGTile;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.FixTilesList;
@@ -101,7 +99,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.RemoveMiuiMultiW
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.plugin.NewPluginHelperKt;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.BlurEnable;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.DoubleTapToSleep;
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.StatusbarBrightnessControl;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.HideStatusBarBeforeScreenshot;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.NotificationIconColumns;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.statusbar.SelectiveHideIconForAlarmClock;
@@ -180,7 +177,6 @@ public class SystemUiV extends BaseModule {
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_percent_mark") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_charging");
         initHook(HideBatteryIcon.INSTANCE, isHideBatteryIcon);
-        initHook(DisableChargeAnimation.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game") || !mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps").isEmpty());
         initHook(BatteryStyle.INSTANCE, mPrefsMap.getBoolean("system_ui_status_bar_battery_style_enable_custom") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_style_change_location"));
         // initHook(new BatteryIndicator(), mPrefsMap.getBoolean("system_ui_status_bar_battery_indicator_enable"));
@@ -229,7 +225,6 @@ public class SystemUiV extends BaseModule {
         initHook(new BlurEnable(), mPrefsMap.getBoolean("system_ui_control_center_statusbar_blur"));
         initHook(ExpandNotificationKt.INSTANCE, !mPrefsMap.getStringSet("system_ui_control_center_expand_notification").isEmpty());
         initHook(new HideDelimiter(), mPrefsMap.getStringAsInt("system_ui_control_center_hide_operator", 0) != 0);
-        initHook(new DualDataUsageHook(), mPrefsMap.getBoolean("system_ui_control_center_dual_data_usage"));
         initHook(new GmsTile(), mPrefsMap.getBoolean("security_center_gms_open"));
         initHook(new TaplusTile(), mPrefsMap.getBoolean("security_center_taplus"));
         initHook(new ReduceBrightColorsTile(), mPrefsMap.getBoolean("security_center_reduce_bright_colors_tile"));
@@ -305,7 +300,6 @@ public class SystemUiV extends BaseModule {
         initHook(BlurButton.INSTANCE, mPrefsMap.getBoolean("system_ui_lock_screen_blur_button") && !isMoreSmallVersion(200, 2f));
 
         initHook(DoubleTapToSleep.INSTANCE, mPrefsMap.getBoolean("system_ui_status_bar_double_tap_to_sleep"));
-        initHook(StatusbarBrightnessControl.INSTANCE, mPrefsMap.getBoolean("system_ui_statusbar_brightness_control"));
 
         initHook(new AllowManageAllNotifications(), mPrefsMap.getBoolean("system_framework_allow_manage_all_notifications"));
 

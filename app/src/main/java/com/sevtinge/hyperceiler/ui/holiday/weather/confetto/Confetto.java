@@ -382,7 +382,6 @@ public abstract class Confetto {
     protected abstract void drawInternal(Canvas canvas, Matrix matrix, Paint paint, float x,
                                          float y, float rotation, float percentAnimated);
 
-
     // region Helper methods to set all of the necessary values for the confetto.
 
     public void setInitialDelay(long val) {

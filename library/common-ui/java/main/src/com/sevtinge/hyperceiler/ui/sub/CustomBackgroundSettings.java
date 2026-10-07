@@ -91,7 +91,6 @@ public class CustomBackgroundSettings extends SettingsPreferenceFragment impleme
         mBlurRadiusPreference.setOnPreferenceChangeListener(this);
     }
 
-
     private void loadData() {
         mCustomEnabledPreference.setChecked(isCustomEnabled());
         mColorPickerPreference.setColor(getColor(-1));

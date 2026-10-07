@@ -18,7 +18,6 @@
 */
 package com.sevtinge.hyperceiler.hook.module.hook.systemui;
 
-
 public class UseNativeRecents {
 
 }

@@ -303,7 +303,6 @@ class MediaControlPanelBackgroundMix : BaseHook() {
         }
     }
 
-
     private fun setBlurBackground(
         miuiMediaControlPanel: Class<*>?,
         playerTwoCircleView: Class<*>?

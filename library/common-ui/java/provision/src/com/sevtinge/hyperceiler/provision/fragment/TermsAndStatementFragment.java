@@ -38,7 +38,6 @@ public class TermsAndStatementFragment extends BaseListFragment {
     private CheckBox mAgreeCheckBox;
     private TermsAndStatementAdapter mTermsAndStatementAdapter;
 
-
     @Override
     protected int getCustomLayoutId() {
         return R.layout.provision_terms_and_statement_layout;

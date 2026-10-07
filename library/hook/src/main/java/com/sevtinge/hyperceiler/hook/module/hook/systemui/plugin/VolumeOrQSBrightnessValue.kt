@@ -224,7 +224,6 @@ object VolumeOrQSBrightnessValue {
                     miBlurCompat.setMiBackgroundBlendColors(topValue, colorArray, 1f)
                 }
 
-
             // 设置展开的大小
             brightnessPanelSliderController.methodFinder()
                 .filterByName("updateLargeSize")
@@ -362,7 +361,6 @@ object VolumeOrQSBrightnessValue {
         max: Int
     ) = "${(progress * 100 / max)}%"
 
-
     class ControlCenterUtils(classLoader: ClassLoader?) {
 
         private val controlCenterUtils =
@@ -388,7 +386,6 @@ object VolumeOrQSBrightnessValue {
         }
 
     }
-
 
     class Util(classLoader: ClassLoader?) {
         private val util = loadClass("com.android.systemui.miui.volume.Util", classLoader)

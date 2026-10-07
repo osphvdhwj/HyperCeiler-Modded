@@ -21,7 +21,6 @@ package com.sevtinge.hyperceiler.hook.utils.api.miuiStringToast.res
 import android.app.PendingIntent
 import android.os.Bundle
 
-
 class StringToastBundle {
     private var mBundle: Bundle = Bundle()
     private var mPackageName: String? = null

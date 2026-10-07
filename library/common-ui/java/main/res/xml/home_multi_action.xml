@@ -102,12 +102,9 @@
 
         </RadioSetPreferenceCategory>
 
-
-
         <RadioButtonPreference
             android:title="@string/array_global_actions_eqs"
             android:layout="@layout/preference_radiobutton_two_state"/>
-
 
         <RadioButtonPreference
             android:title="@string/array_global_actions_menu"
@@ -140,7 +137,6 @@
         <RadioButtonPreference
             android:title="@string/array_global_actions_back"
             android:layout="@layout/preference_radiobutton_two_state"/>-->
-
 
     </RadioButtonPreferenceCategory>
 

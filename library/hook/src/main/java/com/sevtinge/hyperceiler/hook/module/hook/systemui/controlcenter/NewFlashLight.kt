@@ -47,7 +47,6 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.io.IOException
 
-
 object NewFlashLight : TileUtils() {
     private const val mtk: String = "/sys/class/flashlight_core/flashlight/torchbrightness"
     private const val torch: String = "/sys/class/leds/led:torch_0/brightness"

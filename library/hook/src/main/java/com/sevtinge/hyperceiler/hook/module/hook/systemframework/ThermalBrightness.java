@@ -29,7 +29,6 @@ public class ThermalBrightness extends BaseHook {
     public final String temperatureController = "com.android.server.display.TemperatureController";
     public final String thermalObserver = "com.android.server.display.ThermalObserver";
 
-
     @Override
     public void init() {
         try {

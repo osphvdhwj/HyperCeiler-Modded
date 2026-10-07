@@ -59,7 +59,6 @@ public class TermsAndStatementAdapter extends BaseAdapter {
         mPrivacyTypeMap = serviceStateDataHelper.getPrivacyTypeMap();
     }
 
-
     @Override
     public int getCount() {
         return mServiceItems.size();
@@ -224,7 +223,6 @@ public class TermsAndStatementAdapter extends BaseAdapter {
         }
         return null;
     }
-
 
     private class ItemViewHolder {
         TextView termsDescription;

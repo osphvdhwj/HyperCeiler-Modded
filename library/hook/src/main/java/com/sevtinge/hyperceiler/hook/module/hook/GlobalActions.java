@@ -42,7 +42,6 @@ import de.robv.android.xposed.XposedHelpers;
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
 public class GlobalActions extends BaseHook {
 
-
     @Override
     public void init() {
         setupGlobalActions();
@@ -170,7 +169,6 @@ public class GlobalActions extends BaseHook {
         }
     };
 
-
     public static boolean handleAction(Context context, String key) {
         return handleAction(context, key, false);
     }
@@ -222,7 +220,6 @@ public class GlobalActions extends BaseHook {
         };
     }
 
-
     // Actions
     public static boolean setAction(Context context, String action) {
         try {
@@ -253,7 +250,6 @@ public class GlobalActions extends BaseHook {
             return false;
         }
     }*/
-
 
     public static boolean isMediaActionsAllowed(Context mContext) {
         AudioManager am = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);

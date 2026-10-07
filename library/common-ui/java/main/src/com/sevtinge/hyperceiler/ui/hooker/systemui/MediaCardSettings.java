@@ -60,7 +60,6 @@ public class MediaCardSettings extends DashboardFragment implements Preference.O
         mSliderColor.setVisible(Integer.parseInt(PrefsUtils.mSharedPreferences.getString("prefs_key_system_ui_control_center_media_control_progress_mode", "0")) != 2);
         mProgressBarColor.setVisible(Integer.parseInt(PrefsUtils.mSharedPreferences.getString("prefs_key_system_ui_control_center_media_control_progress_mode", "0")) != 2);
 
-
         mRemoveMediaCardBackFix.setOnPreferenceChangeListener((preference, o) -> {
             if (!(boolean) o) {
                 mRemoveMediaCardBack.setChecked(false);

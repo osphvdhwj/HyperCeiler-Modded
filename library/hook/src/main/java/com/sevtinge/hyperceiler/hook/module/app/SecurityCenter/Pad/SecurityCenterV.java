@@ -18,7 +18,6 @@
  */
 package com.sevtinge.hyperceiler.hook.module.app.SecurityCenter.Pad;
 
-import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.AppLockDisableFingerprint;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.AppLockPinScramble;
@@ -56,7 +55,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.beauty.BeautyLig
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.beauty.BeautyPc;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.beauty.BeautyPrivacy;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.BypassSimLockMiAccountAuth;
-import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.DisableChargeSound;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.DisableRootCheck;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.FuckRiskPkg;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.LockOneHundredPoints;
@@ -80,7 +78,6 @@ public class SecurityCenterV extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
-        initHook(AppLockDisableFingerprint.INSTANCE, true);
         if ("com.miui.securitycenter.remote".equals(mLoadPackageParam.processName)) {
             initHook(new AppLockPinScramble(), mPrefsMap.getBoolean("security_center_applock_pin_scramble"));
             return;
@@ -121,7 +118,6 @@ public class SecurityCenterV extends BaseModule {
         initHook(new InstallIntercept(), mPrefsMap.getBoolean("security_center_install_intercept"));
         initHook(LockOneHundredPoints.INSTANCE, mPrefsMap.getBoolean("security_center_score"));
         initHook(new SkipCountDownLimit(), mPrefsMap.getBoolean("security_center_skip_count_down_limit"));
-        initHook(DisableChargeSound.INSTANCE, true);
         initHook(DisableRootCheck.INSTANCE, mPrefsMap.getBoolean("security_center_disable_root_check"));
         initHook(FuckRiskPkg.INSTANCE, mPrefsMap.getBoolean("security_center_disable_send_malicious_app_notification"));
         initHook(NoLowBatteryWarning.INSTANCE, mPrefsMap.getBoolean("security_center_remove_low_battery_reminder"));

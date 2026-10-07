@@ -61,7 +61,6 @@ public class DoubleTap extends BaseHook {
         });
     }
 
-
     public static class DoubleTapController {
 
         private float mActionDownRawX;

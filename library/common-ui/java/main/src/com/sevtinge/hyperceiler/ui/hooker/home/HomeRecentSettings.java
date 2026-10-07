@@ -23,7 +23,6 @@ import static com.sevtinge.hyperceiler.hook.utils.devicesdk.MiDeviceAppUtilsKt.i
 import android.content.Intent;
 import android.widget.Toast;
 
-
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreference;
 

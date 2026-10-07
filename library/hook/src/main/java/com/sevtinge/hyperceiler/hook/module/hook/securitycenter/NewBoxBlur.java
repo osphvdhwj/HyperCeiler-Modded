@@ -38,7 +38,6 @@ public class NewBoxBlur extends BaseHook {
     Class<?> mWindowManager;
     Class<?> mVideoBoxCls;
 
-
     Class<?> mTurboLayout;
     Class<?> mDockLayout;
 
@@ -53,7 +52,6 @@ public class NewBoxBlur extends BaseHook {
         mWindowManager = findClassIfExists("com.miui.gamebooster.windowmanager.j");
 
         mVideoBoxCls = findClassIfExists("com.miui.gamebooster.videobox.adapter.i");
-
 
         hookAllConstructors(mDockLayout, new MethodHook() {
             @Override
@@ -83,7 +81,6 @@ public class NewBoxBlur extends BaseHook {
 
             }
         });*/
-
 
         findAndHookMethod(mTurboaLayout, "a", boolean.class, boolean.class, new MethodHook() {
             @Override

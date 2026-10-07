@@ -123,7 +123,6 @@ public class SelectiveHideIconForAlarmClock extends BaseHook {
         }
     }
 
-
     public long getNextMIUIAlarmTime(Context context) {
         String nextAlarm = Settings.System.getString(context.getContentResolver(), "next_alarm_clock_formatted");
         long nextTime = 0;

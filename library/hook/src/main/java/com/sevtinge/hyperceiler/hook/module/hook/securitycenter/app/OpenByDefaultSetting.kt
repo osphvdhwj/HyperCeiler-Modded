@@ -43,7 +43,6 @@ import io.github.kyuubiran.ezxhelper.core.ClassLoaderProvider.classLoader
 import io.github.kyuubiran.ezxhelper.xposed.EzXposed.appContext
 import java.lang.reflect.Method
 
-
 @SuppressLint("DiscouragedApi")
 // from https://github.com/chsbuffer/MIUIQOL
 class OpenByDefaultSetting : BaseHook() {

@@ -245,7 +245,6 @@ public class StickyFloatingWindows extends BaseHook {
         });
     }
 
-
     public static String getTaskPackageName(Object thisObject, int taskId) {
         return getTaskPackageName(thisObject, taskId, false, null);
     }

@@ -23,7 +23,6 @@ import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFi
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
-
 object HideDock : BaseHook() {
     override fun init() {
         // 上滑时忽略 dock,直接触发最近任务手势

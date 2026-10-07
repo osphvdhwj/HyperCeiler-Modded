@@ -29,7 +29,6 @@ import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.core.util.ObjectUtil.invokeMethodBestMatch
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createBeforeHook
 
-
 object NotificationImportanceHyperOSFix : BaseHook() {
     override fun init() {
         if (isMoreAndroidVersion(35)) {

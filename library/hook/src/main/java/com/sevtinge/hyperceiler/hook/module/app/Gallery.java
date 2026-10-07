@@ -31,15 +31,12 @@ import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnablePhotoMovie;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnableVideoEditor;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.EnableVideoPost;
 import com.sevtinge.hyperceiler.hook.module.hook.gallery.UnPrivacyWatermark;
-import com.sevtinge.hyperceiler.hook.module.hook.mediaeditor.UnlockAudioEraser;
-import com.sevtinge.hyperceiler.hook.module.hook.gallery.ExperimentGalleryUnlockCloudAi;
 
 @HookBase(targetPackage = "com.miui.gallery")
 public class Gallery extends BaseModule {
 
     @Override
     public void handleLoadPackage() {
-        initHook(UnlockAudioEraser.INSTANCE, mPrefsMap.getBoolean("mediaeditor_unlock_audio_eraser"));
         initHook(new UnPrivacyWatermark(), mPrefsMap.getBoolean("gallery_enable_un_privacy_watermark"));
         initHook(new EnableHdrEnhance(), mPrefsMap.getBoolean("gallery_enable_hdr_enhanced"));
         initHook(new EnablePdf(), mPrefsMap.getBoolean("gallery_enable_pdf"));
@@ -53,6 +50,5 @@ public class Gallery extends BaseModule {
         initHook(new ChangeBackupServer(), mPrefsMap.getStringAsInt("gallery_backup_server", 0) != 0);
 
         // Experimental
-        initHook(new ExperimentGalleryUnlockCloudAi(), mPrefsMap.getBoolean("experiment_gallery_unlock_cloud_ai"));
     }
 }

@@ -27,7 +27,6 @@ import com.sevtinge.hyperceiler.hook.utils.devicesdk.isMoreHyperOSVersion
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createAfterHook
 
-
 object HideStrongToast : BaseHook() {
     override fun init() {
         if (isMoreHyperOSVersion(2f) && isMoreAndroidVersion(35)) {

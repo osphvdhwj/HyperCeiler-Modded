@@ -76,7 +76,6 @@ fun isAndroidVersion(code: Int): Boolean = androidSDK == code
  */
 fun isMoreAndroidVersion(code: Int): Boolean = androidSDK >= code
 
-
 /**
  * 判断是否为指定某个 HyperOS 版本
  * @param code 传入的 HyperOS 版本 Float 数值
@@ -84,14 +83,12 @@ fun isMoreAndroidVersion(code: Int): Boolean = androidSDK >= code
  */
 fun isHyperOSVersion(code: Float): Boolean = hyperOSSDK == code
 
-
 /**
  * 判断是否大于某个 HyperOS 版本
  * @param code 传入的 HyperOS 版本 Float 数值
  * @return 一个 Boolean 值
  */
 fun isMoreHyperOSVersion(code: Float): Boolean = hyperOSSDK >= code
-
 
 /**
  * 判断是否为指定某个小版本

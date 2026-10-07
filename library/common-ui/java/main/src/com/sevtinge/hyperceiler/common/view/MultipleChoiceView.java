@@ -56,7 +56,6 @@ public class MultipleChoiceView extends LinearLayout implements MutipleChoiceAda
         initView(context);
     }
 
-
     /* 实例化各个控件 */
     private void initView(Context context) {
         View view = inflate(context, R.layout.view_mutiplechoice, this);

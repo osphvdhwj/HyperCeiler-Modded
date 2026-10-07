@@ -69,7 +69,6 @@ public class PreferenceHeader extends XmlPreference {
         init(context);
     }
 
-
     private void init(Context context) {
         setLayoutResource(R.layout.preference_header);
         if (!isScopeGet && !isScopeGetFailed) if (getWhoAmI().equals("root")) getScope(context);

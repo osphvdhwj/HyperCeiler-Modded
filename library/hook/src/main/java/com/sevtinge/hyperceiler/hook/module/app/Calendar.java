@@ -20,7 +20,6 @@ package com.sevtinge.hyperceiler.hook.module.app;
 
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
-import com.sevtinge.hyperceiler.hook.module.hook.calendar.ExperimentCalendarRemoveAds;
 import com.sevtinge.hyperceiler.hook.module.hook.calendar.UnlockSubscription;
 
 @HookBase(targetPackage = "com.android.calendar")
@@ -31,6 +30,5 @@ public class Calendar extends BaseModule {
         initHook(new UnlockSubscription(), mPrefsMap.getBoolean("calendar_unlock_subscription"));
 
         // Experimental
-        initHook(new ExperimentCalendarRemoveAds(), mPrefsMap.getBoolean("experiment_calendar_remove_ads"));
     }
 }

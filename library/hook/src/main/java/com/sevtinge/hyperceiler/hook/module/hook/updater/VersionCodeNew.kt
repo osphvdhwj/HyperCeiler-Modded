@@ -62,7 +62,6 @@ object VersionCodeNew : BaseHook() {
     private val mVersionCode =
         mPrefsMap.getString("various_updater_miui_version", "OS2.0.200.0.VOCCNXM")
 
-
     override fun init() {
         // 原始修改版本名
         val mApplication = findClassIfExists("com.android.updater.Application")

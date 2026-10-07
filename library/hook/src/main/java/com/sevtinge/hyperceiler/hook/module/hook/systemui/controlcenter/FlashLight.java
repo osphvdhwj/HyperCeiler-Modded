@@ -18,7 +18,6 @@
  */
 package com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter;
 
-
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.database.ContentObserver;

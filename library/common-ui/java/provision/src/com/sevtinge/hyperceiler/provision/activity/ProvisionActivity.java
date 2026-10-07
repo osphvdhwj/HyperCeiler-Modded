@@ -262,7 +262,6 @@ public class ProvisionActivity extends ProvisionBaseActivity {
         private State mBasicState;
         private CongratulationState mCompleteState;
 
-
         private ArrayList<State> mStateStack;
         private SparseArray<StateInfo> mStates;
 

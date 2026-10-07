@@ -21,7 +21,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.systemui.navigation;
 import com.hchen.hooktool.utils.ResInjectTool;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
-
 public class NavigationCustom extends BaseHook {
     @Override
     public void init() {

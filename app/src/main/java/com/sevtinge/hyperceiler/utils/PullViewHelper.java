@@ -72,7 +72,6 @@ public class PullViewHelper {
         mTrigger.attach(springBackLayout);
     }
 
-
     public boolean canLoadMore() {
         return mEnableLoadMore;
     }

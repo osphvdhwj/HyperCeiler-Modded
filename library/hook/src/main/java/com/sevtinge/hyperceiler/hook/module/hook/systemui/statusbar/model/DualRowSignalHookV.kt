@@ -58,7 +58,6 @@ import org.luckypray.dexkit.query.enums.StringMatchType
 import java.lang.reflect.Method
 import java.util.function.Consumer
 
-
 class DualRowSignalHookV : BaseHook() {
     private val rightMargin by lazy {
         mPrefsMap.getInt("system_ui_statusbar_mobile_network_icon_right_margin", 8) - 8

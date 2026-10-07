@@ -59,7 +59,6 @@ public class AlwaysShowDownloadLink extends BaseHook {
             }
         });
 
-
         Method method1 = DexKit.findMember("ShowTaskDetailMatcher", new IDexKit() {
             @Override
             public BaseData dexkit(DexKitBridge bridge) throws ReflectiveOperationException {

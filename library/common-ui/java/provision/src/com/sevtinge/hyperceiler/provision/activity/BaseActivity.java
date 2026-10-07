@@ -162,7 +162,6 @@ public abstract class BaseActivity extends ProvisionBaseActivity {
         mCheckNewJump = jump;
     }
 
-
     @Override
     public void finish() {
         if (PageIntercepHelper.getInstance().isAdapterNewJump(this) && mCheckNewJump) {

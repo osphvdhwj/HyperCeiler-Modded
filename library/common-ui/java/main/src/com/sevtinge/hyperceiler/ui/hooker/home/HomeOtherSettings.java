@@ -34,7 +34,6 @@ public class HomeOtherSettings extends DashboardFragment {
     SwitchPreference mEnableMoreSettings;
     Preference mMinusOneApp;
 
-
     @Override
     public int getPreferenceScreenResId() {
         return R.xml.home_other;

@@ -34,7 +34,6 @@ import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import de.robv.android.xposed.*
 import kotlin.math.*
 
-
 object ShortcutBackgroundBlur : BaseHook() {
     override fun init() {
 

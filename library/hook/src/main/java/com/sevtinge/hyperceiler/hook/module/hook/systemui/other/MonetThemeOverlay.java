@@ -25,7 +25,6 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 import com.sevtinge.hyperceiler.hook.utils.prefs.PrefType;
 import com.sevtinge.hyperceiler.hook.utils.prefs.PrefsChangeObserver;
 
-
 public class MonetThemeOverlay extends BaseHook {
 
     Class<?> THEME_CLASS_AOSP;

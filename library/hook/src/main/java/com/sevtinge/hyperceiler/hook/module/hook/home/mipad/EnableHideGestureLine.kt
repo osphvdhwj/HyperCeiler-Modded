@@ -31,7 +31,6 @@ object EnableHideGestureLine : BaseHook() {
                 returnConstant(true)
              }
 
-
         loadClass("com.miui.home.recents.BaseRecentsImpl").methodFinder()
             .filterByName("initHideGestureLine").first().createHook{
                 returnConstant(null)

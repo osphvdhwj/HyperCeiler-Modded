@@ -21,7 +21,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.systemframework.corepatch
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool
 
-
 object BypassSignCheckForT : BaseHook() {
     override fun init() {
         try {

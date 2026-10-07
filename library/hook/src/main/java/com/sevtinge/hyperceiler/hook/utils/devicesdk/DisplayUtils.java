@@ -23,7 +23,6 @@ import static io.github.kyuubiran.ezxhelper.xposed.EzXposed.getAppContext;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-
 public class DisplayUtils {
 
     public static float mDensity;

@@ -58,7 +58,6 @@ public class DialogHelper {
                 .show();
     }
 
-
     public static void showPositiveButtonDialog(Activity activity, String title, String message, DialogInterface.OnClickListener onClickListener) {
         new AlertDialog.Builder(activity)
                 .setTitle(title)
@@ -114,7 +113,6 @@ public class DialogHelper {
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
                 .show();
     }
-
 
     public static void showLogServiceWarnDialog(Context context) {
         new AlertDialog.Builder(context)

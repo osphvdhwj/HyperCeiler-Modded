@@ -139,11 +139,9 @@ public class ModSearchAdapter extends CardGroupAdapter {
         }
     }
 
-
     public interface onItemClickListener {
         void onItemClick(View view, ModData ad);
     }
-
 
     private class ItemFilter extends Filter {
         private final Context context;

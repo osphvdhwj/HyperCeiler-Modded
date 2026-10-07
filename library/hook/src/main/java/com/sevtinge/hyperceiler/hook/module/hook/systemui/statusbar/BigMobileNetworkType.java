@@ -106,7 +106,6 @@ public class BigMobileNetworkType extends BaseHook {
                 newLinearlayout.setId(mobileContainerLeftId);
                 newLinearlayout.setPadding(0, 0, 0, 0);
 
-
                 XposedHelpers.setObjectField(param.thisObject, "mMobileLeftContainer", newLinearlayout);
                 rightParentLayout.addView(newLinearlayout, mobileContainerRightIndex);
 
@@ -114,7 +113,6 @@ public class BigMobileNetworkType extends BaseHook {
                 ((ViewGroup) mobileType.getParent()).removeView(mobileType);
                 ((ViewGroup) mobileLeftMobileInout.getParent()).removeView(mobileLeftMobileInout);
                 ((ViewGroup) mobileContainerLeft.getParent()).removeView(mobileContainerLeft);
-
 
                 // 类型
                 newLinearlayout.addView(mobileType);
@@ -132,7 +130,6 @@ public class BigMobileNetworkType extends BaseHook {
                     mobileType.setTypeface(Typeface.DEFAULT_BOLD);
                 }
                 mobileType.setLayoutParams(mobileTypeLp);
-
 
                 // 箭头
                 newLinearlayout.addView(mobileLeftMobileInout);

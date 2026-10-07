@@ -47,7 +47,6 @@ public class CustomCardTiles {
 
     private static float cornerRadiusF = -1;
 
-
     public static void initCustomCardTiles(ClassLoader classLoader, List<String> cardStyleTiles) {
         findAndHookMethod("miui.systemui.controlcenter.qs.QSController", classLoader,
                 "getCardStyleTileSpecs",

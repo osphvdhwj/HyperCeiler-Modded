@@ -29,7 +29,6 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XC_MethodReplacement;
 import de.robv.android.xposed.XposedHelpers;
 
-
 public class UseThirdPartyBrowser extends BaseHook {
 
     @Override

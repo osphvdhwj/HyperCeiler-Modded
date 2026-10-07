@@ -48,7 +48,6 @@ public class NotificationUtils {
     private static final String CHANNEL_ID_APP_CRASH = "App_Crash";
     private static final String GROUP_KEY_WORK_EMAIL = "App_Crash";
 
-
     public static void showAppCrashNotification(Context context, String packageName, Intent intent) {
         notifyNotification(context, 1, getAppCrashNotification(context, packageName, intent));
     }
@@ -104,7 +103,6 @@ public class NotificationUtils {
 
         notificationManager.notify(CHANNEL_ID_APP_CRASH.hashCode(), builder.build());
     }
-
 
     public static Notification buildNotification(@NonNull Context context,
                                                  @NonNull String channelId, String title,

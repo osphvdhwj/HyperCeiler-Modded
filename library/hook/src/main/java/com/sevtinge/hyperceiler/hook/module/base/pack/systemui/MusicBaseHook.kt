@@ -203,7 +203,6 @@ abstract class MusicBaseHook : BaseHook() {
         notificationManager.createNotificationChannel(notificationChannel)
     }
 
-
     @SuppressLint("NotificationPermission")
     fun cancelNotification() {
         (context.getSystemService("notification") as NotificationManager).cancel(CHANNEL_ID.hashCode())

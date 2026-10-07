@@ -126,7 +126,6 @@ fun Array<Class<*>>.sameAs(vararg other: Any): Boolean {
     return true
 }
 
-
 /**
  * 源自 EzXHelper 1.x 版本所附赠的扩展函数，2.0 丢失，暂时先复用
  *

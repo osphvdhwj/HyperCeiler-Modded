@@ -253,7 +253,6 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                 }
             })
 
-
         if (shortcutMenuBackgroundAlpha != 255) {
             XposedBridge.hookAllMethods(
                 shortcutMenuClass,

@@ -28,7 +28,6 @@ import com.sevtinge.hyperceiler.ui.R;
 public class MiPadSettings extends DashboardFragment {
     SwitchPreference magic;
 
-
     @Override
     public int getPreferenceScreenResId() { return R.xml.various_mipad; }
 

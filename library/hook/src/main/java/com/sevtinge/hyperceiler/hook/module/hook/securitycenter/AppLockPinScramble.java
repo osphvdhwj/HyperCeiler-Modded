@@ -29,7 +29,6 @@ import java.util.Collections;
 
 public class AppLockPinScramble extends BaseHook {
 
-
     @Override
     public void init() {
 

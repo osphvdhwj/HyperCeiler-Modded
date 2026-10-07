@@ -55,7 +55,6 @@ public class DraggableViewPager extends ViewPager {
         }
     }
 
-
     public void setDraggable(boolean isDrag) {
         mCanDrag = isDrag;
     }

@@ -29,11 +29,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.camera.Unlock4k60;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.UnlockLeica;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.UnlockSuperHighQuality;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.UnlockTrackEyes;
-import com.sevtinge.hyperceiler.hook.module.hook.camera.UnhardcodeGallery;
-import com.sevtinge.hyperceiler.hook.module.hook.camera.UnlockRaw;
-import com.sevtinge.hyperceiler.hook.module.hook.camera.ExperimentUnlockAstroMode;
-import com.sevtinge.hyperceiler.hook.module.hook.camera.ExperimentCameraMaxZoom;
-import com.sevtinge.hyperceiler.hook.module.hook.camera.ExperimentCameraVideoHdr;
 
 @HookBase(targetPackage = "com.android.camera")
 public class Camera extends BaseModule {
@@ -54,13 +49,8 @@ public class Camera extends BaseModule {
         initHook(UnlockSuperHighQuality.INSTANCE, mPrefsMap.getBoolean("camera_super_high_quality"));
         initHook(Unlock4k60.INSTANCE, mPrefsMap.getBoolean("camera_unlock_4k60"));
         initHook(UnlockLeica.INSTANCE, mPrefsMap.getBoolean("camera_unlock_leica"));
-        initHook(UnlockRaw.INSTANCE, mPrefsMap.getBoolean("camera_unlock_raw"));
         
-        initHook(new UnhardcodeGallery(), mPrefsMap.getBoolean("camera_unhardcode_gallery"));
 
         // Experimental
-        initHook(new ExperimentUnlockAstroMode(), mPrefsMap.getBoolean("experiment_camera_unlock_astro_mode"));
-        initHook(new ExperimentCameraMaxZoom(), mPrefsMap.getBoolean("experiment_camera_max_zoom"));
-        initHook(new ExperimentCameraVideoHdr(), mPrefsMap.getBoolean("experiment_camera_video_hdr"));
     }
 }

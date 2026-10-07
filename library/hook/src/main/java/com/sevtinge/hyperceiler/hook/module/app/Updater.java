@@ -25,7 +25,6 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.updater.AndroidVersionCode;
 import com.sevtinge.hyperceiler.hook.module.hook.updater.AutoUpdateDialog;
 import com.sevtinge.hyperceiler.hook.module.hook.updater.DeviceModify;
-import com.sevtinge.hyperceiler.hook.module.hook.updater.ExperimentUpdaterForceLocalUpdate;
 import com.sevtinge.hyperceiler.hook.module.hook.updater.VabUpdate;
 import com.sevtinge.hyperceiler.hook.module.hook.updater.VersionCodeModify;
 import com.sevtinge.hyperceiler.hook.module.hook.updater.VersionCodeNew;
@@ -48,6 +47,5 @@ public class Updater extends BaseModule {
         initHook(AutoUpdateDialog.INSTANCE, mPrefsMap.getBoolean("updater_diable_dialog"));
 
         // Experimental
-        initHook(new ExperimentUpdaterForceLocalUpdate(), mPrefsMap.getBoolean("experiment_updater_force_local_update"));
     }
 }

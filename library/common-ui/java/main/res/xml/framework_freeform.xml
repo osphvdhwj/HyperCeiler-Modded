@@ -56,7 +56,6 @@
             android:key="prefs_key_system_framework_freeform_bubble"
             android:title="@string/system_framework_freeform_bubble" />
 
-
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/system_ui_other_title">

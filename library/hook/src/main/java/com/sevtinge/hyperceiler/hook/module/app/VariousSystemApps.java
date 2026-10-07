@@ -105,5 +105,4 @@ public class VariousSystemApps extends BaseModule {
             "com.android.settings"
     ));
 
-
 }

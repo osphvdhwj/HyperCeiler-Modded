@@ -18,7 +18,6 @@
  */
 package com.sevtinge.hyperceiler.hook.module.app.SystemUI.Pad;
 
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation;
 import java.util.Collections;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
@@ -37,7 +36,6 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemui.ZenModeFix;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.AllowAllThemesNotificationBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ControlCenterStyle;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.DisableDeviceManaged;
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.DualDataUsageHook;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.ExpandNotificationKt;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.FiveGTile;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.controlcenter.FixTilesList;
@@ -177,7 +175,6 @@ public class SystemUiU extends BaseModule {
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_percent_mark") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_charging");
         initHook(HideBatteryIcon.INSTANCE, isHideBatteryIcon);
-        initHook(DisableChargeAnimation.INSTANCE, mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game") || !mPrefsMap.getStringSet("system_ui_disable_charge_anim_apps").isEmpty());
         initHook(BatteryStyle.INSTANCE, mPrefsMap.getBoolean("system_ui_status_bar_battery_style_enable_custom") ||
                 mPrefsMap.getBoolean("system_ui_status_bar_battery_style_change_location"));
         // initHook(new BatteryIndicator(), mPrefsMap.getBoolean("system_ui_status_bar_battery_indicator_enable"));
@@ -239,7 +236,6 @@ public class SystemUiU extends BaseModule {
         initHook(new BlurEnable(), mPrefsMap.getBoolean("system_ui_control_center_statusbar_blur"));
         initHook(ExpandNotificationKt.INSTANCE, !mPrefsMap.getStringSet("system_ui_control_center_expand_notification").isEmpty());
         initHook(new HideDelimiter(), mPrefsMap.getStringAsInt("system_ui_control_center_hide_operator", 0) != 0);
-        initHook(new DualDataUsageHook(), mPrefsMap.getBoolean("system_ui_control_center_dual_data_usage"));
         initHook(new GmsTile(), mPrefsMap.getBoolean("security_center_gms_open"));
         initHook(new TaplusTile(), mPrefsMap.getBoolean("security_center_taplus"));
         initHook(new ReduceBrightColorsTile(), mPrefsMap.getBoolean("security_center_reduce_bright_colors_tile"));

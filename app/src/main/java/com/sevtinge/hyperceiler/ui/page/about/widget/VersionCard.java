@@ -162,7 +162,6 @@ public class VersionCard extends FrameLayout implements View.OnClickListener {
         return "";
     }
 
-
     @Override
     public void onClick(View v) {
 

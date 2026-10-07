@@ -128,7 +128,6 @@ public class BlurUtils {
         }
     }
 
-
     private void setOnAttachStateChangeListener(View view) {
         view.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
             @Override
@@ -212,7 +211,6 @@ public class BlurUtils {
     public void setBlurRadius(Drawable drawable, int blurRadius) {
         XposedHelpers.callMethod(drawable, "setBlurRadius", blurRadius);
     }
-
 
     /*public BlurUtils(View view) {
         this(view, null);

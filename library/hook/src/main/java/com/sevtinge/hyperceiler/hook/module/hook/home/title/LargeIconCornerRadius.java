@@ -54,7 +54,6 @@ public class LargeIconCornerRadius extends BaseHook {
         });
     }
 
-
     public final Bitmap croppedCorners(Bitmap bitmap, float radius) {
         try {
             int width = bitmap.getWidth();

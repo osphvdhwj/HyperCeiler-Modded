@@ -98,7 +98,6 @@ public class BlurOverlay extends BaseHook {
 
                 }
 
-
 */
                 findAndHookMethod("com.miui.launcher.overlay.server.pane.SlidingPaneStateManager", "a", boolean.class, new MethodHook() {
                     @Override
@@ -112,7 +111,6 @@ public class BlurOverlay extends BaseHook {
                 XposedHelpers.callMethod(param.thisObject, "blurOverlayWindow", mCurrentBlurRadius);
             }
         });
-
 
         findAndHookMethod(mFoldableDeviceAdapter, "onOpened", new MethodHook() {
             @Override

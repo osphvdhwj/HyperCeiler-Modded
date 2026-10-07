@@ -57,7 +57,6 @@ public class NewClipboardList extends HCBase implements LoadInputMethodDex.OnInp
 
     private boolean isHooked;
 
-
     @Override
     public void load(ClassLoader classLoader) {
         mGson = new GsonBuilder().setPrettyPrinting().create();

@@ -176,7 +176,6 @@ public class HideDelimiter extends BaseHook {
                         });
                     }
 
-
                     findAndHookMethod(SubscriptionInfo.class, "getCarrierName", new MethodHook() {
                         @Override
                         protected void before(MethodHookParam param) throws Throwable {

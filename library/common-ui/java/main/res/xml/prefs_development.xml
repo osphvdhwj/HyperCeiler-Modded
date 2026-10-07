@@ -40,8 +40,6 @@
             android:key="prefs_key_development_ui"
             android:title="@string/development_ui" />
 
-
-
         <Preference
             android:key="prefs_key_development_cmd_r"
             android:title="@string/development_cmd_r" />

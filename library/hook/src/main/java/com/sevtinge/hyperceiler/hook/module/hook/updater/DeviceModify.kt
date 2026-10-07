@@ -23,7 +23,6 @@ import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeMethod
 import java.lang.reflect.*
 
-
 object DeviceModify : BaseHook() {
     private val deviceName: String = mPrefsMap.getString("updater_device", "")
     override fun init() {

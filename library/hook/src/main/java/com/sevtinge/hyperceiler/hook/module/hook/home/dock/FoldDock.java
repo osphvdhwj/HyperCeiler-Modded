@@ -43,7 +43,6 @@ public class FoldDock extends BaseHook {
 
         findAndHookMethod(mDeviceConfig, "getHotseatMaxCount", XC_MethodReplacement.returnConstant(5));
 
-
         findAndHookMethod("com.miui.home.launcher.hotseats.HotSeats", "initContent", new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {

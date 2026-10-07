@@ -93,7 +93,6 @@ public class ClockCenterHook extends BaseHook {
                 statusBar = miuiPhoneStatusBarView.findViewById(statusBarId);
                 ViewGroup statusBarContents = miuiPhoneStatusBarView.findViewById(statusBarContentsId);
 
-
                 TextView clock = miuiPhoneStatusBarView.findViewById(clockId);
                 ViewGroup phoneStatusBarLeftContainer =
                     miuiPhoneStatusBarView.findViewById(phoneStatusBarLeftContainerId);

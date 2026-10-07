@@ -80,7 +80,6 @@ public class QuickManagerAccessibilityPermission extends BaseHook {
 
                     logI(TAG, lpparam.packageName, "Accessibility services is " + accessibilityService);
 
-
                     Intent intentOpenSub = new Intent(activity, loadClassOrNull("com.android.settings.SubSettings", lpparam.classLoader));
                     intentOpenSub.setAction("android.intent.action.MAIN");
                     intentOpenSub.putExtra(":settings:show_fragment_title", appName);
