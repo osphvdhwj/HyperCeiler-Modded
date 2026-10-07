@@ -24,6 +24,8 @@ import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.ConservativeMillet;
 import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.CustomRefreshRate;
 import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.DisableGetDisplayCtrlCode;
 import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.DontKillApps;
+import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.ExperimentGameModeBoost;
+import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.ExperimentPowerKeeperNoThrottle;
 import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.GmsDozeFix;
 import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.LockMaxFps;
 import com.sevtinge.hyperceiler.hook.module.hook.powerkeeper.PreventBatteryWitelist;
@@ -40,5 +42,7 @@ public class PowerKeeper extends BaseModule {
         initHook(LockMaxFps.INSTANCE, mPrefsMap.getBoolean("powerkeeper_lock_max_fps"));
         initHook(DontKillApps.INSTANCE, mPrefsMap.getBoolean("powerkeeper_do_not_kill_apps"));
         initHook(new PreventBatteryWitelist(), mPrefsMap.getBoolean("powerkeeper_prevent_recovery_of_battery_optimization_whitelist"));
+        initHook(new ExperimentPowerKeeperNoThrottle(), mPrefsMap.getBoolean("experiment_powerkeeper_no_throttle"));
+        initHook(new ExperimentGameModeBoost(), mPrefsMap.getBoolean("experiment_game_mode_boost"));
     }
 }
