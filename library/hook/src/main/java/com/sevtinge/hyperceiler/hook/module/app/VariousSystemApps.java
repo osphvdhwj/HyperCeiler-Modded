@@ -24,6 +24,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.various.CollapseMiuiTitle;
 import com.sevtinge.hyperceiler.hook.module.hook.various.clipboard.NewUnPhraseLimit;
 import com.sevtinge.hyperceiler.hook.module.hook.various.dialog.DialogCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.various.MiuiAppNoOverScroll;
+import com.sevtinge.hyperceiler.hook.module.hook.various.UnhardcodeNotes;
 
 import org.luckypray.dexkit.DexKitBridge;
 
@@ -53,6 +54,7 @@ public class VariousSystemApps extends BaseModule {
         initHook(new MiuiAppNoOverScroll(), isMiuiOverScrollApps());
         initHook(new DialogCustom(), isMiuiDialogCustom());
 
+        initHook(new UnhardcodeNotes(), mPrefsMap.getBoolean("various_unhardcode_notes"));
         initHook(new CollapseMiuiTitle(), isCollapseMiuiTitleApps());
         // initHook(new NoBrightness(), isPay(mPackageName));
     }
