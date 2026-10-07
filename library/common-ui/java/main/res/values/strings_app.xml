@@ -1830,5 +1830,9 @@
 
     <string name="system_ui_screenshot_extract_text_chip">Extract text from screenshot</string>
     <string name="system_ui_screenshot_extract_text_chip_summary">Adds an Extract-text chip to the screenshot preview. Requires the AVES+ Tools app.</string>
+
+    <string name="system_ui_control_center_blur_title">Blur</string>
+    <string name="system_ui_control_center_blur_radius_scale">Control center blur intensity</string>
+    <string name="system_ui_control_center_blur_radius_scale_summary">Scales the background blur radius of every control center panel. 100% = system default. 0% = off. 200% = maximum.</string>
 </resources>
 

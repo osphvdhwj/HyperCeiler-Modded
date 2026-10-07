@@ -125,6 +125,12 @@ object NewPluginHelperKt : BaseHook() {
                         )),
                         VolumeOrQSBrightnessValue::initVolumeOrQSBrightnessValue
                     ),
+
+                    Triple(
+                        "ControlCenterBlurRadius",
+                        mPrefsMap.getInt("system_ui_control_center_blur_radius_scale", 100) != 100,
+                        ControlCenterBlurRadius::init
+                    ),
                     Triple(
                         "CustomCardTiles",
                         mPrefsMap.getBoolean("systemui_plugin_card_tiles_enabled") &&
