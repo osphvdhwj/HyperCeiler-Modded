@@ -21,6 +21,7 @@ package com.sevtinge.hyperceiler.hook.module.app;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.BlackLeica;
+import com.sevtinge.hyperceiler.hook.module.hook.camera.UnhardcodeGallery;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.CustomCameraColor;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.CustomWatermark;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.EnableLabOptions;
@@ -52,5 +53,6 @@ public class Camera extends BaseModule {
         
 
         // Experimental
+        initHook(new UnhardcodeGallery(), mPrefsMap.getBoolean("camera_unhardcode_gallery"));
     }
 }
