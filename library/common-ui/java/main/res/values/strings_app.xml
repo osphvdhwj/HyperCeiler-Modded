@@ -1676,12 +1676,6 @@
     <string name="experiment_systemui_cc_blur_intensity_summary">Custom blur intensity for CC background</string>
     <string name="experiment_systemui_lockscreen_custom_clock">Lockscreen Custom Clock</string>
     <string name="experiment_systemui_lockscreen_custom_clock_summary">Custom font/size for lockscreen clock</string>
-    <string name="experiment_home_folder_effect">Folder 3D Effect</string>
-    <string name="experiment_home_folder_effect_summary">Add 3D flip animation when opening folders</string>
-    <string name="experiment_home_icon_shadow">Icon Shadow/Glow</string>
-    <string name="experiment_home_icon_shadow_summary">Customizable icon shadow/glow effect</string>
-    <string name="experiment_home_status_bar_hide">Hide Status Bar</string>
-    <string name="experiment_home_status_bar_hide_summary">Completely hide status bar on home screen</string>
     <string name="experiment_systemframework_force_gpu_render">Force GPU Rendering</string>
     <string name="experiment_systemframework_force_gpu_render_summary">Force GPU rendering for all windows</string>
     <string name="experiment_systemframework_disable_wifi_scan">Disable Wifi Scanning</string>

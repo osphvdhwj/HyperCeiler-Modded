@@ -208,7 +208,6 @@ public class FreeformShortcutMenu extends BaseHook {
                 ComponentName mComponentName = (ComponentName) callMethod(obj, "getComponentName", new Object[0]);
                 String packageName = mComponentName.getPackageName();
 
-                // Execute Hyper Hand (Hail) Root force stop
                 new Thread(() -> {
                     try {
                         Runtime.getRuntime().exec(new String[]{"su", "-c", "am force-stop " + packageName});
