@@ -41,7 +41,7 @@ import de.robv.android.xposed.XposedHelpers;
  *             one with mId = 9 (the "game" id per the private
  *             isGameModeApp's whitelist {9,13,16,106,107}).
  *
- *   com.miui.powerkeeper.statemachine.ScenarioManager
+ *   com.miui.powerkeeper.thermal.ScenarioManager
  *       isGameModeApp(String)  - newer path used by Proxy when the
  *             ScenarioManager is initialised. Also forced true.
  */
