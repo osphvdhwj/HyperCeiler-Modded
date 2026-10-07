@@ -1989,5 +1989,9 @@
     <string name="aves_tools_provider_endpoint">提供程序端点（包名 / socket / URL）</string>
     <string name="aves_tools_provider_fallback_native">提供程序缺失时回退到 HyperOS AI</string>
     <string name="aves_tools_provider_coming_soon">稍后添加 — 敬请期待</string>
+
+    <string name="aves_tools_provider_not_installed">未安装 AVES+ Tools 提供程序 — 安装后即可启用。</string>
+    <string name="aves_tools_provider_detected">已检测到 AVES+ Tools，提供程序版本 %1$s。</string>
+    <string name="aves_tools_provider_detected_unknown">已检测到 AVES+ Tools，版本未知。</string>
 </resources>
 

@@ -1823,5 +1823,9 @@
     <string name="aves_tools_provider_endpoint">Provider endpoint (package / socket / URL)</string>
     <string name="aves_tools_provider_fallback_native">Fall back to HyperOS AI if provider is missing</string>
     <string name="aves_tools_provider_coming_soon">Will add later — coming soon</string>
+
+    <string name="aves_tools_provider_not_installed">AVES+ Tools provider not installed — install it to enable.</string>
+    <string name="aves_tools_provider_detected">AVES+ Tools detected, provider version %1$s.</string>
+    <string name="aves_tools_provider_detected_unknown">AVES+ Tools detected, version unknown.</string>
 </resources>
 

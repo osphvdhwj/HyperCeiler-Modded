@@ -27,11 +27,10 @@
             android:summary="@string/aves_tools_provider_coming_soon"
             android:defaultValue="false" />
 
-        <EditTextPreference
+        <Preference
             android:key="prefs_key_aves_bridge_endpoint"
             android:title="@string/aves_tools_provider_endpoint"
-            android:summary="@string/aves_tools_provider_coming_soon"
-            android:defaultValue="" />
+            android:summary="content://com.avesplus.tools.provider" />
 
         <SwitchPreference
             android:key="prefs_key_aves_bridge_fallback_native"
