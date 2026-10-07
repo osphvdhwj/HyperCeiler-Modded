@@ -21,74 +21,57 @@ package com.sevtinge.hyperceiler.hook.module.hook.powerkeeper;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
 /**
- * Prevent PowerKeeper from throttling CPU on thermal / power-save events.
+ * Prevent PowerKeeper from throttling CPU on thermal events.
  *
- * Verified on HyperOS 2:
- *   com.miui.powerkeeper.feedbackcontrol.ThermalManager exists
- *   (used by DisableGetDisplayCtrlCode).
+ * All targets verified against the HyperOS 2 PowerKeeper.apk
+ * (decompiled with jadx, see ~/decomp/pk_dec):
  *
- * The exact method names that carry the thermal decision are not verified
- * for HyperOS 2. We probe a set of candidates and hook whichever exist,
- * forcing "cool / no throttle" values. Any candidate that isn't present
- * is a silent no-op — this can never crash the process.
+ *   com.miui.powerkeeper.perfengine.PeThermalController
+ *       public synchronized void h(int)   - entry point that
+ *           eventually writes to the "thermal-perfd-recv-client"
+ *           socket, i.e. tells perfd to throttle. We no-op it.
  *
- * To lock in the real targets: `pm path com.miui.powerkeeper`, pull the
- * APK, `baksmali` / dexkit and grep ThermalManager for thermal methods,
- * then replace the candidate arrays below with the confirmed names.
+ *   com.miui.powerkeeper.feedbackcontrol.ThermalManager
+ *       int getBacKProgressCtrlCode()
+ *       int getBenchmarkCode()
+ *       int getSKCtrlCode()
+ *       int getWGDCtrlCode()
+ *           - all four return per-feature throttle codes; 0 = no
+ *             restriction. We force 0.
+ *
+ * getDisplayCtrlCode() is intentionally left to
+ * DisableGetDisplayCtrlCode which is the dedicated toggle for it.
  */
 public class ExperimentPowerKeeperNoThrottle extends BaseHook {
 
     @Override
     public void init() {
+        // 1. Skip the perfd throttle signal.
+        Class<?> peThermal = findClassIfExists("com.miui.powerkeeper.perfengine.PeThermalController");
+        if (peThermal != null) {
+            findAndHookMethodSilently(peThermal, "h", int.class, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) {
+                    param.setResult(null);
+                }
+            });
+        }
+
+        // 2. Zero out the per-feature throttle codes on ThermalManager.
         Class<?> thermal = findClassIfExists("com.miui.powerkeeper.feedbackcontrol.ThermalManager");
         if (thermal == null) return;
 
-        // Getters that return a thermal level (0 = cool). Setting to 0
-        // means "no throttling required".
-        String[] intGetters = {
-                "getThermalStatus",
-                "getThermalLevel",
-                "getTemperatureLevel",
-                "getThrottleLevel",
-                "getDisplayCtrlCode", // already covered elsewhere; keep as belt+braces
+        String[] zeroGetters = {
+                "getBacKProgressCtrlCode",
+                "getBenchmarkCode",
+                "getSKCtrlCode",
+                "getWGDCtrlCode",
         };
-        for (String m : intGetters) {
+        for (String m : zeroGetters) {
             findAndHookMethodSilently(thermal, m, new MethodHook() {
                 @Override
                 protected void before(MethodHookParam param) {
                     param.setResult(0);
-                }
-            });
-        }
-
-        // Setters that receive a thermal level — force it to 0.
-        String[] intSetters = {
-                "onThermalChanged",
-                "setThermalStatus",
-                "updateThermalStatus",
-                "onTemperatureChanged",
-        };
-        for (String m : intSetters) {
-            findAndHookMethodSilently(thermal, m, int.class, new MethodHook() {
-                @Override
-                protected void before(MethodHookParam param) {
-                    param.args[0] = 0;
-                }
-            });
-        }
-
-        // Boolean guards.
-        String[] boolGetters = {
-                "isThermalThrottlingEnabled",
-                "isThrottlingEnabled",
-                "isInThermalThrottle",
-                "isLimited",
-        };
-        for (String m : boolGetters) {
-            findAndHookMethodSilently(thermal, m, new MethodHook() {
-                @Override
-                protected void before(MethodHookParam param) {
-                    param.setResult(false);
                 }
             });
         }
