@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
 public class FreeformShortcutMenu extends BaseHook {
@@ -206,26 +207,19 @@ public class FreeformShortcutMenu extends BaseHook {
             try {
                 Context mContext1 = view.getContext();
                 ComponentName mComponentName = (ComponentName) callMethod(obj, "getComponentName", new Object[0]);
+                if (mComponentName == null) return;
                 String packageName = mComponentName.getPackageName();
 
-                new Thread(() -> {
-                    try {
-                        Runtime.getRuntime().exec(new String[]{"su", "-c", "am force-stop " + packageName});
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }).start();
-
-                try {
-                    android.app.ActivityManager am = (android.app.ActivityManager) mContext1.getSystemService(Context.ACTIVITY_SERVICE);
-                    java.lang.reflect.Method forceStopPackageMethod = am.getClass().getDeclaredMethod("forceStopPackage", String.class);
-                    forceStopPackageMethod.setAccessible(true);
-                    forceStopPackageMethod.invoke(am, packageName);
-                } catch (Exception ignored) {}
+                // Route through the receiver already registered by GlobalActions
+                // inside system_server (PhoneWindowManager.init). That side has
+                // the FORCE_STOP_PACKAGES permission, so no su/root is needed.
+                Intent stop = new Intent(com.sevtinge.hyperceiler.hook.module.hook.GlobalActions.ACTION_PREFIX + "RestartApps");
+                stop.putExtra("packageName", packageName);
+                mContext1.sendBroadcast(stop);
 
                 android.widget.Toast.makeText(mContext1, "Hyper Hand force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                e.printStackTrace();
+                XposedBridge.log("[HyperHand] force-stop via receiver failed: " + e);
             }
         };
     }

@@ -62,7 +62,7 @@ public class MoreNotificationSettings extends BaseHook {
                 String id = (String)XposedHelpers.callMethod(XposedHelpers.callMethod(entry, "getChannel"), "getId");
                 if ("miscellaneous".equals(id)) return;
                 Object notification = XposedHelpers.callMethod(entry, "getSbn");
-                Class<?> nuCls = findClassIfExists("com.android.systemui.miui.statusbar.notification.NotificationUtil", lpparam.classLoader);
+                Class<?> nuCls = findClassIfExists("com.android.systemui.statusbar.notification.NotificationUtil", lpparam.classLoader);
                 if (nuCls != null) {
                     boolean isHybrid = (boolean)XposedHelpers.callStaticMethod(nuCls, "isHybrid", notification);
                     if (isHybrid) return;
