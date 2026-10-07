@@ -128,7 +128,7 @@ import java.util.Objects;
 public class SystemUiU extends BaseModule {
     @Override
     public void handleLoadPackage() {
-        initHook(ExtractTextChip.INSTANCE, mPrefsMap.getBoolean("system_ui_screenshot_extract_text_chip"));
+        initHook(new ExtractTextChip(), mPrefsMap.getBoolean("system_ui_screenshot_extract_text_chip"));
         // PluginHelper
         initHook(NewPluginHelperKt.INSTANCE);
         // initHook(Island.INSTANCE, true); // 灵动岛
