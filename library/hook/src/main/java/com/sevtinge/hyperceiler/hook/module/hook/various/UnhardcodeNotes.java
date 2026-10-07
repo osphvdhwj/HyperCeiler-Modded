@@ -58,8 +58,6 @@ public class UnhardcodeNotes extends BaseHook {
     private static final String DEFAULT_MAP =
             "com.miui.notes=com.google.android.keep";
 
-    private static volatile Map<String, String> sMap = null;
-
     private static Map<String, String> parseMap(String raw) {
         Map<String, String> m = new HashMap<>();
         if (raw == null) return m;
@@ -75,23 +73,6 @@ public class UnhardcodeNotes extends BaseHook {
         return m;
     }
 
-    private Map<String, String> getMap() {
-        Map<String, String> local = sMap;
-        if (local != null) return local;
-        synchronized (UnhardcodeNotes.class) {
-            if (sMap != null) return sMap;
-            String raw;
-            try {
-                raw = mPrefsMap.getString(PREF_MAP, "");
-            } catch (Throwable t) {
-                raw = "";
-            }
-            if (raw == null || raw.trim().isEmpty()) raw = DEFAULT_MAP;
-            sMap = parseMap(raw);
-            return sMap;
-        }
-    }
-
     private boolean rewrite(Intent intent, Context ctx) {
         if (intent == null) return false;
 
@@ -99,7 +80,7 @@ public class UnhardcodeNotes extends BaseHook {
         String target = (comp != null) ? comp.getPackageName() : intent.getPackage();
         if (target == null) return false;
 
-        String replacement = getMap().get(target);
+        String replacement = currentMap().get(target);
         if (replacement == null || replacement.equals(target)) return false;
 
         if (ctx == null) return false;
@@ -108,6 +89,17 @@ public class UnhardcodeNotes extends BaseHook {
         intent.setPackage(replacement);
         if (intent.getComponent() != null) intent.setComponent(null);
         return true;
+    }
+
+    private Map<String, String> currentMap() {
+        String raw;
+        try {
+            raw = mPrefsMap.getString(PREF_MAP, "");
+        } catch (Throwable t) {
+            raw = "";
+        }
+        if (raw == null || raw.trim().isEmpty()) raw = DEFAULT_MAP;
+        return parseMap(raw);
     }
 
     private static boolean isInstalled(Context ctx, String pkg) {
@@ -149,7 +141,5 @@ public class UnhardcodeNotes extends BaseHook {
     public void init() {
         hookAll(Activity.class);
         hookAll(ContextWrapper.class);
-        // Preload the map so the first hit doesn't parse mid-dispatch.
-        getMap();
     }
 }
