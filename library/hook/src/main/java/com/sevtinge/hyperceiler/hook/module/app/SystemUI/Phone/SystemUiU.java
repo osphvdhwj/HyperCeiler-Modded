@@ -22,6 +22,7 @@ import java.util.Collections;
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AllowManageAllNotifications;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.screenshot.ExtractTextChip;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AutoCollapse;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AutoSEffSwitchForSystemUi;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.DisableTransparent;
@@ -127,6 +128,7 @@ import java.util.Objects;
 public class SystemUiU extends BaseModule {
     @Override
     public void handleLoadPackage() {
+        initHook(ExtractTextChip.INSTANCE, mPrefsMap.getBoolean("system_ui_screenshot_extract_text_chip"));
         // PluginHelper
         initHook(NewPluginHelperKt.INSTANCE);
         // initHook(Island.INSTANCE, true); // 灵动岛

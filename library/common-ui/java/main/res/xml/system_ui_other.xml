@@ -207,6 +207,12 @@
             android:key="prefs_key_system_ui_qs_label"
             android:title="@string/system_ui_qs_label" />
 
-    </PreferenceCategory>
+            <SwitchPreference
+            android:key="prefs_key_system_ui_screenshot_extract_text_chip"
+            android:title="@string/system_ui_screenshot_extract_text_chip"
+            android:summary="@string/system_ui_screenshot_extract_text_chip_summary"
+            android:defaultValue="false" />
+
+</PreferenceCategory>
 
 </PreferenceScreen>

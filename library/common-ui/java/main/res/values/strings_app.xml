@@ -1827,5 +1827,8 @@
     <string name="aves_tools_provider_not_installed">AVES+ Tools provider not installed — install it to enable.</string>
     <string name="aves_tools_provider_detected">AVES+ Tools detected, provider version %1$s.</string>
     <string name="aves_tools_provider_detected_unknown">AVES+ Tools detected, version unknown.</string>
+
+    <string name="system_ui_screenshot_extract_text_chip">Extract text from screenshot</string>
+    <string name="system_ui_screenshot_extract_text_chip_summary">Adds an Extract-text chip to the screenshot preview. Requires the AVES+ Tools app.</string>
 </resources>
 

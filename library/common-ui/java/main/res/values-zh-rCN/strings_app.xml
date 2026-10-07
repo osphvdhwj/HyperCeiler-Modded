@@ -1993,5 +1993,8 @@
     <string name="aves_tools_provider_not_installed">未安装 AVES+ Tools 提供程序 — 安装后即可启用。</string>
     <string name="aves_tools_provider_detected">已检测到 AVES+ Tools，提供程序版本 %1$s。</string>
     <string name="aves_tools_provider_detected_unknown">已检测到 AVES+ Tools，版本未知。</string>
+
+    <string name="system_ui_screenshot_extract_text_chip">从截图中提取文字</string>
+    <string name="system_ui_screenshot_extract_text_chip_summary">在截图预览中添加"提取文字"按钮。需要 AVES+ Tools 应用。</string>
 </resources>
 
