@@ -1837,5 +1837,8 @@
 
     <string name="system_ui_control_center_tile_anim_speed">Tile animation speed</string>
     <string name="system_ui_control_center_tile_anim_speed_summary">Scales the duration of the Quick Settings tile state-change animation. 100% = system default (~350 ms). 50% = twice as fast. 0% = instant.</string>
+
+    <string name="system_ui_control_center_tile_corner_scale">Tile corner radius</string>
+    <string name="system_ui_control_center_tile_corner_scale_summary">Scales the corner radius of every control center tile. 100% = system default. 0% = square corners. 200% = maximum (capped at 200 px).</string>
 </resources>
 

@@ -137,6 +137,12 @@ object NewPluginHelperKt : BaseHook() {
                         mPrefsMap.getInt("system_ui_control_center_tile_anim_speed", 100) != 100,
                         TileAnimSpeed::init
                     ),
+
+                    Triple(
+                        "TileCornerRadius",
+                        mPrefsMap.getInt("system_ui_control_center_tile_corner_scale", 100) != 100,
+                        TileCornerRadius::init
+                    ),
                     Triple(
                         "CustomCardTiles",
                         mPrefsMap.getBoolean("systemui_plugin_card_tiles_enabled") &&
