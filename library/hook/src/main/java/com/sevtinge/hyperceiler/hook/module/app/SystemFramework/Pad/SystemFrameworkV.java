@@ -114,8 +114,6 @@ public class SystemFrameworkV extends BaseModule {
         initHook(new VolumeSteps(), mPrefsMap.getInt("system_framework_volume_steps", 0) > 0);
         initHook(new VolumeMediaSteps(), mPrefsMap.getBoolean("system_framework_volume_media_steps_enable"));
         initHook(new VolumeDisableSafe(), mPrefsMap.getStringAsInt("system_framework_volume_disable_safe_new", 0) != 0);
-        initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemframework.ChargeLimit(), true);
-
         // 其他
         initHook(new SystemLockApp(), mPrefsMap.getBoolean("system_framework_guided_access"));
         initHook(new ScreenRotation(), mPrefsMap.getBoolean("system_framework_screen_all_rotations"));

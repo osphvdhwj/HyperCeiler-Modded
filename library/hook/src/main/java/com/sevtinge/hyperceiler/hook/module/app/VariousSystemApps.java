@@ -54,8 +54,6 @@ public class VariousSystemApps extends BaseModule {
         initHook(new DialogCustom(), isMiuiDialogCustom());
 
         initHook(new CollapseMiuiTitle(), isCollapseMiuiTitleApps());
-        initHook(new com.sevtinge.hyperceiler.hook.module.hook.various.UnhardcodeNotes(), mPrefsMap.getBoolean("various_unhardcode_notes") && isMiuiApps);
-
         // initHook(new NoBrightness(), isPay(mPackageName));
     }
 

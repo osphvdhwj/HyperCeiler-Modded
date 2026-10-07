@@ -172,12 +172,6 @@ object NewPluginHelperKt : BaseHook() {
                         "UnlockCarSicknessTile",
                         mPrefsMap.getBoolean("security_center_unlock_car_sickness")
                     ) { cl -> UnlockCarSicknessTile.initUnlockCarSicknessTile(cl) },
-                    Triple(
-                        "ConnectivityPlatterHook",
-                        mPrefsMap.getBoolean("system_ui_control_center_ios_connectivity_platter") ||
-                            mPrefsMap.getBoolean("system_ui_control_center_connectivity_platter"),
-                        ConnectivityPlatterHook::initConnectivityPlatterHook
-                    ),
                 )
                 loadClassLoaders(factory.mComponentName.toString(), classLoader, loaders)
             }
