@@ -119,16 +119,6 @@ public class OtherSettings extends DashboardFragment implements Preference.OnPre
             return true;
         });
 
-        Preference mHailApps = findPreference("hail_apps");
-        if (mHailApps != null) {
-            mHailApps.setOnPreferenceClickListener(preference -> {
-                Intent intent = new Intent(getActivity(), SubPickerActivity.class);
-                intent.putExtra("mode", AppPickerFragment.LAUNCHER_MODE);
-                intent.putExtra("key", preference.getKey());
-                startActivity(intent);
-                return true;
-            });
-        }
         handler = new Handler(requireContext().getMainLooper());
 
         Bundle args1 = new Bundle();

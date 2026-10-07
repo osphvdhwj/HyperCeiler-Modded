@@ -78,7 +78,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/experiment_category">
-    </PreferenceCategory>
-
 </PreferenceScreen>
