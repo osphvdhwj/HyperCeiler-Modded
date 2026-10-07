@@ -81,12 +81,15 @@ public class VolumeScreenOffLimit extends BaseHook {
                     AudioManager am = (AudioManager) ctx.getSystemService(Context.AUDIO_SERVICE);
                     if (am == null) return;
 
-                    int max = XposedHelpers.getIntField(param.thisObject, "mStreamVolumeAlias") >= 0
-                            ? am.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-                            : am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    int max = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                    if (max <= 0) return;
 
+                    // Public APIs only — AudioManager obtained from
+                    // Context.getSystemService is a client stub, it does
+                    // not have server-side fields like mBluetoothA2dpEnabled.
                     boolean headset = am.isWiredHeadsetOn()
-                            || XposedHelpers.getBooleanField(am, "mBluetoothA2dpEnabled");
+                            || am.isBluetoothA2dpOn()
+                            || am.isBluetoothScoOn();
 
                     int cap = headset
                             ? mPrefsMap.getInt("system_framework_volume_limit_screen_off_earphones", 15)

@@ -31,8 +31,9 @@ public class VolumeFirstPress extends BaseHook {
     @Override
     public void init() {
         mVolumeController = findClassIfExists("com.android.server.audio.AudioService$VolumeController");
+        if (mVolumeController == null) return;
 
-        findAndHookMethod(mVolumeController, "suppressAdjustment", int.class, int.class, boolean.class, new MethodHook() {
+        findAndHookMethodSilently(mVolumeController, "suppressAdjustment", int.class, int.class, boolean.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
                 int streamType = (int) param.args[0];
