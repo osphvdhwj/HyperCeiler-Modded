@@ -1980,5 +1980,14 @@
 
     <string name="various_pkg_redirect_map">包名重定向表</string>
     <string name="various_pkg_redirect_map_summary">每行一条规则：源包名=目标包名\n示例：com.miui.notes=com.google.android.keep</string>
+
+    <string name="aves_tools_provider_title">外部 AI 提供程序 (AVES+)</string>
+    <string name="aves_tools_provider_summary">使用 AVES+ Tools 应用作为本机 AI 后端，替代 HyperOS 服务。</string>
+    <string name="aves_tools_provider_bridge_title">桥接</string>
+    <string name="aves_tools_provider_tools_title">工具</string>
+    <string name="aves_tools_provider_enable">启用外部提供程序</string>
+    <string name="aves_tools_provider_endpoint">提供程序端点（包名 / socket / URL）</string>
+    <string name="aves_tools_provider_fallback_native">提供程序缺失时回退到 HyperOS AI</string>
+    <string name="aves_tools_provider_coming_soon">稍后添加 — 敬请期待</string>
 </resources>
 

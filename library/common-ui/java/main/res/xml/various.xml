@@ -102,6 +102,12 @@
             android:dialogTitle="@string/various_pkg_redirect_map"
             android:defaultValue="" />
 
+        <Preference
+            android:fragment="com.sevtinge.hyperceiler.ui.hooker.various.AvesToolsProviderSettings"
+            android:key="prefs_key_aves_tools_provider"
+            android:title="@string/aves_tools_provider_title"
+            android:summary="@string/aves_tools_provider_summary" />
+
         <fan.preference.DropDownPreference
             android:defaultValue="0"
             android:key="prefs_key_various_collapse_miui_title"

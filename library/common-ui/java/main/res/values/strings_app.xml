@@ -1814,5 +1814,14 @@
 
     <string name="various_pkg_redirect_map">Package Redirect Map</string>
     <string name="various_pkg_redirect_map_summary">One rule per line: source.package=target.package\nExample: com.miui.notes=com.google.android.keep</string>
+
+    <string name="aves_tools_provider_title">External AI Provider (AVES+)</string>
+    <string name="aves_tools_provider_summary">Use AVES+ Tools app as the on-device AI backend instead of HyperOS.</string>
+    <string name="aves_tools_provider_bridge_title">Bridge</string>
+    <string name="aves_tools_provider_tools_title">Tools</string>
+    <string name="aves_tools_provider_enable">Enable external provider</string>
+    <string name="aves_tools_provider_endpoint">Provider endpoint (package / socket / URL)</string>
+    <string name="aves_tools_provider_fallback_native">Fall back to HyperOS AI if provider is missing</string>
+    <string name="aves_tools_provider_coming_soon">Will add later — coming soon</string>
 </resources>
 

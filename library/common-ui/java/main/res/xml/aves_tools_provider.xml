@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ This file is part of HyperCeiler.
+  ~
+  ~ HyperCeiler is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as
+  ~ published by the Free Software Foundation, either version 3 of the
+  ~ License.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  ~
+  ~ Copyright (C) 2023-2025 HyperCeiler Contributions
+  -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:myLocation="@string/aves_tools_provider_title">
+
+    <PreferenceCategory android:title="@string/aves_tools_provider_bridge_title">
+        <SwitchPreference
+            android:key="prefs_key_aves_bridge_enable"
+            android:title="@string/aves_tools_provider_enable"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="false" />
+
+        <EditTextPreference
+            android:key="prefs_key_aves_bridge_endpoint"
+            android:title="@string/aves_tools_provider_endpoint"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="" />
+
+        <SwitchPreference
+            android:key="prefs_key_aves_bridge_fallback_native"
+            android:title="@string/aves_tools_provider_fallback_native"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/aves_tools_provider_tools_title">
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_ocr"
+            android:title="OCR"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_nsfw"
+            android:title="NSFW scoring"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_tag"
+            android:title="Auto-tagging"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_caption"
+            android:title="Image captioning"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_search"
+            android:title="Semantic search"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_translate"
+            android:title="Offline translation"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+        <SwitchPreference android:key="prefs_key_aves_bridge_tools_embed"
+            android:title="Embeddings"
+            android:summary="@string/aves_tools_provider_coming_soon"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
