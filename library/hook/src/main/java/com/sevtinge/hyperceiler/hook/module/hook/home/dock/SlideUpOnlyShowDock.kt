@@ -26,12 +26,13 @@ import com.sevtinge.hyperceiler.hook.utils.getBooleanField
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
 import com.sevtinge.hyperceiler.hook.utils.setBooleanField
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object SlideUpOnlyShowDock : BaseHook() {
     override fun init() {
-        loadClass("com.miui.home.recents.DockGestureHelper").methodFinder()
+        val dockGestureHelper = loadClassOrNull("com.miui.home.recents.DockGestureHelper") ?: return
+        dockGestureHelper.methodFinder()
             .filterByName("dispatchTouchEvent").single().createHook {
                 replace {
                     // ================
@@ -169,7 +170,7 @@ object SlideUpOnlyShowDock : BaseHook() {
             }
 
         // 拦截通过dock快速上滑进入桌面的方法
-        loadClass("com.miui.home.recents.DockGestureHelper").methodFinder()
+        dockGestureHelper.methodFinder()
             .filterByName("startGestureModeGesture").single().createHook {
                 replace { }
             }

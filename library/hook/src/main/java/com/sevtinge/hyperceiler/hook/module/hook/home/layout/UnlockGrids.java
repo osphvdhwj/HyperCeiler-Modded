@@ -100,7 +100,7 @@ public class UnlockGrids extends HomeBaseHook {
             }
         });
 
-        findAndHookMethod("com.miui.home.launcher.compat.LauncherCellCountCompatNoWord", lpparam.classLoader, "setLoadResCellConfig", boolean.class, new MethodHook() {
+        findAndHookMethodSilently("com.miui.home.launcher.compat.LauncherCellCountCompatNoWord", lpparam.classLoader, "setLoadResCellConfig", boolean.class, new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {
                 param.args[0] = true;

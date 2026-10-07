@@ -22,13 +22,13 @@ import android.view.MotionEvent
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.utils.getStaticObjectFieldOrNullAs
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createBeforeHook
 
 object SetGestureNeedFingerNum : BaseHook() {
     override fun init() {
         val clazzGestureOperationHelper =
-            loadClass("com.miui.home.recents.GestureOperationHelper")
+            loadClassOrNull("com.miui.home.recents.GestureOperationHelper") ?: return
         clazzGestureOperationHelper.methodFinder()
             .filterByName("isThreePointerSwipeLeftOrRightInScreen")
             .filterByParamTypes(MotionEvent::class.java, Int::class.java)

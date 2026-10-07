@@ -20,19 +20,22 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.dock
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object HideDock : BaseHook() {
     override fun init() {
         // 上滑时忽略 dock,直接触发最近任务手势
-        loadClass("com.miui.home.recents.GestureTouchEventTracker").methodFinder()
+        val tracker = loadClassOrNull("com.miui.home.recents.GestureTouchEventTracker") ?: return
+        val dockSm = loadClassOrNull("com.miui.home.launcher.dock.DockStateMachine") ?: return
+
+        tracker.methodFinder()
             .filterByName("isTouchCountAndHotSeatSupport").single().createHook {
                 returnConstant(false)
             }
 
         // 拦截dock出现动画
-        loadClass("com.miui.home.launcher.dock.DockStateMachine").methodFinder()
+        dockSm.methodFinder()
             .filterByName("transitionToAppearingState\$default").single().createHook {
                 replace { }
             }

@@ -23,26 +23,14 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 public class DownloadAnimation extends BaseHook {
     @Override
     public void init() {
-        try{
-            hookAllMethods("com.miui.home.launcher.common.DeviceLevelUtils", "needMamlProgressIcon", new MethodHook() {
-                @Override
-                protected void before(MethodHookParam param) throws Throwable {
-                    param.setResult(true);
-                }
-            });
-            hookAllMethods("com.miui.home.launcher.common.DeviceLevelUtils", "needRemoveDownloadAnimationDevice", new MethodHook() {
-                @Override
-                protected void before(MethodHookParam param) throws Throwable {
-                    param.setResult(false);
-                }
-            });
-        } catch (Exception e) {
-            hookAllMethods("com.miui.home.launcher.common.CpuLevelUtils", "needMamlDownload", new MethodHook() {
-                @Override
-                protected void before(MethodHookParam param) throws Throwable {
-                    param.setResult(true);
-                }
-            });
-        }
+        // All three targets use Silently variants: on HyperOS 2 the older
+        // DeviceLevelUtils class is gone, CpuLevelUtils covers modern builds,
+        // and any missing variant is a no-op rather than a crash.
+        hookAllMethodsSilently("com.miui.home.launcher.common.DeviceLevelUtils",
+                "needMamlProgressIcon", MethodHook.returnConstant(true));
+        hookAllMethodsSilently("com.miui.home.launcher.common.DeviceLevelUtils",
+                "needRemoveDownloadAnimationDevice", MethodHook.returnConstant(false));
+        hookAllMethodsSilently("com.miui.home.launcher.common.CpuLevelUtils",
+                "needMamlDownload", MethodHook.returnConstant(true));
     }
 }

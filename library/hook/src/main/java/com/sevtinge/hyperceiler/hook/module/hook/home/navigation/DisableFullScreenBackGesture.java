@@ -24,7 +24,7 @@ import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool;
 public class DisableFullScreenBackGesture extends BaseHook {
     @Override
     public void init(){
-        findAndHookMethod("com.miui.launcher.utils.NotesGestureCompat", "supportsGestureHeightExpansion", new HookTool.replaceHookedMethod() {
+        findAndHookMethodSilently("com.miui.launcher.utils.NotesGestureCompat", "supportsGestureHeightExpansion", new HookTool.replaceHookedMethod() {
             @Override
             protected Object replace(MethodHookParam param) {
                 return false;

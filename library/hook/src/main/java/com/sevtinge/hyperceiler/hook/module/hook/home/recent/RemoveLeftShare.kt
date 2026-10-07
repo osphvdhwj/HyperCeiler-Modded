@@ -23,12 +23,13 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
 import com.sevtinge.hyperceiler.hook.utils.setObjectField
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object RemoveLeftShare : BaseHook() {
     override fun init() {
-        loadClass("com.miui.home.recents.views.RecentsWorldCirculateAndSmallWindowCrop").methodFinder()
+        val cropView = loadClassOrNull("com.miui.home.recents.views.RecentsWorldCirculateAndSmallWindowCrop") ?: return
+        cropView.methodFinder()
             .filterByName("initViewDisplayInDrag")
             .first().createHook {
                 before {
