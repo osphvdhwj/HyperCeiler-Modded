@@ -60,46 +60,44 @@ public class ExtractTextChip extends BaseHook {
             @Override
             protected void after(MethodHookParam param) {
                 try {
-                    injectChip(param);
+                    Object saved = (param.args != null && param.args.length > 0)
+                            ? param.args[0] : null;
+                    if (saved == null) return;
+
+                    Uri uri = (Uri) XposedHelpers.getObjectField(saved, "uri");
+                    if (uri == null) return;
+
+                    View view = (param.thisObject instanceof View)
+                            ? (View) param.thisObject : null;
+                    if (view == null) return;
+
+                    Context ctx = view.getContext();
+                    if (ctx == null) return;
+
+                    LinearLayout actionsView =
+                            (LinearLayout) XposedHelpers.getObjectField(view, "mActionsView");
+                    if (actionsView == null) return;
+
+                    int layoutId = ctx.getResources()
+                            .getIdentifier("overlay_action_chip", "layout", SYSTEMUI_PKG);
+                    if (layoutId == 0) return;
+
+                    View chip = LayoutInflater.from(ctx).inflate(layoutId, actionsView, false);
+                    if (chip == null) return;
+
+                    try {
+                        XposedHelpers.callMethod(chip, "setText", "Extract text");
+                    } catch (Throwable ignored) { }
+                    chip.setAlpha(1.0f);
+                    chip.setOnClickListener(v -> runOcr(ctx, uri));
+
+                    int insertAt = Math.max(0, actionsView.getChildCount() - 1);
+                    actionsView.addView(chip, insertAt);
                 } catch (Throwable ignored) {
                     // never break the screenshot flow
                 }
             }
         });
-    }
-
-    private void injectChip(MethodHookParam param) {
-        Object saved = (param.args != null && param.args.length > 0) ? param.args[0] : null;
-        if (saved == null) return;
-
-        Uri uri = (Uri) XposedHelpers.getObjectField(saved, "uri");
-        if (uri == null) return;
-
-        View view = (param.thisObject instanceof View) ? (View) param.thisObject : null;
-        if (view == null) return;
-
-        Context ctx = view.getContext();
-        if (ctx == null) return;
-
-        LinearLayout actionsView =
-                (LinearLayout) XposedHelpers.getObjectField(view, "mActionsView");
-        if (actionsView == null) return;
-
-        int layoutId = ctx.getResources()
-                .getIdentifier("overlay_action_chip", "layout", SYSTEMUI_PKG);
-        if (layoutId == 0) return;
-
-        View chip = LayoutInflater.from(ctx).inflate(layoutId, actionsView, false);
-        if (chip == null) return;
-
-        try {
-            XposedHelpers.callMethod(chip, "setText", "Extract text");
-        } catch (Throwable ignored) { }
-        chip.setAlpha(1.0f);
-        chip.setOnClickListener(v -> runOcr(ctx, uri));
-
-        int insertAt = Math.max(0, actionsView.getChildCount() - 1);
-        actionsView.addView(chip, insertAt);
     }
 
     private void runOcr(Context ctx, Uri uri) {
