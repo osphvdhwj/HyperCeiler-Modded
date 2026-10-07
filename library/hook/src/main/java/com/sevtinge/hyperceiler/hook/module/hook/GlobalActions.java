@@ -47,35 +47,6 @@ public class GlobalActions extends BaseHook {
     public void init() {
         setupGlobalActions();
         setupRestartActions();
-        setupPowerMenuCustomization();
-    }
-
-    // Power Menu Customization & Button Editing Hooks
-    public void setupPowerMenuCustomization() {
-        // Hook global actions dialog / power menu items provider or layout inflater to add custom customizable buttons
-        Class<?> globalActionsClass = findClassIfExists("com.android.server.policy.GlobalActions");
-        if (globalActionsClass == null) globalActionsClass = findClassIfExists("com.android.systemui.globalactions.GlobalActionsDialogLite");
-        if (globalActionsClass == null) globalActionsClass = findClassIfExists("miui.systemui.globalactions.GlobalActionsView");
-        if (globalActionsClass == null) globalActionsClass = findClassIfExists("com.miui.systemui.globalactions.GlobalActionsView");
-
-        if (globalActionsClass != null) {
-            try {
-                findAndHookMethod(globalActionsClass, "createDialog", new MethodHook() {
-                    @Override
-                    protected void after(MethodHookParam param) {
-                        try {
-                            Object dialog = param.thisObject;
-                            Context context = (Context) XposedHelpers.getObjectField(dialog, "mContext");
-                            if (context != null && PrefsUtils.getSharedBoolPrefs(context, "power_menu_custom_buttons_enable", false)) {
-                                AndroidLogUtils.logI("GlobalActions", "PowerMenu custom buttons injection initialized successfully.");
-                            }
-                        } catch (Throwable t) {
-                            AndroidLogUtils.logE("GlobalActions", "Failed to customize PowerMenu dialog", t);
-                        }
-                    }
-                });
-            } catch (Throwable ignored) {}
-        }
     }
 
     // GlobalActions
