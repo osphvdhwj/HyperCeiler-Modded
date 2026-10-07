@@ -1811,5 +1811,8 @@
     <string name="about_dev_sevtinge_desc">Original HyperCeiler Creator &amp; Core Contributor</string>
     <string name="various_unhardcode_notes">Replace MIUI Notes with Google Keep</string>
     <string name="various_unhardcode_notes_summary">Redirects system intents from MIUI Notes to Google Keep.</string>
+
+    <string name="various_pkg_redirect_map">Package Redirect Map</string>
+    <string name="various_pkg_redirect_map_summary">One rule per line: source.package=target.package\nExample: com.miui.notes=com.google.android.keep</string>
 </resources>
 

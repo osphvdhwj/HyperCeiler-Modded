@@ -1977,5 +1977,8 @@
     <string name="about_telegram_release_summary">加入官方频道，第一时间接收版本推送与更新公告</string>
     <string name="about_dev_harry_desc">项目主导与核心维护者</string>
     <string name="about_dev_sevtinge_desc">HyperCeiler 原作者与核心贡献者</string>
+
+    <string name="various_pkg_redirect_map">包名重定向表</string>
+    <string name="various_pkg_redirect_map_summary">每行一条规则：源包名=目标包名\n示例：com.miui.notes=com.google.android.keep</string>
 </resources>
 

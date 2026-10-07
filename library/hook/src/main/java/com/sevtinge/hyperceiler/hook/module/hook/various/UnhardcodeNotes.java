@@ -23,80 +23,91 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
-import de.robv.android.xposed.XposedHelpers;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Redirect intents that target a Xiaomi system app to a Google
- * (or any user-installed) equivalent.
+ * Redirect intents that target a stock Xiaomi/system app to any other
+ * app (typically a Google equivalent or a user build like AVES Gallery).
  *
- * Rationale: Xiaomi's stock apps (Notes, Music, Files, Browser, …)
- * register for standard system intents (VIEW / EDIT / SEND / PICK).
- * When another app launches one of those intents, Android resolves it
- * to the Xiaomi app. This hook rewrites the intent at the caller side
- * before it is dispatched, so the replacement app is used instead.
+ * The redirect map is user-editable in Settings → Various → Package
+ * Redirect. Each line is a "source=target" pair:
  *
- * Coverage:
- *   - Activity.startActivity(Intent)
- *   - Activity.startActivity(Intent, Bundle)
- *   - Activity.startActivityForResult(Intent, int)
- *   - Activity.startActivityForResult(Intent, int, Bundle)
- *   - ContextWrapper.startActivity(Intent)
- *   - ContextWrapper.startActivity(Intent, Bundle)
- *     (this catches Service, Application, ReceiverRestrictedContext…)
+ *     com.miui.notes=com.google.android.keep
+ *     com.miui.player=com.google.android.apps.youtube.music
+ *     com.android.fileexplorer=com.google.android.documentsui
+ *     com.miui.gallery=com.aves.gallery
+ *     com.android.browser=com.android.chrome
  *
- * Safety:
- *   - Only rewrites when the target package is in the redirect map.
- *   - Only rewrites when the *replacement* package is actually
- *     installed on the device; otherwise the intent is left alone so
- *     the stock app can handle it.
- *   - Never throws: all reflective calls are guarded.
+ * Blank lines and lines starting with '#' are ignored.
+ *
+ * The hook is installed in every process the module scopes to; it
+ * rewrites intents at the caller side before dispatch. If the target
+ * package is not installed the intent is left untouched so the stock
+ * app can still handle it.
  */
 public class UnhardcodeNotes extends BaseHook {
 
-    /**
-     * source package → replacement package.
-     * Kept minimal on purpose; other entries can be added later and
-     * gated by their own prefs.
-     */
-    private static final String[][] REDIRECT = {
-            { "com.miui.notes", "com.google.android.keep" },
-    };
+    private static final String PREF_MAP = "various_pkg_redirect_map";
 
-    private static Boolean sKeepInstalled = null;
+    /** default used when the user map is empty but the toggle is on */
+    private static final String DEFAULT_MAP =
+            "com.miui.notes=com.google.android.keep";
 
-    /** return true if any intent arg was rewritten. */
-    private static boolean rewrite(Intent intent, Context ctx) {
+    private static volatile Map<String, String> sMap = null;
+
+    private static Map<String, String> parseMap(String raw) {
+        Map<String, String> m = new HashMap<>();
+        if (raw == null) return m;
+        for (String line : raw.split("\\r?\\n")) {
+            String s = line.trim();
+            if (s.isEmpty() || s.startsWith("#")) continue;
+            int eq = s.indexOf('=');
+            if (eq <= 0 || eq == s.length() - 1) continue;
+            String src = s.substring(0, eq).trim();
+            String dst = s.substring(eq + 1).trim();
+            if (!src.isEmpty() && !dst.isEmpty()) m.put(src, dst);
+        }
+        return m;
+    }
+
+    private Map<String, String> getMap() {
+        Map<String, String> local = sMap;
+        if (local != null) return local;
+        synchronized (UnhardcodeNotes.class) {
+            if (sMap != null) return sMap;
+            String raw;
+            try {
+                raw = mPrefsMap.getString(PREF_MAP, "");
+            } catch (Throwable t) {
+                raw = "";
+            }
+            if (raw == null || raw.trim().isEmpty()) raw = DEFAULT_MAP;
+            sMap = parseMap(raw);
+            return sMap;
+        }
+    }
+
+    private boolean rewrite(Intent intent, Context ctx) {
         if (intent == null) return false;
 
-        String target = null;
         ComponentName comp = intent.getComponent();
-        if (comp != null) {
-            target = comp.getPackageName();
-        } else {
-            target = intent.getPackage();
-        }
+        String target = (comp != null) ? comp.getPackageName() : intent.getPackage();
         if (target == null) return false;
 
-        for (String[] pair : REDIRECT) {
-            if (!pair[0].equals(target)) continue;
+        String replacement = getMap().get(target);
+        if (replacement == null || replacement.equals(target)) return false;
 
-            // Only rewrite if the replacement is installed.
-            if (ctx == null) return false;
-            Boolean installed = isInstalled(ctx, pair[1]);
-            if (!Boolean.TRUE.equals(installed)) return false;
+        if (ctx == null) return false;
+        if (!isInstalled(ctx, replacement)) return false;
 
-            intent.setPackage(pair[1]);
-            // Clear a fully-qualified component so the new app can
-            // resolve the action/category on its own.
-            if (intent.getComponent() != null) {
-                intent.setComponent(null);
-            }
-            return true;
-        }
-        return false;
+        intent.setPackage(replacement);
+        if (intent.getComponent() != null) intent.setComponent(null);
+        return true;
     }
 
     private static boolean isInstalled(Context ctx, String pkg) {
@@ -108,14 +119,13 @@ public class UnhardcodeNotes extends BaseHook {
         }
     }
 
-    /** get Context from a hooked method's thisObject if it is one. */
     private static Context ctxOf(Object thisObject) {
         if (thisObject instanceof Context) return (Context) thisObject;
         if (thisObject instanceof Activity) return (Activity) thisObject;
         return null;
     }
 
-    private MethodHook mStartActivity = new MethodHook() {
+    private final MethodHook mHook = new MethodHook() {
         @Override
         protected void before(MethodHookParam param) {
             for (Object a : param.args) {
@@ -127,17 +137,19 @@ public class UnhardcodeNotes extends BaseHook {
         }
     };
 
-    private void hookStartActivityVariants(Class<?> cls) {
+    private void hookAll(Class<?> cls) {
         if (cls == null) return;
-        findAndHookMethodSilently(cls, "startActivity", Intent.class, mStartActivity);
-        findAndHookMethodSilently(cls, "startActivity", Intent.class, android.os.Bundle.class, mStartActivity);
-        findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, mStartActivity);
-        findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, android.os.Bundle.class, mStartActivity);
+        findAndHookMethodSilently(cls, "startActivity", Intent.class, mHook);
+        findAndHookMethodSilently(cls, "startActivity", Intent.class, android.os.Bundle.class, mHook);
+        findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, mHook);
+        findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, android.os.Bundle.class, mHook);
     }
 
     @Override
     public void init() {
-        hookStartActivityVariants(Activity.class);
-        hookStartActivityVariants(ContextWrapper.class);
+        hookAll(Activity.class);
+        hookAll(ContextWrapper.class);
+        // Preload the map so the first hit doesn't parse mid-dispatch.
+        getMap();
     }
 }
