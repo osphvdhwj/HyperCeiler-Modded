@@ -84,6 +84,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeDi
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeFirstPress;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeMediaSteps;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeSkipSongs;
+import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeScreenOffLimit;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.volume.VolumeSteps;
 import com.sevtinge.hyperceiler.hook.module.hook.various.NoAccessDeviceLogsRequest;
 
@@ -112,6 +113,7 @@ public class SystemFrameworkU extends BaseModule {
         initHook(new VolumeSteps(), mPrefsMap.getInt("system_framework_volume_steps", 0) > 0);
         initHook(new VolumeMediaSteps(), mPrefsMap.getBoolean("system_framework_volume_media_steps_enable"));
         initHook(new VolumeSkipSongs(), mPrefsMap.getBoolean("system_framework_volume_skip_songs"));
+        initHook(new VolumeScreenOffLimit(), true);
         initHook(new VolumeDisableSafe(), mPrefsMap.getStringAsInt("system_framework_volume_disable_safe_new", 0) != 0);
         // 其他
         initHook(new SystemLockApp(), mPrefsMap.getBoolean("system_framework_guided_access"));
