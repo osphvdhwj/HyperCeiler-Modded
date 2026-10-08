@@ -20,46 +20,46 @@ package com.sevtinge.hyperceiler.hook.module.hook.camera;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
 /**
  * "Remove hardcoded gallery" — strip the Xiaomi Gallery targeting from
- * the camera's post-capture REVIEW intents, so Android resolves them
- * naturally and the user's default gallery app (Aves, Google Photos,
- * anything) handles them instead.
+ * the camera's post-capture review intents so Android resolves them
+ * naturally and the user's default gallery app handles them.
  *
- * HyperOS 2's MiuiCamera sends the "review the shot you just took"
- * intent with a hardcoded component/package pointing at com.miui.gallery
- * and a MIUI-specific action. If MiuiGallery isn't installed or the user
- * prefers a different gallery, the intent falls on the floor.
+ * Verified constants in MiuiCamera.apk classes.dex (HyperOS 2):
+ *   com.android.camera.action.REVIEW
+ *   com.miui.camera.action.REVIEW
+ *   com.android.camera.action.SPILIT_SCREEN_REVIEW  (typo is Xiaomi's)
+ *   com.android.camera.action.CROP
+ *   target package: com.miui.gallery
  *
- * Hook targets (caller side):
- *   Activity.startActivity(Intent)
- *   Activity.startActivity(Intent, Bundle)
- *   Activity.startActivityForResult(Intent, int)
- *   Activity.startActivityForResult(Intent, int, Bundle)
- *   ContextWrapper.startActivity(Intent)
- *   ContextWrapper.startActivity(Intent, Bundle)
+ * Match rule: any REVIEW-ish action (or any intent explicitly targeting
+ * com.miui.gallery) gets rewritten to ACTION_VIEW with the package and
+ * component cleared. CROP is deliberately NOT touched — it needs its
+ * own dedicated handling and is out of scope for this toggle.
  *
- * Behaviour per Intent:
- *   - If action == "com.android.camera.action.REVIEW" OR the target
- *     package is com.miui.gallery:
- *       * setAction(Intent.ACTION_VIEW)
- *       * setPackage(null)
- *       * setComponent(null)
- *   - Any other intent passes through untouched.
- *
- * Every reflective call is guarded so a missing overload on a future
- * build is a silent no-op, never a crash.
+ * All reflective calls use findAndHookMethodSilently so a missing
+ * overload on a future build is a silent no-op, never a crash.
  */
 public class UnhardcodeGallery extends BaseHook {
 
-    private static final String REVIEW_ACTION = "com.android.camera.action.REVIEW";
     private static final String MIUI_GALLERY = "com.miui.gallery";
+
+    /** Match any action containing "REVIEW" (case-sensitive, matches all
+     *  three variants Xiaomi ships) OR the exact crop action which we
+     *  intentionally leave alone. */
+    private static boolean isReviewAction(String action) {
+        if (action == null) return false;
+        if (action.contains("SPILIT_SCREEN_REVIEW")) return true; // Xiaomi typo — treat same
+        if ("com.android.camera.action.REVIEW".equals(action)) return true;
+        if ("com.miui.camera.action.REVIEW".equals(action)) return true;
+        return false;
+    }
 
     private final MethodHook mHook = new MethodHook() {
         @Override
@@ -75,18 +75,21 @@ public class UnhardcodeGallery extends BaseHook {
     private static void rewrite(Intent intent) {
         if (intent == null) return;
 
-        boolean isReviewAction = REVIEW_ACTION.equals(intent.getAction());
-        boolean isMiuiGallery = false;
+        boolean shouldRewrite = false;
+
+        if (isReviewAction(intent.getAction())) {
+            shouldRewrite = true;
+        }
 
         ComponentName comp = intent.getComponent();
         if (comp != null && MIUI_GALLERY.equals(comp.getPackageName())) {
-            isMiuiGallery = true;
+            shouldRewrite = true;
         }
-        if (!isMiuiGallery && MIUI_GALLERY.equals(intent.getPackage())) {
-            isMiuiGallery = true;
+        if (MIUI_GALLERY.equals(intent.getPackage())) {
+            shouldRewrite = true;
         }
 
-        if (!isReviewAction && !isMiuiGallery) return;
+        if (!shouldRewrite) return;
 
         intent.setAction(Intent.ACTION_VIEW);
         intent.setPackage(null);
@@ -96,9 +99,9 @@ public class UnhardcodeGallery extends BaseHook {
     private void hookAll(Class<?> cls) {
         if (cls == null) return;
         findAndHookMethodSilently(cls, "startActivity", Intent.class, mHook);
-        findAndHookMethodSilently(cls, "startActivity", Intent.class, android.os.Bundle.class, mHook);
+        findAndHookMethodSilently(cls, "startActivity", Intent.class, Bundle.class, mHook);
         findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, mHook);
-        findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, android.os.Bundle.class, mHook);
+        findAndHookMethodSilently(cls, "startActivityForResult", Intent.class, int.class, Bundle.class, mHook);
     }
 
     @Override
