@@ -132,6 +132,12 @@ object NewPluginHelperKt : BaseHook() {
                         ControlCenterBlurRadius::init
                     ),
 
+
+                    Triple(
+                        "CCGridColumns",
+                        mPrefsMap.getInt("system_ui_control_center_grid_columns", 4) != 4,
+                        CCGridColumns::init
+                    ),
                     Triple(
                         "TileAnimSpeed",
                         mPrefsMap.getInt("system_ui_control_center_tile_anim_speed", 100) != 100,
