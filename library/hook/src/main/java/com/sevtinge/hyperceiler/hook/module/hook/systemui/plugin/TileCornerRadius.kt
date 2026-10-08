@@ -49,13 +49,15 @@ object TileCornerRadius : BaseHook() {
     private const val PREF = "system_ui_control_center_tile_corner_scale"
     private const val MAX_PX = 200f
 
-    override fun init() {
-        hookSetter("miui.systemui.controlcenter.qs.tileview.QSCardItemView")
-        hookSetter("miui.systemui.controlcenter.qs.tileview.QSTileItemIconView")
+    // Entry point used by NewPluginHelperKt's Triple list.
+    // Signature matches Triple<String, Boolean, (ClassLoader) -> Unit>.
+    fun init(classLoader: ClassLoader) {
+        hookSetter("miui.systemui.controlcenter.qs.tileview.QSCardItemView", classLoader)
+        hookSetter("miui.systemui.controlcenter.qs.tileview.QSTileItemIconView", classLoader)
     }
 
-    private fun hookSetter(className: String) {
-        val cls = loadClassOrNull(className, lpparam.classLoader) ?: return
+    private fun hookSetter(className: String, classLoader: ClassLoader) {
+        val cls = loadClassOrNull(className, classLoader) ?: return
         findAndHookMethodSilently(cls, "setCornerRadius", Float::class.javaPrimitiveType,
             object : MethodHook() {
                 override fun before(param: MethodHookParam) {

@@ -49,10 +49,12 @@ object TileAnimSpeed : BaseHook() {
     private const val PREF = "system_ui_control_center_tile_anim_speed"
     private const val BASE_DURATION = 350L
 
-    override fun init() {
+    // Entry point used by NewPluginHelperKt's Triple list.
+    // The list types each entry as Triple<String, Boolean, (ClassLoader) -> Unit>.
+    fun init(classLoader: ClassLoader) {
         val cls = loadClass(
             "com.android.systemui.qs.tileimpl.QSTileViewImpl",
-            lpparam.classLoader
+            classLoader
         )
 
         // Every constructor variant; hook by matching against ValueAnimator
