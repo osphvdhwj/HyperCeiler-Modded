@@ -33,8 +33,32 @@ import com.sevtinge.hyperceiler.hook.utils.shell.ShellInit;
 import com.sevtinge.hyperceiler.common.view.RestartAlertDialog;
 
 import fan.appcompat.app.AlertDialog;
+import android.content.Intent;
+import com.sevtinge.hyperceiler.hook.module.hook.GlobalActions;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DialogHelper {
+
+    /**
+     * Restart operations used to run their shell synchronously from the
+     * positive-button click listener, which is the UI thread. On a rooted
+     * HyperOS 2 device the first su call opens a KernelSU/Magisk grant
+     * prompt; the calling thread waits on that grant and the settings
+     * activity never renders a frame — the user sees a permanent black
+     * screen and force-stopping the app does not clear it because the su
+     * child is still alive.
+     *
+     * Every restart now runs on this daemon executor. Callers get an
+     * immediate return; the actual kill happens out-of-band.
+     */
+    private static final ExecutorService RESTART_EXECUTOR =
+            Executors.newSingleThreadExecutor(r -> {
+                Thread t = new Thread(r, "HyperHand-Restart");
+                t.setDaemon(true);
+                return t;
+            });
+
 
     public static void showDialog(Activity activity, String title, String message) {
         showDialog(activity, title, message, null);
@@ -197,18 +221,41 @@ public class DialogHelper {
     }
 
     public static void doRestart(Context context, String[] packageName, boolean isRestartSystem) {
-        boolean result;
-        boolean pid = true;
+        // Fire and forget — the click listener returns immediately and the
+        // heavy work runs off the UI thread so the app cannot black-screen
+        // while waiting on the su grant.
+        final Context appCtx = context.getApplicationContext();
+        final String[] pkgs = packageName == null ? new String[0] : packageName.clone();
+        RESTART_EXECUTOR.execute(() -> doRestartBg(appCtx, pkgs, isRestartSystem));
+    }
 
-        if (isRestartSystem) {
-            result = ShellInit.getShell().run("reboot").sync().isResult();
-        } else {
-            result = AppsTool.handlePackages(packageName);
-            pid = result;
-        }
-
-        if (!result) {
-            showAlertDialog(context, isRestartSystem, pid);
+    private static void doRestartBg(Context context, String[] packageName, boolean isRestartSystem) {
+        try {
+            if (isRestartSystem) {
+                ShellInit.getShell().run("reboot").sync();
+                return;
+            }
+            // Route every per-app restart through system_server. Its
+            // BroadcastReceiver (GlobalActions) uses ActivityManagerService
+            // to force-stop, which both kills and respawns persistent
+            // processes like SystemUI/MiHome. This works on HyperOS 2 where
+            // the su path via AppsTool.handlePackages does not (pm is
+            // partially broken and the shell often returns
+            // "Failed transaction").
+            boolean any = false;
+            for (String pkg : packageName) {
+                if (pkg == null || pkg.isEmpty()) continue;
+                Intent intent = new Intent(GlobalActions.ACTION_PREFIX + "RestartApps");
+                intent.putExtra("packageName", pkg);
+                context.sendBroadcast(intent);
+                any = true;
+            }
+            if (!any) {
+                // Nothing to do.
+                return;
+            }
+        } catch (Throwable t) {
+            // Never bubble up — user already dismissed the dialog.
         }
     }
 
