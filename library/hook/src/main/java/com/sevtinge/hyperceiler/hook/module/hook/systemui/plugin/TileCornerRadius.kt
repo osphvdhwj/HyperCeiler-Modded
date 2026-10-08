@@ -49,6 +49,11 @@ object TileCornerRadius : BaseHook() {
     private const val PREF = "system_ui_control_center_tile_corner_scale"
     private const val MAX_PX = 200f
 
+    // Abstract BaseHook.init() — never called by our Triple-driven path,
+    // but must exist to satisfy the abstract base. Real work goes through
+    // init(ClassLoader) below.
+    override fun init() = Unit
+
     // Entry point used by NewPluginHelperKt's Triple list.
     // Signature matches Triple<String, Boolean, (ClassLoader) -> Unit>.
     fun init(classLoader: ClassLoader) {

@@ -49,6 +49,11 @@ object TileAnimSpeed : BaseHook() {
     private const val PREF = "system_ui_control_center_tile_anim_speed"
     private const val BASE_DURATION = 350L
 
+    // Abstract BaseHook.init() — never called by our Triple-driven path,
+    // but must exist to satisfy the abstract base. Real work goes through
+    // init(ClassLoader) below.
+    override fun init() = Unit
+
     // Entry point used by NewPluginHelperKt's Triple list.
     // The list types each entry as Triple<String, Boolean, (ClassLoader) -> Unit>.
     fun init(classLoader: ClassLoader) {
