@@ -141,6 +141,7 @@ public class GlobalActions extends BaseHook {
                 Context mContext = (Context) XposedHelpers.getObjectField(param.thisObject, "mContext");
                 IntentFilter intentfilter = new IntentFilter();
                 intentfilter.addAction(ACTION_PREFIX + "RestartApps");
+                intentfilter.addAction(ACTION_PREFIX + "RestartSystemUI");
                 mContext.registerReceiver(mRestartReceiver, intentfilter);
             }
         });
@@ -161,7 +162,11 @@ public class GlobalActions extends BaseHook {
                 }
 
                 if ((ACTION_PREFIX + "RestartApps").equals(action)) {
-                    forceStopPackage(context, intent.getStringExtra("packageName"));
+                    String pkg = intent.getStringExtra("packageName");
+                    if (pkg == null || pkg.isEmpty()) return;
+                    forceStopPackage(context, pkg);
+                } else if ((ACTION_PREFIX + "RestartSystemUI").equals(action)) {
+                    forceStopPackage(context, "com.android.systemui");
                 }
             } catch (Exception e) {
                 AndroidLogUtils.logE("GlobalActions", null, e);
