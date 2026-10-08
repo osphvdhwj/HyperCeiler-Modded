@@ -60,6 +60,11 @@ object CCGridColumns : BaseHook() {
     private const val SPAN_LOOKUP_CLS =
         "miui.systemui.controlcenter.panel.main.recyclerview.MainPanelAdapter\$layoutManager\$1\$1"
 
+    // Abstract BaseHook.init() — never reached by the Triple-driven path,
+    // but required to satisfy the base class.
+    override fun init() = Unit
+
+    // Entry point used by NewPluginHelperKt's Triple list.
     fun init(classLoader: ClassLoader) {
         val cols = com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils.mPrefsMap
             .getInt(PREF, DEFAULT)
