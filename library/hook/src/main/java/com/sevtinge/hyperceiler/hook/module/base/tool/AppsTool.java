@@ -224,7 +224,10 @@ public class AppsTool {
         // malformed, spamming the log and returning -1 to every caller.
         try {
             if (lpparam != null && lpparam.appInfo != null) {
-                return lpparam.appInfo.versionCode;
+                // ApplicationInfo.versionCode was removed in Android 16
+                // (SDK 36). longVersionCode carries the same value as a
+                // long; truncate to int to keep the original API shape.
+                return (int) lpparam.appInfo.longVersionCode;
             }
         } catch (Throwable ignored) { }
         return -1;
