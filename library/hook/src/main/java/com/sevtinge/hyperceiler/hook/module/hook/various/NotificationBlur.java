@@ -31,18 +31,25 @@ import de.robv.android.xposed.XposedHelpers;
 
 public class NotificationBlur extends BaseHook {
 
-    Class<?> mCls = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.row.NotificationBackgroundView", lpparam.classLoader);
-    Class<?> mCls2 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.policy.AppMiniWindowRowTouchHelper", lpparam.classLoader);
-    Class<?> mCls3 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.phone.MiuiNotificationPanelViewController", lpparam.classLoader);
-    Class<?> mCls4 = XposedHelpers.findClassIfExists("com.android.keyguard.magazine.LockScreenMagazineController", lpparam.classLoader);
-    Class<?> mCls5 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.phone.MiuiNotificationPanelViewController$mBlurRatioChangedListener$1", lpparam.classLoader);
-    Class<?> mCls6 = XposedHelpers.findClassIfExists("com.android.systemui.shared.plugins.PluginInstanceManager$PluginHandler", lpparam.classLoader);
-    Class<?> mCls7 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.row.MiuiExpandableNotificationRow", lpparam.classLoader);
-    Class<?> mCls8 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout", lpparam.classLoader);
+
+
+
+
+
+
+
 
     @Override
     public void init() {
 
+        Class<?> mCls = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.row.NotificationBackgroundView", lpparam.classLoader);
+        Class<?> mCls2 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.policy.AppMiniWindowRowTouchHelper", lpparam.classLoader);
+        Class<?> mCls3 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.phone.MiuiNotificationPanelViewController", lpparam.classLoader);
+        Class<?> mCls4 = XposedHelpers.findClassIfExists("com.android.keyguard.magazine.LockScreenMagazineController", lpparam.classLoader);
+        Class<?> mCls5 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.phone.MiuiNotificationPanelViewController$mBlurRatioChangedListener$1", lpparam.classLoader);
+        Class<?> mCls6 = XposedHelpers.findClassIfExists("com.android.systemui.shared.plugins.PluginInstanceManager$PluginHandler", lpparam.classLoader);
+        Class<?> mCls7 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.row.MiuiExpandableNotificationRow", lpparam.classLoader);
+        Class<?> mCls8 = XposedHelpers.findClassIfExists("com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayout", lpparam.classLoader);
         hookAllMethods(mCls, "setCustomBackground", new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {

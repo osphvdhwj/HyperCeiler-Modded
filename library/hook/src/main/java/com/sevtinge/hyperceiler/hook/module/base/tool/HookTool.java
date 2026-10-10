@@ -43,6 +43,14 @@ public class HookTool extends XposedLogUtils {
     }
 
     public Class<?> findClass(String className) {
+        // Some hooks still declare 'Class<?> x = findClassIfExists(...)'
+        // as class fields, which run before BaseHook/BaseModule has set
+        // lpparam. Return null in that case instead of crashing with
+        // NullPointerException. The hook's init() will then see a null
+        // class and can no-op cleanly.
+        if (lpparam == null) {
+            return null;
+        }
         return findClass(className, lpparam.classLoader);
     }
 
@@ -53,7 +61,7 @@ public class HookTool extends XposedLogUtils {
     public Class<?> findClassIfExists(String className) {
         try {
             return findClass(className);
-        } catch (XposedHelpers.ClassNotFoundError e) {
+        } catch (XposedHelpers.ClassNotFoundError | NullPointerException e) {
             // logE("findClassIfExists", "find " + className + " is Null: " + e);
             return null;
         }

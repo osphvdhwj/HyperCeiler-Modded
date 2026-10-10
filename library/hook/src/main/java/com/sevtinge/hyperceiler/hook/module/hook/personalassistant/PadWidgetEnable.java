@@ -24,9 +24,7 @@ import de.robv.android.xposed.XposedHelpers;
 
 public class PadWidgetEnable extends BaseHook {
 
-    Class<?> m = findClassIfExists("c.h.e.k.k.c.d");
 
-    Class<?> m2 = findClassIfExists("c.h.e.p.s");
 
     public enum DeviceType {
         PAD, FOLDABLE_DEVICE, PHONE
@@ -34,6 +32,8 @@ public class PadWidgetEnable extends BaseHook {
 
     @Override
     public void init() {
+        Class<?> m = findClassIfExists("c.h.e.k.k.c.d");
+        Class<?> m2 = findClassIfExists("c.h.e.p.s");
         hookAllMethods(m2, "c", new MethodHook() {
             @Override
             protected void before(MethodHookParam param) throws Throwable {

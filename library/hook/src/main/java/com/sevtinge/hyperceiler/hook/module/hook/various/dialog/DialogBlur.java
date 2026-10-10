@@ -28,10 +28,10 @@ import de.robv.android.xposed.XposedHelpers;
 
 public class DialogBlur extends BaseHook {
 
-    final Class<?> mDialogCls = findClassIfExists("miuix.appcompat.app.AlertController");
 
     @Override
     public void init() {
+        Class<?> mDialogCls = findClassIfExists("miuix.appcompat.app.AlertController");
         hookAllMethods(mDialogCls, "installContent", new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
