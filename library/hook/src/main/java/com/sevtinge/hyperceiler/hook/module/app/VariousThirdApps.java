@@ -72,20 +72,37 @@ public class VariousThirdApps extends BaseModule {
     }
 
     private List<String> getAppsUsingInputMethod(Context context) {
+        // Runs from handleLoadPackage, which on some ROMs fires before
+        // InputMethodManagerService has registered with servicemanager.
+        // The binder throws IllegalStateException("IInputMethodManager is
+        // not available") in that window, or NPE when the returned service
+        // is null. Both are expected races, not bugs — the retry happens
+        // automatically on the next process that loads this module.
+        // Log at debug level so the noisy exception does not appear in the
+        // user-facing LSPosed error stream.
         try {
             if (context == null) {
-                XposedLogUtils.logE("getAppsUsingInputMethod", "context is null");
+                XposedLogUtils.logD("getAppsUsingInputMethod", "context is null (not ready)");
+                return new ArrayList<>();
+            }
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (inputMethodManager == null) {
+                XposedLogUtils.logD("getAppsUsingInputMethod",
+                        "InputMethodManager not ready yet, will retry on next process load");
                 return new ArrayList<>();
             }
             List<String> pkgName = new ArrayList<>();
-            InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             List<InputMethodInfo> enabledInputMethods = inputMethodManager.getEnabledInputMethodList();
             for (InputMethodInfo inputMethodInfo : enabledInputMethods) {
                 pkgName.add(inputMethodInfo.getServiceInfo().packageName);
             }
             return pkgName;
         } catch (Throwable e) {
-            XposedLogUtils.logE("getAppsUsingInputMethod", "have e: " + e + ", message: " + e.getMessage());
+            // Most likely "IInputMethodManager is not available" during boot.
+            // Not worth an ERROR entry in LSPosed's log.
+            XposedLogUtils.logD("getAppsUsingInputMethod",
+                    "InputMethodManager not available yet: " + e);
             return new ArrayList<>();
         }
     }
