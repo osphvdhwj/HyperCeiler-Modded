@@ -69,6 +69,29 @@ public class AppDisable extends BaseHook {
                     protected void after(MethodHookParam param) throws Throwable {
                         Activity act = (Activity) param.thisObject;
                         Menu menu = (Menu) param.args[0];
+
+                        // Some modified ROMs (like the user's port) already
+                        // ship a Disable/Enable button in this menu. If we add
+                        // our own we end up with two identical actions.
+                        // Detect the native button by its title string, before
+                        // we hide anything. If it exists, do nothing and let
+                        // the ROM's own button handle the flow.
+                        String disableTitle = act.getResources().getString(
+                                act.getResources().getIdentifier("app_manager_disable_text", "string", lpparam.packageName));
+                        String enableTitle = act.getResources().getString(
+                                act.getResources().getIdentifier("app_manager_enable_text", "string", lpparam.packageName));
+                        for (int i = 0; i < menu.size(); i++) {
+                            MenuItem existing = menu.getItem(i);
+                            if (existing == null || existing.getItemId() == 666) continue;
+                            CharSequence t = existing.getTitle();
+                            if (t == null) continue;
+                            if (t.toString().equals(disableTitle) || t.toString().equals(enableTitle)) {
+                                logD(TAG, lpparam.packageName,
+                                        "Native disable button present, HyperHand's will not install");
+                                return;
+                            }
+                        }
+
                         menuItem = menu.findItem(6);
                         if (menuItem != null) menuItem.setVisible(false);
                         MenuItem dis = menu.add(0, 666, 1,
