@@ -1841,5 +1841,8 @@
 
     <string name="system_ui_control_center_grid_columns">Tiles per row</string>
     <string name="system_ui_control_center_grid_columns_summary">Number of tile columns in the control center grid. 4 = HyperOS default. Higher values make each tile smaller so more fit per row.</string>
+
+    <string name="security_center_charge_limit">Charge limit</string>
+    <string name="security_center_charge_limit_desc">Stop charging at the selected percentage. Requires the battery driver to expose charge_control_limit.</string>
 </resources>
 
