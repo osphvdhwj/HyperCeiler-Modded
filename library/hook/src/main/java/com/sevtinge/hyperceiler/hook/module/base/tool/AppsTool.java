@@ -226,8 +226,14 @@ public class AppsTool {
             if (lpparam != null && lpparam.appInfo != null) {
                 // ApplicationInfo.versionCode was removed in Android 16
                 // (SDK 36). longVersionCode carries the same value as a
-                // long; truncate to int to keep the original API shape.
-                return (int) lpparam.appInfo.longVersionCode;
+                // long. Read it reflectively so this file compiles no
+                // matter which SDK the fields are declared in — reflection
+                // hits whichever runtime field is actually present.
+                Object vc = XposedHelpers.getObjectField(
+                        lpparam.appInfo, "longVersionCode");
+                if (vc instanceof Number) {
+                    return ((Number) vc).intValue();
+                }
             }
         } catch (Throwable ignored) { }
         return -1;
