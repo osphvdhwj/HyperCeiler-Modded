@@ -155,29 +155,35 @@ object UnlockLeica : BaseHook() {
     }
 
     override fun init() {
-        /*if (isNewCamera) {
-            unlockMethod1.createHook {
-                returnConstant(true)
+        // Feature is highly version-specific. All anchor strings
+        // (themeCustomize, watermark_westcoast3_evil_queen, updateViewCV)
+        // are absent from some 5.1.x camera builds, and the DexKit queries
+        // raise NoSuchElementException / NoResultException when nothing
+        // matches. Wrap the whole thing so a miss is a silent no-op rather
+        // than a crash mid-init.
+        try {
+            unlockMethod2.createHook {
+                returnConstant(0)
             }
-        }*/
 
-        unlockMethod2.createHook {
-            returnConstant(0)
-        }
-
-        unlockMethod3.createHook {
-            returnConstant(true)
-        }
-
-        unlockMethod3.declaringClass.methodFinder()
-            .filterByName(unlockMethod3.name.decrementLetters())
-            .single().createHook {
-                logD(TAG, lpparam.packageName, "uM3: ${unlockMethod3.name}, uM3-1: ${unlockMethod3.name.decrementLetters()}")
+            unlockMethod3.createHook {
                 returnConstant(true)
             }
 
-        unlockMethod4.createHooks {
-            returnConstant(true)
+            unlockMethod3.declaringClass.methodFinder()
+                .filterByName(unlockMethod3.name.decrementLetters())
+                .single().createHook {
+                    logD(TAG, lpparam.packageName, "uM3: ${unlockMethod3.name}, uM3-1: ${unlockMethod3.name.decrementLetters()}")
+                    returnConstant(true)
+                }
+
+            unlockMethod4.createHooks {
+                returnConstant(true)
+            }
+        } catch (t: Throwable) {
+            de.robv.android.xposed.XposedBridge.log(
+                "[HyperHand][UnlockLeica] No viable anchor on this camera build, feature skipped: ${t.javaClass.simpleName}: ${t.message}"
+            )
         }
     }
 

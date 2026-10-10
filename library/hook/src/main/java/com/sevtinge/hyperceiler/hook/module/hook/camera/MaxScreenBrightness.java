@@ -35,6 +35,7 @@ import org.luckypray.dexkit.result.base.BaseData;
 
 import java.lang.reflect.Method;
 
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 
 public class MaxScreenBrightness extends BaseHook {
@@ -42,28 +43,33 @@ public class MaxScreenBrightness extends BaseHook {
     @Override
     public void init() throws NoSuchMethodException {
 
-        Method method = DexKit.findMember("GetHaloBrightness", new IDexKit() {
-            @Override
-            public BaseData dexkit(DexKitBridge bridge) throws ReflectiveOperationException {
-                MethodData methodData = bridge.findMethod(FindMethod.create()
-                        .matcher(MethodMatcher.create()
-                                .usingNumbers(0, -1.0f, 204)
-                                .paramTypes(int.class)
-                        )
-                ).singleOrThrow(() -> new IllegalStateException("MaxScreenBrightness: Cannot found getHaloBrightness()"));
-                return methodData;
-            }
-        });
-
-        logD(TAG, lpparam.packageName, "getHaloBrightness() method is " + method);
-        hookMethod(method, new MethodHook() {
-            @Override
-            protected void after(MethodHookParam param) throws Throwable {
-                Activity activity = (Activity) XposedHelpers.callMethod(param.thisObject, "getActivity");
-                setScreenBrightnessToMax(activity);
-            }
-
-        });
+        // DexKit attempt — some camera builds ship an internal halo brightness
+        // getter, some do not. Wrap in try/catch so a miss never prevents the
+        // ActivityBase hooks below from installing.
+        try {
+            Method method = DexKit.findMember("GetHaloBrightness", new IDexKit() {
+                @Override
+                public BaseData dexkit(DexKitBridge bridge) throws ReflectiveOperationException {
+                    MethodData methodData = bridge.findMethod(FindMethod.create()
+                            .matcher(MethodMatcher.create()
+                                    .usingNumbers(0, -1.0f, 204)
+                                    .paramTypes(int.class)
+                            )
+                    ).singleOrThrow(() -> new IllegalStateException("MaxScreenBrightness: Cannot found getHaloBrightness()"));
+                    return methodData;
+                }
+            });
+            logD(TAG, lpparam.packageName, "getHaloBrightness() method is " + method);
+            hookMethod(method, new MethodHook() {
+                @Override
+                protected void after(MethodHookParam param) throws Throwable {
+                    Activity activity = (Activity) XposedHelpers.callMethod(param.thisObject, "getActivity");
+                    setScreenBrightnessToMax(activity);
+                }
+            });
+        } catch (Throwable t) {
+            XposedBridge.log("[HyperHand][MaxScreenBrightness] DexKit halo getter not found on this camera build; relying on ActivityBase hooks. " + t);
+        }
 
         findAndHookMethod(Window.class, "setAttributes", WindowManager.LayoutParams.class, new MethodHook() {
             @Override
