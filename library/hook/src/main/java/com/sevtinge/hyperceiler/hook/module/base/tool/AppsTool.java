@@ -215,16 +215,19 @@ public class AppsTool {
     }
 
     public static int getPackageVersionCode(XC_LoadPackage.LoadPackageParam lpparam) {
+        // Read the version straight from LoadPackageParam.appInfo. This is
+        // a plain field lookup — no APK parsing, no reflection, no failure
+        // mode. The previous implementation instantiated PackageParser and
+        // re-parsed the target APK every time, which on some ROMs throws
+        // PackageParserException ("<permission> protectionLevel specifies a
+        // non-instant flag...") whenever the ROM's own framework-res.apk is
+        // malformed, spamming the log and returning -1 to every caller.
         try {
-            Class<?> parserCls = XposedHelpers.findClass("android.content.pm.PackageParser", lpparam.classLoader);
-            Object parser = parserCls.getDeclaredConstructor().newInstance();
-            File apkPath = new File(lpparam.appInfo.sourceDir);
-            Object pkg = XposedHelpers.callMethod(parser, "parsePackage", apkPath, 0);
-            return XposedHelpers.getIntField(pkg, "mVersionCode");
-        } catch (Throwable e) {
-            logE("getPackageVersionCode", e);
-            return -1;
-        }
+            if (lpparam != null && lpparam.appInfo != null) {
+                return lpparam.appInfo.versionCode;
+            }
+        } catch (Throwable ignored) { }
+        return -1;
     }
 
     public static boolean handlePackages(String[] packageName) {
