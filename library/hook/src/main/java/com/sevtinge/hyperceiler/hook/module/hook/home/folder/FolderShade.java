@@ -45,6 +45,16 @@ public class FolderShade extends BaseHook {
     public void init() {
         mWallpaperUtilsCls = XposedHelpers.findClassIfExists("com.miui.home.launcher.WallpaperUtils", lpparam.classLoader);
 
+        // Resolve FolderCling once. If the class is absent on this ROM
+        // (it is on some port builds), every string-based helper below
+        // would call findClass(...) -> null -> .getClassLoader() ->
+        // NullPointerException, crashing the whole init.
+        Class<?> folderClingCls = findClassIfExists("com.miui.home.launcher.FolderCling", lpparam.classLoader);
+        if (folderClingCls == null) {
+            logW(TAG, lpparam.packageName, "FolderCling not present on this ROM, FolderShade skipped");
+            return;
+        }
+
         MethodHook hook = new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
@@ -84,11 +94,14 @@ public class FolderShade extends BaseHook {
             }
         };
 
-        hookAllConstructors("com.miui.home.launcher.FolderCling", hook);
-        findAndHookMethod("com.miui.home.launcher.FolderCling", "onWallpaperColorChanged", hook);
-        findAndHookMethod("com.miui.home.launcher.FolderCling", "updateLayout", boolean.class, hook);
+        hookAllConstructors(folderClingCls, hook);
+        findAndHookMethodSilently(folderClingCls, "onWallpaperColorChanged", hook);
+        findAndHookMethodSilently(folderClingCls, "updateLayout", boolean.class, hook);
 
-        findAndHookMethod("com.miui.home.launcher.Folder", "setBackgroundAlpha", float.class, new MethodHook() {
+        Class<?> folderCls = findClassIfExists("com.miui.home.launcher.Folder", lpparam.classLoader);
+        if (folderCls == null) return;
+
+        findAndHookMethodSilently(folderCls, "setBackgroundAlpha", float.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) {
                 int opt = mPrefsMap.getStringAsInt("home_folder_shade", 0);

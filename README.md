@@ -31,14 +31,23 @@ These are the additions on top of upstream HyperCeiler:
 
 | Feature | Settings path | What it does |
 |---------|---------------|--------------|
-| **Package redirect** | Various → Package Redirect | Rewrites intents from stock apps (Notes, Music, Files, Browser, Gallery) to any installed app. One `source.pkg=target.pkg` rule per line, applied live. |
-| **Extract text from screenshot** | System UI → Other | Adds an *Extract text* chip to the screenshot preview toolbar. Runs OCR on the shot via the optional AVES+ Tools provider and copies the result to the clipboard. |
-| **External AI Provider (AVES+)** | Various → External AI Provider | Bridge to the AVES+ Tools app for on-device OCR, tagging, translation, and image embeddings. UI shows the live provider status; per-tool switches come online as the provider exposes them. |
-| **PowerKeeper: no throttling** | PowerKeeper → Experiment | Suppresses the perfd throttle signal and zeroes `ThermalManager` control codes. Verified against HyperOS 2's `PowerKeeper.apk`. |
-| **PowerKeeper: game mode boost** | PowerKeeper → Experiment | Forces `PowerStateMachineProxy.isGameModeApp()` true and returns the cached game `PowerState` for unknown packages. |
-| **Volume media steps** | System Framework → Volume | Rewrites `AudioService.MAX_STREAM_VOLUME[STREAM_MUSIC]` before stream states are built. Replaces an upstream version that hooked a property HyperOS 2 never reads. |
+| **Package redirect** | Various → Package Redirect | Rewrites intents from stock apps to any installed app via user-editable src=tgt map. |
+| **Extract text from screenshot** | System UI → Other | Adds an "Extract text" chip to the screenshot preview; OCRs the shot via AVES+ Tools and copies to clipboard. |
+| **External AI Provider (AVES+)** | Various → External AI Provider | Bridge client for the AVES+ Tools provider — OCR, tagging, translation, embeddings. |
+| **PowerKeeper: no throttling** | PowerKeeper → Experiment | Suppresses the perfd throttle signal and zeroes ThermalManager control codes. |
+| **PowerKeeper: game mode boost** | PowerKeeper → Experiment | Forces PowerStateMachineProxy.isGameModeApp() true. |
+| **Volume media steps** | System Framework → Volume | Rewrites AudioService.MAX_STREAM_VOLUME[STREAM_MUSIC] before stream states are built. |
 | **Volume: screen-off limit** | System Framework → Volume | Clamps media volume while the screen is off; separate caps for speaker and earphones. |
-| **Volume: skip songs with volume keys** | System Framework → Volume | Screen-off physical VOLUME_UP/DOWN dispatch MEDIA_NEXT/PREVIOUS instead of adjusting volume. |
+| **Volume: skip songs with volume keys** | System Framework → Volume | Screen-off physical VOLUME_UP/DOWN dispatch MEDIA_NEXT/PREVIOUS. |
+| **Control-center blur intensity** | System UI → Control Center → Blur | Scales background blur radius of every control-center panel (0–200%). |
+| **Tile animation speed** | System UI → Control Center → Blur | Rescales the Quick Settings tile state-change animation duration (0–200%). |
+| **Tile corner radius** | System UI → Control Center → Blur | Scales the corner radius of every CC tile (0–200%). |
+| **Tiles per row** | System UI → Control Center → Blur | Number of tile columns in the CC grid (3–7). |
+| **Camera version dispatch** | Camera | MaxBrightness / 4K60 / SuperHighQuality fall back to direct hooks when DexKit anchors are absent on older camera builds. |
+| **Remove "All" tab** | Home → Drawer | Removes the All-apps tab from the drawer. |
+| **Remove hardcoded gallery** | Camera | Strips the Xiaomi Gallery targeting from post-capture REVIEW intents. |
+| **Charge limit** | Security → Battery | Stops charging at a user-set percentage via charge_control_limit sysfs node. |
+| **Restart safety (internal)** | Internal | Restart dialog routes through system_server broadcast (AMS respawn). KillApp/DialogHelper run su off the UI thread. |
 
 Anything not listed above is unchanged upstream HyperCeiler functionality.
 
@@ -85,7 +94,7 @@ Versioning
 Compatibility matrix
 
 ROM Status
-HyperOS 2.x (Android 15) ✅ primary target
+HyperOS 2.x (Android 15) primary target
 HyperOS 1.x (Android 14) Archived at 2.6.160 — no further fixes
 MIUI 13–14 (Android 11–13) Archived; use the historical releases upstream
 HyperOS 3.x (Android 16) Not yet — awaiting device availability
