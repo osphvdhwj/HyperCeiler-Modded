@@ -21,8 +21,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.other
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.dexkit.DexKit
 import de.robv.android.xposed.XposedBridge
-import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 /**
  * Show hidden apps in the launcher's app-drawer.
@@ -33,9 +31,10 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
  * the query raises NoResultException and BaseHook logs the entire module
  * init as failed.
  *
- * Wrapped in try/catch: the class lookup returns null on any failure
- * (NoResultException, singleOrNull mismatch, decompile issue) and the
- * hook becomes a no-op rather than an error.
+ * Wrapped in try/catch: the class lookup returns null on any failure and
+ * the hook becomes a no-op rather than an error. Uses BaseHook's
+ * findAndHookMethodSilently instead of the ezxhelper methodFinder chain,
+ * so a missing method on a future ROM is also silent.
  */
 object ShowAllHideApp : BaseHook() {
 
@@ -53,11 +52,10 @@ object ShowAllHideApp : BaseHook() {
             null
         } ?: return
 
-        cls.methodFinder()
-            .filterByName("isHideAppValid")
-            .firstOrNull()
-            ?.createHook {
-                returnConstant(true)
+        findAndHookMethodSilently(cls, "isHideAppValid", object : MethodHook() {
+            override fun before(param: MethodHookParam) {
+                param.result = true
             }
+        })
     }
 }

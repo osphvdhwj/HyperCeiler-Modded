@@ -119,7 +119,7 @@ object UnlockDisney : BaseHook() {
         } else if (isHookType == 2) {
             isHook(mickey, isMickey)
             isHook(bear, isBear)
-            isHook(princess, isPrincess)
+            princess?.let { isHook(it, isPrincess) }
         }
     }
 
