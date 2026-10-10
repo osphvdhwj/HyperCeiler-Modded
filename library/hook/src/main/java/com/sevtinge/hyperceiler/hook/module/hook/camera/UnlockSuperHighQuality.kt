@@ -72,17 +72,32 @@ object UnlockSuperHighQuality : BaseHook() {
     }
 
     private fun tryDirect() {
-        val ok = findAndHookMethodSilently(
+        // 5.1.001370 removed the 0-param CameraSettings.isSupportHighQualityPreferred().
+        // The real capability gate is the 1-param version on CameraCapabilitiesUtil
+        // (same pattern as UnlockTrackEyes hooking isSupportTrackEye). Hook both
+        // namespaces — the missing one is a harmless no-op on the wrong build.
+        val okCaps = hookAllMethodsBoolean(
+            "com.android.camera2.CameraCapabilitiesUtil",
+            "isSupportHighQualityPreferred",
+            object : MethodHook() {
+                override fun before(param: MethodHookParam) {
+                    param.result = true
+                }
+            }
+        )
+        val okSettings = findAndHookMethodSilently(
             "com.android.camera.CameraSettings",
             lpparam.classLoader,
             "isSupportHighQualityPreferred",
             object : MethodHook() {
                 override fun before(param: MethodHookParam) {
-                    XposedBridge.log("[HyperHand][UnlockSuperHighQuality] 0-param gate fired")
                     param.result = true
                 }
             }
         )
-        XposedBridge.log("[HyperHand][UnlockSuperHighQuality] direct hook landed=" + ok)
+        XposedBridge.log(
+            "[HyperHand][UnlockSuperHighQuality] direct hooks: " +
+                    "CameraCapabilitiesUtil=" + okCaps + " CameraSettings=" + okSettings
+        )
     }
 }
