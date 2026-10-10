@@ -93,10 +93,17 @@ RealMemory : BaseHook() {
                     }
                     totalMem = "$totalMem$extmMem GB"
                     val availMem = memoryInfo.availMem.formatSize()
-                    (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text =
-                        context.getString(memoryInfo1StringId!!, availMem, totalMem)
-                    (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text =
-                        context.getString(memoryInfo2StringId!!, availMem, totalMem)
+                    // Xiaomi's own string resources on some HyperOS 2 builds
+                    // end with a " | " separator that expects a third argument
+                    // which the framework never passes. Trim trailing
+                    // separators so the last character of the header is a
+                    // number, not a pipe.
+                    val text1 = context.getString(memoryInfo1StringId!!, availMem, totalMem)
+                        .trimEnd(' ', '|', '\u00A0')
+                    val text2 = context.getString(memoryInfo2StringId!!, availMem, totalMem)
+                        .trimEnd(' ', '|', '\u00A0')
+                    (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text = text1
+                    (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text = text2
                 }
             }
     }
