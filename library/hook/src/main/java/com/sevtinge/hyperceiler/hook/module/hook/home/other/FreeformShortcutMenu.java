@@ -162,7 +162,7 @@ public class FreeformShortcutMenu extends BaseHook {
                     }
                     if (mPrefsMap.getBoolean("home_other_force_stop_shortcut_menu")) {
                         callMethod(mForceStopInstance, "setShortTitle", modRes.getString(R.string.force_stop));
-                        callMethod(mForceStopInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, android.R.drawable.ic_menu_close_clear_cancel));
+                        callMethod(mForceStopInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, R.drawable.ic_forceclose12));
                     }
 
                     ArrayList sAllSystemShortcutMenuItems = new ArrayList();
