@@ -28,18 +28,17 @@ import de.robv.android.xposed.XposedBridge
  * The original DexKit query matched a class that mentions both
  * "appInfo.packageName" and "com.android.fileexplorer" in the same body.
  * On the user's port ROM that string-pair does not appear together, so
- * the query raises NoResultException and BaseHook logs the entire module
+ * the query raises NoResultException and BaseHook logs the whole module
  * init as failed.
  *
- * Wrapped in try/catch: the class lookup returns null on any failure and
- * the hook becomes a no-op rather than an error. Uses BaseHook's
- * findAndHookMethodSilently instead of the ezxhelper methodFinder chain,
- * so a missing method on a future ROM is also silent.
+ * Resolve the class by name through DexKit, then hook by string so Kotlin
+ * never has to disambiguate between the String and Class overloads of
+ * findAndHookMethodSilently (which DexKit's ClassData matches neither of).
  */
 object ShowAllHideApp : BaseHook() {
 
     override fun init() {
-        val cls = try {
+        val classData = try {
             DexKit.findMember("ShowAllHideApp") { bridge ->
                 bridge.findClass {
                     matcher {
@@ -52,7 +51,11 @@ object ShowAllHideApp : BaseHook() {
             null
         } ?: return
 
-        findAndHookMethodSilently(cls, "isHideAppValid", object : MethodHook() {
+        // ClassData.name is the internal dex form (com/foo/Bar); convert to
+        // the dotted form XposedHelpers.findClass expects.
+        val dottedName = classData.name.replace('/', '.')
+
+        findAndHookMethodSilently(dottedName, "isHideAppValid", object : MethodHook() {
             override fun before(param: MethodHookParam) {
                 param.result = true
             }
