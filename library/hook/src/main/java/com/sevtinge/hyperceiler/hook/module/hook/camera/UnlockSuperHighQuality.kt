@@ -72,15 +72,17 @@ object UnlockSuperHighQuality : BaseHook() {
     }
 
     private fun tryDirect() {
-        findAndHookMethodSilently(
+        val ok = findAndHookMethodSilently(
             "com.android.camera.CameraSettings",
             lpparam.classLoader,
             "isSupportHighQualityPreferred",
             object : MethodHook() {
                 override fun before(param: MethodHookParam) {
+                    XposedBridge.log("[HyperHand][UnlockSuperHighQuality] 0-param gate fired")
                     param.result = true
                 }
             }
         )
+        XposedBridge.log("[HyperHand][UnlockSuperHighQuality] direct hook landed=" + ok)
     }
 }

@@ -25,6 +25,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.camera.UnhardcodeGallery;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.CustomCameraColor;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.CustomWatermark;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.EnableLabOptions;
+import com.sevtinge.hyperceiler.hook.module.hook.camera.FixChineseStrings;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.MaxScreenBrightness;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.Unlock4k60;
 import com.sevtinge.hyperceiler.hook.module.hook.camera.UnlockLeica;
@@ -42,6 +43,7 @@ public class Camera extends BaseModule {
 
         // 设置
         initHook(new EnableLabOptions(), mPrefsMap.getBoolean("camera_settings_lab_options"));
+        initHook(new FixChineseStrings(), true); // always on; self-guards on zh locale
         initHook(new UnlockTrackEyes(), mPrefsMap.getBoolean("camera_settings_track_eyes"));
 
         initHook(new MaxScreenBrightness(), mPrefsMap.getBoolean("camera_max_brightness"));
