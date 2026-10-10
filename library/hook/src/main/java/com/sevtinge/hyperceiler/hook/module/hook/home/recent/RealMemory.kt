@@ -1,21 +1,21 @@
 /*
-  * This file is part of HyperCeiler.
-
-  * HyperCeiler is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU Affero General Public License as
-  * published by the Free Software Foundation, either version 3 of the
-  * License.
-
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU Affero General Public License for more details.
-
-  * You should have received a copy of the GNU Affero General Public License
-  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-  * Copyright (C) 2023-2025 HyperCeiler Contributions
-*/
+ * This file is part of HyperCeiler.
+ *
+ * HyperCeiler is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Copyright (C) 2023-2025 HyperCeiler Contributions
+ */
 package com.sevtinge.hyperceiler.hook.module.hook.home.recent
 
 import android.annotation.SuppressLint
@@ -33,14 +33,26 @@ import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFi
 import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
 import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import java.text.DecimalFormat
+import java.util.Locale
 
-object
-RealMemory : BaseHook() {
+/**
+ * Show real memory in the recents screen header.
+ *
+ * The old version delegated the display text to MIUI's own string
+ * resources (status_bar_recent_memory_info1 / _info2). On HyperOS 2
+ * those strings are shaped differently — one of them ends with a " | "
+ * separator that expects another piece of text appended. Passing two
+ * format arguments when the string only consumes one leaves a dangling
+ * pipe at the end of the display ("4.2 GB | ").
+ *
+ * We now build the display string ourselves: "<available> | <total>".
+ * No dependency on Xiaomi resources, no NPE if they get renamed.
+ */
+object RealMemory : BaseHook() {
+
     @SuppressLint("DiscouragedApi")
     override fun init() {
         lateinit var context: Context
-        var memoryInfo1StringId: Int? = null
-        var memoryInfo2StringId: Int? = null
 
         fun Any.formatSize(): String = Formatter.formatFileSize(context, this as Long)
 
@@ -56,16 +68,6 @@ RealMemory : BaseHook() {
             .first().createHook {
                 after {
                     context = it.args[0] as Context
-                    memoryInfo1StringId = context.resources.getIdentifier(
-                        "status_bar_recent_memory_info1",
-                        "string",
-                        "com.miui.home"
-                    )
-                    memoryInfo2StringId = context.resources.getIdentifier(
-                        "status_bar_recent_memory_info2",
-                        "string",
-                        "com.miui.home"
-                    )
                 }
             }
 
@@ -78,25 +80,32 @@ RealMemory : BaseHook() {
                     val activityManager =
                         context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                     activityManager.getMemoryInfo(memoryInfo)
-                    var totalMem = "\\d+\\.\\d+".toRegex().find(memoryInfo.totalMem.formatSize())?.value
+
+                    var totalMem = "\\d+\\.\\d+".toRegex()
+                        .find(memoryInfo.totalMem.formatSize())?.value ?: "?"
                     val extmSize = getProp("persist.miui.extm.bdsize")
                     var extmMem = ""
                     if (!getProp("persist.miui.extm.enable").equals("0")) {
                         try {
                             val number = extmSize.toDouble() / 1024
                             val df = DecimalFormat("0.00")
-                            extmMem = "+" + df.format(number).toString()
+                            extmMem = "+" + df.format(number)
                         } catch (e: NumberFormatException) {
-                            XposedLogUtils.logE(TAG, lpparam.packageName, "Get extm size failed by: $e"
+                            XposedLogUtils.logE(
+                                TAG, lpparam.packageName,
+                                "Get extm size failed by: $e"
                             )
                         }
                     }
                     totalMem = "$totalMem$extmMem GB"
                     val availMem = memoryInfo.availMem.formatSize()
-                    (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text =
-                        context.getString(memoryInfo1StringId!!, availMem, totalMem)
-                    (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text =
-                        context.getString(memoryInfo2StringId!!, availMem, totalMem)
+
+                    // Build our own display so a Xiaomi string change cannot
+                    // leave a stray separator behind.
+                    val display = "$availMem  |  $totalMem"
+
+                    (it.thisObject.getObjectField("mTxtMemoryInfo1") as TextView).text = display
+                    (it.thisObject.getObjectField("mTxtMemoryInfo2") as TextView).text = display
                 }
             }
     }
