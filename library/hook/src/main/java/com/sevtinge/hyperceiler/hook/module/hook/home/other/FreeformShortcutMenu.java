@@ -154,7 +154,7 @@ public class FreeformShortcutMenu extends BaseHook {
 
                     if (mPrefsMap.getBoolean("home_other_freeform_shortcut_menu")) {
                         callMethod(mSmallWindowInstance, "setShortTitle", modRes.getString(R.string.floating_window));
-                        callMethod(mSmallWindowInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier("ic_task_small_window", "drawable", mContext.getPackageName())));
+                        callMethod(mSmallWindowInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, R.drawable.ic_openinfw));
                     }
                     if (mPrefsMap.getBoolean("home_other_tasks_shortcut_menu")) {
                         callMethod(mNewTasksInstance, "setShortTitle", modRes.getString(R.string.new_task));
