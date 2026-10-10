@@ -55,14 +55,26 @@ object UnlockDisney : BaseHook() {
         }
     }
 
-    private val princess by lazy<Method> {
-        DexKit.findMember("UnlockDisneyPrincess") {
-            it.findField {
-                matcher {
-                    declaredClass = mickey.declaringClass.name
-                    modifiers = Modifier.STATIC or Modifier.FINAL
-                }
-            }.last().readers.single()
+    private val princess by lazy<Method?> {
+        // The original used .readers.single() which throws
+        // NonUniqueResultException when the field has more than one reader
+        // (a common pattern when a static final boolean is read from both a
+        // getter and a lambda). Fall back to .firstOrNull() and let the
+        // calling code skip the hook when the reader can't be resolved.
+        try {
+            DexKit.findMember("UnlockDisneyPrincess") {
+                it.findField {
+                    matcher {
+                        declaredClass = mickey.declaringClass.name
+                        modifiers = Modifier.STATIC or Modifier.FINAL
+                    }
+                }.last().readers.firstOrNull()
+            }
+        } catch (t: Throwable) {
+            de.robv.android.xposed.XposedBridge.log(
+                "[HyperHand][UnlockDisney] princess reader not found: ${t.message}"
+            )
+            null
         }
     }
 
@@ -89,19 +101,19 @@ object UnlockDisney : BaseHook() {
                 1 -> {
                     isHook(mickey, true)
                     isHook(bear, false)
-                    isHook(princess, false)
+                    princess?.let { isHook(it, false) }
                 }
 
                 2 -> {
                     isHook(mickey, false)
                     isHook(bear, true)
-                    isHook(princess, false)
+                    princess?.let { isHook(it, false) }
                 }
 
                 3 -> {
                     isHook(mickey, false)
                     isHook(bear, false)
-                    isHook(princess, true)
+                    princess?.let { isHook(it, true) }
                 }
             }
         } else if (isHookType == 2) {
