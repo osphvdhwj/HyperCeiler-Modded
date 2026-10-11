@@ -127,7 +127,19 @@
 
     <PreferenceCategory android:title="@string/security_center_sidebar_gamebox_title">
         <SwitchPreference
+
             android:defaultValue="false"
+
+            android:key="prefs_key_security_center_game_music_capsule"
+
+            android:title="@string/security_center_game_music_capsule"
+
+            android:summary="@string/security_center_game_music_capsule_desc" />
+
+        <SwitchPreference
+
+            android:defaultValue="false"
+
             android:key="prefs_key_security_center_game_performance_wild_mode"
             android:title="@string/security_center_game_performance_wild_mode" />
 

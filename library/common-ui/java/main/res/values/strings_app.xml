@@ -1446,6 +1446,8 @@
     <string name="security_center_leave_open">Leave the slide unfolded</string>
     <string name="security_center_sidebar_show_suggest">Disable show suggest apps</string>
     <string name="security_center_unlock_new_vb">Unlock new Video toolbox</string>
+    <string name="security_center_game_music_capsule">Music capsule</string>
+    <string name="security_center_game_music_capsule_desc">Show a music player control card in the Game Turbo in-game toolbox.</string>
     <string name="security_center_game_performance_wild_mode">Unlock Wild Boost</string>
     <string name="security_center_sidebar_videobox_title">Video toolbox</string>
     <string name="security_center_sidebar_gamebox_title">Gamebox</string>

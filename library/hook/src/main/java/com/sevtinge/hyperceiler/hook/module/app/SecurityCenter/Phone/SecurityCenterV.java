@@ -67,6 +67,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.SkipCountD
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.AddSideBarExpandReceiver;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.BlurSecurity;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.GamePerformanceWildMode;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.MusicCapsule;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.RemoveGameToast;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.RemoveMacroBlackList;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.UnlockGunService;
@@ -158,6 +159,7 @@ public class SecurityCenterV extends BaseModule {
         initHook(new VideoDolbyOpen(), mPrefsMap.getBoolean("security_center_dolby_open"));
         initHook(new VBVideoMode(), mPrefsMap.getBoolean("security_center_unlock_new_vb"));
         initHook(new GamePerformanceWildMode(), mPrefsMap.getBoolean("security_center_game_performance_wild_mode"));
+initHook(new MusicCapsule(), mPrefsMap.getBoolean("security_center_game_music_capsule"));
 
         initHook(new PowerConsumptionRanking(), mPrefsMap.getBoolean("security_center_power_consumption_ranking"));
 
