@@ -31,6 +31,12 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="prefs_key_security_center_app_behavior_records"
+            android:title="@string/security_app_behavior_records_title"
+            android:summary="@string/security_app_behavior_records_summary" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="prefs_key_security_center_disable_ban"
             android:title="@string/security_center_disable_ban" />
 

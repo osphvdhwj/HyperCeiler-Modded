@@ -42,6 +42,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AppDefaultSo
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AppDetails;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AppDisable;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AppRestrict;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.EnableAppBehaviorRecords;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.OpenByDefaultSetting;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.BatteryHealth;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.MoreBatteryInfo;
@@ -88,6 +89,7 @@ public class SecurityCenterU extends BaseModule {
         initHook(new AppRestrict(), mPrefsMap.getBoolean("security_center_app_restrict"));
         initHook(new AppDisable(), mPrefsMap.getBoolean("security_center_app_disable"));
         initHook(new AppDetails(), mPrefsMap.getBoolean("security_center_app_details"));
+        initHook(new EnableAppBehaviorRecords(), mPrefsMap.getBoolean("security_center_app_behavior_records"));
         initHook(DisableReport.INSTANCE, mPrefsMap.getBoolean("security_center_disable_ban"));
         initHook(new OpenByDefaultSetting(), mPrefsMap.getBoolean("security_center_app_default_setting"));
         initHook(AddAppInfoEntry.INSTANCE, mPrefsMap.getBoolean("security_center_aosp_app_info"));
