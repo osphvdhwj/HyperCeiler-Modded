@@ -68,7 +68,6 @@ public class AppQuickActions extends BaseHook {
                 new MethodHook() {
                     @Override
                     protected void after(MethodHookParam param) {
-                        logI(TAG, lpparam.packageName, "onCreatePreferences fired: " + param.thisObject.getClass().getName());
                         try {
                             inject(param.thisObject);
                         } catch (Throwable t) {
@@ -90,7 +89,6 @@ public class AppQuickActions extends BaseHook {
         try { appInfo = (ApplicationInfo) appInfoField.get(frag); }
         catch (Throwable t) { logI(TAG, lpparam.packageName, "bail: field get: " + t); return; }
         if (appInfo == null) { logI(TAG, lpparam.packageName, "bail: appInfo null"); return; }
-        logI(TAG, lpparam.packageName, "appInfo pkg=" + appInfo.packageName + " src=" + appInfo.sourceDir);
 
         Object storagePref = XposedHelpers.callMethod(frag, "findPreference", "app_storage_pref");
         Object trafficPref = XposedHelpers.callMethod(frag, "findPreference", "app_traffic_pref");
@@ -98,7 +96,6 @@ public class AppQuickActions extends BaseHook {
         if (storagePref == null) { logI(TAG, lpparam.packageName, "bail: storagePref null"); return; }
         Object parent = XposedHelpers.callMethod(storagePref, "getParent");
         if (parent == null) { logI(TAG, lpparam.packageName, "bail: parent null"); return; }
-        logI(TAG, lpparam.packageName, "parent class=" + parent.getClass().getName());
 
         if (XposedHelpers.callMethod(parent, "findPreference", PREF_KEY) != null) { logI(TAG, lpparam.packageName, "bail: already injected"); return; }
 
@@ -107,7 +104,6 @@ public class AppQuickActions extends BaseHook {
             logE(TAG, lpparam.packageName, "bail: androidx.preference.Preference not visible");
             return;
         }
-        logI(TAG, lpparam.packageName, "creating pref instance");
 
         final String apkPath = appInfo.sourceDir;
         final Context fctx = ctx;
@@ -185,7 +181,6 @@ public class AppQuickActions extends BaseHook {
         if (powerPref   != null) XposedHelpers.callMethod(parent, "removePreference", powerPref);
 
         XposedHelpers.callMethod(parent, "addPreference", pref);
-        logI(TAG, lpparam.packageName, "pref added, count=" + XposedHelpers.callMethod(parent, "getPreferenceCount"));
         XposedHelpers.callMethod(parent, "addPreference", storagePref);
         if (trafficPref != null) XposedHelpers.callMethod(parent, "addPreference", trafficPref);
         if (powerPref   != null) XposedHelpers.callMethod(parent, "addPreference", powerPref);
