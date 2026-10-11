@@ -37,6 +37,12 @@
 
         <SwitchPreference
             android:defaultValue="false"
+            android:key="prefs_key_security_center_app_quick_actions"
+            android:title="@string/security_app_quick_actions_title"
+            android:summary="@string/security_app_quick_actions_summary" />
+
+        <SwitchPreference
+            android:defaultValue="false"
             android:key="prefs_key_security_center_disable_ban"
             android:title="@string/security_center_disable_ban" />
 

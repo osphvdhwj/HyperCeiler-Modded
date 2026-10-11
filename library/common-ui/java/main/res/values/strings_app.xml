@@ -1396,6 +1396,8 @@
     <string name="security_app_sort_summary">Modify the default sorting of the manage apps list</string>
     <string name="security_app_behavior_records_title">App behavior records</string>
     <string name="security_app_behavior_records_summary">Show the App behavior records entry in App info</string>
+    <string name="security_app_quick_actions_title">APK path row</string>
+    <string name="security_app_quick_actions_summary">Show an "APK path" row in App info; tap to open the folder, long press to copy</string>
     <string name="security_restrict_app_title">Full restrictions</string>
     <string name="security_restrict_app_summary">Allows configuring Battery saver and Wi-Fi access for system apps</string>
     <string name="security_disable_app_title">App state control</string>
