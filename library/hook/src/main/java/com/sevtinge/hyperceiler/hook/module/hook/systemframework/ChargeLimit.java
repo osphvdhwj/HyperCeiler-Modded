@@ -136,10 +136,24 @@ public class ChargeLimit extends BaseHook {
         }
     }
 
+    private volatile int mCachedMax = -1;
+
     private int readMax() {
-        try (BufferedReader r = new BufferedReader(new FileReader(PATH_MAX))) {
-            String s = r.readLine();
-            if (s != null) return Integer.parseInt(s.trim());
+        if (mCachedMax > 0) return mCachedMax;
+        // The sysfs node is root-only readable. Running as system (system_server)
+        // the plain FileReader fails, so we go through the same root shell we
+        // use for the write.
+        try {
+            java.util.ArrayList<String> out =
+                    ShellInit.getShell().run("cat " + PATH_MAX).sync().getOutPut();
+            if (out != null && !out.isEmpty()) {
+                String s = out.get(0).trim();
+                int v = Integer.parseInt(s);
+                if (v > 0) {
+                    mCachedMax = v;
+                    return v;
+                }
+            }
         } catch (Throwable ignored) { }
         return 100;
     }
