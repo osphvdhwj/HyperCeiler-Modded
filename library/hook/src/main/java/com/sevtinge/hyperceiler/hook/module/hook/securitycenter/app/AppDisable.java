@@ -139,13 +139,22 @@ public class AppDisable extends BaseHook {
                 }
         );
 
-        findAndHookMethod(clazzName, "onResume", new MethodHook() {
-                    @Override
-                    protected void after(MethodHookParam param) {
-                        if (menuItem != null) menuItem.setVisible(false);
+        // Some ROMs (e.g. Redmi Note 12 Pro+ 5G port) do not declare onResume
+        // directly on this class, which throws NoSuchMethodError. The feature
+        // still works because the menu-item hiding is also handled by
+        // onPrepareOptionsMenu above; this secondary hook is only cosmetic.
+        // Swallow the failure so the log stays clean.
+        try {
+            findAndHookMethod(clazzName, "onResume", new MethodHook() {
+                        @Override
+                        protected void after(MethodHookParam param) {
+                            if (menuItem != null) menuItem.setVisible(false);
+                        }
                     }
-                }
-        );
+            );
+        } catch (Throwable ignored) {
+            // onResume not declared on this ROM — harmless.
+        }
 
         Method method = DexKit.findMember("MethodOnOptionsItemSelected", new IDexKit() {
             @Override
