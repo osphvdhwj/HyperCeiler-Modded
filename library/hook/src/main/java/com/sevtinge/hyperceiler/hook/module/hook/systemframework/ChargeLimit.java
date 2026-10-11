@@ -115,12 +115,22 @@ public class ChargeLimit extends BaseHook {
                 return;
             }
             int max = readMax();
-            int clamped = Math.max(HARD_MIN, Math.min(limit, max));
+            int raw;
+            if (max <= 20) {
+                // Step-scale node (e.g. 0..16 on SM7325 / Dimensity 1080).
+                // Treat the user's value as a percentage and convert.
+                raw = (int) Math.round((double) limit / 100.0 * max);
+            } else {
+                // Percent-scale node (0..100 on most other devices).
+                raw = limit;
+            }
+            int clamped = Math.max(0, Math.min(raw, max));
             ShellInit.getShell()
                     .run("echo " + clamped + " > " + PATH)
                     .sync();
-            logD(TAG, lpparam.packageName,
-                    "charge limit set to " + clamped + " (requested " + limit + ", max " + max + ")");
+            logI(TAG, lpparam.packageName,
+                    "charge limit set to " + clamped
+                    + " (requested " + limit + "% of max " + max + ")");
         } catch (Throwable t) {
             logE(TAG, lpparam.packageName, t);
         }
