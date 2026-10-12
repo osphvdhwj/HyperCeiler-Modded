@@ -1352,6 +1352,8 @@
     <string name="screenshot_device_customize_title">Custom screenshot model shell</string>
     <string name="screenshot_device_customize_desc">Please enter the device code, and the colored device should be filled with a suffix, for example:\n• Xiaomi 13, fill in the content is fuxi\n• Xiaomi 14 pink version, fill in the content is houji_PK</string>
     <string name="securityadd">System service plugin</string>
+    <string name="securityadd_block_ad_pages">Block ad pages</string>
+    <string name="securityadd_block_ad_pages_desc">Prevent Security Add's "recommended" ad banners from opening a WebView landing page.</string>
     <string name="securityadd_disable_gb_ads">Disable Game Center ads</string>
     <string name="securityadd_disable_gb_ads_desc">This may cause other functions to be abnormal</string>
     <string name="security_center_app_title">Manage apps</string>

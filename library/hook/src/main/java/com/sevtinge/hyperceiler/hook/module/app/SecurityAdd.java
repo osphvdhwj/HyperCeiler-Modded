@@ -20,6 +20,7 @@ package com.sevtinge.hyperceiler.hook.module.app;
 
 import com.hchen.database.HookBase;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
+import com.sevtinge.hyperceiler.hook.module.hook.securityadd.BlockSecurityAddAdPages;
 import com.sevtinge.hyperceiler.hook.module.hook.securityadd.DisableGameBoosterAds;
 
 @HookBase(targetPackage = "com.miui.securityadd")
@@ -27,5 +28,6 @@ public class SecurityAdd extends BaseModule {
     @Override
     public void handleLoadPackage() {
         initHook(new DisableGameBoosterAds(), mPrefsMap.getBoolean("securityadd_disable_gb_ads"));
+        initHook(new BlockSecurityAddAdPages(), mPrefsMap.getBoolean("securityadd_block_ad_pages"));
     }
 }
