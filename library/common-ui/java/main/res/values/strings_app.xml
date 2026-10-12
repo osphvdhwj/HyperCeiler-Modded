@@ -1353,7 +1353,7 @@
     <string name="screenshot_device_customize_desc">Please enter the device code, and the colored device should be filled with a suffix, for example:\n• Xiaomi 13, fill in the content is fuxi\n• Xiaomi 14 pink version, fill in the content is houji_PK</string>
     <string name="securityadd">System service plugin</string>
     <string name="securityadd_block_ad_pages">Block ad pages</string>
-    <string name="securityadd_block_ad_pages_desc">Prevent Security Add's "recommended" ad banners from opening a WebView landing page.</string>
+    <string name="securityadd_block_ad_pages_desc">Prevent ad banners in Security Add from opening a WebView landing page.</string>
     <string name="securityadd_disable_gb_ads">Disable Game Center ads</string>
     <string name="securityadd_disable_gb_ads_desc">This may cause other functions to be abnormal</string>
     <string name="security_center_app_title">Manage apps</string>
@@ -1453,7 +1453,6 @@
     <string name="security_center_game_performance_wild_mode">Unlock Wild Boost</string>
     <string name="security_center_sidebar_videobox_title">Video toolbox</string>
     <string name="security_center_sidebar_gamebox_title">Gamebox</string>
-    <string name="security_center_sidebar_function_title">Sidebar function</string>
     <string name="security_center_game_speed">Launch the game quickly</string>
     <string name="security_center_game_speed_desc">When launching the game, it passes the opening screen animation at 3x speed, which is only supported by some games.</string>
     <string name="security_center_bypass_simlock_miaccount_auth">Bypass Xiaomi Account SIM security</string>
