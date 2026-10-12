@@ -23,7 +23,7 @@ import java.util.Collections;
 import static com.sevtinge.hyperceiler.hook.utils.devicesdk.SystemSDKKt.isMoreSmallVersion;
 
 import com.hchen.database.HookBase;
-import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation;
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AllowManageAllNotifications;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AutoCollapse;
@@ -308,7 +308,7 @@ public class SystemUiV extends BaseModule {
 
         initHook(new AutoSEffSwitchForSystemUi(), mPrefsMap.getBoolean("misound_bluetooth"));
 
-        initHook(DisableChargeAnimation,
+        initHook(DisableChargeAnimation.INSTANCE,
                 mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game")
                         || mPrefsMap.getBoolean("system_ui_disable_charge_anim_apps"));
     }}
