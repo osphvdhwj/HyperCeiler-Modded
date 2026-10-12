@@ -103,8 +103,27 @@ public class ChargeLimit extends BaseHook {
         });
     }
 
+    private volatile int mActiveLimit = -1;
+    private final android.os.Handler mReapplyHandler =
+            new android.os.Handler(android.os.Looper.getMainLooper());
+    private final Runnable mReapply = new Runnable() {
+        @Override
+        public void run() {
+            int v = mActiveLimit;
+            if (v <= 0) return;
+            applyAsync(v);
+            mReapplyHandler.postDelayed(this, 60000L);  // every 60 s
+        }
+    };
+
     private void applyAsync(int limit) {
+        mActiveLimit = limit;
         EXECUTOR.execute(() -> writeLimit(limit));
+        // restart the periodic re-apply loop on the first call
+        if (mActiveLimit > 0) {
+            mReapplyHandler.removeCallbacks(mReapply);
+            mReapplyHandler.postDelayed(mReapply, 60000L);
+        }
     }
 
     private void writeLimit(int limit) {
