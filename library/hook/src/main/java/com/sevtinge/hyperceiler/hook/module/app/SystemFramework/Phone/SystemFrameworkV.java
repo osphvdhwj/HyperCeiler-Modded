@@ -23,6 +23,7 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.GlobalActions;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowAutoStart;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ChargeLimit;
+import com.sevtinge.hyperceiler.hook.module.hook.systemframework.ChargeSoundControl;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowDisableProtectedPackage;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowUntrustedTouch;
 import com.sevtinge.hyperceiler.hook.module.hook.systemframework.AllowUntrustedTouchForU;
@@ -94,6 +95,9 @@ public class SystemFrameworkV extends BaseModule {
     @Override
     public void handleLoadPackage() {
         initHook(new ChargeLimit(), mPrefsMap.getBoolean("security_center_charge_limit_enable"));
+        initHook(new ChargeSoundControl(),
+                mPrefsMap.getBoolean("system_ui_disable_charge_sound")
+                        || mPrefsMap.getBoolean("system_ui_disable_charge_vibration"));
         initHook(new DisableMiuiWatermark(), mPrefsMap.getBoolean("system_framework_disable_miui_watermark"));
         initHook(new AntiQues(), mPrefsMap.getBoolean("system_settings_anti_ques"));
         // 小窗
