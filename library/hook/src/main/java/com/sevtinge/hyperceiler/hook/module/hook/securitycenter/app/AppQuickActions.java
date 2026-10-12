@@ -80,45 +80,57 @@ public class AppQuickActions extends BaseHook {
 
     private void inject(Object frag) {
         Context ctx = (Context) XposedHelpers.callMethod(frag, "getContext");
-        if (ctx == null) { logI(TAG, lpparam.packageName, "bail: ctx null"); return; }
+        if (ctx == null) { logE(TAG, lpparam.packageName, "v2: ctx null"); return; }
 
         Field appInfoField = XposedHelpers.findFirstFieldByExactType(
                 frag.getClass(), ApplicationInfo.class);
-        if (appInfoField == null) { logI(TAG, lpparam.packageName, "bail: no ApplicationInfo field"); return; }
+        if (appInfoField == null) { logE(TAG, lpparam.packageName, "v2: no ApplicationInfo field"); return; }
         ApplicationInfo appInfo;
         try { appInfo = (ApplicationInfo) appInfoField.get(frag); }
-        catch (Throwable t) { logI(TAG, lpparam.packageName, "bail: field get: " + t); return; }
-        if (appInfo == null) { logI(TAG, lpparam.packageName, "bail: appInfo null"); return; }
+        catch (Throwable t) { logE(TAG, lpparam.packageName, "v2: field get " + t); return; }
+        if (appInfo == null) { logE(TAG, lpparam.packageName, "v2: appInfo null"); return; }
 
         Object storagePref = XposedHelpers.callMethod(frag, "findPreference", "app_storage_pref");
         Object trafficPref = XposedHelpers.callMethod(frag, "findPreference", "app_traffic_pref");
         Object powerPref   = XposedHelpers.callMethod(frag, "findPreference", "app_power_pref");
-        if (storagePref == null) { logI(TAG, lpparam.packageName, "bail: storagePref null"); return; }
+        if (storagePref == null) { logE(TAG, lpparam.packageName, "v2: storagePref null"); return; }
         Object parent = XposedHelpers.callMethod(storagePref, "getParent");
-        if (parent == null) { logI(TAG, lpparam.packageName, "bail: parent null"); return; }
+        if (parent == null) { logE(TAG, lpparam.packageName, "v2: parent null"); return; }
 
-        if (XposedHelpers.callMethod(parent, "findPreference", PREF_KEY) != null) { logI(TAG, lpparam.packageName, "bail: already injected"); return; }
+        if (XposedHelpers.callMethod(parent, "findPreference", PREF_KEY) != null) return;
 
-        Class<?> prefCls = findClassIfExists("androidx.preference.Preference");
+        // Use miuix.preference.TextPreference - matches what the fragment's own rows use.
+        Class<?> prefCls = findClassIfExists("miuix.preference.TextPreference");
         if (prefCls == null) {
-            logE(TAG, lpparam.packageName, "bail: androidx.preference.Preference not visible");
+            logE(TAG, lpparam.packageName, "v2: miuix TextPreference not found");
             return;
         }
+        logI(TAG, lpparam.packageName, "v2: creating instance");
 
         final String apkPath = appInfo.sourceDir;
         final Context fctx = ctx;
+        Object pref;
+        try {
+            pref = XposedHelpers.newInstance(prefCls, fctx);
+        } catch (Throwable t) {
+            logE(TAG, lpparam.packageName, "v2: newInstance " + t); return;
+        }
 
-        Object pref = XposedHelpers.newInstance(prefCls, fctx);
-        XposedHelpers.callMethod(pref, "setKey", PREF_KEY);
-        XposedHelpers.callMethod(pref, "setTitle", "APK path");
-        File folder = new File(apkPath).getParentFile();
-        XposedHelpers.callMethod(pref, "setSummary",
-                folder != null ? folder.getAbsolutePath() : apkPath);
-        XposedHelpers.callMethod(pref, "setPersistent", false);
+        try {
+            XposedHelpers.callMethod(pref, "setKey", PREF_KEY);
+            XposedHelpers.callMethod(pref, "setTitle", "APK path");
+            File folder = new File(apkPath).getParentFile();
+            XposedHelpers.callMethod(pref, "setSummary",
+                    folder != null ? folder.getAbsolutePath() : apkPath);
+            XposedHelpers.callMethod(pref, "setPersistent", false);
+            logI(TAG, lpparam.packageName, "v2: setKey/title/summary ok");
+        } catch (Throwable t) {
+            logE(TAG, lpparam.packageName, "v2: setters " + t); return;
+        }
 
         Class<?> clickIface = findClassIfExists(
                 "androidx.preference.Preference$OnPreferenceClickListener");
-        if (clickIface == null) return;
+        if (clickIface == null) { logE(TAG, lpparam.packageName, "v2: clickIface null"); return; }
 
         Object clickListener = Proxy.newProxyInstance(
                 clickIface.getClassLoader(),
@@ -133,57 +145,21 @@ public class AppQuickActions extends BaseHook {
                         return null;
                     }
                 });
-        XposedHelpers.callMethod(pref, "setOnPreferenceClickListener", clickListener);
-
-        // Long-press: hook Preference.onBindViewHolder and set itemView's long-click.
-        Class<?> holderCls = findClassIfExists("androidx.preference.PreferenceViewHolder");
-        if (holderCls != null) {
-            try {
-                findAndHookMethod(prefCls, "onBindViewHolder", holderCls,
-                        new MethodHook() {
-                            @Override
-                            protected void after(MethodHookParam param) {
-                                try {
-                                    Object key = XposedHelpers.callMethod(
-                                            param.thisObject, "getKey");
-                                    if (!PREF_KEY.equals(key)) return;
-                                    Object holder = param.args[0];
-                                    Object itemView = XposedHelpers.getObjectField(
-                                            holder, "itemView");
-                                    if (!(itemView instanceof View)) return;
-                                    final Context c2 = (Context) XposedHelpers.callMethod(
-                                            param.thisObject, "getContext");
-                                    ((View) itemView).setOnLongClickListener(new View.OnLongClickListener() {
-                                        @Override
-                                        public boolean onLongClick(View v) {
-                                            ClipboardManager cm = (ClipboardManager)
-                                                    c2.getSystemService(Context.CLIPBOARD_SERVICE);
-                                            if (cm != null) {
-                                                cm.setPrimaryClip(ClipData.newPlainText(
-                                                        "APK path", apkPath));
-                                                Toast.makeText(c2, "Path copied",
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
-                                            return true;
-                                        }
-                                    });
-                                } catch (Throwable ignored) { }
-                            }
-                        });
-            } catch (Throwable t) {
-                logE(TAG, lpparam.packageName, "hook onBindViewHolder: " + t);
-            }
+        try {
+            XposedHelpers.callMethod(pref, "setOnPreferenceClickListener", clickListener);
+            logI(TAG, lpparam.packageName, "v2: listener set");
+        } catch (Throwable t) {
+            logE(TAG, lpparam.packageName, "v2: setListener " + t); return;
         }
 
-        // Remove + re-add to place the new row directly above Storage.
-        XposedHelpers.callMethod(parent, "removePreference", storagePref);
-        if (trafficPref != null) XposedHelpers.callMethod(parent, "removePreference", trafficPref);
-        if (powerPref   != null) XposedHelpers.callMethod(parent, "removePreference", powerPref);
-
-        XposedHelpers.callMethod(parent, "addPreference", pref);
-        XposedHelpers.callMethod(parent, "addPreference", storagePref);
-        if (trafficPref != null) XposedHelpers.callMethod(parent, "addPreference", trafficPref);
-        if (powerPref   != null) XposedHelpers.callMethod(parent, "addPreference", powerPref);
+        try {
+            logI(TAG, lpparam.packageName, "v2: parent class " + parent.getClass().getName());
+            logI(TAG, lpparam.packageName, "v2: count before " + XposedHelpers.callMethod(parent, "getPreferenceCount"));
+            XposedHelpers.callMethod(parent, "addPreference", pref);
+            logI(TAG, lpparam.packageName, "v2: count after " + XposedHelpers.callMethod(parent, "getPreferenceCount"));
+        } catch (Throwable t) {
+            logE(TAG, lpparam.packageName, "v2: addPreference " + t);
+        }
     }
 
     private static void openFolder(Context ctx, String path) {
