@@ -20,6 +20,7 @@ package com.sevtinge.hyperceiler.hook.module.app.SystemUI.Phone;
 
 import java.util.Collections;
 import com.hchen.database.HookBase;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AllowManageAllNotifications;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.screenshot.ExtractTextChip;
@@ -317,5 +318,8 @@ public class SystemUiU extends BaseModule {
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.QSLabelsHook(), mPrefsMap.getBoolean("system_ui_qs_labels"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.ClockCenterHook(), mPrefsMap.getBoolean("system_ui_clock_center"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.systemui.BluetoothRestrict(), mPrefsMap.getBoolean("various_disable_bluetooth_restrict"));
-    }
-}
+
+        initHook(DisableChargeAnimation,
+                mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game")
+                        || mPrefsMap.getBoolean("system_ui_disable_charge_anim_apps"));
+    }}

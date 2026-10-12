@@ -20,6 +20,7 @@ package com.sevtinge.hyperceiler.hook.module.app.SystemUI.Pad;
 
 import java.util.Collections;
 import com.hchen.database.HookBase;
+import com.sevtinge.hyperceiler.hook.module.hook.systemui.other.DisableChargeAnimation
 import com.sevtinge.hyperceiler.hook.module.base.BaseModule;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AllowManageAllNotifications;
 import com.sevtinge.hyperceiler.hook.module.hook.systemui.AutoCollapse;
@@ -131,7 +132,6 @@ public class SystemUiU extends BaseModule {
         /*initHook(new NewPluginHelper());
         initHook(FocusNotifLyricPluginHelper.INSTANCE, mPrefsMap.getBoolean("system_ui_statusbar_music_switch"));*/
         // initHook(Island.INSTANCE, true); // 灵动岛
-        // initHook(DisableChargeAnimation.INSTANCE);
 
         // 小窗
         initHook(new NotificationFreeform(), mPrefsMap.getBoolean("system_ui_notification_freeform"));
@@ -315,5 +315,8 @@ public class SystemUiU extends BaseModule {
         initHook(new AllowManageAllNotifications(), mPrefsMap.getBoolean("system_framework_allow_manage_all_notifications"));
 
         initHook(new AutoSEffSwitchForSystemUi(), mPrefsMap.getBoolean("misound_bluetooth"));
-    }
-}
+
+        initHook(DisableChargeAnimation,
+                mPrefsMap.getBoolean("system_ui_disable_charge_anim_in_game")
+                        || mPrefsMap.getBoolean("system_ui_disable_charge_anim_apps"));
+    }}
