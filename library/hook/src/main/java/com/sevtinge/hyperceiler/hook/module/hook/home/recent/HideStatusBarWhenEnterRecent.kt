@@ -25,25 +25,28 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object HideStatusBarWhenEnterRecent : BaseHook() {
     override fun init() {
-        // 不应该在默认情况下强制显示
-        // if (mPrefsMap.getBoolean("home_recent_hide_status_bar_in_task_view")) {
-        loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder()
-            .filterByName("isHideStatusBarWhenEnterRecents")
-            .single().createHook {
-            returnConstant(true)
+        // The MiuiHome build on this ROM (Redmi Note 12 Pro+ 5G, HyperOS 2.0.2.0 port)
+        // no longer contains DeviceLevelUtils, and the method signature on
+        // DeviceConfig has changed. Skip silently on those ROMs.
+
+        runCatching {
+            loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder()
+                .filterByName("isHideStatusBarWhenEnterRecents")
+                .single().createHook {
+                    returnConstant(true)
+                }
+        }.onFailure {
+            logD(TAG, lpparam.packageName, "DeviceLevelUtils absent; skipping: $it")
         }
 
-        loadClass("com.miui.home.launcher.DeviceConfig").methodFinder()
-            .filterByName("keepStatusBarShowingForBetterPerformance")
-            .single().createHook {
-            returnConstant(false)
+        runCatching {
+            loadClass("com.miui.home.launcher.DeviceConfig").methodFinder()
+                .filterByName("keepStatusBarShowingForBetterPerformance")
+                .single().createHook {
+                    returnConstant(false)
+                }
+        }.onFailure {
+            logD(TAG, lpparam.packageName, "keepStatusBarShowingForBetterPerformance absent; skipping: $it")
         }
-        // } else {
-        //     mDeviceLevelClass.methodFinder().first {
-        //         name == "isHideStatusBarWhenEnterRecents"
-        //     }.createHook {
-        //         returnConstant(false)
-        //     }
-        // }
     }
 }
