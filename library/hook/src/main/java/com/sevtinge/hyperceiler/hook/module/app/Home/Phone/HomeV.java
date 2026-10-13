@@ -70,6 +70,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.layout.LayoutRules;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.SearchBarMarginBottom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.SearchBarMarginWidth;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.CustomSearchBarProvider;
+import com.sevtinge.hyperceiler.hook.module.hook.home.search.GlobalSearchOverlay;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.UnlockGrids;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.WorkspacePadding;
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.BackGestureAreaHeight;
@@ -181,6 +182,7 @@ public class HomeV extends BaseModule {
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
+        initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
                 mPrefsMap.getBoolean("home_layout_searchbar_margin_bottom_enable"));
 

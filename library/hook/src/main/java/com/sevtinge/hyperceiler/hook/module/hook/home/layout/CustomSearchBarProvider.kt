@@ -2,10 +2,12 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.layout
 
 import android.app.Activity
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
+import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 
 object CustomSearchBarProvider : BaseHook() {
     override fun init() {
+        if (mPrefsMap.getBoolean("home_layout_global_search_enable")) return
         val activityClass = findClassIfExists("android.app.Activity") ?: return
 
         activityClass.hookBeforeAllMethods("startActivity") { param ->
