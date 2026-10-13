@@ -1852,5 +1852,7 @@
     <string name="security_center_charge_limit_desc">Stop charging at the selected percentage. Requires the battery driver to expose charge_control_limit.</string>
     <string name="home_layout_global_search">Global Search</string>
     <string name="home_layout_global_search_desc">In-launcher device search (apps, settings, contacts, files, web)</string>
+    <string name="home_layout_global_search_files">Index files</string>
+    <string name="home_layout_global_search_files_desc">Scan /sdcard for files (first run may take 30-60s)</string>
 </resources>
 

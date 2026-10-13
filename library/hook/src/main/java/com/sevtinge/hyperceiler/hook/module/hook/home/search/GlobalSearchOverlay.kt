@@ -30,6 +30,9 @@ object GlobalSearchOverlay : BaseHook() {
     @Volatile private var settingsCache: List<SearchResult>? = null
     @Volatile private var shortcutsCache: List<SearchResult>? = null
     @Volatile private var mediaCache: List<SearchResult>? = null
+    @Volatile private var contactsCache: List<SearchResult>? = null
+    @Volatile private var calendarCache: List<SearchResult>? = null
+    @Volatile private var filesCache: List<SearchResult>? = null
 
     override fun init() {
         if (!mPrefsMap.getBoolean(PREF)) {
@@ -78,6 +81,17 @@ object GlobalSearchOverlay : BaseHook() {
         Thread {
             mediaCache = runCatching { MediaIndex.build(ctx) }.getOrNull()
         }.start()
+        Thread {
+            contactsCache = runCatching { ContactsIndex.build(ctx) }.getOrNull()
+        }.start()
+        Thread {
+            calendarCache = runCatching { CalendarIndex.build(ctx) }.getOrNull()
+        }.start()
+        if (mPrefsMap.getBoolean("home_layout_global_search_index_files")) {
+            Thread {
+                filesCache = runCatching { FilesIndex.build(ctx) }.getOrNull()
+            }.start()
+        }
 
         val container = FrameLayout(ctx).apply {
             setBackgroundColor(0xF2000000.toInt())
@@ -163,6 +177,11 @@ object GlobalSearchOverlay : BaseHook() {
         }
         if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.MEDIA) {
             mediaCache?.let { all.addAll(it) }
+        }
+        if (parsed.filter == QueryPrefix.Filter.NONE) {
+            contactsCache?.let { all.addAll(it) }
+            calendarCache?.let { all.addAll(it) }
+            filesCache?.let { all.addAll(it) }
         }
         val ranked = QueryEngine.query(parsed.text, all).filter {
             QueryPrefix.accepts(parsed.filter, it.type)
