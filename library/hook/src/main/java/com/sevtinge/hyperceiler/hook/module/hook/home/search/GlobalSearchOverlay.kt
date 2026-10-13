@@ -27,6 +27,7 @@ object GlobalSearchOverlay : BaseHook() {
     private const val PREF = "home_layout_global_search_enable"
 
     @Volatile private var overlay: View? = null
+    @Volatile private var settingsCache: List<SearchResult>? = null
 
     override fun init() {
         if (!mPrefsMap.getBoolean(PREF)) {
@@ -68,6 +69,7 @@ object GlobalSearchOverlay : BaseHook() {
         val root = activity.window?.decorView as? ViewGroup ?: return
 
         SearchIndex.ensureBuilt(ctx)
+        settingsCache = SettingsIndex.build(ctx)
 
         val container = FrameLayout(ctx).apply {
             setBackgroundColor(0xF2000000.toInt())
@@ -114,14 +116,14 @@ object GlobalSearchOverlay : BaseHook() {
 
         val adapter = ResultAdapter { result -> launch(ctx, result) }
         rv.adapter = adapter
-        adapter.submit(buildSectioned(QueryEngine.query("", SearchIndex.apps())))
+        adapter.submit(runQuery(ctx, ""))
 
         input.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val q = s?.toString() ?: ""
-                adapter.submit(buildSectioned(QueryEngine.query(q, SearchIndex.apps())))
+                adapter.submit(runQuery(ctx, q))
             }
         })
 
@@ -139,7 +141,35 @@ object GlobalSearchOverlay : BaseHook() {
         input.requestFocus()
     }
 
+    private fun runQuery(ctx: Context, raw: String): List<ListItem> {
+        val parsed = QueryPrefix.parse(raw)
+        val all = ArrayList<SearchResult>()
+        if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.APPS) {
+            all.addAll(SearchIndex.apps())
+        }
+        if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.SETTINGS) {
+            settingsCache?.let { all.addAll(it) }
+        }
+        val ranked = QueryEngine.query(parsed.text, all).filter {
+            QueryPrefix.accepts(parsed.filter, it.type)
+        }
+        val out = ArrayList<SearchResult>()
+        if (parsed.text.isNotBlank() &&
+            (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.WEB)) {
+            out.addAll(Calculator.build(ctx, parsed.text))
+            out.addAll(WebSearch.build(ctx, parsed.text))
+        }
+        out.addAll(ranked)
+        return buildSectioned(out)
+    }
+
     private fun launch(ctx: Context, result: SearchResult) {
+        val copy = result.intent.getStringExtra("__calc_copy")
+        if (copy != null) {
+            Calculator.handleCopy(ctx, copy)
+            dismiss()
+            return
+        }
         try {
             ctx.startActivity(result.intent)
             dismiss()
