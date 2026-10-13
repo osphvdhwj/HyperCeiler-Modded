@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sevtinge.hyperceiler.hook.R
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
@@ -113,14 +114,14 @@ object GlobalSearchOverlay : BaseHook() {
 
         val adapter = ResultAdapter { result -> launch(ctx, result) }
         rv.adapter = adapter
-        adapter.submit(QueryEngine.query("", SearchIndex.apps()))
+        adapter.submit(buildSectioned(QueryEngine.query("", SearchIndex.apps())))
 
         input.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val q = s?.toString() ?: ""
-                adapter.submit(QueryEngine.query(q, SearchIndex.apps()))
+                adapter.submit(buildSectioned(QueryEngine.query(q, SearchIndex.apps())))
             }
         })
 
@@ -153,64 +154,135 @@ object GlobalSearchOverlay : BaseHook() {
         overlay = null
     }
 
+    private fun buildSectioned(results: List<SearchResult>): List<ListItem> {
+        val out = ArrayList<ListItem>()
+        val grouped = results.groupBy { it.type }
+        for (t in ResultType.entries) {
+            val items = grouped[t].orEmpty()
+            if (items.isEmpty()) continue
+            out.add(ListItem.Header(sectionTitle(t), items.size, sectionIcon(t)))
+            items.forEach { out.add(ListItem.Row(it)) }
+        }
+        return out
+    }
+
+    private fun sectionTitle(t: ResultType): String = when (t) {
+        ResultType.APP -> "Apps"
+        ResultType.SETTING -> "Settings"
+        ResultType.WEB -> "Web"
+    }
+
+    private fun sectionIcon(t: ResultType): Int = when (t) {
+        ResultType.APP -> R.drawable.ic_search_section_apps
+        ResultType.SETTING -> R.drawable.ic_search_section_settings
+        ResultType.WEB -> R.drawable.ic_search_section_web
+    }
+
+    private sealed class ListItem {
+        data class Header(val title: String, val count: Int, val iconRes: Int) : ListItem()
+        data class Row(val result: SearchResult) : ListItem()
+    }
+
     private class ResultAdapter(
         private val onClick: (SearchResult) -> Unit,
-    ) : RecyclerView.Adapter<ResultAdapter.VH>() {
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        private val items = ArrayList<SearchResult>()
+        private val items = ArrayList<ListItem>()
 
-        fun submit(newItems: List<SearchResult>) {
+        fun submit(newItems: List<ListItem>) {
             items.clear()
             items.addAll(newItems)
             notifyDataSetChanged()
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-            val ctx = parent.context
-            val row = LinearLayout(ctx).apply {
-                orientation = LinearLayout.HORIZONTAL
-                setPadding(24, 24, 24, 24)
-                layoutParams = RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
-                isClickable = true
-                isFocusable = true
-            }
-            val icon = ImageView(ctx).apply {
-                layoutParams = LinearLayout.LayoutParams(96, 96).apply { marginEnd = 32 }
-                scaleType = ImageView.ScaleType.FIT_CENTER
-            }
-            val col = LinearLayout(ctx).apply {
-                orientation = LinearLayout.VERTICAL
-                layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
-            }
-            val label = TextView(ctx).apply {
-                setTextColor(Color.WHITE); textSize = 16f; maxLines = 1
-            }
-            val sub = TextView(ctx).apply {
-                setTextColor(0x88FFFFFF.toInt()); textSize = 12f; maxLines = 1
-            }
-            col.addView(label); col.addView(sub)
-            row.addView(icon); row.addView(col)
-            return VH(row, icon, label, sub)
+        override fun getItemViewType(position: Int): Int = when (items[position]) {
+            is ListItem.Header -> TYPE_HEADER
+            is ListItem.Row -> TYPE_ROW
         }
 
-        override fun onBindViewHolder(holder: VH, position: Int) {
-            val item = items[position]
-            holder.icon.setImageDrawable(item.icon)
-            holder.label.text = item.label
-            holder.sub.text = item.subtitle ?: ""
-            holder.itemView.setOnClickListener { onClick(item) }
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            val ctx = parent.context
+            return if (viewType == TYPE_HEADER) {
+                val row = LinearLayout(ctx).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                    setPadding(24, 40, 24, 12)
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                }
+                val icon = ImageView(ctx).apply {
+                    layoutParams = LinearLayout.LayoutParams(48, 48).apply { marginEnd = 16 }
+                    scaleType = ImageView.ScaleType.FIT_CENTER
+                }
+                val title = TextView(ctx).apply {
+                    setTextColor(0xAAFFFFFF.toInt())
+                    textSize = 12f
+                    letterSpacing = 0.1f
+                }
+                row.addView(icon); row.addView(title)
+                HeaderVH(row, icon, title)
+            } else {
+                val row = LinearLayout(ctx).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                    setPadding(24, 24, 24, 24)
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                    isClickable = true
+                    isFocusable = true
+                }
+                val icon = ImageView(ctx).apply {
+                    layoutParams = LinearLayout.LayoutParams(96, 96).apply { marginEnd = 32 }
+                    scaleType = ImageView.ScaleType.FIT_CENTER
+                }
+                val col = LinearLayout(ctx).apply {
+                    orientation = LinearLayout.VERTICAL
+                    layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+                }
+                val label = TextView(ctx).apply {
+                    setTextColor(Color.WHITE); textSize = 16f; maxLines = 1
+                }
+                val sub = TextView(ctx).apply {
+                    setTextColor(0x88FFFFFF.toInt()); textSize = 12f; maxLines = 1
+                }
+                col.addView(label); col.addView(sub)
+                row.addView(icon); row.addView(col)
+                RowVH(row, icon, label, sub)
+            }
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            when (val item = items[position]) {
+                is ListItem.Header -> (holder as HeaderVH).bind(item)
+                is ListItem.Row -> (holder as RowVH).bind(item.result, onClick)
+            }
         }
 
         override fun getItemCount(): Int = items.size
 
-        class VH(
-            itemView: View,
-            val icon: ImageView,
-            val label: TextView,
-            val sub: TextView,
-        ) : RecyclerView.ViewHolder(itemView)
+        companion object {
+            const val TYPE_HEADER = 0
+            const val TYPE_ROW = 1
+        }
+
+        class HeaderVH(itemView: View, val icon: ImageView, val title: TextView) :
+            RecyclerView.ViewHolder(itemView) {
+            fun bind(h: ListItem.Header) {
+                title.text = "${h.title}  ·  ${h.count}"
+                if (h.iconRes != 0) icon.setImageResource(h.iconRes) else icon.setImageDrawable(null)
+            }
+        }
+
+        class RowVH(itemView: View, val icon: ImageView, val label: TextView, val sub: TextView) :
+            RecyclerView.ViewHolder(itemView) {
+            fun bind(r: SearchResult, onClick: (SearchResult) -> Unit) {
+                icon.setImageDrawable(r.icon)
+                label.text = r.label
+                sub.text = r.subtitle ?: ""
+                itemView.setOnClickListener { onClick(r) }
+            }
+        }
     }
 }
