@@ -28,6 +28,8 @@ object GlobalSearchOverlay : BaseHook() {
 
     @Volatile private var overlay: View? = null
     @Volatile private var settingsCache: List<SearchResult>? = null
+    @Volatile private var shortcutsCache: List<SearchResult>? = null
+    @Volatile private var mediaCache: List<SearchResult>? = null
 
     override fun init() {
         if (!mPrefsMap.getBoolean(PREF)) {
@@ -70,6 +72,12 @@ object GlobalSearchOverlay : BaseHook() {
 
         SearchIndex.ensureBuilt(ctx)
         settingsCache = SettingsIndex.build(ctx)
+        Thread {
+            shortcutsCache = runCatching { ShortcutsIndex.build(ctx) }.getOrNull()
+        }.start()
+        Thread {
+            mediaCache = runCatching { MediaIndex.build(ctx) }.getOrNull()
+        }.start()
 
         val container = FrameLayout(ctx).apply {
             setBackgroundColor(0xF2000000.toInt())
@@ -150,6 +158,12 @@ object GlobalSearchOverlay : BaseHook() {
         if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.SETTINGS) {
             settingsCache?.let { all.addAll(it) }
         }
+        if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.SHORTCUTS) {
+            shortcutsCache?.let { all.addAll(it) }
+        }
+        if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.MEDIA) {
+            mediaCache?.let { all.addAll(it) }
+        }
         val ranked = QueryEngine.query(parsed.text, all).filter {
             QueryPrefix.accepts(parsed.filter, it.type)
         }
@@ -184,10 +198,17 @@ object GlobalSearchOverlay : BaseHook() {
         overlay = null
     }
 
+    private val SECTION_ORDER = listOf(
+        ResultType.SETTING, ResultType.WEB,
+        ResultType.APP, ResultType.SHORTCUT,
+        ResultType.CONTACT, ResultType.CALENDAR,
+        ResultType.MEDIA, ResultType.FILE,
+    )
+
     private fun buildSectioned(results: List<SearchResult>): List<ListItem> {
         val out = ArrayList<ListItem>()
         val grouped = results.groupBy { it.type }
-        for (t in ResultType.entries) {
+        for (t in SECTION_ORDER) {
             val items = grouped[t].orEmpty()
             if (items.isEmpty()) continue
             out.add(ListItem.Header(sectionTitle(t), items.size, sectionIcon(t)))
@@ -200,12 +221,22 @@ object GlobalSearchOverlay : BaseHook() {
         ResultType.APP -> "Apps"
         ResultType.SETTING -> "Settings"
         ResultType.WEB -> "Web"
+        ResultType.SHORTCUT -> "Shortcuts"
+        ResultType.MEDIA -> "Media"
+        ResultType.FILE -> "Files"
+        ResultType.CONTACT -> "Contacts"
+        ResultType.CALENDAR -> "Calendar"
     }
 
     private fun sectionIcon(t: ResultType): Int = when (t) {
         ResultType.APP -> R.drawable.ic_search_section_apps
         ResultType.SETTING -> R.drawable.ic_search_section_settings
         ResultType.WEB -> R.drawable.ic_search_section_web
+        ResultType.SHORTCUT -> R.drawable.ic_search_section_shortcut
+        ResultType.MEDIA -> R.drawable.ic_search_section_photo
+        ResultType.FILE -> R.drawable.ic_search_section_file
+        ResultType.CONTACT -> R.drawable.ic_search_section_apps
+        ResultType.CALENDAR -> R.drawable.ic_search_section_calc
     }
 
     private sealed class ListItem {
