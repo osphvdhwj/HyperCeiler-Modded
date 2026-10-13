@@ -3,6 +3,8 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.search
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
@@ -25,8 +27,11 @@ object GlobalSearchOverlay : BaseHook() {
 
     private const val TAG = "GlobalSearchOverlay"
     private const val PREF = "home_layout_global_search_enable"
+    private const val SECTION_CAP = 5
 
     @Volatile private var overlay: View? = null
+    private val debounceHandler = Handler(Looper.getMainLooper())
+    private var pendingQuery: Runnable? = null
     @Volatile private var settingsCache: List<SearchResult>? = null
     @Volatile private var shortcutsCache: List<SearchResult>? = null
     @Volatile private var mediaCache: List<SearchResult>? = null
@@ -136,6 +141,17 @@ object GlobalSearchOverlay : BaseHook() {
             ).apply { topMargin = 24 }
         }
 
+        val emptyView = TextView(ctx).apply {
+            setTextColor(0x66FFFFFF.toInt())
+            textSize = 14f
+            text = "No results"
+            visibility = View.GONE
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = 48 }
+        }
+
         val adapter = ResultAdapter { result -> launch(ctx, result) }
         rv.adapter = adapter
         adapter.submit(runQuery(ctx, ""))
@@ -145,7 +161,13 @@ object GlobalSearchOverlay : BaseHook() {
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val q = s?.toString() ?: ""
-                adapter.submit(runQuery(ctx, q))
+                pendingQuery?.let { debounceHandler.removeCallbacks(it) }
+                val r = Runnable {
+                    adapter.submit(runQuery(ctx, q))
+                    if (q.isNotBlank()) RecentsStore.push(ctx, q)
+                }
+                pendingQuery = r
+                debounceHandler.postDelayed(r, 120L)
             }
         })
 
@@ -156,6 +178,7 @@ object GlobalSearchOverlay : BaseHook() {
         }
 
         column.addView(input)
+        column.addView(emptyView)
         column.addView(rv)
         container.addView(column)
         root.addView(container)
@@ -231,7 +254,11 @@ object GlobalSearchOverlay : BaseHook() {
             val items = grouped[t].orEmpty()
             if (items.isEmpty()) continue
             out.add(ListItem.Header(sectionTitle(t), items.size, sectionIcon(t)))
-            items.forEach { out.add(ListItem.Row(it)) }
+            val visible = items.take(SECTION_CAP)
+            visible.forEach { out.add(ListItem.Row(it)) }
+            if (items.size > SECTION_CAP) {
+                out.add(ListItem.ShowAll(t, items.size - SECTION_CAP))
+            }
         }
         return out
     }
@@ -261,6 +288,7 @@ object GlobalSearchOverlay : BaseHook() {
     private sealed class ListItem {
         data class Header(val title: String, val count: Int, val iconRes: Int) : ListItem()
         data class Row(val result: SearchResult) : ListItem()
+        data class ShowAll(val type: ResultType, val remaining: Int) : ListItem()
     }
 
     private class ResultAdapter(
@@ -278,6 +306,7 @@ object GlobalSearchOverlay : BaseHook() {
         override fun getItemViewType(position: Int): Int = when (items[position]) {
             is ListItem.Header -> TYPE_HEADER
             is ListItem.Row -> TYPE_ROW
+            is ListItem.ShowAll -> TYPE_SHOW_ALL
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -302,6 +331,17 @@ object GlobalSearchOverlay : BaseHook() {
                 }
                 row.addView(icon); row.addView(title)
                 HeaderVH(row, icon, title)
+            } else if (viewType == TYPE_SHOW_ALL) {
+                val tv = TextView(ctx).apply {
+                    setTextColor(0x99FFFFFF.toInt())
+                    textSize = 13f
+                    setPadding(72, 24, 24, 32)
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                }
+                ShowAllVH(tv)
             } else {
                 val row = LinearLayout(ctx).apply {
                     orientation = LinearLayout.HORIZONTAL
@@ -337,6 +377,7 @@ object GlobalSearchOverlay : BaseHook() {
             when (val item = items[position]) {
                 is ListItem.Header -> (holder as HeaderVH).bind(item)
                 is ListItem.Row -> (holder as RowVH).bind(item.result, onClick)
+                is ListItem.ShowAll -> (holder as ShowAllVH).bind(item)
             }
         }
 
@@ -345,6 +386,13 @@ object GlobalSearchOverlay : BaseHook() {
         companion object {
             const val TYPE_HEADER = 0
             const val TYPE_ROW = 1
+            const val TYPE_SHOW_ALL = 2
+        }
+
+        class ShowAllVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            fun bind(s: ListItem.ShowAll) {
+                (itemView as TextView).text = "Show ${s.remaining} more ${s.type.name.lowercase()}s"
+            }
         }
 
         class HeaderVH(itemView: View, val icon: ImageView, val title: TextView) :
@@ -362,6 +410,12 @@ object GlobalSearchOverlay : BaseHook() {
                 label.text = r.label
                 sub.text = r.subtitle ?: ""
                 itemView.setOnClickListener { onClick(r) }
+                itemView.setOnLongClickListener {
+                    if (r.type == ResultType.APP) {
+                        SearchContextMenu.show(itemView.context, r)
+                        true
+                    } else false
+                }
             }
         }
     }
