@@ -345,7 +345,15 @@ object GlobalSearchOverlay : BaseHook() {
             if (items.isEmpty()) continue
             out.add(ListItem.Header(sectionTitle(t), items.size, sectionIcon(t)))
             val visible = items.take(SECTION_CAP)
-            visible.forEach { out.add(ListItem.Row(it)) }
+            for (r in visible) {
+                out.add(ListItem.Row(r))
+                if (r.type == ResultType.APP) {
+                    val pkg = r.intent.component?.packageName
+                    if (!pkg.isNullOrEmpty()) {
+                        out.add(ListItem.QuickActions(pkg, null))
+                    }
+                }
+            }
             if (items.size > SECTION_CAP) {
                 out.add(ListItem.ShowAll(t, items.size - SECTION_CAP))
             }
@@ -379,6 +387,7 @@ object GlobalSearchOverlay : BaseHook() {
         data class Header(val title: String, val count: Int, val iconRes: Int) : ListItem()
         data class Row(val result: SearchResult) : ListItem()
         data class ShowAll(val type: ResultType, val remaining: Int) : ListItem()
+        data class QuickActions(val pkg: String, val user: android.os.UserHandle?) : ListItem()
     }
 
     private class ResultAdapter(
@@ -402,6 +411,7 @@ object GlobalSearchOverlay : BaseHook() {
             is ListItem.Header -> TYPE_HEADER
             is ListItem.Row -> TYPE_ROW
             is ListItem.ShowAll -> TYPE_SHOW_ALL
+            is ListItem.QuickActions -> TYPE_QUICK_ACTIONS
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -426,6 +436,16 @@ object GlobalSearchOverlay : BaseHook() {
                 }
                 row.addView(icon); row.addView(title)
                 HeaderVH(row, icon, title)
+            } else if (viewType == TYPE_QUICK_ACTIONS) {
+                val row = LinearLayout(ctx).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                    setPadding(72, 8, 24, 24)
+                    layoutParams = RecyclerView.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                }
+                QuickActionsVH(row, tokens)
             } else if (viewType == TYPE_SHOW_ALL) {
                 val tv = TextView(ctx).apply {
                     setTextColor(tokens.textDim)
@@ -476,6 +496,7 @@ object GlobalSearchOverlay : BaseHook() {
                     tokens.accent, position == selectedPos
                 )
                 is ListItem.ShowAll -> (holder as ShowAllVH).bind(item)
+                is ListItem.QuickActions -> (holder as QuickActionsVH).bind(item, this@ResultAdapter)
             }
         }
 
@@ -505,6 +526,44 @@ object GlobalSearchOverlay : BaseHook() {
             const val TYPE_HEADER = 0
             const val TYPE_ROW = 1
             const val TYPE_SHOW_ALL = 2
+            const val TYPE_QUICK_ACTIONS = 3
+        }
+
+        class QuickActionsVH(
+            private val row: LinearLayout,
+            private val tokens: ColorScheme.Tokens,
+        ) : RecyclerView.ViewHolder(row) {
+            fun bind(item: ListItem.QuickActions, adapter: ResultAdapter) {
+                row.removeAllViews()
+                val ctx = row.context
+                val la = ctx.getSystemService(Context.LAUNCHER_APPS_SERVICE) as? android.content.pm.LauncherApps
+                val shortcuts = QuickActions.forPackage(ctx, item.pkg, item.user)
+                for (s in shortcuts) {
+                    val label = s.shortLabel?.toString() ?: s.longLabel?.toString() ?: continue
+                    val chip = TextView(ctx).apply {
+                        text = label
+                        textSize = 12f
+                        setTextColor(tokens.text)
+                        setPadding(28, 14, 28, 14)
+                        background = android.graphics.drawable.GradientDrawable().apply {
+                            cornerRadius = 40f
+                            setColor(tokens.surface)
+                        }
+                        isClickable = true
+                        isFocusable = true
+                        layoutParams = LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        ).apply { marginEnd = 12 }
+                        setOnClickListener {
+                            runCatching {
+                                la?.startShortcut(item.pkg, s.id, null, null, item.user)
+                            }
+                        }
+                    }
+                    row.addView(chip)
+                }
+            }
         }
 
         class ShowAllVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
