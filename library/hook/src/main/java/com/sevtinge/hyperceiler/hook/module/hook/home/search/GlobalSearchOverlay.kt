@@ -32,12 +32,6 @@ object GlobalSearchOverlay : BaseHook() {
     @Volatile private var overlay: View? = null
     private val debounceHandler = Handler(Looper.getMainLooper())
     private var pendingQuery: Runnable? = null
-    @Volatile private var settingsCache: List<SearchResult>? = null
-    @Volatile private var shortcutsCache: List<SearchResult>? = null
-    @Volatile private var mediaCache: List<SearchResult>? = null
-    @Volatile private var contactsCache: List<SearchResult>? = null
-    @Volatile private var calendarCache: List<SearchResult>? = null
-    @Volatile private var filesCache: List<SearchResult>? = null
 
     override fun init() {
         if (!mPrefsMap.getBoolean(PREF)) {
@@ -78,28 +72,20 @@ object GlobalSearchOverlay : BaseHook() {
         val activity = ctx as? Activity ?: return
         val root = activity.window?.decorView as? ViewGroup ?: return
 
-        SearchIndex.ensureBuilt(ctx)
-        settingsCache = SettingsIndex.build(ctx)
-        Thread {
-            shortcutsCache = runCatching { ShortcutsIndex.build(ctx) }.getOrNull()
-        }.start()
-        Thread {
-            mediaCache = runCatching { MediaIndex.build(ctx) }.getOrNull()
-        }.start()
-        Thread {
-            contactsCache = runCatching { ContactsIndex.build(ctx) }.getOrNull()
-        }.start()
-        Thread {
-            calendarCache = runCatching { CalendarIndex.build(ctx) }.getOrNull()
-        }.start()
-        if (mPrefsMap.getBoolean("home_layout_global_search_index_files")) {
-            Thread {
+        val tokens = ColorScheme.of(ctx)
+        IndexCache.warm(ctx, mPrefsMap.getBoolean("home_layout_global_search_index_files"))
+        val settingsCache = IndexCache.settings
+        val shortcutsCache = IndexCache.shortcuts
+        val mediaCache = IndexCache.media
+        val contactsCache = IndexCache.contacts
+        val calendarCache = IndexCache.calendar
+        val filesCache = IndexCache.files
                 filesCache = runCatching { FilesIndex.build(ctx) }.getOrNull()
             }.start()
         }
 
         val container = FrameLayout(ctx).apply {
-            setBackgroundColor(0xF2000000.toInt())
+            setBackgroundColor(tokens.bg)
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
@@ -120,9 +106,9 @@ object GlobalSearchOverlay : BaseHook() {
 
         val input = EditText(ctx).apply {
             hint = "Search apps…"
-            setTextColor(Color.WHITE)
-            setHintTextColor(0x99FFFFFF.toInt())
-            setBackgroundColor(0x22FFFFFF)
+            setTextColor(tokens.text)
+            setHintTextColor(tokens.textDim)
+            setBackgroundColor(tokens.surface)
             setPadding(48, 32, 48, 32)
             isSingleLine = true
             textSize = 18f
@@ -142,7 +128,7 @@ object GlobalSearchOverlay : BaseHook() {
         }
 
         val emptyView = TextView(ctx).apply {
-            setTextColor(0x66FFFFFF.toInt())
+            setTextColor(tokens.textDim)
             textSize = 14f
             text = "No results"
             visibility = View.GONE
@@ -152,7 +138,7 @@ object GlobalSearchOverlay : BaseHook() {
             ).apply { topMargin = 48 }
         }
 
-        val adapter = ResultAdapter { result -> launch(ctx, result) }
+        val adapter = ResultAdapter(tokens) { result -> launch(ctx, result) }
         rv.adapter = adapter
         adapter.submit(runQuery(ctx, ""))
 
@@ -341,6 +327,7 @@ object GlobalSearchOverlay : BaseHook() {
     }
 
     private class ResultAdapter(
+        private val tokens: ColorScheme.Tokens,
         private val onClick: (SearchResult) -> Unit,
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -374,7 +361,7 @@ object GlobalSearchOverlay : BaseHook() {
                     scaleType = ImageView.ScaleType.FIT_CENTER
                 }
                 val title = TextView(ctx).apply {
-                    setTextColor(0xAAFFFFFF.toInt())
+                    setTextColor(tokens.textDim)
                     textSize = 12f
                     letterSpacing = 0.1f
                 }
@@ -382,7 +369,7 @@ object GlobalSearchOverlay : BaseHook() {
                 HeaderVH(row, icon, title)
             } else if (viewType == TYPE_SHOW_ALL) {
                 val tv = TextView(ctx).apply {
-                    setTextColor(0x99FFFFFF.toInt())
+                    setTextColor(tokens.textDim)
                     textSize = 13f
                     setPadding(72, 24, 24, 32)
                     layoutParams = RecyclerView.LayoutParams(
@@ -411,10 +398,10 @@ object GlobalSearchOverlay : BaseHook() {
                     layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
                 }
                 val label = TextView(ctx).apply {
-                    setTextColor(Color.WHITE); textSize = 16f; maxLines = 1
+                    setTextColor(tokens.text); textSize = 16f; maxLines = 1
                 }
                 val sub = TextView(ctx).apply {
-                    setTextColor(0x88FFFFFF.toInt()); textSize = 12f; maxLines = 1
+                    setTextColor(tokens.textDim); textSize = 12f; maxLines = 1
                 }
                 col.addView(label); col.addView(sub)
                 row.addView(icon); row.addView(col)
