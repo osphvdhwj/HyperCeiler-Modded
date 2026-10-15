@@ -517,10 +517,8 @@ object GlobalSearchOverlay : BaseHook() {
                 itemView.setBackgroundColor(if (selected) 0x33FFFFFF else 0x00000000)
                 itemView.setOnClickListener { onClick(r) }
                 itemView.setOnLongClickListener {
-                    if (r.type == ResultType.APP) {
-                        SearchContextMenu.show(itemView.context, r)
-                        true
-                    } else false
+                    SearchContextMenu.show(itemView.context, r)
+                    true
                 }
             }
         }
