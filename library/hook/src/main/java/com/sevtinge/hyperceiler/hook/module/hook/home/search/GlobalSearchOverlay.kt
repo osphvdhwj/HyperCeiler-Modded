@@ -31,6 +31,8 @@ object GlobalSearchOverlay : BaseHook() {
 
     @Volatile private var overlay: View? = null
     private val debounceHandler = Handler(Looper.getMainLooper())
+    @Volatile private var forcedFilter: QueryPrefix.Filter = QueryPrefix.Filter.NONE
+    @Volatile private var adapterRef: ResultAdapter? = null
     private var pendingQuery: Runnable? = null
 
     override fun init() {
@@ -118,6 +120,12 @@ object GlobalSearchOverlay : BaseHook() {
             )
         }
 
+        val tabs = CategoryTabs(ctx, tokens) { f ->
+            forcedFilter = f
+            val q = input.text?.toString() ?: ""
+            adapterRef?.submit(runQuery(ctx, q))
+        }
+
         val rv = RecyclerView(ctx).apply {
             layoutManager = LinearLayoutManager(ctx)
             layoutParams = LinearLayout.LayoutParams(
@@ -139,6 +147,7 @@ object GlobalSearchOverlay : BaseHook() {
         }
 
         val adapter = ResultAdapter(tokens) { result -> launch(ctx, result) }
+        adapterRef = adapter
         rv.adapter = adapter
         adapter.submit(runQuery(ctx, ""))
 
@@ -164,6 +173,7 @@ object GlobalSearchOverlay : BaseHook() {
         }
 
         column.addView(input)
+        column.addView(tabs.root)
         column.addView(emptyView)
         column.addView(rv)
         container.addView(column)
@@ -189,7 +199,10 @@ object GlobalSearchOverlay : BaseHook() {
                 return items
             }
         }
-        val parsed = QueryPrefix.parse(raw)
+        var parsed = QueryPrefix.parse(raw)
+        if (forcedFilter != QueryPrefix.Filter.NONE && parsed.filter == QueryPrefix.Filter.NONE) {
+            parsed = QueryPrefix.Parsed(forcedFilter, parsed.text)
+        }
         val all = ArrayList<SearchResult>()
         if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.APPS) {
             all.addAll(SearchIndex.apps())
@@ -273,6 +286,8 @@ object GlobalSearchOverlay : BaseHook() {
         val v = overlay ?: return
         (v.parent as? ViewGroup)?.removeView(v)
         overlay = null
+        adapterRef = null
+        forcedFilter = QueryPrefix.Filter.NONE
     }
 
     private val SECTION_ORDER = listOf(
