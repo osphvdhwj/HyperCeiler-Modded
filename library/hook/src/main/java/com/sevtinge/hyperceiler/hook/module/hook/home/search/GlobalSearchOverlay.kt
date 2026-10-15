@@ -187,6 +187,22 @@ object GlobalSearchOverlay : BaseHook() {
     }
 
     private fun runQuery(ctx: Context, raw: String): List<ListItem> {
+        if (raw.isBlank()) {
+            val recents = RecentsStore.asResults(ctx)
+            if (recents.isNotEmpty()) {
+                val items = ArrayList<ListItem>()
+                items.add(ListItem.Header("Recent", recents.size, R.drawable.ic_search_ui_search))
+                recents.forEach { items.add(ListItem.Row(it)) }
+                val apps = QueryEngine.query("", SearchIndex.apps())
+                val grouped = apps.groupBy { it.type }
+                val appItems = grouped[ResultType.APP].orEmpty().take(SECTION_CAP)
+                if (appItems.isNotEmpty()) {
+                    items.add(ListItem.Header("Apps", appItems.size, R.drawable.ic_search_section_apps))
+                    appItems.forEach { items.add(ListItem.Row(it)) }
+                }
+                return items
+            }
+        }
         val parsed = QueryPrefix.parse(raw)
         val all = ArrayList<SearchResult>()
         if (parsed.filter == QueryPrefix.Filter.NONE || parsed.filter == QueryPrefix.Filter.APPS) {
@@ -220,6 +236,14 @@ object GlobalSearchOverlay : BaseHook() {
     }
 
     private fun launch(ctx: Context, result: SearchResult) {
+        val recent = result.intent.getStringExtra(RecentsStore.EXTRA_RECENT_QUERY)
+        if (recent != null) {
+            val ov = overlay as? ViewGroup ?: return
+            val et = findInputView(ov)
+            et?.setText(recent)
+            et?.setSelection(recent.length)
+            return
+        }
         val copy = result.intent.getStringExtra("__calc_copy")
         if (copy != null) {
             Calculator.handleCopy(ctx, copy)
@@ -248,6 +272,15 @@ object GlobalSearchOverlay : BaseHook() {
         } catch (t: Throwable) {
             logD(TAG, "launch failed: ${t.message}")
         }
+    }
+
+    private fun findInputView(root: ViewGroup): android.widget.EditText? {
+        for (i in 0 until root.childCount) {
+            val c = root.getChildAt(i)
+            if (c is android.widget.EditText) return c
+            if (c is ViewGroup) findInputView(c)?.let { return it }
+        }
+        return null
     }
 
     private fun dismiss() {
