@@ -51,6 +51,7 @@ object GlobalSearchOverlay : BaseHook() {
         }
         cls.hookBeforeAllMethods("openSearch") { param ->
             logD(TAG, "SearchBar.openSearch intercepted")
+            Diagnostics.lastSearchBarHook = System.currentTimeMillis()
             param.result = null
             val self = param.thisObject as? View ?: return@hookBeforeAllMethods
             showOverlay(self)
@@ -63,6 +64,7 @@ object GlobalSearchOverlay : BaseHook() {
         }
         cls.hookBeforeAllMethods("openSearch") { param ->
             logD(TAG, "SearchBarContainer.openSearch intercepted")
+            Diagnostics.lastContainerHook = System.currentTimeMillis()
             param.result = null
             val self = param.thisObject as? View ?: return@hookBeforeAllMethods
             showOverlay(self)
@@ -75,6 +77,7 @@ object GlobalSearchOverlay : BaseHook() {
         val activity = ctx as? Activity ?: return
         val root = activity.window?.decorView as? ViewGroup ?: return
 
+        Diagnostics.lastOverlayOpen = System.currentTimeMillis()
         val tokens = ColorScheme.of(ctx)
         IndexCache.warm(ctx, mPrefsMap.getBoolean("home_layout_global_search_index_files"))
         val settingsCache = IndexCache.settings
@@ -180,6 +183,11 @@ object GlobalSearchOverlay : BaseHook() {
             }
         })
 
+        input.setOnLongClickListener {
+            Diagnostics.show(ctx)
+            true
+        }
+
         input.setOnKeyListener { _, code, event ->
             if (event.action != KeyEvent.ACTION_DOWN) {
                 return@setOnKeyListener code == KeyEvent.KEYCODE_BACK
@@ -222,6 +230,7 @@ object GlobalSearchOverlay : BaseHook() {
     }
 
     private fun runQuery(ctx: Context, raw: String): List<ListItem> {
+        val t0 = System.currentTimeMillis()
         if (raw.isBlank()) {
             val recents = RecentsStore.asResults(ctx)
             if (recents.isNotEmpty()) {
@@ -270,7 +279,11 @@ object GlobalSearchOverlay : BaseHook() {
             out.addAll(WebSearch.build(ctx, parsed.text))
         }
         out.addAll(ranked)
-        return buildSectioned(out)
+        val r = buildSectioned(out)
+        Diagnostics.lastQueryMs = System.currentTimeMillis() - t0
+        Diagnostics.lastQueryLen = raw.length
+        Diagnostics.lastResultCount = r.size
+        return r
     }
 
     private fun launch(ctx: Context, result: SearchResult) {
