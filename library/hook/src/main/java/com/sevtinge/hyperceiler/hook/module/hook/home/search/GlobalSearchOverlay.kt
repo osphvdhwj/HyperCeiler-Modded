@@ -158,6 +158,8 @@ object GlobalSearchOverlay : BaseHook() {
                 val q = s?.toString() ?: ""
                 pendingQuery?.let { debounceHandler.removeCallbacks(it) }
                 val r = Runnable {
+                    adapter.currentQuery = q
+                    adapter.selectedPos = -1
                     adapter.submit(runQuery(ctx, q))
                     if (q.isNotBlank()) RecentsStore.push(ctx, q)
                 }
@@ -167,9 +169,34 @@ object GlobalSearchOverlay : BaseHook() {
         })
 
         input.setOnKeyListener { _, code, event ->
-            if (code == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
-                dismiss(); true
-            } else false
+            if (event.action != KeyEvent.ACTION_DOWN) {
+                return@setOnKeyListener code == KeyEvent.KEYCODE_BACK
+            }
+            when (code) {
+                KeyEvent.KEYCODE_BACK -> { dismiss(); true }
+                KeyEvent.KEYCODE_ESCAPE -> { dismiss(); true }
+                KeyEvent.KEYCODE_DPAD_DOWN -> {
+                    val p = adapter.moveSelection(1)
+                    if (p >= 0) rv.scrollToPosition(p)
+                    true
+                }
+                KeyEvent.KEYCODE_DPAD_UP -> {
+                    val p = adapter.moveSelection(-1)
+                    if (p >= 0) rv.scrollToPosition(p)
+                    true
+                }
+                KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_NUMPAD_ENTER -> {
+                    val row = adapter.currentRow()
+                    if (row != null) { launch(ctx, row); true }
+                    else {
+                        val first = QueryEngine.query(
+                            input.text?.toString() ?: "", SearchIndex.apps()
+                        ).firstOrNull()
+                        if (first != null) { launch(ctx, first); true } else false
+                    }
+                }
+                else -> false
+            }
         }
 
         column.addView(input)
@@ -346,6 +373,10 @@ object GlobalSearchOverlay : BaseHook() {
         private val onClick: (SearchResult) -> Unit,
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+        var currentQuery: String = ""
+        var selectedPos: Int = -1
+            set(v) { val old = field; field = v; if (old >= 0) notifyItemChanged(old); if (v >= 0) notifyItemChanged(v) }
+
         private val items = ArrayList<ListItem>()
 
         fun submit(newItems: List<ListItem>) {
@@ -427,12 +458,35 @@ object GlobalSearchOverlay : BaseHook() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             when (val item = items[position]) {
                 is ListItem.Header -> (holder as HeaderVH).bind(item)
-                is ListItem.Row -> (holder as RowVH).bind(item.result, onClick)
+                is ListItem.Row -> (holder as RowVH).bind(
+                    item.result, onClick, currentQuery,
+                    tokens.accent, position == selectedPos
+                )
                 is ListItem.ShowAll -> (holder as ShowAllVH).bind(item)
             }
         }
 
         override fun getItemCount(): Int = items.size
+
+        fun moveSelection(delta: Int): Int {
+            if (items.isEmpty()) return -1
+            var p = selectedPos
+            var guard = 0
+            while (guard < items.size) {
+                p += delta
+                if (p < 0) p = items.size - 1
+                if (p >= items.size) p = 0
+                if (items[p] is ListItem.Row) {
+                    selectedPos = p
+                    return p
+                }
+                guard++
+            }
+            return -1
+        }
+
+        fun currentRow(): SearchResult? =
+            (items.getOrNull(selectedPos) as? ListItem.Row)?.result
 
         companion object {
             const val TYPE_HEADER = 0
@@ -456,10 +510,11 @@ object GlobalSearchOverlay : BaseHook() {
 
         class RowVH(itemView: View, val icon: ImageView, val label: TextView, val sub: TextView) :
             RecyclerView.ViewHolder(itemView) {
-            fun bind(r: SearchResult, onClick: (SearchResult) -> Unit) {
+            fun bind(r: SearchResult, onClick: (SearchResult) -> Unit, q: String, accent: Int, selected: Boolean) {
                 icon.setImageDrawable(r.icon)
-                label.text = r.label
+                label.text = MatchHighlighter.apply(r.label, q, accent)
                 sub.text = r.subtitle ?: ""
+                itemView.setBackgroundColor(if (selected) 0x33FFFFFF else 0x00000000)
                 itemView.setOnClickListener { onClick(r) }
                 itemView.setOnLongClickListener {
                     if (r.type == ResultType.APP) {
