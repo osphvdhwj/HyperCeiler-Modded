@@ -14,6 +14,10 @@ object ShortcutsIndex {
     private const val TAG = "ShortcutsIndex"
     private const val MAX = 200
 
+    const val EXTRA_SHORTCUT_PKG = "__shortcut_pkg"
+    const val EXTRA_SHORTCUT_ID = "__shortcut_id"
+    const val EXTRA_SHORTCUT_USER = "__shortcut_user"
+
     fun build(ctx: Context): List<SearchResult> {
         val out = ArrayList<SearchResult>(MAX)
         val la = ctx.getSystemService(Context.LAUNCHER_APPS_SERVICE) as? LauncherApps ?: return out
@@ -22,15 +26,16 @@ object ShortcutsIndex {
             androidx.core.content.ContextCompat.getDrawable(ctx, R.drawable.ic_search_section_shortcut)
         }.getOrNull()
 
-        for (user in um.userProfiles) {
-            val handle: UserHandle = user.userHandle ?: continue
+        val users: List<UserHandle> = um.userProfiles
+        for (handle in users) {
+            if (out.size >= MAX) break
             val packages = runCatching {
                 la.getActivityList(null, handle).map { it.applicationInfo.packageName }.distinct()
             }.getOrDefault(emptyList())
 
             for (pkg in packages) {
                 if (out.size >= MAX) break
-                val shortcuts = runCatching {
+                val shortcuts: List<ShortcutInfo> = runCatching {
                     la.getShortcuts(
                         LauncherApps.ShortcutQuery()
                             .setPackage(pkg)
@@ -41,23 +46,24 @@ object ShortcutsIndex {
                             ),
                         handle
                     )
-                }.getOrDefault(emptyList())
+                }.getOrNull() ?: emptyList()
 
                 for (s: ShortcutInfo in shortcuts) {
                     val label = s.shortLabel?.toString()
                         ?: s.longLabel?.toString()
                         ?: continue
-                    val launch = runCatching {
-                        la.getShortcutIntent(pkg, s.id, null, handle)
-                    }.getOrNull() ?: continue
-                    launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    val stub = Intent().apply {
+                        putExtra(EXTRA_SHORTCUT_PKG, pkg)
+                        putExtra(EXTRA_SHORTCUT_ID, s.id)
+                        putExtra(EXTRA_SHORTCUT_USER, handle)
+                    }
                     out.add(
                         SearchResult(
                             type = ResultType.SHORTCUT,
                             label = label,
-                            subtitle = s.`package`,
+                            subtitle = pkg,
                             icon = icon,
-                            intent = launch,
+                            intent = stub,
                         )
                     )
                 }

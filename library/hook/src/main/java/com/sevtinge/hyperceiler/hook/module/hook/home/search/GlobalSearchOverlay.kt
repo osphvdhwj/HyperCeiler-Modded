@@ -226,6 +226,22 @@ object GlobalSearchOverlay : BaseHook() {
             dismiss()
             return
         }
+        val scPkg = result.intent.getStringExtra(ShortcutsIndex.EXTRA_SHORTCUT_PKG)
+        val scId = result.intent.getStringExtra(ShortcutsIndex.EXTRA_SHORTCUT_ID)
+        if (scPkg != null && scId != null) {
+            val user = result.intent.getParcelableExtra<android.os.UserHandle>(
+                ShortcutsIndex.EXTRA_SHORTCUT_USER
+            )
+            val la = ctx.getSystemService(Context.LAUNCHER_APPS_SERVICE)
+                as? android.content.pm.LauncherApps
+            try {
+                la?.startShortcut(scPkg, scId, null, null, user)
+                dismiss()
+            } catch (t: Throwable) {
+                logD(TAG, "shortcut launch failed: ${t.message}")
+            }
+            return
+        }
         try {
             ctx.startActivity(result.intent)
             dismiss()

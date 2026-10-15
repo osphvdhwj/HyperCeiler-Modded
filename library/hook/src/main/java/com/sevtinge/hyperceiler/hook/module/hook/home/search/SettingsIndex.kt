@@ -36,7 +36,6 @@ object SettingsIndex {
         Entry("Network", Settings.ACTION_NETWORK_OPERATOR_SETTINGS, R.drawable.ic_search_section_settings),
         Entry("VPN", Settings.ACTION_VPN_SETTINGS, R.drawable.ic_search_section_settings),
         Entry("Accounts", Settings.ACTION_SYNC_SETTINGS, R.drawable.ic_search_section_settings),
-        Entry("Backup", Settings.ACTION_BACKUP_SETTINGS, R.drawable.ic_search_section_settings),
         Entry("NFC", Settings.ACTION_NFC_SETTINGS, R.drawable.ic_search_section_settings),
         Entry("Gestures", Settings.ACTION_SETTINGS, R.drawable.ic_search_section_settings),
         Entry("Wallpaper", Settings.ACTION_SETTINGS, R.drawable.ic_search_section_settings),
