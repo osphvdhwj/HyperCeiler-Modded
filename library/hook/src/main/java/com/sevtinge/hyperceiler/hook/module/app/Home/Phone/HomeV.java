@@ -77,6 +77,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.BackGestureArea
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.BackGestureAreaWidth;
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.DisableFullScreenBackGesture;
 import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.HideNavigationBar;
+import com.sevtinge.hyperceiler.hook.module.hook.home.other.UninstallDropTargetLabel;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.AllowShareApk;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysBlurWallpaper;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysShowStatusClock;
@@ -183,6 +184,7 @@ public class HomeV extends BaseModule {
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
         initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
+        initHook(UninstallDropTargetLabel.INSTANCE, true);
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
                 mPrefsMap.getBoolean("home_layout_searchbar_margin_bottom_enable"));
 
