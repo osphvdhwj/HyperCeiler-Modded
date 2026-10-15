@@ -33,6 +33,7 @@ object GlobalSearchOverlay : BaseHook() {
     private val debounceHandler = Handler(Looper.getMainLooper())
     @Volatile private var forcedFilter: QueryPrefix.Filter = QueryPrefix.Filter.NONE
     @Volatile private var adapterRef: ResultAdapter? = null
+    @Volatile private var queryCtx: Context? = null
     private var pendingQuery: Runnable? = null
 
     override fun init() {
@@ -123,7 +124,10 @@ object GlobalSearchOverlay : BaseHook() {
         val tabs = CategoryTabs(ctx, tokens) { f ->
             forcedFilter = f
             val q = input.text?.toString() ?: ""
-            adapterRef?.submit(runQuery(ctx, q))
+            QueryExecutor.submit(
+                work = { runQuery(ctx, q) },
+                onResult = { adapterRef?.submit(it) }
+            )
         }
 
         val rv = RecyclerView(ctx).apply {
@@ -149,7 +153,10 @@ object GlobalSearchOverlay : BaseHook() {
         val adapter = ResultAdapter(tokens) { result -> launch(ctx, result) }
         adapterRef = adapter
         rv.adapter = adapter
-        adapter.submit(runQuery(ctx, ""))
+        QueryExecutor.submit(
+            work = { runQuery(ctx, "") },
+            onResult = { adapter.submit(it) }
+        )
 
         input.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
@@ -158,9 +165,14 @@ object GlobalSearchOverlay : BaseHook() {
                 val q = s?.toString() ?: ""
                 pendingQuery?.let { debounceHandler.removeCallbacks(it) }
                 val r = Runnable {
-                    adapter.currentQuery = q
-                    adapter.selectedPos = -1
-                    adapter.submit(runQuery(ctx, q))
+                    QueryExecutor.submit(
+                        work = { runQuery(ctx, q) },
+                        onResult = { items ->
+                            adapter.currentQuery = q
+                            adapter.selectedPos = -1
+                            adapter.submit(items)
+                        }
+                    )
                     if (q.isNotBlank()) RecentsStore.push(ctx, q)
                 }
                 pendingQuery = r
@@ -315,6 +327,7 @@ object GlobalSearchOverlay : BaseHook() {
         overlay = null
         adapterRef = null
         forcedFilter = QueryPrefix.Filter.NONE
+        QueryExecutor.invalidate()
     }
 
     private val SECTION_ORDER = listOf(
