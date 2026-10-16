@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
+import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
 object UninstallDropTargetLabel : BaseHook() {
@@ -16,8 +17,8 @@ object UninstallDropTargetLabel : BaseHook() {
             logD(TAG, "UninstallDropTarget not found"); return
         }
 
-        cls.hookAfterMethod("changeIconAndLabel") { param ->
-            val self = param.thisObject as? ViewGroup ?: return@hookAfterMethod
+        cls.hookAfterAllMethods("changeIconAndLabel") { param ->
+            val self = param.thisObject as? ViewGroup ?: return@hookAfterAllMethods
             val modeName = runCatching {
                 val f = self.javaClass.getDeclaredField("mUninstallDropTargetMode")
                 f.isAccessible = true
@@ -26,7 +27,6 @@ object UninstallDropTargetLabel : BaseHook() {
 
             val label = when (modeName) {
                 "Uninstall" -> "Uninstall"
-                "Delete" -> "Remove"
                 else -> "Remove"
             }
 
