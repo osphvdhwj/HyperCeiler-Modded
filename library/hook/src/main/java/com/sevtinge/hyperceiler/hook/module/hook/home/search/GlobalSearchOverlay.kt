@@ -294,9 +294,9 @@ object GlobalSearchOverlay : BaseHook() {
         val scPkg = result.intent.getStringExtra(ShortcutsIndex.EXTRA_SHORTCUT_PKG)
         val scId = result.intent.getStringExtra(ShortcutsIndex.EXTRA_SHORTCUT_ID)
         if (scPkg != null && scId != null) {
-            val user = result.intent.getParcelableExtra<android.os.UserHandle>(
-                ShortcutsIndex.EXTRA_SHORTCUT_USER
-            )
+            val user: android.os.UserHandle = result.intent
+                .getParcelableExtra<android.os.UserHandle>(ShortcutsIndex.EXTRA_SHORTCUT_USER)
+                ?: android.os.Process.myUserHandle()
             val la = ctx.getSystemService(Context.LAUNCHER_APPS_SERVICE)
                 as? android.content.pm.LauncherApps
             try {
@@ -587,7 +587,8 @@ object GlobalSearchOverlay : BaseHook() {
                             ViewGroup.LayoutParams.WRAP_CONTENT
                         ).apply { marginEnd = 12 }
                         setOnClickListener {
-                            runCatching { la?.startShortcut(item.pkg, s.id, null, null, item.user) }
+                            val u = item.user ?: android.os.Process.myUserHandle()
+                            runCatching { la?.startShortcut(item.pkg, s.id, null, null, u) }
                         }
                     }
                     row.addView(chip)

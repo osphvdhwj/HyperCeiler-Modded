@@ -3,6 +3,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.search
 import android.content.Context
 import android.content.pm.LauncherApps
 import android.content.pm.ShortcutInfo
+import android.os.Process
 import android.os.UserHandle
 
 object QuickActions {
@@ -11,7 +12,8 @@ object QuickActions {
     private val cache = HashMap<String, List<ShortcutInfo>>()
 
     fun forPackage(ctx: Context, pkg: String, user: UserHandle?): List<ShortcutInfo> {
-        val key = "$pkg@${user?.hashCode() ?: 0}"
+        val u = user ?: Process.myUserHandle()
+        val key = "$pkg@${u.hashCode()}"
         cache[key]?.let { return it }
         val la = ctx.getSystemService(Context.LAUNCHER_APPS_SERVICE) as? LauncherApps
             ?: return emptyList()
@@ -22,8 +24,8 @@ object QuickActions {
                     or LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST
                     or LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED
             )
-        val list = runCatching { la.getShortcuts(q, user ?: android.os.Process.myUserHandle()) }
-            .getOrDefault(emptyList())
+        val raw: List<ShortcutInfo>? = runCatching { la.getShortcuts(q, u) }.getOrNull()
+        val list = (raw ?: emptyList())
             .filter { it.shortLabel != null || it.longLabel != null }
             .take(MAX)
         cache[key] = list
