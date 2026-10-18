@@ -110,10 +110,12 @@ public class LockApp extends BaseHook {
                                     }
                                 }
                             };
-                            context.getContentResolver().registerContentObserver(
-                                Settings.Global.getUriFor("key_lock_app"),
-                                false, contentObserver);
-                            isListen2 = true;
+                            if (!isListen) {
+                                context.getContentResolver().registerContentObserver(
+                                    Settings.Global.getUriFor("key_lock_app"),
+                                    false, contentObserver);
+                                isListen = true;
+                            }
                         }
                     }
                 }

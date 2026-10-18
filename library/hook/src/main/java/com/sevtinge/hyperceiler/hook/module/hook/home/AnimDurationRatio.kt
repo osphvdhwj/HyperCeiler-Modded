@@ -33,7 +33,7 @@ object AnimDurationRatio : BaseHook() {
                 .filterByName("getModifyResponse")
                 .single().createHook {
                     before {
-                        it.result = it.args[0] as Float * value1
+                        it.result = (it.args[0] as Number).toFloat() * value1
                     }
                 }
         }
