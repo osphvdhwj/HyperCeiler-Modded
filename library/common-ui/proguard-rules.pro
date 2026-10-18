@@ -34,4 +34,4 @@
 -keep class miuix.mgl.** { *; }
 
 -dontwarn miui.util.HapticFeedbackUtil
--dontwarn com.android.internal.view.menu.MenuBuilder
+-dontwarn com.android.internal.view.menu.MenuBuilder-keep class fan.cardview.** { *; }
