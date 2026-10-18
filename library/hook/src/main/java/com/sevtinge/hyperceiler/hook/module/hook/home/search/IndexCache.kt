@@ -10,35 +10,43 @@ object IndexCache {
 
     private const val TAG = "IndexCache"
 
-    @Volatile var apps: List<SearchResult>? = null
-        private set
-    @Volatile var settings: List<SearchResult>? = null
-        private set
-    @Volatile var shortcuts: List<SearchResult>? = null
-        private set
-    @Volatile var media: List<SearchResult>? = null
-        private set
-    @Volatile var contacts: List<SearchResult>? = null
-        private set
-    @Volatile var calendar: List<SearchResult>? = null
-        private set
-    @Volatile var files: List<SearchResult>? = null
-        private set
+    @Volatile var apps: List<SearchResult>? = null; private set
+    @Volatile var settings: List<SearchResult>? = null; private set
+    @Volatile var shortcuts: List<SearchResult>? = null; private set
+    @Volatile var media: List<SearchResult>? = null; private set
+    @Volatile var contacts: List<SearchResult>? = null; private set
+    @Volatile var calendar: List<SearchResult>? = null; private set
+    @Volatile var files: List<SearchResult>? = null; private set
 
     private var receiverRegistered = false
 
     fun warm(ctx: Context, includeFiles: Boolean) {
         registerReceiver(ctx)
-        if (apps == null) apps = SearchIndex.apps().ifEmpty { null } ?: run {
-            SearchIndex.ensureBuilt(ctx); SearchIndex.apps()
+        
+        if (apps == null) {
+            Thread {
+                SearchIndex.ensureBuilt(ctx)
+                apps = SearchIndex.apps()
+            }.start()
         }
-        if (settings == null) settings = SettingsIndex.build(ctx)
-        if (shortcuts == null) Thread { shortcuts = runCatching { ShortcutsIndex.build(ctx) }.getOrNull() }.start()
-        if (media == null) Thread { media = runCatching { MediaIndex.build(ctx) }.getOrNull() }.start()
-        if (contacts == null) Thread { contacts = runCatching { ContactsIndex.build(ctx) }.getOrNull() }.start()
-        if (calendar == null) Thread { calendar = runCatching { CalendarIndex.build(ctx) }.getOrNull() }.start()
-        if (includeFiles && files == null)
+        if (settings == null) {
+            Thread { settings = SettingsIndex.build(ctx) }.start()
+        }
+        if (shortcuts == null) {
+            Thread { shortcuts = runCatching { ShortcutsIndex.build(ctx) }.getOrNull() }.start()
+        }
+        if (media == null) {
+            Thread { media = runCatching { MediaIndex.build(ctx) }.getOrNull() }.start()
+        }
+        if (contacts == null) {
+            Thread { contacts = runCatching { ContactsIndex.build(ctx) }.getOrNull() }.start()
+        }
+        if (calendar == null) {
+            Thread { calendar = runCatching { CalendarIndex.build(ctx) }.getOrNull() }.start()
+        }
+        if (includeFiles && files == null) {
             Thread { files = runCatching { FilesIndex.build(ctx) }.getOrNull() }.start()
+        }
     }
 
     fun invalidateApps() { apps = null }
