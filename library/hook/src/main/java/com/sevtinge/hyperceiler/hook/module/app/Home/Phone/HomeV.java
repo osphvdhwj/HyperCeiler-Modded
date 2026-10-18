@@ -61,6 +61,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderShade;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderVerticalSpacing;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.SmallFolderIconBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.UnlockBlurSupported;
+import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.IconSwipeAction;
 import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.CornerSlide;
 import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.DoubleTap;
 import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.HotSeatSwipe;
@@ -193,6 +194,7 @@ public class HomeV extends BaseModule {
         initHook(DrawerGridSize.INSTANCE, true);
         initHook(AlphabetSidebar.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_alphabet_sidebar"));
         initHook(VerticalAppDrawer.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_vertical"));
+        initHook(IconSwipeAction.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_gesture_icon_swipe_up"));
         initHook(IconPackSupport.INSTANCE, !mPrefsMap.getString("prefs_key_home_title_icon_pack_pkg", "").isEmpty());
         initHook(RecentShortcutMenu.INSTANCE, true);
         initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
