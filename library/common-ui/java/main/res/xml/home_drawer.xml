@@ -105,6 +105,20 @@
             app:min="3"
             android:key="prefs_key_home_drawer_rows"
             android:title="Drawer Rows" />
+
+        <SeekBarPreference
+            app:defaultValue="0"
+            app:max="100"
+            app:min="0"
+            android:key="prefs_key_home_drawer_icon_size"
+            android:title="Drawer Icon Size (dp) - 0 for default" />
+
+        <SeekBarPreference
+            app:defaultValue="0"
+            app:max="30"
+            app:min="0"
+            android:key="prefs_key_home_drawer_font_size"
+            android:title="Drawer Text Size (sp) - 0 for default" />
 </PreferenceCategory>
 
 </PreferenceScreen>
