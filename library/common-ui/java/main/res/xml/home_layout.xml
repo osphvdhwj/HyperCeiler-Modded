@@ -20,13 +20,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:myLocation="@string/home_layout"
     app:quick_restart="com.miui.home">
-    <PreferenceCategory android:key="prefs_key_home_layout_old_func">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="prefs_key_home_other_show_clock"
-            android:summary="@string/home_layout_show_clock_desc"
-            android:title="@string/home_layout_show_clock" />
 
+    <PreferenceCategory android:title="Search &amp; Index">
         <SwitchPreference
             android:defaultValue="false"
             android:key="prefs_key_home_layout_global_search_enable"
@@ -39,6 +34,14 @@
             android:key="prefs_key_home_layout_global_search_index_files"
             android:summary="@string/home_layout_global_search_files_desc"
             android:title="@string/home_layout_global_search_files" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="prefs_key_home_layout_old_func">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_home_other_show_clock"
+            android:summary="@string/home_layout_show_clock_desc"
+            android:title="@string/home_layout_show_clock" />
 
         <SwitchPreference
             android:defaultValue="false"
