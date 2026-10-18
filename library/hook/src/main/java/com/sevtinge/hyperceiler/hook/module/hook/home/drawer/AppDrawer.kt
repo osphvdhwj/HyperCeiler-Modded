@@ -88,7 +88,7 @@ object AppDrawer : BaseHook() {
             Int::class.javaPrimitiveType
         ) {
             if (it.args[0].callMethodAs<Int>("getItemViewType") == 64) {
-                it.args[0].getObjectFieldAs<View>("itemView").visibility = View.INVISIBLE
+                it.args[0].getObjectFieldAs<View>("itemView").visibility = View.VISIBLE
             }
         }
     }

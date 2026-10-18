@@ -40,8 +40,12 @@ object GlobalSearchOverlay : BaseHook() {
             logD(TAG, "pref disabled, skip")
             return
         }
-        hookSearchBar()
-        hookSearchBarContainer()
+        try {
+            hookSearchBar()
+            hookSearchBarContainer()
+        } catch (t: Throwable) {
+            logD(TAG, "GlobalSearchOverlay init failed: ${t.message}")
+        }
     }
 
     private fun hookSearchBar() {
