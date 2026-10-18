@@ -91,6 +91,20 @@
             android:key="prefs_key_home_drawer_alphabet_sidebar"
             android:summary="Show A-Z fast scroll bar on the right side"
             android:title="Alphabet Sidebar" />
+
+        <SeekBarPreference
+            app:defaultValue="4"
+            app:max="6"
+            app:min="2"
+            android:key="prefs_key_home_drawer_cols"
+            android:title="Drawer Columns" />
+
+        <SeekBarPreference
+            app:defaultValue="6"
+            app:max="10"
+            app:min="3"
+            android:key="prefs_key_home_drawer_rows"
+            android:title="Drawer Rows" />
 </PreferenceCategory>
 
 </PreferenceScreen>

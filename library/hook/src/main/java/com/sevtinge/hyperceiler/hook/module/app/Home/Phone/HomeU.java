@@ -42,6 +42,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.dock.FoldDock;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.HideDock;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.ShowDockIconTitle;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.SlideUpOnlyShowDock;
+import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.DrawerGridSize;
 import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.AlphabetSidebar;
 import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.VerticalAppDrawer;
 import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.AllAppsContainerViewBlur;
@@ -183,6 +184,7 @@ public class HomeU extends BaseModule {
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
+        initHook(DrawerGridSize.INSTANCE, true);
         initHook(AlphabetSidebar.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_alphabet_sidebar"));
         initHook(VerticalAppDrawer.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_vertical"));
         initHook(IconPackSupport.INSTANCE, !mPrefsMap.getString("prefs_key_home_title_icon_pack_pkg", "").isEmpty());
