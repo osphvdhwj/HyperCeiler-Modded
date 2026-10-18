@@ -79,6 +79,12 @@
             android:summary="@string/home_drawer_pinyin_more"
             android:title="@string/home_drawer_pinyin" />
 
-    </PreferenceCategory>
+    
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_home_drawer_vertical"
+            android:summary="Show apps in a single vertical column (Pixel/Niagara style)"
+            android:title="Vertical App Drawer" />
+</PreferenceCategory>
 
 </PreferenceScreen>
