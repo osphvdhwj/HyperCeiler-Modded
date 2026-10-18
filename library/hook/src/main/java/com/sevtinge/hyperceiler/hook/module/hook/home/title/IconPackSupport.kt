@@ -27,7 +27,7 @@ object IconPackSupport : BaseHook() {
         try {
             val ctx = android.app.ActivityThread.currentApplication()
             packResources = ctx.packageManager.getResourcesForApplication(iconPackPkg!!)
-            loadAppFilter(ctx)
+            Thread { loadAppFilter(ctx) }.start()
         } catch (t: Throwable) {
             logD(TAG, "Failed to load icon pack: ${t.message}")
             return

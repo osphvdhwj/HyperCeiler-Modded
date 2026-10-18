@@ -14,9 +14,12 @@ object RecentShortcutMenu : BaseHook() {
             if (clazz.simpleName.endsWith("ShortcutMenuItem")) {
                 try {
                     clazz.hookBeforeAllMethods("isValid") { param ->
-                        // Force the button to be visible
-                        logD("RecentShortcutMenu", "Forcing valid: ${clazz.simpleName}")
-                        param.result = true
+                        // Only force valid for safe, non-destructive actions
+                        val name = clazz.simpleName
+                        if (name.contains("Share") || name.contains("AppDetails") || name.contains("Pin")) {
+                            logD("RecentShortcutMenu", "Forcing valid: $name")
+                            param.result = true
+                        }
                     }
                 } catch (t: Throwable) {
                     // Ignore if the subclass doesn't have isValid
