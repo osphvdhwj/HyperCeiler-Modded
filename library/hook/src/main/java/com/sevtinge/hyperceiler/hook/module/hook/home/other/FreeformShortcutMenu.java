@@ -100,6 +100,7 @@ public class FreeformShortcutMenu extends BaseHook {
                 }
             });
 
+            try {
             hookAllMethods(mActivity, "onCreate", new MethodHook() {
                 @Override
                 protected void after(MethodHookParam param) {

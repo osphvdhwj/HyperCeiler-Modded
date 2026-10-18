@@ -91,7 +91,10 @@ public class LockApp extends BaseHook {
                             ContentObserver contentObserver = new ContentObserver(new Handler(context.getMainLooper())) {
                                 @Override
                                 public void onChange(boolean selfChange) {
-                                    Object getMDockStateMachine = XposedHelpers.callMethod(param.thisObject, "getMDockStateMachine");
+                                    Object getMDockStateMachine = null;
+                                    try {
+                                        getMDockStateMachine = XposedHelpers.callMethod(param.thisObject, "getMDockStateMachine");
+                                    } catch (Throwable ignored) {}
                                     Object getMDockWindowManager = XposedHelpers.callMethod(param.thisObject, "getMDockWindowManager");
                                     View mDockRootView = (View) XposedHelpers.getObjectField(getMDockWindowManager, "mDockRootView");
                                     if (context == null) {
