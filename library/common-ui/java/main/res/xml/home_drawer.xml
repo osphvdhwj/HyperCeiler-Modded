@@ -85,6 +85,12 @@
             android:key="prefs_key_home_drawer_vertical"
             android:summary="Show apps in a single vertical column (Pixel/Niagara style)"
             android:title="Vertical App Drawer" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_home_drawer_alphabet_sidebar"
+            android:summary="Show A-Z fast scroll bar on the right side"
+            android:title="Alphabet Sidebar" />
 </PreferenceCategory>
 
 </PreferenceScreen>
