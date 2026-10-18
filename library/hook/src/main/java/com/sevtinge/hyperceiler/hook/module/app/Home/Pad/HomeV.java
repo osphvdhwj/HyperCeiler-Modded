@@ -115,6 +115,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewHeaderOffse
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewHorizontal;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewVertical;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.UnlockPin;
+import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconPackSupport;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.AnimParamCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.AppBlurAnim;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.BigIconCorner;
@@ -183,6 +184,7 @@ public class HomeV extends BaseModule {
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
+        initHook(IconPackSupport.INSTANCE, !mPrefsMap.getString("prefs_key_home_title_icon_pack_pkg", "").isEmpty());
         initHook(RecentShortcutMenu.INSTANCE, true);
         initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
         initHook(UninstallDropTargetLabel.INSTANCE, true);

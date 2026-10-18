@@ -110,7 +110,11 @@
             android:key="prefs_key_home_title_notif_color_picker"
             android:title="@string/home_title_notif_color_picker" />
 
-    </PreferenceCategory>
+    
+        <fan.preference.DropDownPreference
+            android:key="prefs_key_home_title_icon_pack_pkg"
+            android:title="Icon Pack" />
+</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/home_title_icon_animation_title">
         <SwitchPreference
