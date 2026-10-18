@@ -102,10 +102,10 @@ public class LockApp extends BaseHook {
                                         return;
                                     }
                                     if (getLockApp(context) != -1) {
-                                        XposedHelpers.callMethod(getMDockStateMachine, "notifyPinnedStateChanged", false);
+                                        if (getMDockStateMachine != null) XposedHelpers.callMethod(getMDockStateMachine, "notifyPinnedStateChanged", false);
                                         mDockRootView.setVisibility(View.GONE);
                                     } else {
-                                        XposedHelpers.callMethod(getMDockStateMachine, "notifyPinnedStateChanged", true);
+                                        if (getMDockStateMachine != null) XposedHelpers.callMethod(getMDockStateMachine, "notifyPinnedStateChanged", true);
                                         mDockRootView.setVisibility(View.VISIBLE);
                                     }
                                 }

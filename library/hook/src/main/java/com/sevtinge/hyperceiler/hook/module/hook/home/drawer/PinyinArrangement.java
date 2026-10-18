@@ -61,7 +61,11 @@ public class PinyinArrangement extends BaseHook {
                             return;
                         }
                         int codePointAt = trim.codePointAt(0);
-                        param.setResult(Character.isDigit(codePointAt) ? "…" : Character.isLetter(codePointAt) ? (String) XposedHelpers.getObjectField(param.thisObject, "mDefaultMiscLabel") : "∙");
+                        try {
+                            param.setResult(Character.isDigit(codePointAt) ? "…" : Character.isLetter(codePointAt) ? (String) XposedHelpers.getObjectField(param.thisObject, "mDefaultMiscLabel") : "∙");
+                        } catch (Throwable t) {
+                            XposedBridge.log("[HyperHand] Pinyin error: " + t.getMessage());
+                        }
                     }
                 }
         );

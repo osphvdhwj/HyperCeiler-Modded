@@ -76,7 +76,12 @@ public class ScreenSwipe extends BaseHook {
             @Override
             protected void after(final MethodHookParam param) {
                 final Activity act = (Activity) param.thisObject;
-                Handler mHandler = (Handler) XposedHelpers.getObjectField(act, "mHandler");
+                Handler mHandler = null;
+                try {
+                    mHandler = (Handler) XposedHelpers.getObjectField(act, "mHandler");
+                } catch (Throwable t) {
+                    XposedBridge.log("[HyperHand] ScreenSwipe mHandler not found");
+                }
                 new PrefsChangeObserver(act, mHandler) {
                     @Override
                     public void onChange(PrefType type, Uri uri, String name, Object def) {

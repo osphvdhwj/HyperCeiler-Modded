@@ -101,7 +101,12 @@ public class SeekPoints extends BaseHook {
     private void showSeekBar(View workspace) {
         if (!"Workspace".equals(workspace.getClass().getSimpleName())) return;
         boolean isInEditingMode = (boolean) XposedHelpers.callMethod(workspace, "isInNormalEditingMode");
-        View mScreenSeekBar = (View) XposedHelpers.getObjectField(workspace, "mScreenSeekBar");
+        View mScreenSeekBar = null;
+        try {
+            mScreenSeekBar = (View) XposedHelpers.getObjectField(workspace, "mScreenSeekBar");
+        } catch (Throwable t) {
+            XposedBridge.log("[HyperHand] SeekPoints mScreenSeekBar not found");
+        }
         if (mScreenSeekBar == null) {
             logI(TAG, this.lpparam.packageName, "showSeekBar HideSeekPointsHook Cannot find seekbar");
             return;
