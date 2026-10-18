@@ -34,6 +34,7 @@ import android.view.View;
 import androidx.core.content.ContextCompat;
 
 import com.sevtinge.hyperceiler.hook.R;
+import com.sevtinge.hyperceiler.hook.utils.shell.ShellUtils;
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
 import java.util.ArrayList;
@@ -210,14 +211,10 @@ public class FreeformShortcutMenu extends BaseHook {
                 if (mComponentName == null) return;
                 String packageName = mComponentName.getPackageName();
 
-                // Route through the receiver already registered by GlobalActions
-                // inside system_server (PhoneWindowManager.init). That side has
-                // the FORCE_STOP_PACKAGES permission, so no su/root is needed.
-                Intent stop = new Intent(com.sevtinge.hyperceiler.hook.module.hook.GlobalActions.ACTION_PREFIX + "RestartApps");
-                stop.putExtra("packageName", packageName);
-                mContext1.sendBroadcast(stop);
+                // Use root to force stop the app
+                ShellUtils.rootExecCmd("am force-stop " + packageName);
 
-                android.widget.Toast.makeText(mContext1, "Hyper Hand force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
+                android.widget.Toast.makeText(mContext1, "Force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 XposedBridge.log("[HyperHand] force-stop via receiver failed: " + e);
             }

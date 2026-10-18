@@ -1854,5 +1854,6 @@
     <string name="home_layout_global_search_desc">In-launcher device search (apps, settings, contacts, files, web)</string>
     <string name="home_layout_global_search_files">Index files</string>
     <string name="home_layout_global_search_files_desc">Scan /sdcard for files (first run may take 30-60s)</string>
+    <string name="home_layout_global_search_category">Search &amp; Index</string>
 </resources>
 
