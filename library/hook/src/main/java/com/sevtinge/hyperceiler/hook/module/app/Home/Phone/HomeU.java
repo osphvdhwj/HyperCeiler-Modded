@@ -91,6 +91,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.other.OptAppLaunchDelay;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.OverlapMode;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.ShortcutItemCount;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.ShowAllHideApp;
+import com.sevtinge.hyperceiler.hook.module.hook.home.recent.RecentShortcutMenu;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.AlwaysShowCleanUp;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.BackgroundBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.BlurLevel;
@@ -179,6 +180,7 @@ public class HomeU extends BaseModule {
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
+        initHook(RecentShortcutMenu.INSTANCE, true);
         initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
         initHook(UninstallDropTargetLabel.INSTANCE, true);
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
