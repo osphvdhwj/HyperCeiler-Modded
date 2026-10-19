@@ -27,7 +27,10 @@ object IconPackSupport : BaseHook() {
         }
 
         try {
-            val ctx = de.robv.android.xposed.AndroidAppHelper.currentApplication()
+            val ctx = de.robv.android.xposed.XposedHelpers.callStaticMethod(
+                de.robv.android.xposed.XposedHelpers.findClass("android.app.ActivityThread", null),
+                "currentApplication"
+            ) as android.content.Context
             packResources = ctx.packageManager.getResourcesForApplication(iconPackPkg!!)
             Thread { loadAppFilter(ctx) }.start()
         } catch (t: Throwable) {
