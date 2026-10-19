@@ -3,6 +3,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.gesture
 import android.view.MotionEvent
 import android.view.View
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
+import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
 object IconSwipeAction : BaseHook() {
