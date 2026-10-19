@@ -53,7 +53,14 @@ public class DoubleTap extends BaseHook {
                 if (mDoubleTapControllerEx == null) return;
                 if (!mDoubleTapControllerEx.isDoubleTapEvent((MotionEvent) param.args[0])) return;
                 int mCurrentScreenIndex = XposedHelpers.getIntField(param.thisObject, lpparam.packageName.equals("com.miui.home") ? "mCurrentScreenIndex" : "mCurrentScreen");
-                Object cellLayout = XposedHelpers.callMethod(param.thisObject, "getCellLayout", mCurrentScreenIndex);
+                Object cellLayout = null;
+                try {
+                    cellLayout = XposedHelpers.callMethod(param.thisObject, "getCellLayout", mCurrentScreenIndex);
+                } catch (Throwable t) {
+                    XposedBridge.log("[HyperHand] DoubleTap: getCellLayout failed on port ROM");
+                    return;
+                }
+                if (cellLayout == null) return;
                 if ((boolean) XposedHelpers.callMethod(cellLayout, "lastDownOnOccupiedCell")) return;
                 if ((boolean) XposedHelpers.callMethod(param.thisObject, "isInNormalEditingMode")) return;
                 mDoubleTapControllerEx.onDoubleTapEvent();
