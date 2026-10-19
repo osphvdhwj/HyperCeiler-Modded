@@ -1,4 +1,8 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.drawer
+import android.app.ActivityThread
+import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
+import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
+import com.sevtinge.hyperceiler.hook.utils.getObjectField
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import android.app.ActivityThread

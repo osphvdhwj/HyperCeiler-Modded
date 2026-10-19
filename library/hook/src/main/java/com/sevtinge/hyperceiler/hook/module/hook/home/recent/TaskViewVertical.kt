@@ -36,10 +36,11 @@ object TaskViewVertical : BaseHook() {
         
         try {
             algorithmCls.replaceMethod("scaleTaskView", RectF::class.java) {
-                val rect = it.args[0] as? RectF ?: return@replaceMethod
+                val rect = it.args[0] as? RectF ?: return@replaceMethod null
                 val scaleObj = utilitiesCls.callStaticMethod("getTaskViewScale", appContext) as? Number
                 val baseScale = scaleObj?.toFloat() ?: 1f
                 utilitiesCls.callStaticMethod("scaleRectAboutCenter", rect, value * baseScale)
+                null
             }
         } catch (t: Throwable) {
             // Ignore if method signature changed on port ROM
