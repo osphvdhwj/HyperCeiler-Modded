@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
-import de.robv.android.xposed.AndroidAppHelper
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
@@ -29,7 +28,7 @@ object IconPackSupport : BaseHook() {
         }
 
         try {
-            val ctx = android.app.de.robv.android.xposed.AndroidAppHelper.currentApplication()
+            val ctx = android.app.de.robv.android.xposed.de.robv.android.xposed.AndroidAppHelper.currentApplication()
             packResources = ctx.packageManager.getResourcesForApplication(iconPackPkg ?: return)
             Thread { loadAppFilter(ctx) }.start()
         } catch (t: Throwable) {
