@@ -15,7 +15,7 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   ~
   ~ Copyright (C) 2023-2025 HyperCeiler Contributions
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+  -->
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:myLocation="@string/home_layout"
     app:quick_restart="com.miui.home">
