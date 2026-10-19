@@ -7,8 +7,8 @@ import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
 object DrawerGridSize : BaseHook() {
     override fun init() {
-        val cols = if (mPrefsMap.getBoolean("prefs_key_home_drawer_vertical")) 1 else mPrefsMap.getStringAsInt("prefs_key_home_drawer_cols", 4)
-        val rows = mPrefsMap.getStringAsInt("prefs_key_home_drawer_rows", 6)
+        val cols = if (mPrefsMap.getBoolean("prefs_key_home_drawer_vertical")) 1 else mPrefsMap.getInt("prefs_key_home_drawer_cols", 4)
+        val rows = mPrefsMap.getInt("prefs_key_home_drawer_rows", 6)
 
         logD("DrawerGridSize", "Forcing Drawer Grid: ${cols}x${rows}")
 

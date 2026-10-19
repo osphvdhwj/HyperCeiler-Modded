@@ -59,6 +59,15 @@ object GlobalSearchOverlay : BaseHook() {
             val self = param.thisObject as? View ?: return@hookBeforeAllMethods
             showOverlay(self)
         }
+        
+        // Fallback: If openSearch doesn't exist/fire on this port ROM, hook onClick
+        cls.hookBeforeAllMethods("onClick") { param ->
+            logD(TAG, "SearchBar.onClick intercepted")
+            Diagnostics.lastSearchBarHook = System.currentTimeMillis()
+            param.result = null
+            val self = param.thisObject as? View ?: return@hookBeforeAllMethods
+            showOverlay(self)
+        }
     }
 
     private fun hookSearchBarContainer() {

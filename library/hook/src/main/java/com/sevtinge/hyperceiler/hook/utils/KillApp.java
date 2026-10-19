@@ -93,10 +93,8 @@ public class KillApp {
 
     private static void killOne(String pkg) {
         try {
-            // Use Android's native am force-stop. It's vastly more reliable
-            // than parsing pgrep/ps output, and it works on port ROMs where
-            // pgrep might be missing.
-            ShellUtils.rootExecCmd("am force-stop " + pkg);
+            // Use Runtime directly to bypass any ShellUtils hangs
+            Runtime.getRuntime().exec(new String[]{"su", "-c", "am force-stop " + pkg}).waitFor();
             AndroidLogUtils.logI(ITAG.TAG, "Force-stopped: " + pkg);
         } catch (Throwable t) {
             AndroidLogUtils.logE(ITAG.TAG, "Failed to force-stop " + pkg + ": " + t);
