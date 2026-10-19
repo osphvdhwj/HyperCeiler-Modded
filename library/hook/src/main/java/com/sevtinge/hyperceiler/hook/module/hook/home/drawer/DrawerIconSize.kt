@@ -1,12 +1,9 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.drawer
-import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
-import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
-import com.sevtinge.hyperceiler.hook.utils.getObjectField
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
-import android.content.Context
+import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
 
 object DrawerIconSize : BaseHook() {
     override fun init() {
@@ -25,11 +22,13 @@ object DrawerIconSize : BaseHook() {
                 adapterClass.hookAfterAllMethods("onBindViewHolder") { param ->
                     val holder = param.args[0]
                     val itemView = runCatching {
-                        holder.getObjectField("itemView") as android.view.View
+                        holder.javaClass.getMethod("getItemView").invoke(holder) as? android.view.View
                     }.getOrNull() ?: return@hookAfterAllMethods
 
                     if (iconSizeDp > 0) {
-                        val iconView = itemView.findViewById<android.view.View>(android.app.holder.holder.itemView.context.resources.getIdentifier("icon", "id", "com.miui.home"))
+                        val iconView = itemView.findViewById<android.view.View>(
+                            itemView.context.resources.getIdentifier("icon", "id", "com.miui.home")
+                        )
                         iconView?.let {
                             val params = it.layoutParams
                             val px = (iconSizeDp * it.context.resources.displayMetrics.density).toInt()

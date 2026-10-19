@@ -1,7 +1,4 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.title
-import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
-import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
-import com.sevtinge.hyperceiler.hook.utils.getObjectField
 
 import android.content.ComponentName
 import android.content.Context
@@ -10,6 +7,8 @@ import android.graphics.drawable.Drawable
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
+import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
+import com.sevtinge.hyperceiler.hook.utils.getObjectField
 
 object IconPackSupport : BaseHook() {
 
@@ -28,8 +27,8 @@ object IconPackSupport : BaseHook() {
         }
 
         try {
-            val ctx = android.app.de.robv.android.xposed.de.robv.android.xposed.AndroidAppHelper.currentApplication()
-            packResources = ctx.packageManager.getResourcesForApplication(iconPackPkg ?: return)
+            val ctx = de.robv.android.xposed.AndroidAppHelper.currentApplication()
+            packResources = ctx.packageManager.getResourcesForApplication(iconPackPkg!!)
             Thread { loadAppFilter(ctx) }.start()
         } catch (t: Throwable) {
             logD(TAG, "Failed to load icon pack: ${t.message}")
