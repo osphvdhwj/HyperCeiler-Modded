@@ -17,6 +17,7 @@
   * Copyright (C) 2023-2025 HyperCeiler Contributions
 */
 package com.sevtinge.hyperceiler.hook.module.hook.home.gesture;
+import de.robv.android.xposed.XposedBridge;
 
 import android.content.Context;
 import android.os.Bundle;

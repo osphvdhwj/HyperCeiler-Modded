@@ -212,8 +212,8 @@ public class FreeformShortcutMenu extends BaseHook {
                 String packageName = mComponentName.getPackageName();
 
                 // Use root to force stop the app
-                ShellUtils.CommandResult result = ShellUtils.rootExecCmd("am force-stop " + packageName);
-                XposedBridge.log("[HyperHand] force-stop result: " + result.result + " | " + result.errorMsg);
+                String result = ShellUtils.rootExecCmd("am force-stop " + packageName);
+                XposedBridge.log("[HyperHand] force-stop result: " + result);
 
                 android.widget.Toast.makeText(mContext1, "Force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
             } catch (Exception e) {

@@ -17,6 +17,7 @@
  * Copyright (C) 2023-2025 HyperCeiler Contributions
  */
 package com.sevtinge.hyperceiler.hook.module.hook.home.drawer;
+import de.robv.android.xposed.XposedBridge;
 
 import android.app.Activity;
 import android.content.res.Configuration;
