@@ -6,36 +6,43 @@ import de.robv.android.xposed.XposedHelpers
 
 object NativeFeatureUtils {
 
-    /**
-     * Checks if the port ROM natively supports iOS Stacked Recents.
-     * (We look for the native method in DeviceConfig or LauncherState).
-     */
+    // Cache the result to prevent expensive reflection scans on every UI load
+    @Volatile private var cachedIosRecents: Boolean? = null
+    @Volatile private var cachedForceStop: Boolean? = null
+
     fun hasNativeIosRecents(context: Context): Boolean {
-        return try {
-            val deviceConfig = XposedHelpers.findClass("com.miui.home.launcher.DeviceConfig", context.classLoader)
-            val hasMethod = XposedHelpers.findMethodExactIfExists(deviceConfig, "isRecentsIosMode") != null ||
-                            XposedHelpers.findMethodExactIfExists(deviceConfig, "getRecentIOSMode") != null
-            if (hasMethod) logD("NativeFeatureUtils", "Native iOS Recents detected")
-            hasMethod
-        } catch (t: Throwable) {
-            false
+        cachedIosRecents?.let { return it }
+        synchronized(this) {
+            cachedIosRecents?.let { return it }
+            val result = try {
+                val deviceConfig = XposedHelpers.findClass("com.miui.home.launcher.DeviceConfig", context.classLoader)
+                val hasMethod = XposedHelpers.findMethodExactIfExists(deviceConfig, "isRecentsIosMode") != null ||
+                                XposedHelpers.findMethodExactIfExists(deviceConfig, "getRecentIOSMode") != null
+                if (hasMethod) logD("NativeFeatureUtils", "Native iOS Recents detected (cached)")
+                hasMethod
+            } catch (t: Throwable) {
+                false
+            }
+            cachedIosRecents = result
+            return result
         }
     }
 
-    /**
-     * Checks if the port ROM natively has Force Stop in the Recents menu.
-     * We check if the native SystemShortcutMenuItem list already contains it.
-     */
     fun hasNativeForceStop(context: Context): Boolean {
-        return try {
-            val sysShortcut = XposedHelpers.findClass("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem", context.classLoader)
-            val list = XposedHelpers.getStaticObjectField(sysShortcut, "sAllSystemShortcutMenuItems") as? List<*>
-            // Check if any item in the list is a ForceStop instance
-            val hasForceStop = list?.any { it?.javaClass?.name?.contains("ForceStop") == true } == true
-            if (hasForceStop) logD("NativeFeatureUtils", "Native Force Stop detected")
-            hasForceStop
-        } catch (t: Throwable) {
-            false
+        cachedForceStop?.let { return it }
+        synchronized(this) {
+            cachedForceStop?.let { return it }
+            val result = try {
+                val sysShortcut = XposedHelpers.findClass("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem", context.classLoader)
+                val list = XposedHelpers.getStaticObjectField(sysShortcut, "sAllSystemShortcutMenuItems") as? List<*>
+                val hasForceStop = list?.any { it?.javaClass?.name?.contains("ForceStop") == true } == true
+                if (hasForceStop) logD("NativeFeatureUtils", "Native Force Stop detected (cached)")
+                hasForceStop
+            } catch (t: Throwable) {
+                false
+            }
+            cachedForceStop = result
+            return result
         }
     }
 }
