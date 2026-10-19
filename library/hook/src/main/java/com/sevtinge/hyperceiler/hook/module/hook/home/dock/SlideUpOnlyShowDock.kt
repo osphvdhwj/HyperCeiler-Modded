@@ -52,7 +52,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //     this.mIsDockTransitionAnimStart = false;
                     // }
                     // ================
-                    val motionEvent = it.args[0] as MotionEvent
+                    val motionEvent = it.args[0] as? MotionEvent ?: return@hookBeforeMethod
                     val actionMasked = motionEvent.actionMasked
                     if (actionMasked == 3 || actionMasked == 1) {
                         it.thisObject.getObjectField("mTransitionYStyle")?.callMethod("cancel")
@@ -74,7 +74,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //         dockController.updateLeaveSafeAreaStatus(motionEvent.getRawX(), motionEvent.getRawY(), false);
                     //     }
                     // ================
-                    val b = dockController.callMethod("isFloatingDockShowing") as Boolean
+                    val b = dockController.callMethod("isFloatingDockShowing") as? Boolean ?: false
                     if (!b) {
                         // 将判断时间设置为0
                         // if (motionEvent.eventTime - motionEvent.downTime >= 180) {
@@ -120,9 +120,9 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //             "isTargetValue",
                     //             actionMasked,
                     //             2
-                    //         ) as Boolean && (dockController.callMethod("isLeaveSafeArea") as Boolean || it.thisObject.callMethod(
+                    //         ) as? Boolean ?: false && (dockController.callMethod("isLeaveSafeArea") as? Boolean ?: false || it.thisObject.callMethod(
                     //             "mTouchTracker"
-                    //         )?.callMethod("isTaskStartMove", motionEvent.rawY) as Boolean)
+                    //         )?.callMethod("isTaskStartMove", motionEvent.rawY) as? Boolean ?: false)
                     //     ) {
                     //         it.thisObject.callMethod("startGestureModeGesture", 0)
                     //     } else if (it.thisObject.callMethod(
@@ -130,7 +130,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //             actionMasked,
                     //             1,
                     //             3
-                    //         ) as Boolean && it.thisObject.callMethod("mTouchTracker")
+                    //         ) as? Boolean ?: false && it.thisObject.callMethod("mTouchTracker")
                     //             ?.callMethod("getUpType") == 5
                     //     ) {
                     //         it.thisObject.callMethod("startGestureModeGesture", 1)
@@ -161,8 +161,8 @@ object SlideUpOnlyShowDock : BaseHook() {
                         )?.invoke(
                             launcher,
                             "gesture_end",
-                            !(it.thisObject.getObjectField("mTouchTracker")!!
-                                .callMethod("isKeyboardEventTracker") as Boolean)
+                            !(it.thisObject.getObjectField("mTouchTracker") ?: return@hookBeforeMethod
+                                .callMethod("isKeyboardEventTracker") as? Boolean ?: false)
                         )
                     } else {
                     }
