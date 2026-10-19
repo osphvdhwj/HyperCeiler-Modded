@@ -69,6 +69,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.DoubleTap;
 import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.HotSeatSwipe;
 import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.QuickBack;
 import com.sevtinge.hyperceiler.hook.module.hook.home.gesture.ShakeDevice;
+import com.sevtinge.hyperceiler.hook.module.hook.home.layout.SearchBarCustomization;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.WorkspaceGridSize;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.HotSeatsHeight;
 import com.sevtinge.hyperceiler.hook.module.hook.home.layout.HotSeatsMarginBottom;
@@ -192,6 +193,7 @@ public class HomeV extends BaseModule {
         initHook(new HotSeatsMarginTop(), mPrefsMap.getBoolean("home_layout_hotseats_margin_top_enable"));
         initHook(new HotSeatsMarginBottom(), mPrefsMap.getBoolean("home_layout_hotseats_margin_bottom_enable"));
         initHook(new SearchBarMarginWidth(), mPrefsMap.getBoolean("home_layout_searchbar_width_enable"));
+        initHook(SearchBarCustomization.INSTANCE, true);
         initHook(WorkspaceGridSize.INSTANCE, true);
         initHook(CustomSearchBarProvider.INSTANCE, !mPrefsMap.getStringSet("home_layout_searchbar_custom_provider").isEmpty());
         initHook(DrawerIconSize.INSTANCE, true);

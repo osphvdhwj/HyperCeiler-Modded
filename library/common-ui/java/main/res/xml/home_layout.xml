@@ -60,6 +60,20 @@
             app:min="0"
             android:key="prefs_key_home_layout_dock_count"
             android:title="Dock Icon Count (0=default)" />
+
+        <SeekBarPreference
+            app:defaultValue="24"
+            app:max="50"
+            app:min="0"
+            android:key="prefs_key_home_searchbar_radius"
+            android:title="Search Bar Corner Radius (0=Square, 25=Pill)" />
+
+        <SeekBarPreference
+            app:defaultValue="255"
+            app:max="255"
+            app:min="0"
+            android:key="prefs_key_home_searchbar_alpha"
+            android:title="Search Bar Transparency (0=Invisible)" />
 </PreferenceCategory>
     <PreferenceCategory android:key="prefs_key_home_layout_old_func">
         <SwitchPreference
