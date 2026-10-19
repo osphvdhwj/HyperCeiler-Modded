@@ -78,7 +78,7 @@ object FolderBlur : BaseHook() {
 
         launcherClass.hookAfterMethod("cancelShortcutMenu", Int::class.java, cancelShortcutMenuReasonClass) {
             val mLauncher =
-                applicationClass.callStaticMethod("getLauncher")
+                applicationClass.callStaticMethod("getLauncher") as? Activity
             if (isShouldBlur)
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
         }

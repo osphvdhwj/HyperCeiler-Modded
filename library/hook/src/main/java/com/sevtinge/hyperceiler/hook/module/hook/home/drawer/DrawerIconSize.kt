@@ -1,15 +1,12 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.drawer
-import android.app.ActivityThread
 import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import com.sevtinge.hyperceiler.hook.utils.getObjectField
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
-import android.app.ActivityThread
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 import android.content.Context
-import android.app.ActivityThread
 
 object DrawerIconSize : BaseHook() {
     override fun init() {
@@ -32,7 +29,7 @@ object DrawerIconSize : BaseHook() {
                     }.getOrNull() ?: return@hookAfterAllMethods
 
                     if (iconSizeDp > 0) {
-                        val iconView = itemView.findViewById<android.view.View>(android.app.ActivityThread.currentApplication().resources.getIdentifier("icon", "id", "com.miui.home"))
+                        val iconView = itemView.findViewById<android.view.View>(android.app.de.robv.android.xposed.AndroidAppHelper.currentApplication().resources.getIdentifier("icon", "id", "com.miui.home"))
                         iconView?.let {
                             val params = it.layoutParams
                             val px = (iconSizeDp * it.context.resources.displayMetrics.density).toInt()
