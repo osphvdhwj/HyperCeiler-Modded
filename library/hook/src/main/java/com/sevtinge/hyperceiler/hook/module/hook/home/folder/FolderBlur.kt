@@ -78,7 +78,7 @@ object FolderBlur : BaseHook() {
 
         launcherClass.hookAfterMethod("cancelShortcutMenu", Int::class.java, cancelShortcutMenuReasonClass) {
             val mLauncher =
-                applicationClass.callStaticMethod("getLauncher") as Activity
+                applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
             if (isShouldBlur)
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
         }
@@ -92,7 +92,7 @@ object FolderBlur : BaseHook() {
 
         blurUtilsClass.hookBeforeAllMethods("fastBlurWhenStartOpenOrCloseApp") {
             val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
-            val isInEditing = mLauncher.callMethod("isInEditing") as Boolean
+            val isInEditing = mLauncher.callMethod("isInEditing") as? Boolean ?: false
             if (isShouldBlur) it.result =
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
             else if (isInEditing) it.result =
@@ -101,7 +101,7 @@ object FolderBlur : BaseHook() {
 
         blurUtilsClass.hookBeforeAllMethods("fastBlurWhenFinishOpenOrCloseApp") {
             val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
-            val isInEditing = mLauncher.callMethod("isInEditing") as Boolean
+            val isInEditing = mLauncher.callMethod("isInEditing") as? Boolean ?: false
             if (isShouldBlur) it.result =
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
             else if (isInEditing) it.result =
@@ -114,7 +114,7 @@ object FolderBlur : BaseHook() {
 
         blurUtilsClass.hookAfterAllMethods("fastBlurWhenExitRecents") {
             val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
-            val isInEditing = mLauncher.callMethod("isInEditing") as Boolean
+            val isInEditing = mLauncher.callMethod("isInEditing") as? Boolean ?: false
             if (isShouldBlur) it.result =
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
             else if (isInEditing) it.result =

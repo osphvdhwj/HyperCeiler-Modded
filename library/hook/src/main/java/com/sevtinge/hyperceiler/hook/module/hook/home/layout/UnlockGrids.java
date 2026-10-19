@@ -45,7 +45,7 @@ public class UnlockGrids extends HomeBaseHook {
         findAndHookMethod("com.miui.home.settings.MiuiHomeSettings", "onCreatePreferences", Bundle.class, String.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
-                XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mScreenCellsConfig"), "setVisible", true);
+                try { XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mScreenCellsConfig"), "setVisible", true); } catch (Throwable t) {}
             }
         });
 
@@ -68,7 +68,7 @@ public class UnlockGrids extends HomeBaseHook {
         findAndHookMethod("com.miui.home.settings.MiuiHomeSettings", "onCreatePreferences", Bundle.class, String.class, new MethodHook() {
             @Override
             protected void after(MethodHookParam param) throws Throwable {
-                XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mScreenCellsConfig"), "setVisible", true);
+                try { XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "mScreenCellsConfig"), "setVisible", true); } catch (Throwable t) {}
             }
         });
         Class<?> DeviceConfigClass = XposedHelpers.findClass("com.miui.home.launcher.DeviceConfig", lpparam.classLoader);
