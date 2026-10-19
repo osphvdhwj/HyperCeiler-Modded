@@ -33,8 +33,14 @@ public class HideCleanUp extends BaseHook {
             new MethodHook() {
                 @Override
                 protected void after(MethodHookParam param) throws Throwable {
-                    View mView = (View) XposedHelpers.getObjectField(param.thisObject, "mClearAnimView");
-                    mView.setVisibility(View.GONE);
+                    try {
+                        View mView = (View) XposedHelpers.getObjectField(param.thisObject, "mClearAnimView");
+                        if (mView != null) {
+                            mView.setVisibility(View.GONE);
+                        }
+                    } catch (Throwable t) {
+                        // Ignore if mClearAnimView is missing on port ROM
+                    }
                 }
             }
         );

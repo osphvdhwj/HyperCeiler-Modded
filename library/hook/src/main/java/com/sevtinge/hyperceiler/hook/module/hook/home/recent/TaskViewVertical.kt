@@ -28,17 +28,21 @@ import io.github.kyuubiran.ezxhelper.xposed.EzXposed.appContext
 object TaskViewVertical : BaseHook() {
     override fun init() {
 
-        val value = mPrefsMap.getInt("home_recent_vertical_task_view_card_size", 100).toFloat() / 100
+        val value = mPrefsMap.getInt("home_recent_vertical_task_view_card_size", 100).toFloat() / 100f
         if (value == -1f || value == 1f) return
-        "com.miui.home.recents.views.TaskStackViewsAlgorithmVertical".replaceMethod(
-            "scaleTaskView", RectF::class.java
-        ) {
-            "com.miui.home.recents.util.Utilities".findClass().callStaticMethod(
-                "scaleRectAboutCenter",
-                it.args[0],
-                value * "com.miui.home.recents.util.Utilities".findClass()
-                    .callStaticMethod("getTaskViewScale", appContext) as Float
-            )
+        
+        val algorithmCls = findClassIfExists("com.miui.home.recents.views.TaskStackViewsAlgorithmVertical") ?: return
+        val utilitiesCls = findClassIfExists("com.miui.home.recents.util.Utilities") ?: return
+        
+        try {
+            algorithmCls.replaceMethod("scaleTaskView", RectF::class.java) {
+                val rect = it.args[0] as? RectF ?: return@replaceMethod
+                val scaleObj = utilitiesCls.callStaticMethod("getTaskViewScale", appContext) as? Number
+                val baseScale = scaleObj?.toFloat() ?: 1f
+                utilitiesCls.callStaticMethod("scaleRectAboutCenter", rect, value * baseScale)
+            }
+        } catch (t: Throwable) {
+            // Ignore if method signature changed on port ROM
         }
 
     }

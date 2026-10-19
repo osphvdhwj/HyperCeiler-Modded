@@ -21,7 +21,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.recent
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeMethod
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClass
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
 
 object TaskViewHeight : BaseHook() {
     override fun init() {
@@ -29,7 +29,7 @@ object TaskViewHeight : BaseHook() {
             mPrefsMap.getInt("home_recent_task_view_height", 52).toFloat() / 100
         }
 
-        loadClass("com.miui.home.recents.layoutconfig.TaskHorizonalLayoutConfig")
+        loadClassOrNull("com.miui.home.recents.layoutconfig.TaskHorizonalLayoutConfig") ?: return
             .methodFinder()
             .filterByName("getTaskViewCenterYInWindowFraction")
             .first()
