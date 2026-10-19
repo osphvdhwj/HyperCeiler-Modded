@@ -68,7 +68,12 @@ public class DevelopmentFragment extends SettingsPreferenceFragment implements P
                     showInDialog(new DevelopmentKillFragment.EditDialogCallback() {
                         @Override
                         public void onInputReceived(String command) {
-                            showOutDialog(rootExecCmd(command));
+                            new Thread(() -> {
+                                String res = rootExecCmd(command);
+                                if (getActivity() != null) {
+                                    getActivity().runOnUiThread(() -> showOutDialog(res));
+                                }
+                            }).start();
                         }
                     });
             case "prefs_key_development_delete_all_dexkit_cache" ->
