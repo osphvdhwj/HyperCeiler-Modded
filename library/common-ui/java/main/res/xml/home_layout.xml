@@ -15,7 +15,6 @@
   ~ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   ~
   ~ Copyright (C) 2023-2025 HyperCeiler Contributions
-  -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:myLocation="@string/home_layout"
@@ -24,8 +23,6 @@
     <PreferenceCategory
         android:key="prefs_key_home_global_search_category"
         android:title="@string/home_layout_global_search_category">
-        <!-- HIDDEN (Native feature exists on port ROM)
-<!-- HIDDEN (Native feature exists on port ROM)
 <SwitchPreference
             android:defaultValue="false"
             android:key="prefs_key_home_layout_global_search_enable"
@@ -38,7 +35,6 @@
             android:key="prefs_key_home_layout_global_search_index_files"
             android:summary="@string/home_layout_global_search_files_desc"
             android:title="@string/home_layout_global_search_files" />
--->
     
         <SeekBarPreference
             app:defaultValue="0"
@@ -291,7 +287,6 @@
             android:key="prefs_key_home_layout_searchbar_custom_provider"
             android:title="@string/home_layout_searchbar_custom_provider"
             android:summary="@string/home_layout_searchbar_custom_provider_desc" />
--->
 
     </PreferenceCategory>
 
