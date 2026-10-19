@@ -56,20 +56,20 @@ object FolderBlur : BaseHook() {
         var isShouldBlur = false
 
         launcherClass.hookAfterMethod("openFolder", folderInfo, View::class.java) {
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
-            val isInNormalEditing = mLauncher.callMethod("isInNormalEditing") as? Boolean ?: false
+            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
+            val isInNormalEditing = mLauncher.callMethod("isInNormalEditing") as Boolean
             if (!isInNormalEditing)
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true)
         }
 
         launcherClass.hookAfterMethod("isFolderShowing") {
-            isShouldBlur = it.result as? Boolean ?: false
+            isShouldBlur = it.result as Boolean
         }
 
         launcherClass.hookAfterMethod("closeFolder", Boolean::class.java) {
             isShouldBlur = false
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
-            val isInNormalEditing = mLauncher.callMethod("isInNormalEditing") as? Boolean ?: false
+            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
+            val isInNormalEditing = mLauncher.callMethod("isInNormalEditing") as Boolean
             if (isInNormalEditing)
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
             else
@@ -78,20 +78,20 @@ object FolderBlur : BaseHook() {
 
         launcherClass.hookAfterMethod("cancelShortcutMenu", Int::class.java, cancelShortcutMenuReasonClass) {
             val mLauncher =
-                applicationClass.callStaticMethod("getLauncher") as? Activity
+                applicationClass.callStaticMethod("getLauncher") as Activity
             if (isShouldBlur)
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
         }
 
         launcherClass.hookBeforeMethod("onGesturePerformAppToHome") {
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
+            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
             if (isShouldBlur) {
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
             }
         }
 
         blurUtilsClass.hookBeforeAllMethods("fastBlurWhenStartOpenOrCloseApp") {
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
+            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
             val isInEditing = mLauncher.callMethod("isInEditing") as Boolean
             if (isShouldBlur) it.result =
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
@@ -100,7 +100,7 @@ object FolderBlur : BaseHook() {
         }
 
         blurUtilsClass.hookBeforeAllMethods("fastBlurWhenFinishOpenOrCloseApp") {
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
+            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
             val isInEditing = mLauncher.callMethod("isInEditing") as Boolean
             if (isShouldBlur) it.result =
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
@@ -113,7 +113,7 @@ object FolderBlur : BaseHook() {
         }
 
         blurUtilsClass.hookAfterAllMethods("fastBlurWhenExitRecents") {
-            val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
+            val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
             val isInEditing = mLauncher.callMethod("isInEditing") as Boolean
             if (isShouldBlur) it.result =
                 blurUtilsClass.callStaticMethod("fastBlur", 1.0f, mLauncher.window, true, 0L)
@@ -130,7 +130,7 @@ object FolderBlur : BaseHook() {
             (mPrefsMap.getStringAsInt("home_recent_blur_level", 6) != 0)
         ) {
             navStubViewClass.hookBeforeMethod("appTouchResolution", MotionEvent::class.java) {
-                val mLauncher = applicationClass.callStaticMethod("getLauncher") as? Activity ?: return
+                val mLauncher = applicationClass.callStaticMethod("getLauncher") as Activity
                 if (isShouldBlur) {
                     blurUtilsClass.callStaticMethod("fastBlurDirectly", 1.0f, mLauncher.window)
                 }

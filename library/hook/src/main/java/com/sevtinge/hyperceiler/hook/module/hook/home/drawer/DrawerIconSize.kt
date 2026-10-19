@@ -29,7 +29,7 @@ object DrawerIconSize : BaseHook() {
                     }.getOrNull() ?: return@hookAfterAllMethods
 
                     if (iconSizeDp > 0) {
-                        val iconView = itemView.findViewById<android.view.View>(android.app.de.robv.android.xposed.AndroidAppHelper.currentApplication().resources.getIdentifier("icon", "id", "com.miui.home"))
+                        val iconView = itemView.findViewById<android.view.View>(android.app.itemView.context.resources.getIdentifier("icon", "id", "com.miui.home"))
                         iconView?.let {
                             val params = it.layoutParams
                             val px = (iconSizeDp * it.context.resources.displayMetrics.density).toInt()
