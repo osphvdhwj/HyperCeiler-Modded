@@ -36,7 +36,11 @@ public class IconScaleHook extends BaseHook {
         findAndHookMethod("com.miui.home.launcher.ShortcutIcon", lpparam.classLoader, "restoreToInitState", new MethodHook() {
             @Override
             protected void after(final MethodHookParam param) throws Throwable {
-                ViewGroup mIconContainer = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mIconContainer");
+                if (!(param.thisObject instanceof View)) return;
+                ViewGroup mIconContainer = null;
+                try {
+                    mIconContainer = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mIconContainer");
+                } catch (Throwable t) {}
                 if (mIconContainer == null || mIconContainer.getChildAt(0) == null) return;
                 float multx = (float) Math.sqrt(mPrefsMap.getInt("home_title_icon_scale", 100) / 100f);
                 mIconContainer.getChildAt(0).setScaleX(multx);
@@ -121,7 +125,11 @@ public class IconScaleHook extends BaseHook {
         findAndHookMethodSilently("com.miui.home.launcher.gadget.ClearButton", lpparam.classLoader, "onCreate", new MethodHook() {
             @Override
             protected void after(final MethodHookParam param) throws Throwable {
-                ViewGroup mIconContainer = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mIconContainer");
+                if (!(param.thisObject instanceof View)) return;
+                ViewGroup mIconContainer = null;
+                try {
+                    mIconContainer = (ViewGroup) XposedHelpers.getObjectField(param.thisObject, "mIconContainer");
+                } catch (Throwable t) {}
                 if (mIconContainer == null || mIconContainer.getChildAt(0) == null) return;
                 float multi = (float) Math.sqrt(mPrefsMap.getInt("home_title_icon_scale", 100) / 100f);
                 mIconContainer.getChildAt(0).setScaleX(multi);

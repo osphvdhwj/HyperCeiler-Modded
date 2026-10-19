@@ -30,32 +30,36 @@ public class WidgetCornerRadius extends BaseHook {
     @Override
     public void init() {
 
-        hookAllConstructors("com.miui.home.launcher.maml.MaMlHostView", new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                mContext = (Context) param.args[0];
-            }
-        });
+        Class<?> maMlClass = findClassIfExists("com.miui.home.launcher.maml.MaMlHostView");
+        if (maMlClass != null) {
+            hookAllConstructors(maMlClass, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    if (param.args[0] instanceof Context) mContext = (Context) param.args[0];
+                }
+            });
+            hookAllMethods(maMlClass, "computeRoundedCornerRadius", new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    param.setResult((float) DisplayUtils.dp2px(mPrefsMap.getInt("home_widget_corner_radius", 0)));
+                }
+            });
+        }
 
-        hookAllMethods("com.miui.home.launcher.maml.MaMlHostView", "computeRoundedCornerRadius", new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                param.setResult((float) DisplayUtils.dp2px(mPrefsMap.getInt("home_widget_corner_radius", 0)));
-            }
-        });
-
-        hookAllConstructors("com.miui.home.launcher.LauncherAppWidgetHostView", new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                mContext = (Context) param.args[0];
-            }
-        });
-
-        hookAllMethods("com.miui.home.launcher.LauncherAppWidgetHostView", "computeRoundedCornerRadius", new MethodHook() {
-            @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                param.setResult((float) DisplayUtils.dp2px(mPrefsMap.getInt("home_widget_corner_radius", 0)));
-            }
-        });
+        Class<?> appWidgetClass = findClassIfExists("com.miui.home.launcher.LauncherAppWidgetHostView");
+        if (appWidgetClass != null) {
+            hookAllConstructors(appWidgetClass, new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    if (param.args[0] instanceof Context) mContext = (Context) param.args[0];
+                }
+            });
+            hookAllMethods(appWidgetClass, "computeRoundedCornerRadius", new MethodHook() {
+                @Override
+                protected void before(MethodHookParam param) throws Throwable {
+                    param.setResult((float) DisplayUtils.dp2px(mPrefsMap.getInt("home_widget_corner_radius", 0)));
+                }
+            });
+        }
     }
 }
