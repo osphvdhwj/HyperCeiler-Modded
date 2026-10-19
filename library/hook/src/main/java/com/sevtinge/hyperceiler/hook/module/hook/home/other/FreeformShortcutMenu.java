@@ -62,6 +62,7 @@ public class FreeformShortcutMenu extends BaseHook {
 
     @Override
     public void init() {
+        if (com.sevtinge.hyperceiler.hook.module.hook.home.NativeFeatureUtils.INSTANCE.hasNativeForceStop(mContext)) return;
 
         if (isPad()) {
             hookAllMethods("com.miui.home.launcher.shortcuts.SystemShortcutMenuItem$SmallWindowShortcutMenuItem", "isValid",

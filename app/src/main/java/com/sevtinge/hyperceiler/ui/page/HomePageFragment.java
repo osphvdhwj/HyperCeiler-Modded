@@ -194,6 +194,7 @@ public class HomePageFragment extends DashboardFragment
 
     @Override
     public void initPrefs() {
+        hideNativeFeatures();
         HomepageEntrance.setEntranceStateListen(this);
         setPreference();
         mHeadtipGround = findPreference("prefs_key_headtip_ground");
@@ -288,5 +289,27 @@ public class HomePageFragment extends DashboardFragment
     @Override
     public void onLeave(ActionBar actionBar) {
 
+    }
+
+    private void hideNativeFeatures() {
+        try {
+            Class<?> utilsClass = Class.forName("com.sevtinge.hyperceiler.hook.module.hook.home.NativeFeatureUtils");
+            Object utils = utilsClass.getField("INSTANCE").get(null);
+            android.content.Context ctx = getActivity();
+
+            boolean hasNativeIos = (boolean) utilsClass.getMethod("hasNativeIosRecents", android.content.Context.class).invoke(utils, ctx);
+            if (hasNativeIos) {
+                android.preference.Preference p = findPreference("prefs_key_home_recent_ios_mode");
+                if (p != null) p.setVisible(false);
+            }
+
+            boolean hasNativeForceStop = (boolean) utilsClass.getMethod("hasNativeForceStop", android.content.Context.class).invoke(utils, ctx);
+            if (hasNativeForceStop) {
+                android.preference.Preference p = findPreference("home_other_force_stop_shortcut_menu");
+                if (p != null) p.setVisible(false);
+            }
+        } catch (Throwable t) {
+            // Ignore, just means utils aren't available in app process
+        }
     }
 }
