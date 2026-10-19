@@ -13,7 +13,10 @@ object HideAppLabels : BaseHook() {
         // Intercept when the text is set, and immediately hide it
         bubbleClass.hookAfterAllMethods("setText") { param ->
             val self = param.thisObject as? TextView ?: return@hookAfterAllMethods
-            self.visibility = View.GONE
+            if (self.visibility != View.GONE) {
+                self.visibility = View.GONE
+                self.requestLayout()
+            }
         }
         logD("HideAppLabels", "Labels will be hidden (View.GONE)")
     }

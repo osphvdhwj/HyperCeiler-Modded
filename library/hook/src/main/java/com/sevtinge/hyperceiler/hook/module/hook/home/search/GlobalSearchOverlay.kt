@@ -327,7 +327,9 @@ object GlobalSearchOverlay : BaseHook() {
 
     private fun dismiss() {
         val v = overlay ?: return
-        (v.parent as? ViewGroup)?.removeView(v)
+        runCatching {
+            (v.parent as? ViewGroup)?.removeView(v)
+        }
         overlay = null
         adapterRef = null
         forcedFilter = QueryPrefix.Filter.NONE

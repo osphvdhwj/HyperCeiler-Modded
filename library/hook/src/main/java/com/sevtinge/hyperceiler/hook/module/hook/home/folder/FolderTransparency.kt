@@ -37,7 +37,9 @@ object FolderTransparency : BaseHook() {
                 val field = view.javaClass.getDeclaredField(name)
                 field.isAccessible = true
                 val bgView = field.get(view) as? View ?: continue
-                bgView.background?.alpha = alpha
+                // Reset alpha to default (255) first in case of view recycling, 
+                // then apply the user's setting if it's less than 255
+                bgView.background?.alpha = if (alpha >= 255) 255 else alpha
             } catch (t: Throwable) {
                 // Field doesn't exist in this class, ignore
             }
