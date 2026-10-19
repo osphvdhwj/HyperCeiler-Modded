@@ -43,7 +43,14 @@
             app:showSeekBarValue="true"
             app:stepValue="1" />
 
-    </PreferenceCategory>
+    
+        <SeekBarPreference
+            app:defaultValue="255"
+            app:max="255"
+            app:min="0"
+            android:key="prefs_key_home_folder_bg_alpha"
+            android:title="Folder Background Alpha (0=transparent, 255=solid)" />
+</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/home_big_folder_title">
         <SwitchPreference

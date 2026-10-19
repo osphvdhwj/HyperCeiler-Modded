@@ -62,7 +62,11 @@ public class DockCustom extends BaseHook {
             protected void after(MethodHookParam param) {
                 Activity mActivity = (Activity) param.thisObject;
 
-                FrameLayout mSearchBarContainer = (FrameLayout) XposedHelpers.callMethod(param.thisObject, "getSearchBarContainer");
+                FrameLayout mSearchBarContainer = null;
+                try {
+                    mSearchBarContainer = (FrameLayout) XposedHelpers.callMethod(param.thisObject, "getSearchBarContainer");
+                } catch (Throwable t) {}
+                if (mSearchBarContainer == null) return;
                 FrameLayout mSearchEdgeLayout = (FrameLayout) mSearchBarContainer.getParent();
 
                 int mDockHeight = DisplayUtils.dp2px(mPrefsMap.getInt("home_dock_bg_height", 80));

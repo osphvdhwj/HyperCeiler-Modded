@@ -48,6 +48,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.AllAppsContainerVie
 import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.AllAppsContainerViewSuperBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.AppDrawer;
 import com.sevtinge.hyperceiler.hook.module.hook.home.drawer.PinyinArrangement;
+import com.sevtinge.hyperceiler.hook.module.hook.home.folder.FolderTransparency;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.BigFolderIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.BigFolderIconBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.home.folder.BigFolderIconBlur1x2;
@@ -193,6 +194,7 @@ public class HomeV extends BaseModule {
         initHook(DrawerGridSize.INSTANCE, true);
         initHook(AlphabetSidebar.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_alphabet_sidebar"));
         initHook(VerticalAppDrawer.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_vertical"));
+        initHook(FolderTransparency.INSTANCE, mPrefsMap.getInt("prefs_key_home_folder_bg_alpha", 255) != 255);
         initHook(IconSwipeAction.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_gesture_icon_swipe_up"));
         initHook(IconPackSupport.INSTANCE, !mPrefsMap.getString("prefs_key_home_title_icon_pack_pkg", "").isEmpty());
         initHook(RecentShortcutMenu.INSTANCE, true);
