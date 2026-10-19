@@ -52,7 +52,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //     this.mIsDockTransitionAnimStart = false;
                     // }
                     // ================
-                    val motionEvent = it.args[0] as? MotionEvent ?: return@hookBeforeAllMethods
+                    val motionEvent = it.args[0] as? MotionEvent ?: return@replace
                     val actionMasked = motionEvent.actionMasked
                     if (actionMasked == 3 || actionMasked == 1) {
                         it.thisObject.getObjectField("mTransitionYStyle")?.callMethod("cancel")
@@ -154,6 +154,9 @@ object SlideUpOnlyShowDock : BaseHook() {
                         val launcher = findClassIfExists(
                             "com.miui.home.launcher.Application", lpparam.classLoader
                         ).callStaticMethod("getLauncher")
+                        val touchTracker = it.thisObject.getObjectField("mTouchTracker")
+                        val isKeyboardEventTracker = touchTracker?.callMethod("isKeyboardEventTracker") as? Boolean ?: false
+                        
                         launcher?.javaClass?.getDeclaredMethod(
                             "notifyPowerKeeperGesture",
                             String::class.java,
@@ -161,8 +164,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                         )?.invoke(
                             launcher,
                             "gesture_end",
-                            !(it.thisObject.getObjectField("mTouchTracker") ?: return@hookBeforeAllMethods
-                                .callMethod("isKeyboardEventTracker") as? Boolean ?: false)
+                            !isKeyboardEventTracker
                         )
                     } else {
                     }

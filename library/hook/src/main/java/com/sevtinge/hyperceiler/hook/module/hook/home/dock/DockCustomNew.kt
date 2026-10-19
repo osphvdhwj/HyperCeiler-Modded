@@ -124,13 +124,13 @@ object DockCustomNew : BaseHook() {
             .single()
             .createAfterHook {
                 dockBlurView?.run {
-                    val consumer = it.args[0] as? Consumer<View> ?: return@hookBeforeAllMethods
+                    val consumer = it.args[0] as? Consumer<View> ?: return@createAfterHook
                     consumer.accept(this)
                 }
             }
 
         showAnimationLambda?.createAfterHook {
-            val view = it.args[2] as? View ?: return@hookBeforeAllMethods
+            val view = it.args[2] as? View ?: return@createAfterHook
             if (view == dockBlurView) {
                 view.translationZ = 0F
             }
