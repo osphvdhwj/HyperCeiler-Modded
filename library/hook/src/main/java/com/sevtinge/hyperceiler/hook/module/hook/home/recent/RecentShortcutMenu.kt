@@ -1,6 +1,7 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.recent
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
+import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
 object RecentShortcutMenu : BaseHook() {

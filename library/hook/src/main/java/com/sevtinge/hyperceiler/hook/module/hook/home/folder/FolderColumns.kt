@@ -83,7 +83,7 @@ object FolderColumns : HomeBaseHook() {
 
         val firstItemRect = Rect()
         findClass(FOLDER).hookAfterAllMethods("bind") { param ->
-            val folder = param.thisObject as? View ?: return@hookAfterMethod
+            val folder = param.thisObject as ViewGroup
 
             val mBackgroundView = folder.getObjectFieldAs<ViewGroup>("mBackgroundView")
             val mHeader = folder.getObjectFieldAs<View>("mHeader")
@@ -178,7 +178,7 @@ object FolderColumns : HomeBaseHook() {
                 mContent.layoutParams = lp
             }
             if (columns > 3) {
-                val mBackgroundView = XposedHelpers.getObjectField(it.thisObject, "mBackgroundView") as? View ?: return@hookAfterMethod
+                val mBackgroundView = XposedHelpers.getObjectField(it.thisObject, "mBackgroundView") as ViewGroup
                 mBackgroundView.setPadding(
                     mBackgroundView.paddingLeft / 3,
                     mBackgroundView.paddingTop,

@@ -134,7 +134,7 @@ object ShortcutBackgroundBlur : BaseHook() {
                 val dragObject = it.args[1]
                 val dragView = dragObject.callMethod("getDragView") as View
                 val dragViewParent = dragView.parent as View
-                val bitmap = Bitmap.createBitmap(dragLayer ?: return.width, dragLayer ?: return.height, Bitmap.Config.ARGB_8888)
+                val bitmap = Bitmap.createBitmap(dragLayer!!.width, dragLayer!!.height, Bitmap.Config.ARGB_8888)
                 val canvas = Canvas(bitmap)
                 val originalScale = dragView.scaleX
                 dragView.scaleX = 1f
@@ -142,7 +142,7 @@ object ShortcutBackgroundBlur : BaseHook() {
                 dragViewParent.draw(canvas)
                 dragView.scaleX = originalScale
                 dragView.scaleY = originalScale
-                dragLayerBackground = BitmapDrawable(dragLayer ?: return.context.resources, bitmap)
+                dragLayerBackground = BitmapDrawable(dragLayer!!.context.resources, bitmap)
                 targetView?.alpha = 0f
             }
         }
@@ -168,7 +168,7 @@ object ShortcutBackgroundBlur : BaseHook() {
         shortcutMenuClass.hookBeforeAllMethods("reset") {
             if (isShortcutMenuLayerBlurred) {
                 isShortcutMenuLayerBlurred = false
-                targetView ?: return.alpha = 1f
+                targetView!!.alpha = 1f
                 val mLauncher = applicationClass.callStaticMethod("getLauncher")
                 val systemUiController = mLauncher?.callMethod("getSystemUiController")
                 val mWindow = systemUiController?.getObjectField("mWindow")
@@ -203,7 +203,7 @@ object ShortcutBackgroundBlur : BaseHook() {
                     override fun onAnimationEnd(animation: Animator) {
                         shortcutMenuLayer.background = null
                         showBlurDrawable()
-                        targetView ?: return.alpha = 1f
+                        targetView!!.alpha = 1f
                         targetBlurView.setRenderEffect(null)
                         dragLayer?.background = null
                     }
@@ -243,7 +243,7 @@ object ShortcutBackgroundBlur : BaseHook() {
                         try {
                             mAppShortcutMenu = param.thisObject.getObjectField("mAppShortcutMenu") as ViewGroup
                             mAppShortcutMenuBackground =
-                                mAppShortcutMenu.background as? GradientDrawable ?: return
+                                mAppShortcutMenu.background as GradientDrawable
                             mAppShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mAppShortcutMenu.childCount) {
                                 val child = mAppShortcutMenu.getChildAt(index)
@@ -259,7 +259,7 @@ object ShortcutBackgroundBlur : BaseHook() {
                         try {
                             mSystemShortcutMenu = param.thisObject.getObjectField("mSystemShortcutMenu") as ViewGroup
                             mSystemShortcutMenuBackground =
-                                mSystemShortcutMenu.background as? GradientDrawable ?: return
+                                mSystemShortcutMenu.background as GradientDrawable
                             mSystemShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mSystemShortcutMenu.childCount) {
                                 val child = mSystemShortcutMenu.getChildAt(index)
@@ -275,7 +275,7 @@ object ShortcutBackgroundBlur : BaseHook() {
                         try {
                             mWidgetShortcutMenu = param.thisObject.getObjectField("mWidgetShortcutMenu") as ViewGroup
                             mWidgetShortcutMenuBackground =
-                                mWidgetShortcutMenu.background as? GradientDrawable ?: return
+                                mWidgetShortcutMenu.background as GradientDrawable
                             mWidgetShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mWidgetShortcutMenu.childCount) {
                                 val child = mWidgetShortcutMenu.getChildAt(index)
@@ -319,10 +319,10 @@ object ShortcutBackgroundBlur : BaseHook() {
                 }
 
                 val mAppShortcutMenu = it.thisObject.getObjectField("mAppShortcutMenu") as ViewGroup
-                val mAppShortcutMenuBackground = mAppShortcutMenu.background as? GradientDrawable ?: return
+                val mAppShortcutMenuBackground = mAppShortcutMenu.background as GradientDrawable
                 mAppShortcutMenuBackground.alpha = singleLayerAlpha
                 val mSystemShortcutMenu = it.thisObject.getObjectField("mSystemShortcutMenu") as ViewGroup
-                val mSystemShortcutMenuBackground = mSystemShortcutMenu.background as? GradientDrawable ?: return
+                val mSystemShortcutMenuBackground = mSystemShortcutMenu.background as GradientDrawable
                 mSystemShortcutMenuBackground.alpha = singleLayerAlpha
 
                 for (index in 0..mAppShortcutMenu.childCount) {

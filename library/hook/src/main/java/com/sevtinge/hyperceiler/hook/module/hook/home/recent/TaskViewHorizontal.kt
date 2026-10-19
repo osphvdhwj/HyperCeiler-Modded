@@ -2,7 +2,6 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.recent
 
 import android.graphics.RectF
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
-import com.sevtinge.hyperceiler.hook.module.hook.home.NativeFeatureUtils
 import com.sevtinge.hyperceiler.hook.utils.callMethod
 import com.sevtinge.hyperceiler.hook.utils.callStaticMethod
 import com.sevtinge.hyperceiler.hook.utils.findClass
@@ -10,13 +9,12 @@ import com.sevtinge.hyperceiler.hook.utils.hookAfterMethod
 
 object TaskViewHorizontal : BaseHook() {
     override fun init() {
-        if (NativeFeatureUtils.hasNativeIosRecents(android.app.ActivityThread.currentApplication())) return
 
         val hookLogic: (de.robv.android.xposed.XC_MethodHook.MethodHookParam) -> Unit = {
             val iosMode = mPrefsMap.getBoolean("home_recent_ios_mode")
             if (iosMode) {
-                val scrollProgress = (it.args[1] as? Number)?.toFloat() ?: return@hookAfterMethod
-                val transformOut = it.args[2] ?: return@hookAfterMethod
+                val scrollProgress = it.args[1] as Float
+                val transformOut = it.args[2]!!
                 
                 // Get rect and scale using XposedHelpers
                 val rectF = de.robv.android.xposed.XposedHelpers.getObjectField(transformOut, "rect") as RectF

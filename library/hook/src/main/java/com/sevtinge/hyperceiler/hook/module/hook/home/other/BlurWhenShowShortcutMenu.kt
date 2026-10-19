@@ -120,7 +120,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     if (isShortcutMenuLayerBlurred) {
                         if (targetView != null) {
-                            targetView ?: return.transitionAlpha = 0f
+                            targetView!!.transitionAlpha = 0f
                         }
                     }
                 }
@@ -137,7 +137,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                             "isScreenCellsLocked"
                         ) as Boolean
                         if (isLocked && dragView != null) {
-                            dragView ?: return.animate().scaleX(1f).scaleY(1f).setDuration(200).start()
+                            dragView!!.animate().scaleX(1f).scaleY(1f).setDuration(200).start()
                         }
                     }
                 }
@@ -159,7 +159,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                     if (isShortcutMenuLayerBlurred) {
                         isShortcutMenuLayerBlurred = false
                         if (targetView != null) {
-                            targetView ?: return.transitionAlpha = 1f
+                            targetView!!.transitionAlpha = 1f
                         }
                         val mLauncher =
                             XposedHelpers.callStaticMethod(applicationClass, "getLauncher")
@@ -216,7 +216,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                             override fun onAnimationEnd(animation: Animator) {
                                 shortcutMenuLayer.background = null
                                 showBlurDrawable()
-                                targetView ?: return.transitionAlpha = 1f
+                                targetView!!.transitionAlpha = 1f
                                 targetBlurView.setRenderEffect(null)
                                 isShortcutMenuLayerBlurred = false
                                 if (editStateChangeReason != null && editStateChangeReason.toString() != "drag_over_threshold") {
@@ -281,7 +281,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                         try {
                             mAppShortcutMenu = param.thisObject.getObjectField("mAppShortcutMenu") as ViewGroup
                             mAppShortcutMenuBackground =
-                                mAppShortcutMenu.background as? GradientDrawable ?: return
+                                mAppShortcutMenu.background as GradientDrawable
                             mAppShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mAppShortcutMenu.childCount) {
                                 val child = mAppShortcutMenu.getChildAt(index)
@@ -302,7 +302,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                         try {
                             mSystemShortcutMenu = param.thisObject.getObjectField("mSystemShortcutMenu") as ViewGroup
                             mSystemShortcutMenuBackground =
-                                mSystemShortcutMenu.background as? GradientDrawable ?: return
+                                mSystemShortcutMenu.background as GradientDrawable
                             mSystemShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mSystemShortcutMenu.childCount) {
                                 val child = mSystemShortcutMenu.getChildAt(index)
@@ -324,7 +324,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                             mAppPersonaliseShortcutMenu =
                                 param.thisObject.getObjectField("mAppPersonaliseShortcutMenu") as ViewGroup
                             mAppPersonaliseShortcutMenuBackground =
-                                mAppPersonaliseShortcutMenu.background as? GradientDrawable ?: return
+                                mAppPersonaliseShortcutMenu.background as GradientDrawable
                             mAppPersonaliseShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mAppPersonaliseShortcutMenu.childCount) {
                                 val child = mAppPersonaliseShortcutMenu.getChildAt(index)
@@ -345,7 +345,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                         try {
                             mFolderShortcutMenu = param.thisObject.getObjectField("mFolderShortcutMenu") as ViewGroup
                             mFolderShortcutMenuBackground =
-                                mFolderShortcutMenu.background as? GradientDrawable ?: return
+                                mFolderShortcutMenu.background as GradientDrawable
                             mFolderShortcutMenuBackground.alpha = singleLayerAlpha
                             for (index in 0..mFolderShortcutMenu.childCount) {
                                 val child = mFolderShortcutMenu.getChildAt(index)
@@ -366,7 +366,7 @@ object BlurWhenShowShortcutMenu : BaseHook() {
                         /*try {
                              mWidgetShortcutMenu = param.thisObject.getObjectField("mWidgetShortcutMenu") as ViewGroup
                              mWidgetShortcutMenuBackground =
-                                 mWidgetShortcutMenu.background as? GradientDrawable ?: return
+                                 mWidgetShortcutMenu.background as GradientDrawable
                              mWidgetShortcutMenuBackground.alpha = singleLayerAlpha
                              for (index in 0..mWidgetShortcutMenu.childCount) {
                                  val child = mWidgetShortcutMenu.getChildAt(index)
