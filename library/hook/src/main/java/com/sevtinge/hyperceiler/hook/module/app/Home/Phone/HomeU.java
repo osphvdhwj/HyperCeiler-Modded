@@ -35,6 +35,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.StickyFloatingWindowsForHo
 import com.sevtinge.hyperceiler.hook.module.hook.home.ToastSlideAgain;
 import com.sevtinge.hyperceiler.hook.module.hook.home.UnlockHotseatIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.WidgetCornerRadius;
+import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DockTransparency;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DisableRecentsIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DockCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.dock.DockCustomNew;
@@ -119,6 +120,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.recent.ShowLaunch;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewHorizontal;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.TaskViewVertical;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.UnlockPin;
+import com.sevtinge.hyperceiler.hook.module.hook.home.title.HideAppLabels;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconPackSupport;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.AnimParamCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.AppBlurAnim;
@@ -193,6 +195,8 @@ public class HomeU extends BaseModule {
         initHook(DrawerGridSize.INSTANCE, true);
         initHook(AlphabetSidebar.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_alphabet_sidebar"));
         initHook(VerticalAppDrawer.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_drawer_vertical"));
+        initHook(DockTransparency.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_dock_transparent"));
+        initHook(HideAppLabels.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_title_hide_labels"));
         initHook(FolderTransparency.INSTANCE, mPrefsMap.getInt("prefs_key_home_folder_bg_alpha", 255) != 255);
         initHook(IconSwipeAction.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_gesture_icon_swipe_up"));
         initHook(IconPackSupport.INSTANCE, !mPrefsMap.getString("prefs_key_home_title_icon_pack_pkg", "").isEmpty());

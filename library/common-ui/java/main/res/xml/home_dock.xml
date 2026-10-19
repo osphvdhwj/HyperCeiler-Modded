@@ -52,7 +52,13 @@
         android:title="@string/home_dock_slide_up_only_show_dock"
         app:isPreferenceVisible="false" />
 
-    </PreferenceCategory>
+    
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_home_dock_transparent"
+            android:summary="Remove the dock background"
+            android:title="Transparent Dock" />
+</PreferenceCategory>
 
     <PreferenceCategory>
         <SwitchPreference
