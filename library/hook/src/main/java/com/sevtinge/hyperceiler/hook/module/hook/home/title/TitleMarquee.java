@@ -30,7 +30,8 @@ public class TitleMarquee extends BaseHook {
 
     @Override
     public void init() {
-        Class<?> mItemIcon = findClassIfExists("com.miui.home.launcher.ItemIcon");
+        Class<?> mItemIcon = findClassIfExists("com.miui.home.launcher.ItemIcon"); } catch (Throwable t) { return; }
+if (textView == null) return;
 
         findAndHookMethod(mItemIcon, "onFinishInflate", new MethodHook() {
             @Override
@@ -45,7 +46,7 @@ public class TitleMarquee extends BaseHook {
                 mTitle.setHorizontalFadingEdgeEnabled(true);
                 mTitle.setSingleLine();
                 mTitle.setMarqueeRepeatLimit(-1);
-                mTitle.setSelected(true);
+                mTitle.setSelected(true); try { requestLayout(); } catch (Throwable t) {};
                 mTitle.setHorizontallyScrolling(true);
             }
         });
