@@ -52,7 +52,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //     this.mIsDockTransitionAnimStart = false;
                     // }
                     // ================
-                    val motionEvent = it.args[0] as? MotionEvent ?: return@hookBeforeMethod
+                    val motionEvent = it.args[0] as? MotionEvent ?: return@hookBeforeAllMethods
                     val actionMasked = motionEvent.actionMasked
                     if (actionMasked == 3 || actionMasked == 1) {
                         it.thisObject.getObjectField("mTransitionYStyle")?.callMethod("cancel")
@@ -161,7 +161,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                         )?.invoke(
                             launcher,
                             "gesture_end",
-                            !(it.thisObject.getObjectField("mTouchTracker") ?: return@hookBeforeMethod
+                            !(it.thisObject.getObjectField("mTouchTracker") ?: return@hookBeforeAllMethods
                                 .callMethod("isKeyboardEventTracker") as? Boolean ?: false)
                         )
                     } else {

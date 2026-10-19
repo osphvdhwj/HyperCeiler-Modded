@@ -9,6 +9,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
+import com.sevtinge.hyperceiler.hook.utils.hookAfterAllMethods
+import com.sevtinge.hyperceiler.hook.utils.hookAllMethods
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
 object AlphabetSidebar : BaseHook() {
