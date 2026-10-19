@@ -36,32 +36,32 @@
             android:title="@string/home_layout_global_search_files" />
         <SeekBarPreference
             app:defaultValue="0"
-            app:max="8"
-            app:min="0"
+            android:max="8"
+            android:min="0"
             android:key="prefs_key_home_layout_workspace_rows"
             android:title="Home Screen Rows (0=default)" />
         <SeekBarPreference
             app:defaultValue="0"
-            app:max="8"
-            app:min="0"
+            android:max="8"
+            android:min="0"
             android:key="prefs_key_home_layout_workspace_cols"
             android:title="Home Screen Columns (0=default)" />
         <SeekBarPreference
             app:defaultValue="0"
-            app:max="7"
-            app:min="0"
+            android:max="7"
+            android:min="0"
             android:key="prefs_key_home_layout_dock_count"
             android:title="Dock Icon Count (0=default)" />
         <SeekBarPreference
             app:defaultValue="24"
-            app:max="50"
-            app:min="0"
+            android:max="50"
+            android:min="0"
             android:key="prefs_key_home_searchbar_radius"
             android:title="Search Bar Corner Radius (0=Square, 25=Pill)" />
         <SeekBarPreference
             app:defaultValue="255"
-            app:max="255"
-            app:min="0"
+            android:max="255"
+            android:min="0"
             android:key="prefs_key_home_searchbar_alpha"
             android:title="Search Bar Transparency (0=Invisible)" />
 </PreferenceCategory>

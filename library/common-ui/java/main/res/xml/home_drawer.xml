@@ -94,29 +94,29 @@
 
         <SeekBarPreference
             app:defaultValue="4"
-            app:max="6"
-            app:min="2"
+            android:max="6"
+            android:min="2"
             android:key="prefs_key_home_drawer_cols"
             android:title="Drawer Columns" />
 
         <SeekBarPreference
             app:defaultValue="6"
-            app:max="10"
-            app:min="3"
+            android:max="10"
+            android:min="3"
             android:key="prefs_key_home_drawer_rows"
             android:title="Drawer Rows" />
 
         <SeekBarPreference
             app:defaultValue="0"
-            app:max="100"
-            app:min="0"
+            android:max="100"
+            android:min="0"
             android:key="prefs_key_home_drawer_icon_size"
             android:title="Drawer Icon Size (dp) - 0 for default" />
 
         <SeekBarPreference
             app:defaultValue="0"
-            app:max="30"
-            app:min="0"
+            android:max="30"
+            android:min="0"
             android:key="prefs_key_home_drawer_font_size"
             android:title="Drawer Text Size (sp) - 0 for default" />
 </PreferenceCategory>
