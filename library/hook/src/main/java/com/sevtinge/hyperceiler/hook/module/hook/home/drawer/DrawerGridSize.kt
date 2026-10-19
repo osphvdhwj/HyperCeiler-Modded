@@ -1,7 +1,7 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.drawer
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
-import com.sevtinge.hyperceiler.hook.utils.hookAllMethods
+import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
 
@@ -16,13 +16,13 @@ object DrawerGridSize : BaseHook() {
         val deviceConfig = findClassIfExists("com.miui.home.launcher.DeviceConfig")
         if (deviceConfig != null) {
             try {
-                deviceConfig.hookAllMethods("getAllAppsColumnCount") { param ->
+                deviceConfig.hookBeforeAllMethods("getAllAppsColumnCount") { param ->
                     param.result = cols
                 }
-                deviceConfig.hookAllMethods("getDrawerColumnCount") { param ->
+                deviceConfig.hookBeforeAllMethods("getDrawerColumnCount") { param ->
                     param.result = cols
                 }
-                deviceConfig.hookAllMethods("getAllAppsRowCount") { param ->
+                deviceConfig.hookBeforeAllMethods("getAllAppsRowCount") { param ->
                     param.result = rows
                 }
             } catch (t: Throwable) {
@@ -34,10 +34,10 @@ object DrawerGridSize : BaseHook() {
         val gridConfig = findClassIfExists("com.miui.home.launcher.GridConfig")
         if (gridConfig != null) {
             try {
-                gridConfig.hookAllMethods("getCols") { param ->
+                gridConfig.hookBeforeAllMethods("getCols") { param ->
                     param.result = cols
                 }
-                gridConfig.hookAllMethods("getRows") { param ->
+                gridConfig.hookBeforeAllMethods("getRows") { param ->
                     param.result = rows
                 }
             } catch (t: Throwable) {

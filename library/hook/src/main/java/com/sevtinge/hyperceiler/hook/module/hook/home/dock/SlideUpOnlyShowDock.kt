@@ -52,7 +52,7 @@ object SlideUpOnlyShowDock : BaseHook() {
                     //     this.mIsDockTransitionAnimStart = false;
                     // }
                     // ================
-                    val motionEvent = it.args[0] as? MotionEvent ?: return@replace
+                    val motionEvent = it.args[0] as? MotionEvent ?: return@replace null
                     val actionMasked = motionEvent.actionMasked
                     if (actionMasked == 3 || actionMasked == 1) {
                         it.thisObject.getObjectField("mTransitionYStyle")?.callMethod("cancel")
