@@ -116,14 +116,12 @@ public class DevelopmentKillFragment extends SettingsPreferenceFragment implemen
                             return;
                         }
                         if (!pidAndPkg(pkg).isEmpty()) {
-                            new Thread(() -> {
-                                String result = listToString("成功 Kill：\n", pidAndPkg(pkg));
-                                boolean success = killPackage(pkg);
-                                if (getActivity() != null) getActivity().runOnUiThread(() -> {
-                                    if (success) showOutDialog(result);
-                                    else showOutDialog("Kill: " + pkg + " 失败！");
-                                });
-                            }).start();
+                            String result = listToString("成功 Kill：\n", pidAndPkg(pkg));
+                            if (killPackage(pkg)) {
+                                showOutDialog(result);
+                            } else {
+                                showOutDialog("Kill: " + pkg + " 失败！");
+                            }
                         } else {
                             showOutDialog("未找到当前包名有任何正在运行的进程！\n" + "\"" + userInput + "\"");
                         }
@@ -242,14 +240,11 @@ public class DevelopmentKillFragment extends SettingsPreferenceFragment implemen
     }
 
     private void showOutDialog(String show) {
-        if (getActivity() == null) return;
-        getActivity().runOnUiThread(() -> {
-            new AlertDialog.Builder(getActivity())
-                .setCancelable(false)
-                .setTitle(R.string.edit_out)
-                .setMessage(show)
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
-        });
+        new AlertDialog.Builder(getActivity())
+            .setCancelable(false)
+            .setTitle(R.string.edit_out)
+            .setMessage(show)
+            .setPositiveButton(android.R.string.ok, null)
+            .show();
     }
 }

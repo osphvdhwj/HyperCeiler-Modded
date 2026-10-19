@@ -299,14 +299,14 @@ public class HomePageFragment extends DashboardFragment
 
             boolean hasNativeIos = (boolean) utilsClass.getMethod("hasNativeIosRecents", android.content.Context.class).invoke(utils, ctx);
             if (hasNativeIos) {
-                android.preference.Preference p = findPreference("prefs_key_home_recent_ios_mode");
-                if (p != null) p.setVisible(false);
+                Object p = findPreference("prefs_key_home_recent_ios_mode");
+                if (p != null) p.getClass().getMethod("setVisible", boolean.class).invoke(p, false);
             }
 
             boolean hasNativeForceStop = (boolean) utilsClass.getMethod("hasNativeForceStop", android.content.Context.class).invoke(utils, ctx);
             if (hasNativeForceStop) {
-                android.preference.Preference p = findPreference("home_other_force_stop_shortcut_menu");
-                if (p != null) p.setVisible(false);
+                Object p = findPreference("home_other_force_stop_shortcut_menu");
+                if (p != null) p.getClass().getMethod("setVisible", boolean.class).invoke(p, false);
             }
         } catch (Throwable t) {
             // Ignore, just means utils aren't available in app process
