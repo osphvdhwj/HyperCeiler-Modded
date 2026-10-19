@@ -21,6 +21,7 @@ package com.sevtinge.hyperceiler.hook.utils;
 import com.sevtinge.hyperceiler.hook.callback.ITAG;
 import com.sevtinge.hyperceiler.hook.utils.log.AndroidLogUtils;
 import com.sevtinge.hyperceiler.hook.utils.shell.ShellInit;
+import com.sevtinge.hyperceiler.hook.utils.shell.ShellUtils;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -91,40 +92,14 @@ public class KillApp {
     }
 
     private static void killOne(String pkg) {
-        ShellInit.getShell()
-                .add("pid=$(pgrep -f \"" + pkg + "\" | grep -v $$)")
-                .add("if [[ $pid == \"\" ]]; then")
-                .add(" pids=\"\"")
-                .add(" pid=$(ps -A -o PID,ARGS=CMD | grep \"" + pkg + "\" | grep -v \"grep\")")
-                .add("  for i in $pid; do")
-                .add("   if [[ $(echo $i | grep '[0-9]' 2>/dev/null) != \"\" ]]; then")
-                .add("    if [[ $pids == \"\" ]]; then")
-                .add("      pids=$i")
-                .add("    else")
-                .add("      pids=\"$pids $i\"")
-                .add("    fi")
-                .add("   fi")
-                .add("  done")
-                .add("fi")
-                .add("if [[ $pids != \"\" ]]; then")
-                .add(" pid=$pids")
-                .add("fi")
-                .add("if [[ $pid != \"\" ]]; then")
-                .add(" for i in $pid; do")
-                .add("  kill -s 9 $i &>/dev/null")
-                .add(" done")
-                .add("else")
-                .add(" echo \"No Find Pid!\"")
-                .add("fi")
-                .over().sync();
-
-        ArrayList<String> outPut = ShellInit.getShell().getOutPut();
-        ArrayList<String> error = ShellInit.getShell().getError();
-        if (outPut != null && !outPut.isEmpty() && "No Find Pid!".equals(outPut.get(0))) {
-            AndroidLogUtils.logW(ITAG.TAG, "Didn't find a pid that can kill: " + pkg);
-        }
-        if (error != null && !error.isEmpty()) {
-            AndroidLogUtils.logE(ITAG.TAG, "An error message was returned: " + error);
+        try {
+            // Use Android's native am force-stop. It's vastly more reliable
+            // than parsing pgrep/ps output, and it works on port ROMs where
+            // pgrep might be missing.
+            ShellUtils.rootExecCmd("am force-stop " + pkg);
+            AndroidLogUtils.logI(ITAG.TAG, "Force-stopped: " + pkg);
+        } catch (Throwable t) {
+            AndroidLogUtils.logE(ITAG.TAG, "Failed to force-stop " + pkg + ": " + t);
         }
     }
 }
