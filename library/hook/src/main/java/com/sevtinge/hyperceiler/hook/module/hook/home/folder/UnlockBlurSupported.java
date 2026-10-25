@@ -58,14 +58,14 @@ public class UnlockBlurSupported extends BaseHook {
                     }
             );
         } catch (Error | Exception ignore) {
-            findAndHookMethod("com.miui.home.launcher.DeviceConfig", "isUseDefaultIconFolder1x1", new MethodHook() {
+            findAndHookMethod("com.miui.home.common.device.DeviceConfigs", "isUseDefaultIconFolder1x1", new MethodHook() {
                 @Override
                 protected void before(MethodHookParam param) throws Throwable {
                     param.setResult(true);
                 }
             });
 
-            findAndHookMethod("com.miui.home.launcher.DeviceConfig", "isUseDefaultIconFolderLarge", new MethodHook() {
+            findAndHookMethod("com.miui.home.common.device.DeviceConfigs", "isUseDefaultIconFolderLarge", new MethodHook() {
                 @Override
                 protected void before(MethodHookParam param) throws Throwable {
                     param.setResult(true);

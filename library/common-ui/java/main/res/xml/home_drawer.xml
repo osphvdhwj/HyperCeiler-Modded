@@ -100,13 +100,6 @@
             android:title="Drawer Columns" />
 
         <SeekBarPreference
-            app:defaultValue="6"
-            android:max="10"
-            android:min="3"
-            android:key="prefs_key_home_drawer_rows"
-            android:title="Drawer Rows" />
-
-        <SeekBarPreference
             app:defaultValue="0"
             android:max="100"
             android:min="0"

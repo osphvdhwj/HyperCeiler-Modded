@@ -58,7 +58,7 @@ object BlurLevel : BaseHook() {
                         returnConstant(false)
                     }
 
-                "com.miui.home.launcher.common.DeviceLevelUtils".hookBeforeMethod("isUseSimpleAnim") {
+                "com.miui.home.common.utils.DeviceLevelUtils".hookBeforeMethod("isUseSimpleAnim") {
                     it.result = true
                 }
             }
@@ -80,7 +80,7 @@ object BlurLevel : BaseHook() {
                     }
                 }
 
-                "com.miui.home.launcher.common.DeviceLevelUtils".hookBeforeMethod("isUseSimpleAnim") {
+                "com.miui.home.common.utils.DeviceLevelUtils".hookBeforeMethod("isUseSimpleAnim") {
                     it.result = false
                 }
 
@@ -97,7 +97,7 @@ object BlurLevel : BaseHook() {
             }
 
             else -> {
-                "com.miui.home.launcher.common.DeviceLevelUtils".hookBeforeMethod("isUseSimpleAnim") {
+                "com.miui.home.common.utils.DeviceLevelUtils".hookBeforeMethod("isUseSimpleAnim") {
                     it.result = false
                 }
 

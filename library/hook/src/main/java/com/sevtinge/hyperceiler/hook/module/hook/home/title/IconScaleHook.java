@@ -48,7 +48,7 @@ public class IconScaleHook extends BaseHook {
             }
         });
 
-        findAndHookMethod("com.miui.home.launcher.ItemIcon", lpparam.classLoader, "onFinishInflate", new MethodHook() {
+        findAndHookMethod("com.miui.home.ItemIcon", lpparam.classLoader, "onFinishInflate", new MethodHook() {
             @Override
             protected void after(final MethodHookParam param) throws Throwable {
                 float multx = (float) Math.sqrt(mPrefsMap.getInt("home_title_icon_scale", 100) / 100f);
@@ -110,7 +110,7 @@ public class IconScaleHook extends BaseHook {
             }
         });
 
-        findAndHookMethod("com.miui.home.launcher.ItemIcon", lpparam.classLoader, "getIconLocation", new MethodHook() {
+        findAndHookMethod("com.miui.home.ItemIcon", lpparam.classLoader, "getIconLocation", new MethodHook() {
             @Override
             protected void after(final MethodHookParam param) throws Throwable {
                 float multx = (float) Math.sqrt(mPrefsMap.getInt("home_title_icon_scale", 100) / 100f);

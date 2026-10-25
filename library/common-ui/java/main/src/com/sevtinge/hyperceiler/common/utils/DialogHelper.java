@@ -254,6 +254,14 @@ public class DialogHelper {
                 // Nothing to do.
                 return;
             }
+            // Fallback: on some ROMs the RestartApps receiver never registers
+            // (PhoneWindowManager.init moved), leaving the restart dead. The
+            // root force-stop below is idempotent, so also running it when the
+            // broadcast path works is harmless.
+            for (String pkg : packageName) {
+                if (pkg == null || pkg.isEmpty()) continue;
+                ShellInit.getShell().run("am force-stop " + pkg).sync();
+            }
         } catch (Throwable t) {
             // Never bubble up — user already dismissed the dialog.
         }

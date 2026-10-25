@@ -23,7 +23,7 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 public class NewInstallIndicator extends BaseHook {
     @Override
     public void init() {
-        findAndHookMethod("com.miui.home.launcher.TitleTextView",
+        findAndHookMethod("com.miui.home.icon.TitleTextView",
             "updateNewInstallIndicator",
             boolean.class, new MethodHook() {
                 @Override

@@ -89,6 +89,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.navigation.HideNavigationB
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.UninstallDropTargetLabel;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.AllowShareApk;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysBlurWallpaper;
+import com.sevtinge.hyperceiler.hook.module.hook.home.other.WallpaperDimCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysShowStatusClock;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.BlurRadius;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.BlurWhenShowShortcutMenu;
@@ -134,6 +135,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.title.FakeNonDefaultIcon;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.HiddenAllTitle;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.HideReportText;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconMessageColorCustom;
+import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconScaleHook;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconTitleColor;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.IconTitleCustomization;
 import com.sevtinge.hyperceiler.hook.module.hook.home.title.LargeIconCornerRadius;
@@ -202,7 +204,9 @@ public class HomeU extends BaseModule {
         initHook(FolderTransparency.INSTANCE, mPrefsMap.getInt("prefs_key_home_folder_bg_alpha", 255) != 255);
         initHook(IconSwipeAction.INSTANCE, mPrefsMap.getBoolean("prefs_key_home_gesture_icon_swipe_up"));
         initHook(IconPackSupport.INSTANCE, !mPrefsMap.getString("prefs_key_home_title_icon_pack_pkg", "").isEmpty());
-        initHook(RecentShortcutMenu.INSTANCE, true);
+        // RecentShortcutMenu disabled: on MIUI Home 6.x SystemShortcutMenuItem.isValid is shared by the
+        // icon long-press menu, so force-validating Share/AppDetails/Pin adds buttons whose click
+        // actions are only wired in their native contexts (App info / Share appeared dead).
         initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
         initHook(UninstallDropTargetLabel.INSTANCE, true);
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
@@ -266,10 +270,10 @@ public class HomeU extends BaseModule {
         initHook(DisableHideFile.INSTANCE, mPrefsMap.getBoolean("home_title_disable_hide_file"));
         initHook(DisableHideGoogle.INSTANCE, mPrefsMap.getBoolean("home_title_disable_hide_google"));
         initHook(com.sevtinge.hyperceiler.hook.module.hook.home.other.AlwaysShowDropTargets.INSTANCE, mPrefsMap.getBoolean("home_always_show_drop_targets"));
-        initHook(new FakeNonDefaultIcon(), mPrefsMap.getBoolean("fake_non_default_icon"));
+        initHook(new FakeNonDefaultIcon(), mPrefsMap.getBoolean("home_title_fake_non_default_icon"));
         initHook(new AnimParamCustom(), mPrefsMap.getBoolean("home_title_custom_anim_param_main"));
         initHook(AppBlurAnim.INSTANCE, mPrefsMap.getBoolean("home_title_app_blur_enable"));
-        // initHook(new IconScaleHook()/*, mPrefsMap.getInt("home_title_icon_scale", 100) != 100*/);
+        initHook(new IconScaleHook(), mPrefsMap.getInt("home_title_icon_scale", 100) != 100);
 
         // 标题
         initHook(new TitleMarquee(), mPrefsMap.getBoolean("home_title_title_marquee"));
@@ -311,6 +315,7 @@ public class HomeU extends BaseModule {
         initHook(new HomePortraitReverse(), mPrefsMap.getBoolean("home_other_portrait_reverse"));
         initHook(AlwaysBlurWallpaper.INSTANCE, mPrefsMap.getBoolean("home_other_always_blur_launcher_wallpaper"));
         initHook(BlurRadius.INSTANCE, mPrefsMap.getInt("home_other_blur_radius", 100) != 100);
+        initHook(WallpaperDimCustom.INSTANCE, mPrefsMap.getInt("home_title_wallpaper_dim_alpha", 50) != 50);
         initHook(ShortcutItemCount.INSTANCE, mPrefsMap.getBoolean("home_other_shortcut_remove_restrictions"));
         initHook(ShowAllHideApp.INSTANCE, true); // 桌面快捷方式管理
         // initHook(new AllowShareApk(), mPrefsMap.getBoolean("home_other_allow_share_apk"));

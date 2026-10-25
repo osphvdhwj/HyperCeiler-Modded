@@ -159,11 +159,11 @@ public class FreeformShortcutMenu extends BaseHook {
                     }
                     if (mPrefsMap.getBoolean("home_other_tasks_shortcut_menu")) {
                         callMethod(mNewTasksInstance, "setShortTitle", modRes.getString(R.string.new_task));
-                        callMethod(mNewTasksInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, mContext.getResources().getIdentifier("ic_task_add_pair", "drawable", mContext.getPackageName())));
+                        callMethod(mNewTasksInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, R.drawable.ic_menu_new_task));
                     }
                     if (mPrefsMap.getBoolean("home_other_force_stop_shortcut_menu")) {
                         callMethod(mForceStopInstance, "setShortTitle", modRes.getString(R.string.force_stop));
-                        callMethod(mForceStopInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, R.drawable.ic_forceclose12));
+                        callMethod(mForceStopInstance, "setIconDrawable", ContextCompat.getDrawable(mContext, R.drawable.ic_menu_force_stop));
                     }
 
                     ArrayList sAllSystemShortcutMenuItems = new ArrayList();
@@ -211,13 +211,27 @@ public class FreeformShortcutMenu extends BaseHook {
                 if (mComponentName == null) return;
                 String packageName = mComponentName.getPackageName();
 
-                // Use root to force stop the app
-                String result = ShellUtils.rootExecCmd("am force-stop " + packageName);
-                XposedBridge.log("[HyperHand] force-stop result: " + result);
-
-                android.widget.Toast.makeText(mContext1, "Force stopped: " + packageName, android.widget.Toast.LENGTH_SHORT).show();
+                boolean stopped = false;
+                // MIUI Home is a platform-signed priv-app, so it usually holds
+                // FORCE_STOP_PACKAGES — no root involved.
+                try {
+                    Object am = mContext1.getSystemService(Context.ACTIVITY_SERVICE);
+                    XposedHelpers.callMethod(am, "forceStopPackage", packageName);
+                    stopped = true;
+                } catch (Throwable t) {
+                    // Fall through to the root shell.
+                }
+                if (!stopped) {
+                    String result = ShellUtils.rootExecCmd("am force-stop " + packageName);
+                    stopped = result != null && !result.isEmpty();
+                }
+                android.widget.Toast.makeText(
+                    mContext1,
+                    stopped ? "Force stopped: " + packageName : "Force stop failed (no root)",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show();
             } catch (Exception e) {
-                XposedBridge.log("[HyperHand] force-stop via receiver failed: " + e);
+                XposedBridge.log("[HyperHand] force-stop failed: " + e);
             }
         };
     }

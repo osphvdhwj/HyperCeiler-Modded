@@ -22,8 +22,7 @@ import com.sevtinge.hyperceiler.hook.module.base.pack.home.HomeBaseHook
 
 class HotSeatsHeight : HomeBaseHook() {
     override fun init() {
-        findAndHookMethod(
-            DEVICE_CONFIG, "getHotSeatsHeight",
+        hookAllMethods("com.miui.home.common.gridconfig.GridSizeCalRules", "getHotseatHeight",
             setDimensionPixelSizeFormPrefs("home_layout_hotseats_height", 60)
         )
     }

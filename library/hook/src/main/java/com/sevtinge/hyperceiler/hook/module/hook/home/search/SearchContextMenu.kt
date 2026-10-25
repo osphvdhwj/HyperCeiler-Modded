@@ -32,6 +32,9 @@ object SearchContextMenu {
                     items.add("App info" to { openAppInfo(ctx, pkg) })
                 }
             }
+            ResultType.MESSAGE -> {
+                items.add("Open conversation" to { runCatching { ctx.startActivity(result.intent) } })
+            }
             ResultType.SETTING -> {
                 val action = result.intent.action
                 if (action != null) items.add("Copy action" to { copy(ctx, action) })

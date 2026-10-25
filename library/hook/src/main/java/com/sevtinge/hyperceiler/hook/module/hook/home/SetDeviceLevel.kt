@@ -30,7 +30,7 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 
 object SetDeviceLevel : BaseHook() {
     private val mDeviceLevelUtilsClass by lazy {
-        loadClassOrNull("com.miui.home.launcher.common.DeviceLevelUtils")
+        loadClassOrNull("com.miui.home.common.utils.DeviceLevelUtils")
     }
     private val mDeviceConfigClass by lazy {
         loadClassOrNull("com.miui.home.launcher.DeviceConfig")
@@ -55,7 +55,7 @@ object SetDeviceLevel : BaseHook() {
         }
 
         runCatching {
-            mDeviceConfigClass?.methodFinder()
+            mDeviceLevelUtilsClass?.methodFinder()
                 ?.filterByName("isUseSimpleAnim")
                 ?.firstOrNull()?.createHook {
                     returnConstant(false)
@@ -83,7 +83,7 @@ object SetDeviceLevel : BaseHook() {
             }
         }
         runCatching {
-            mDeviceConfigClass?.methodFinder()
+            loadClassOrNull("com.miui.home.common.device.DeviceConfigs")?.methodFinder()
                 ?.filterByName("isMiuiLiteVersion")
                 ?.firstOrNull()?.createHook {
                     returnConstant(false)

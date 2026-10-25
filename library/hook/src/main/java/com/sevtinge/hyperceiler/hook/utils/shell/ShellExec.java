@@ -567,8 +567,16 @@ public class ShellExec {
                         String count = matcher.group(1);
                         String result = matcher.group(2);
                         if (result != null && count != null) {
+                            // Stray marker lines (e.g. output that echoes the
+                            // protocol format) can reference indices beyond the
+                            // command list — skip them instead of crashing the
+                            // output thread and the whole app process.
+                            int idx = Integer.parseInt(count);
+                            if (idx < 0 || idx >= command.passCommands.size()) {
+                                return false;
+                            }
                             if (use) {
-                                mIResult.result(command.passCommands.get(Integer.parseInt(count)),
+                                mIResult.result(command.passCommands.get(idx),
                                         Integer.parseInt(result));
                                 if (finish) mIResult.readOutput("Finish!!", true);
                             }

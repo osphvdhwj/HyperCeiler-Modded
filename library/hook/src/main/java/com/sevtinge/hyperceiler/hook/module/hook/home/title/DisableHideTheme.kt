@@ -22,7 +22,7 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 
 object DisableHideTheme: BaseHook() {
     override fun init() {
-        hookAllMethods("com.miui.home.launcher.DeviceConfig", "needHideThemeManager",
+        hookAllMethods("com.miui.home.common.device.DeviceConfigs", "needHideThemeManager",
             object : MethodHook() {
                 override fun before(param: MethodHookParam) {
                     param.result = false

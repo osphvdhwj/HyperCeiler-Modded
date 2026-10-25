@@ -35,6 +35,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.RemoveConversati
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.RemoveOpenAppConfirmationPopup;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.ScLockApp;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.SidebarLineCustom;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.SidebarSizeCustom;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.UnlockCarSicknessRelief;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AddAppInfoEntry;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AddAppManagerEntry;
@@ -46,6 +47,8 @@ import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.AppQuickActi
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.EnableAppBehaviorRecords;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.app.OpenByDefaultSetting;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.BatteryHealth;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.BatteryHistoryChart;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.ChargingModeSwitcher;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.MoreBatteryInfo;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.PowerConsumptionRanking;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.battery.ScreenUsedTime;
@@ -67,6 +70,9 @@ import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.other.SkipCountD
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.AddSideBarExpandReceiver;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.BlurSecurity;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.GamePerformanceWildMode;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.bubbles.BubbleNotificationUnlock;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.network.LockScreenTraffic;
+import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.GamePanelTranslator;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.MusicCapsule;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.RemoveGameToast;
 import com.sevtinge.hyperceiler.hook.module.hook.securitycenter.sidebar.game.RemoveMacroBlackList;
@@ -104,6 +110,8 @@ public class SecurityCenterU extends BaseModule {
         initHook(ScreenUsedTime.INSTANCE, mPrefsMap.getBoolean("security_center_unlock_screen_time"));
         initHook(new UnlockSmartCharge(), mPrefsMap.getBoolean("security_center_unlock_smart_charge"));
         initHook(BatteryHealth.INSTANCE, mPrefsMap.getBoolean("security_center_show_battery_health"));
+        initHook(ChargingModeSwitcher.INSTANCE, mPrefsMap.getBoolean("security_center_charging_mode_switcher"));
+        initHook(BatteryHistoryChart.INSTANCE, mPrefsMap.getBoolean("security_center_battery_history_chart"));
         initHook(new UnlockLowTempExtEndurance(), mPrefsMap.getBoolean("security_center_battery_unlock_low_temp_ext_endurance"));
         initHook(new MoreBatteryInfo(), mPrefsMap.getBoolean("secutity_center_battery_show_more_info"));
 
@@ -149,17 +157,25 @@ public class SecurityCenterU extends BaseModule {
         initHook(new NewBoxBlur(), mPrefsMap.getBoolean("security_center_newbox_custom_enable"));
         initHook(BlurSecurity.INSTANCE, mPrefsMap.getBoolean("se_enable"));
         initHook(SidebarLineCustom.INSTANCE, mPrefsMap.getBoolean("security_center_sidebar_line_color"));
+        initHook(SidebarSizeCustom.INSTANCE, true);
         initHook(new ScLockApp(), mPrefsMap.getBoolean("system_framework_guided_access_sc"));
         initHook(new RemoveMacroBlackList(), mPrefsMap.getBoolean("security_center_remove_macro_black_list"));
         initHook(RemoveGameToast.INSTANCE, mPrefsMap.getBoolean("security_center_remove_game_toast"));
         initHook(UnlockGunService.INSTANCE, mPrefsMap.getBoolean("security_center_unlock_gun_service"));
         initHook(DisableRemoveScreenHoldOn.INSTANCE, mPrefsMap.getBoolean("security_center_disable_remove_screen_hold_on"));
-        initHook(UnlockVideoSomeFunc.INSTANCE, isVideoFunc);
+        // UnlockVideoSomeFunc disabled: the video FRC/AIS property strings
+        // (ro.vendor.media.video.frc.support etc.) no longer exist in
+        // SecurityCenter 8.x, so the DexKit queries can never match.
+        // initHook(UnlockVideoSomeFunc.INSTANCE, isVideoFunc);
         initHook(new AddSideBarExpandReceiver(), mPrefsMap.getBoolean("security_center_hide_sidebar"));
         initHook(new VideoDolbyOpen(), mPrefsMap.getBoolean("security_center_dolby_open"));
-        initHook(new VBVideoMode(), mPrefsMap.getBoolean("security_center_unlock_new_vb"));
+        // initHook(new VBVideoMode(), mPrefsMap.getBoolean("security_center_unlock_new_vb"));
+        // ^ disabled for the same reason — video toolbox features removed upstream.
         initHook(new GamePerformanceWildMode(), mPrefsMap.getBoolean("security_center_game_performance_wild_mode"));
 initHook(new MusicCapsule(), mPrefsMap.getBoolean("security_center_game_music_capsule"));
+        initHook(GamePanelTranslator.INSTANCE, mPrefsMap.getBoolean("security_center_game_panel_english"));
+        initHook(LockScreenTraffic.INSTANCE, mPrefsMap.getBoolean("security_center_lock_screen_traffic"));
+        initHook(BubbleNotificationUnlock.INSTANCE, mPrefsMap.getBoolean("security_center_bubble_notification_unlock"));
 
         initHook(new PowerConsumptionRanking(), mPrefsMap.getBoolean("security_center_power_consumption_ranking"));
 

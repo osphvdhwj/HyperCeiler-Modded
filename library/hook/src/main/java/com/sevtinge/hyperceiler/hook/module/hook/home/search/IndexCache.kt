@@ -17,6 +17,7 @@ object IndexCache {
     @Volatile var contacts: List<SearchResult>? = null; private set
     @Volatile var calendar: List<SearchResult>? = null; private set
     @Volatile var files: List<SearchResult>? = null; private set
+    @Volatile var messages: List<SearchResult>? = null; private set
 
     private var receiverRegistered = false
 
@@ -47,12 +48,16 @@ object IndexCache {
         if (includeFiles && files == null) {
             Thread { files = runCatching { FilesIndex.build(ctx) }.getOrNull() }.start()
         }
+        if (messages == null) {
+            Thread { messages = runCatching { MessagesIndex.build(ctx) }.getOrNull() }.start()
+        }
     }
 
     fun invalidateApps() { apps = null }
     fun invalidateAll() {
         apps = null; settings = null; shortcuts = null
         media = null; contacts = null; calendar = null; files = null
+        messages = null
     }
 
     private fun registerReceiver(ctx: Context) {

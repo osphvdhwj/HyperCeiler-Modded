@@ -20,7 +20,8 @@ import com.sevtinge.hyperceiler.hook.R
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
-import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logD
+import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logI
+import de.robv.android.xposed.XposedHelpers
 
 object GlobalSearchOverlay : BaseHook() {
 
@@ -31,29 +32,31 @@ object GlobalSearchOverlay : BaseHook() {
     @Volatile private var overlay: ViewGroup? = null
     @Volatile private var adapterRef: ResultAdapter? = null
     @Volatile private var forcedFilter: QueryPrefix.Filter = QueryPrefix.Filter.NONE
+    @Volatile private var lastQuery: String = ""
+    private val expandedTypes = LinkedHashSet<ResultType>()
 
     private val debounceHandler = Handler(Looper.getMainLooper())
     private var pendingQuery: Runnable? = null
 
     override fun init() {
         if (!mPrefsMap.getBoolean(PREF)) {
-            logD(TAG, "pref disabled, skip")
+            logI(TAG, "pref disabled, skip")
             return
         }
         try {
             hookSearchBar()
             hookSearchBarContainer()
         } catch (t: Throwable) {
-            logD(TAG, "GlobalSearchOverlay init failed: ${t.message}")
+            logI(TAG, "GlobalSearchOverlay init failed: ${t.message}")
         }
     }
 
     private fun hookSearchBar() {
         val cls = findClassIfExists("com.miui.home.launcher.SearchBar") ?: run {
-            logD(TAG, "SearchBar class not found"); return
+            logI(TAG, "SearchBar class not found"); return
         }
         cls.hookBeforeAllMethods("openSearch") { param ->
-            logD(TAG, "SearchBar.openSearch intercepted")
+            logI(TAG, "SearchBar.openSearch intercepted")
             Diagnostics.lastSearchBarHook = System.currentTimeMillis()
             param.result = null
             val self = param.thisObject as? View ?: return@hookBeforeAllMethods
@@ -62,20 +65,43 @@ object GlobalSearchOverlay : BaseHook() {
         
         // Fallback: If openSearch doesn't exist/fire on this port ROM, hook onClick
         cls.hookBeforeAllMethods("onClick") { param ->
-            logD(TAG, "SearchBar.onClick intercepted")
+            logI(TAG, "SearchBar.onClick intercepted")
             Diagnostics.lastSearchBarHook = System.currentTimeMillis()
             param.result = null
             val self = param.thisObject as? View ?: return@hookBeforeAllMethods
             showOverlay(self)
         }
+
+        // HyperOS 2 (MIUI Home 6.x) search entry points
+        findClassIfExists("com.miui.home.launcher.SearchBarDesktopLayout")?.hookBeforeAllMethods("openSearch") { param ->
+            logI(TAG, "SearchBarDesktopLayout.openSearch intercepted")
+            Diagnostics.lastSearchBarHook = System.currentTimeMillis()
+            param.result = null
+            showOverlay(param.thisObject as? View)
+        }
+        findClassIfExists("com.miui.home.launcher.SearchBarUtils")?.hookBeforeAllMethods("openSearch") { param ->
+            logI(TAG, "SearchBarUtils.openSearch intercepted")
+            Diagnostics.lastSearchBarHook = System.currentTimeMillis()
+            param.result = null
+            showOverlay(param.thisObject as? View)
+        }
+
+        // HyperOS 2 desktop search pill builds its launch intent through the
+        // appfinder subsystem; intercept it and show the overlay instead of
+        // launching the configured search app directly.
+        findClassIfExists("com.mi.appfinder.launcher.globalsearch.FinderGlobalSearchUtil")?.hookBeforeAllMethods("getGlobalSearchIntent") { param ->
+            logI(TAG, "getGlobalSearchIntent intercepted")
+            Diagnostics.lastSearchBarHook = System.currentTimeMillis()
+            showOverlay(null)
+        }
     }
 
     private fun hookSearchBarContainer() {
         val cls = findClassIfExists("com.miui.home.launcher.SearchBarContainer") ?: run {
-            logD(TAG, "SearchBarContainer class not found"); return
+            logI(TAG, "SearchBarContainer class not found"); return
         }
         cls.hookBeforeAllMethods("openSearch") { param ->
-            logD(TAG, "SearchBarContainer.openSearch intercepted")
+            logI(TAG, "SearchBarContainer.openSearch intercepted")
             Diagnostics.lastContainerHook = System.currentTimeMillis()
             param.result = null
             val self = param.thisObject as? View ?: return@hookBeforeAllMethods
@@ -83,13 +109,15 @@ object GlobalSearchOverlay : BaseHook() {
         }
     }
 
-    private fun showOverlay(anchor: View) {
+    private fun showOverlay(anchor: View?) {
         if (overlay != null) return
-        val ctx = anchor.context ?: return
+        val ctx = (anchor?.context ?: currentActivity()) ?: return
         val activity = ctx as? Activity ?: return
         val root = activity.window?.decorView as? ViewGroup ?: return
 
         Diagnostics.lastOverlayOpen = System.currentTimeMillis()
+        lastQuery = ""
+        expandedTypes.clear()
         val tokens = ColorScheme.of(ctx)
         IndexCache.warm(ctx, mPrefsMap.getBoolean("home_layout_global_search_index_files"))
 
@@ -147,7 +175,16 @@ object GlobalSearchOverlay : BaseHook() {
             ).apply { topMargin = 24 }
         }
 
-        val adapter = ResultAdapter(tokens) { result -> launch(ctx, result) }
+        val adapter = ResultAdapter(tokens, { result -> launch(ctx, result) }) { type ->
+            expandedTypes.add(type)
+            QueryExecutor.submit(
+                work = { runQuery(ctx, lastQuery) },
+                onResult = { items ->
+                    emptyView.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+                    adapterRef?.submit(items)
+                }
+            )
+        }
         adapterRef = adapter
         rv.adapter = adapter
 
@@ -168,21 +205,20 @@ object GlobalSearchOverlay : BaseHook() {
             override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val q = s?.toString() ?: ""
-                pendingQuery?.let { debounceHandler.removeCallbacks(it) }
-                val r = Runnable {
-                    QueryExecutor.submit(
-                        work = { runQuery(ctx, q) },
-                        onResult = { items ->
-                            adapter.currentQuery = q
-                            adapter.selectedPos = -1
-                            emptyView.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
-                            adapter.submit(items)
-                        }
-                    )
-                    if (q.isNotBlank()) RecentsStore.push(ctx, q)
-                }
-                pendingQuery = r
-                debounceHandler.postDelayed(r, 120L)
+                    pendingQuery?.let { debounceHandler.removeCallbacks(it) }
+                    val r = Runnable {
+                        QueryExecutor.submit(
+                            work = { runQuery(ctx, q) },
+                            onResult = { items ->
+                                adapter.currentQuery = q
+                                adapter.selectedPos = -1
+                                emptyView.visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+                                adapter.submit(items)
+                            }
+                        )
+                    }
+                    pendingQuery = r
+                    debounceHandler.postDelayed(r, 120L)
             }
         })
 
@@ -214,6 +250,13 @@ object GlobalSearchOverlay : BaseHook() {
         root.addView(container)
         overlay = container
         input.requestFocus()
+        container.post {
+            runCatching {
+                val imm = ctx.getSystemService(Context.INPUT_METHOD_SERVICE)
+                    as? android.view.inputmethod.InputMethodManager
+                imm?.showSoftInput(input, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
+            }
+        }
 
         QueryExecutor.submit(
             work = { runQuery(ctx, "") },
@@ -225,6 +268,7 @@ object GlobalSearchOverlay : BaseHook() {
     }
 
     private fun runQuery(ctx: Context, raw: String): List<ListItem> {
+        lastQuery = raw
         val t0 = System.currentTimeMillis()
         if (raw.isBlank()) {
             val recents = RecentsStore.asResults(ctx)
@@ -266,6 +310,7 @@ object GlobalSearchOverlay : BaseHook() {
             IndexCache.contacts?.let { all.addAll(it) }
             IndexCache.calendar?.let { all.addAll(it) }
             IndexCache.files?.let { all.addAll(it) }
+            IndexCache.messages?.let { all.addAll(it) }
         }
 
         val freq = { r: SearchResult ->
@@ -304,6 +349,9 @@ object GlobalSearchOverlay : BaseHook() {
         val copy = result.intent.getStringExtra("__calc_copy")
         if (copy != null) { Calculator.handleCopy(ctx, copy); dismiss(); return }
 
+        // Record only queries that actually led to a launch, not every keystroke
+        adapterRef?.currentQuery?.takeIf { it.isNotBlank() }?.let { RecentsStore.push(ctx, it) }
+
         val scPkg = result.intent.getStringExtra(ShortcutsIndex.EXTRA_SHORTCUT_PKG)
         val scId = result.intent.getStringExtra(ShortcutsIndex.EXTRA_SHORTCUT_ID)
         if (scPkg != null && scId != null) {
@@ -317,7 +365,7 @@ object GlobalSearchOverlay : BaseHook() {
                 la?.startShortcut(scPkg, scId, null, null, user)
                 dismiss()
             } catch (t: Throwable) {
-                logD(TAG, "shortcut launch failed: ${t.message}")
+                logI(TAG, "shortcut launch failed: ${t.message}")
             }
             return
         }
@@ -330,7 +378,7 @@ object GlobalSearchOverlay : BaseHook() {
             ctx.startActivity(result.intent)
             dismiss()
         } catch (t: Throwable) {
-            logD(TAG, "launch failed: ${t.message}")
+            logI(TAG, "launch failed: ${t.message}")
         }
     }
 
@@ -342,8 +390,17 @@ object GlobalSearchOverlay : BaseHook() {
         overlay = null
         adapterRef = null
         forcedFilter = QueryPrefix.Filter.NONE
+        lastQuery = ""
+        expandedTypes.clear()
         QueryExecutor.invalidate()
     }
+
+    private fun currentActivity(): Activity? = runCatching {
+        val at = XposedHelpers.callStaticMethod(
+            XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread"
+        )
+        XposedHelpers.callMethod(at, "getActivity") as? Activity
+    }.getOrNull()
 
     private fun findInputView(root: ViewGroup): EditText? {
         for (i in 0 until root.childCount) {
@@ -357,7 +414,8 @@ object GlobalSearchOverlay : BaseHook() {
     private val SECTION_ORDER = listOf(
         ResultType.SETTING, ResultType.WEB,
         ResultType.APP, ResultType.SHORTCUT,
-        ResultType.CONTACT, ResultType.CALENDAR,
+        ResultType.CONTACT, ResultType.MESSAGE,
+        ResultType.CALENDAR,
         ResultType.MEDIA, ResultType.FILE,
     )
 
@@ -368,7 +426,8 @@ object GlobalSearchOverlay : BaseHook() {
             val items = grouped[t].orEmpty()
             if (items.isEmpty()) continue
             out.add(ListItem.Header(sectionTitle(t), items.size, sectionIcon(t)))
-            val visible = items.take(SECTION_CAP)
+            val cap = if (expandedTypes.contains(t)) items.size else SECTION_CAP
+            val visible = items.take(cap)
             for (r in visible) {
                 out.add(ListItem.Row(r))
                 if (r.type == ResultType.APP) {
@@ -376,8 +435,8 @@ object GlobalSearchOverlay : BaseHook() {
                     if (!pkg.isNullOrEmpty()) out.add(ListItem.QuickActions(pkg, null))
                 }
             }
-            if (items.size > SECTION_CAP) {
-                out.add(ListItem.ShowAll(t, items.size - SECTION_CAP))
+            if (items.size > cap) {
+                out.add(ListItem.ShowAll(t, items.size - cap))
             }
         }
         return out
@@ -392,6 +451,7 @@ object GlobalSearchOverlay : BaseHook() {
         ResultType.FILE -> "Files"
         ResultType.CONTACT -> "Contacts"
         ResultType.CALENDAR -> "Calendar"
+        ResultType.MESSAGE -> "Messages"
     }
 
     private fun sectionIcon(t: ResultType): Int = when (t) {
@@ -403,6 +463,7 @@ object GlobalSearchOverlay : BaseHook() {
         ResultType.FILE -> R.drawable.ic_search_section_file
         ResultType.CONTACT -> R.drawable.ic_search_section_apps
         ResultType.CALENDAR -> R.drawable.ic_search_section_calc
+        ResultType.MESSAGE -> R.drawable.ic_search_section_apps
     }
 
     private sealed class ListItem {
@@ -415,6 +476,7 @@ object GlobalSearchOverlay : BaseHook() {
     private class ResultAdapter(
         private val tokens: ColorScheme.Tokens,
         private val onClick: (SearchResult) -> Unit,
+        private val onShowAll: (ResultType) -> Unit,
     ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         var currentQuery: String = ""
@@ -494,8 +556,9 @@ object GlobalSearchOverlay : BaseHook() {
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT
                         )
+                        isClickable = true; isFocusable = true
                     }
-                    ShowAllVH(tv)
+                    ShowAllVH(tv, onShowAll)
                 }
                 else -> {
                     val row = LinearLayout(ctx).apply {
@@ -570,9 +633,10 @@ object GlobalSearchOverlay : BaseHook() {
             }
         }
 
-        class ShowAllVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        class ShowAllVH(itemView: View, private val onShowAll: (ResultType) -> Unit) : RecyclerView.ViewHolder(itemView) {
             fun bind(s: ListItem.ShowAll) {
                 (itemView as TextView).text = "Show ${s.remaining} more ${s.type.name.lowercase()}s"
+                itemView.setOnClickListener { onShowAll(s.type) }
             }
         }
 

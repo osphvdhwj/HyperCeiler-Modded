@@ -79,5 +79,16 @@
             app:maxValue="100"
             app:stepValue="5" />
 
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_security_center_charging_mode_switcher"
+            android:title="Charging mode switcher"
+            android:summary="Notification with Fast/Balanced/Slow actions while charging (root)" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_security_center_battery_history_chart"
+            android:title="Battery history chart"
+            android:summary="Long-term level and temperature chart on the battery page" />
     </PreferenceCategory>
 </PreferenceScreen>

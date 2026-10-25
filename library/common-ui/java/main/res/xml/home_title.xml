@@ -145,7 +145,7 @@
 
         <SeekBarPreferenceCompat
             app:defaultValue="45"
-            android:key="pref_key_home_title_icon_scale"
+            android:key="prefs_key_home_title_icon_scale"
             android:title="@string/home_title_icon_scale"
             app:defaultValueTitle="@string/array_default"
             app:showDividerValue="100"

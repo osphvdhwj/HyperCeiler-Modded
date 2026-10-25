@@ -103,30 +103,12 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/security_center_sidebar_videobox_title">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="prefs_key_security_center_unlock_new_vb"
-            android:title="@string/security_center_unlock_new_vb" />
-
+        <!-- Video toolbox unlock features removed: SecurityCenter 8.x no
+             longer contains the FRC/MEMC/AIS code they patched. -->
         <SwitchPreference
             android:defaultValue="false"
             android:key="prefs_key_security_center_dolby_open"
             android:title="@string/security_center_dolby_open" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="prefs_key_security_center_unlock_memc"
-            android:title="@string/security_center_unlock_memc" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="prefs_key_security_center_unlock_enhance_contours"
-            android:title="@string/security_center_unlock_enhance_contours" />
-
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="prefs_key_security_center_unlock_s_resolution"
-            android:title="@string/security_center_unlock_s_resolution" />
 
     </PreferenceCategory>
 
@@ -140,6 +122,12 @@
             android:title="@string/security_center_game_music_capsule"
 
             android:summary="@string/security_center_game_music_capsule_desc" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_security_center_game_panel_english"
+            android:title="Translate game panel to English"
+            android:summary="Replace Chinese labels in the game sidebar panel with English" />
 
         <SwitchPreference
 
@@ -163,5 +151,80 @@
             android:key="prefs_key_security_center_remove_game_toast"
             android:title="@string/security_center_remove_game_toast" />
 
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Security app features">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_security_center_lock_screen_traffic"
+            android:title="Force lock-screen traffic monitor"
+            android:summary="Enable the traffic monitor option the ROM gates off" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="prefs_key_security_center_bubble_notification_unlock"
+            android:title="Unlock bubble notifications"
+            android:summary="Force bubble notification support checks to pass" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Sidebar size (px, 0 = default)">
+        <SeekBarPreferenceCompat
+            app:defaultValue="0"
+            android:max="60"
+            android:min="0"
+            android:key="prefs_key_security_center_sidebar_line_width"
+            android:title="Sidebar line width (px)"
+            app:showSeekBarValue="true" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="0"
+            android:max="1600"
+            android:min="0"
+            android:key="prefs_key_security_center_sidebar_line_length"
+            android:title="Sidebar line length (px)"
+            app:showSeekBarValue="true" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="0"
+            android:max="800"
+            android:min="0"
+            android:key="prefs_key_security_center_sidebar_line_margin"
+            android:title="Sidebar line edge margin (px)"
+            app:showSeekBarValue="true" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="0"
+            android:max="2000"
+            android:min="0"
+            android:key="prefs_key_security_center_sidebar_assistant_width"
+            android:title="Sidebar panel width (px)"
+            app:showSeekBarValue="true" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="0"
+            android:max="2600"
+            android:min="0"
+            android:key="prefs_key_security_center_sidebar_assistant_height"
+            android:title="Sidebar panel height (px)"
+            app:showSeekBarValue="true" />
+
+        <SeekBarPreferenceCompat
+            app:defaultValue="0"
+            android:max="2400"
+            android:min="0"
+            android:key="prefs_key_security_center_sidebar_default_y"
+            android:title="Sidebar vertical position Y (px)"
+            app:showSeekBarValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Sidebar colors (-1 = default)">
+        <ColorPickerPreference
+            android:defaultValue="-1"
+            android:key="prefs_key_security_center_sidebar_menu_bg_color"
+            android:title="Shortcut menu background" />
+
+        <ColorPickerPreference
+            android:defaultValue="-1"
+            android:key="prefs_key_security_center_sidebar_wrapper_color"
+            android:title="Panel background (dark)" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -3,7 +3,7 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.search
 import android.content.Intent
 import android.graphics.drawable.Drawable
 
-enum class ResultType { APP, SETTING, WEB, SHORTCUT, MEDIA, FILE, CONTACT, CALENDAR }
+enum class ResultType { APP, SETTING, WEB, SHORTCUT, MEDIA, FILE, CONTACT, CALENDAR, MESSAGE }
 
 data class SearchResult(
     val type: ResultType,

@@ -39,7 +39,7 @@ object AnimDurationRatio : BaseHook() {
         }
         if (value2 != 100f) {
             value2 /= 100f
-            loadClass("com.miui.home.launcher.common.DeviceLevelUtils").methodFinder()
+            loadClass("com.miui.home.common.utils.DeviceLevelUtils").methodFinder()
                 .filterByName("getDeviceLevelTransitionAnimRatio")
                 .single().createHook {
                     before {

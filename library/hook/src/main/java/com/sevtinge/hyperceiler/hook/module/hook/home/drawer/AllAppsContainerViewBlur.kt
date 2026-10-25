@@ -52,6 +52,10 @@ object AllAppsContainerViewBlur : BaseHook() {
                     blur.blurController.apply {
                         cornerRadius = CornersRadius.custom(radius, radius, 0f, 0f)
                     }
+                    val blurDegree = mPrefsMap.getInt("drawer_background_blur_degree", -1)
+                    if (blurDegree >= 0) {
+                        blur.blurController.blurRadius = blurDegree
+                    }
                     val view = View(mCategoryContainer.context)
                     blur.addView(view)
                     (view.layoutParams as FrameLayout.LayoutParams).apply {

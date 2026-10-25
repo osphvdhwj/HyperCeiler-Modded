@@ -20,13 +20,16 @@ package com.sevtinge.hyperceiler.hook.module.hook.home.title;
 
 import com.sevtinge.hyperceiler.hook.module.base.BaseHook;
 
+import de.robv.android.xposed.XposedHelpers;
+
 public class FakeNonDefaultIcon extends BaseHook {
     @Override
     public void init() {
-        findAndHookMethod("com.miui.home.launcher.DeviceConfig", "isDefaultIcon", new MethodHook() {
+        // MIUI Home 6.x moved the default-icon state into DeviceConfigs (private static sIsDefaultIcon)
+        hookAllMethods("com.miui.home.common.device.DeviceConfigs", "updateIsDefaultIcon", new MethodHook() {
             @Override
-            protected void before(MethodHookParam param) throws Throwable {
-                param.setResult(false);
+            protected void after(MethodHookParam param) throws Throwable {
+                XposedHelpers.setStaticBooleanField(param.thisObject.getClass(), "sIsDefaultIcon", false);
             }
         });
     }

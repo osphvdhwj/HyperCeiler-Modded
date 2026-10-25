@@ -38,7 +38,7 @@ class TitleFontSize : HomeBaseHook() {
         }
 
         val defaultSizePx by lazy {  // 必须在hooker内被call，DeviceConfig依赖Context
-            MethodFinder.fromClass("com.miui.home.launcher.DeviceConfig").filterStatic()
+            MethodFinder.fromClass("com.miui.home.common.device.DeviceConfigs").filterStatic()
                 .filterByName("getIconTitleTextSize").first().invoke(null) as Float
         }
 

@@ -24,7 +24,7 @@ public class HiddenAllTitle extends BaseHook {
     @Override
     public void init() {
         /*用于隐藏应用名*/
-        findAndHookMethod("com.miui.home.launcher.ItemIcon", "setTitle",
+        findAndHookMethod("com.miui.home.ItemIcon", "setTitle",
             CharSequence.class, new MethodHook() {
                 @Override
                 protected void before(MethodHookParam param) {

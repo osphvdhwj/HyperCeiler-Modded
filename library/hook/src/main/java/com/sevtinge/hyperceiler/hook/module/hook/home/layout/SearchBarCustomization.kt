@@ -14,11 +14,17 @@ object SearchBarCustomization : BaseHook() {
         val cornerRadius = mPrefsMap.getInt("prefs_key_home_searchbar_radius", 24)
         val alpha = mPrefsMap.getInt("prefs_key_home_searchbar_alpha", 255)
 
+        // Untouched settings: leave the launcher's themed pill alone
+        if (cornerRadius == 24 && alpha == 255) {
+            logD("SearchBarCustomization", "defaults, skip")
+            return
+        }
+
         logD("SearchBarCustomization", "Applying: radius=${cornerRadius}dp, alpha=$alpha")
 
         // Hook the SearchBar view
         val searchBarClass = findClassIfExists("com.miui.home.launcher.SearchBar") ?: return
-        
+
         searchBarClass.hookAfterAllMethods("onFinishInflate") { param ->
             val self = param.thisObject as? View ?: return@hookAfterAllMethods
             applyCustomBackground(self, cornerRadius, alpha)
@@ -35,20 +41,24 @@ object SearchBarCustomization : BaseHook() {
         try {
             val ctx = view.context
             val radiusPx = (radiusDp * ctx.resources.displayMetrics.density).toInt()
-            
-            // Create a new drawable based on the user's preference
+
+            // Reuse the launcher's own drawable so the pill keeps its themed tint
+            val existing = view.background?.mutate()
+            if (existing is GradientDrawable) {
+                existing.cornerRadius = radiusPx.toFloat()
+                existing.alpha = alpha
+                view.background = existing
+                logD("SearchBarCustomization", "Existing background adjusted")
+                return
+            }
+
             val drawable = GradientDrawable().apply {
                 shape = GradientDrawable.RECTANGLE
                 cornerRadius = radiusPx.toFloat()
-                
-                // Use a semi-transparent white/dark color based on current alpha
-                // If alpha is 0, it's fully transparent
-                val color = Color.argb(alpha, 255, 255, 255) // White base
-                setColor(color)
+                setColor(Color.argb(alpha, 255, 255, 255))
             }
-            
             view.background = drawable
-            logD("SearchBarCustomization", "Background applied")
+            logD("SearchBarCustomization", "Fallback background applied")
         } catch (t: Throwable) {
             logD("SearchBarCustomization", "Failed: ${t.message}")
         }

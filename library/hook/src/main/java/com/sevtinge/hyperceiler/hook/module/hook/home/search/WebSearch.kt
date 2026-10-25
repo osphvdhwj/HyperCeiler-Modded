@@ -16,6 +16,22 @@ object WebSearch {
         val q = query.trim()
         val out = ArrayList<SearchResult>(2)
 
+        // Prefer Brave when installed — the user's search pill provider
+        val braveIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://search.brave.com/search?q=" + Uri.encode(q)))
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (ctx.packageManager.resolveActivity(braveIntent, 0) != null) {
+            out.add(
+                SearchResult(
+                    type = ResultType.WEB,
+                    label = "Search \"$q\"",
+                    subtitle = "Brave",
+                    icon = icon(ctx),
+                    intent = braveIntent,
+                )
+            )
+            return out
+        }
+
         val webIntent = Intent(ACTION_WEB_SEARCH)
             .putExtra(EXTRA_QUERY, q)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

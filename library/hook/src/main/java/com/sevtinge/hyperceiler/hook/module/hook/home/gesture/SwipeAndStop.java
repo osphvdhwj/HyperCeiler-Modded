@@ -36,7 +36,7 @@ public class SwipeAndStop extends BaseHook {
             XposedBridge.log("[HyperHand] SwipeAndStop: Vibrator class not found");
             return;
         }
-        hookAllMethods("com.miui.home.recents.GestureBackArrowView", "setReadyFinish", new MethodHook() {
+        hookAllMethods("com.android.systemui.fsgesture.GestureBackArrowView", "setReadyFinish", new MethodHook() {
             private Unhook vibratorHook = null;
 
             @Override

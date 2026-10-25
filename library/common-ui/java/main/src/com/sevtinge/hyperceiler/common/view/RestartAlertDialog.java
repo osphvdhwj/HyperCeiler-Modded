@@ -23,8 +23,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 
 import com.sevtinge.hyperceiler.ui.R;
-import com.sevtinge.hyperceiler.hook.module.hook.GlobalActions;
+import com.sevtinge.hyperceiler.common.utils.DialogHelper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -70,23 +71,26 @@ public class RestartAlertDialog extends AlertDialog {
         view.deselectAll();
         view.setOnCheckedListener(sparseBooleanArray -> {
             dismiss();
+            List<String> selected = new ArrayList<>();
             for (int i = 0; i < sparseBooleanArray.size(); i++) {
                 if (sparseBooleanArray.get(i)) {
-                    restartApp(context, mAppPackageNameList.get(i));
+                    selected.add(mAppPackageNameList.get(i));
                 }
+            }
+            if (!selected.isEmpty()) {
+                DialogHelper.doRestart(context, selected.toArray(new String[0]), false);
             }
         });
         return view;
     }
 
     /**
-     * Ask system_server to force-stop the package. It will be respawned
-     * by ActivityManagerService when persistent.
+     * Restart via DialogHelper (system_server broadcast with a root
+     * force-stop fallback — the broadcast receiver alone is not
+     * registered on every ROM).
      */
     public void restartApp(Context context, String packageName) {
-        Intent intent = new Intent(GlobalActions.ACTION_PREFIX + "RestartApps");
-        intent.putExtra("packageName", packageName);
-        context.sendBroadcast(intent);
+        DialogHelper.doRestart(context, new String[]{packageName}, false);
     }
 
     /**

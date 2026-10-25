@@ -81,13 +81,17 @@ class MusicCapsule : BaseHook() {
             }
         })
 
-        // Also hook onAttachedToWindow as a backup.
-        findAndHookMethod(cls, "onAttachedToWindow", object : MethodHook() {
-            override fun after(param: MethodHookParam) {
-                val root = param.thisObject as? ViewGroup ?: return
-                root.post { inject(root) }
-            }
-        })
+        // Also hook onAttachedToWindow as a backup. Tolerant: on some
+        // SecurityCenter builds the class is obfuscated and this lifecycle
+        // method no longer exists — hookAllMethods simply no-ops then.
+        runCatching {
+            de.robv.android.xposed.XposedBridge.hookAllMethods(cls, "onAttachedToWindow", object : MethodHook() {
+                override fun after(param: MethodHookParam) {
+                    val root = param.thisObject as? ViewGroup ?: return
+                    root.post { inject(root) }
+                }
+            })
+        }
     }
 
     private fun inject(root: ViewGroup) {
