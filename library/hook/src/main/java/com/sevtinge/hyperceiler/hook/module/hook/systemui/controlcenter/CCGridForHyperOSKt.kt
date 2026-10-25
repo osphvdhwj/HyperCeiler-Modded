@@ -110,14 +110,14 @@ object CCGridForHyperOSKt {
 
     @JvmStatic
     fun initCCGridLayout(classLoader: ClassLoader) {
-        val targetClass = "miui.systemui.controlcenter.qs.tileview.QSTileListLayout"
+        // HyperOS 2: the CC tile grid is com.android.systemui.qs.MiuiPagedTileLayout
+        // (the old miui.systemui.controlcenter.qs.tileview.QSTileListLayout is gone).
+        val targetClass = "com.android.systemui.qs.MiuiPagedTileLayout"
 
-        // Hook updateResources (called on init, orientation changes, and configuration updates)
+        // After construction: apply the custom grid fields.
         runCatching {
-            XposedHelpers.findAndHookMethod(
-                targetClass,
-                classLoader,
-                "updateResources",
+            XposedBridge.hookAllConstructors(
+                XposedHelpers.findClass(targetClass, classLoader),
                 object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam) {
                         val view = param.thisObject as? ViewGroup ?: return
@@ -125,55 +125,15 @@ object CCGridForHyperOSKt {
                         registerObserverIfNeeded(view.context)
                         if (isCustomGrid) {
                             applyGridLayout(view)
-                            view.requestLayout()
                         }
                     }
                 }
             )
         }.onFailure {
-            logE("initCCGridForHyperOS", "QSTileListLayout updateResources hook failed: $it")
+            logE("initCCGridForHyperOS", "MiuiPagedTileLayout constructor hook failed: $it")
         }
 
-        // Hook onMeasure (ensure columns, margins, and padding are applied before measurement calculations)
-        runCatching {
-            XposedHelpers.findAndHookMethod(
-                targetClass,
-                classLoader,
-                "onMeasure",
-                Int::class.javaPrimitiveType,
-                Int::class.javaPrimitiveType,
-                object : XC_MethodHook() {
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        val view = param.thisObject as? ViewGroup ?: return
-                        if (isCustomGrid) {
-                            applyGridLayout(view)
-                        }
-                    }
-                }
-            )
-        }.onFailure {
-            logE("initCCGridForHyperOS", "QSTileListLayout onMeasure hook failed: $it")
-        }
-
-        // Optional getter hooks for ROM variants querying column count dynamically
-        runCatching {
-            XposedHelpers.findAndHookMethod(
-                targetClass,
-                classLoader,
-                "getColumns",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        if (!isCustomGrid) return
-                        val view = param.thisObject as? ViewGroup ?: return
-                        val isPortrait = view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-                        val colsPortrait = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_grid_columns", 4)
-                        val colsLandscape = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_grid_columns_horizontal", 6)
-                        param.result = if (isPortrait) colsPortrait else colsLandscape
-                    }
-                }
-            )
-        }
-
+        // Column count queries (called during tile distribution).
         runCatching {
             XposedHelpers.findAndHookMethod(
                 targetClass,
@@ -190,6 +150,29 @@ object CCGridForHyperOSKt {
                     }
                 }
             )
+        }.onFailure {
+            logE("initCCGridForHyperOS", "MiuiPagedTileLayout getColumnCount hook failed: $it")
+        }
+
+        runCatching {
+            XposedHelpers.findAndHookMethod(
+                targetClass,
+                classLoader,
+                "setMaxColumns",
+                Int::class.javaPrimitiveType,
+                object : XC_MethodHook() {
+                    override fun beforeHookedMethod(param: MethodHookParam) {
+                        if (!isCustomGrid) return
+                        val view = param.thisObject as? ViewGroup ?: return
+                        val isPortrait = view.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+                        val colsPortrait = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_grid_columns", 4)
+                        val colsLandscape = PrefsUtils.mPrefsMap.getInt("system_ui_control_center_grid_columns_horizontal", 6)
+                        param.args[0] = if (isPortrait) colsPortrait else colsLandscape
+                    }
+                }
+            )
+        }.onFailure {
+            logE("initCCGridForHyperOS", "MiuiPagedTileLayout setMaxColumns hook failed: $it")
         }
     }
 
@@ -278,7 +261,7 @@ object CCGridForHyperOSKt {
             val paddingVPx = (paddingVDp * density).toInt()
 
             // 1. Set column count
-            runCatching { XposedHelpers.setIntField(view, "mColumns", cols) }
+            runCatching { XposedHelpers.setIntField(view, "mMaxColumns", cols) }
 
             // 2. Set horizontal and vertical inter-tile spacing
             runCatching { XposedHelpers.setIntField(view, "mCellMarginHorizontal", marginHPx) }
@@ -301,123 +284,17 @@ object CCGridForHyperOSKt {
 
     @JvmStatic
     fun initCCCornerRadius(classLoader: ClassLoader) {
+        // HyperOS 2: miui.systemui.controlcenter.qs.tileview.QSTileItemIconView
+        // no longer exists — corner-radius hooks disabled until the new tile
+        // icon view is mapped.
+        return
         val targetClass = "miui.systemui.controlcenter.qs.tileview.QSTileItemIconView"
-
-        XposedHelpers.findAndHookMethod(targetClass, classLoader, "setDisabledBg", Drawable::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                val view = param?.thisObject as? View ?: return
-                activeIconViews.add(view)
-                registerObserverIfNeeded(view.context)
-                if (!isRoundedRect) return
-                runCatching {
-                    val drawable = param.args?.get(0) as? Drawable ?: return
-                    val r = getResolvedRadius(view)
-                    if (drawable is GradientDrawable) drawable.cornerRadius = r
-                    param.args[0] = drawable
-                }.onFailure {
-                    logE("initCCGridForHyperOS", "radius 1 crash, $it")
-                }
-            }
-        })
-
-        XposedHelpers.findAndHookMethod(targetClass, classLoader, "setEnabledBg", Drawable::class.java, object : XC_MethodHook() {
-            override fun beforeHookedMethod(param: MethodHookParam?) {
-                val view = param?.thisObject as? View ?: return
-                activeIconViews.add(view)
-                registerObserverIfNeeded(view.context)
-                if (!isRoundedRect) return
-                runCatching {
-                    val drawable = param.args?.get(0) as? Drawable ?: return
-                    val r = getResolvedRadius(view)
-                    if (drawable is GradientDrawable) drawable.cornerRadius = r
-                    param.args[0] = drawable
-                }.onFailure {
-                    logE("initCCGridForHyperOS", "radius 2 crash, $it")
-                }
-            }
-        })
-
-        // OS1 corner radius hook
-        XposedHelpers.findAndHookMethod(
-            targetClass,
-            classLoader, "setCornerRadius", Float::class.java,
-            object : XC_MethodHook() {
-                override fun beforeHookedMethod(param: MethodHookParam?) {
-                    val view = param?.thisObject as? View ?: return
-                    activeIconViews.add(view)
-                    registerObserverIfNeeded(view.context)
-                    if (!isRoundedRect) return
-                    runCatching {
-                        val r = getResolvedRadius(view)
-                        param.args?.set(0, r)
-                    }.onFailure {
-                        logE("initCCGridForHyperOS", "radius 3 crash, $it")
-                    }
-                }
-            }
-        )
-
-        // OS2 corner radius getter hook
-        runCatching {
-            XposedHelpers.findAndHookMethod(
-                targetClass,
-                classLoader, "getCornerRadius",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        val view = param.thisObject as? View ?: return
-                        activeIconViews.add(view)
-                        if (isRoundedRect) {
-                            param.result = getResolvedRadius(view)
-                        }
-                    }
-                }
-            )
-        }.onFailure {
-            logE("initCCGridForHyperOS", "radius 4 crash, $it")
-        }
-
-        // Active/Disabled background drawable hooks
-        runCatching {
-            XposedHelpers.findAndHookMethod(
-                targetClass,
-                classLoader,
-                "getActiveBackgroundDrawable",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        val view = param.thisObject as? View ?: return
-                        activeIconViews.add(view)
-                        if (!isRoundedRect) return
-                        val drawable = param.result as? Drawable
-                        if (drawable is GradientDrawable) {
-                            drawable.cornerRadius = getResolvedRadius(view)
-                        }
-                    }
-                }
-            )
-        }
-
-        runCatching {
-            XposedHelpers.findAndHookMethod(
-                targetClass,
-                classLoader,
-                "getDisabledBackgroundDrawable",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        val view = param.thisObject as? View ?: return
-                        activeIconViews.add(view)
-                        if (!isRoundedRect) return
-                        val drawable = param.result as? Drawable
-                        if (drawable is GradientDrawable) {
-                            drawable.cornerRadius = getResolvedRadius(view)
-                        }
-                    }
-                }
-            )
-        }
     }
 
     @JvmStatic
     fun initCCTileItemHooks(classLoader: ClassLoader) {
+        // HyperOS 2: tile item views moved — disabled with the corner hooks.
+        return
         val iconViewClass = "miui.systemui.controlcenter.qs.tileview.QSTileItemIconView"
         val tileItemViewClass = "miui.systemui.controlcenter.qs.tileview.QSTileItemView"
 
