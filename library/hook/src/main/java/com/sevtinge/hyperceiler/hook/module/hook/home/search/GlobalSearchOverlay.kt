@@ -22,6 +22,8 @@ import com.sevtinge.hyperceiler.hook.module.base.BaseHook
 import com.sevtinge.hyperceiler.hook.module.base.tool.HookTool.mPrefsMap
 import com.sevtinge.hyperceiler.hook.utils.hookBeforeAllMethods
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils.logI
+import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 
 object GlobalSearchOverlay : BaseHook() {
@@ -105,6 +107,28 @@ object GlobalSearchOverlay : BaseHook() {
             if (target.contains("brave") || intent.action?.contains("SEARCH", ignoreCase = true) == true) {
                 logI(TAG, "trace startActivity -> " + intent)
             }
+        }
+
+        // The pill sends the finder global-search broadcast instead of calling
+        // startActivity — intercept it at ContextImpl level using the real
+        // action constant read from the finder utility at runtime.
+        runCatching {
+            val finderCls = findClassIfExists(
+                "com.mi.appfinder.launcher.globalsearch.FinderGlobalSearchUtil") ?: return
+            val action = XposedHelpers.getStaticObjectField(
+                finderCls, "GLOBAL_SEARCH_ACTION") as? String ?: return
+            logI(TAG, "GLOBAL_SEARCH_ACTION = " + action)
+            val ctxImpl = XposedHelpers.findClass("android.app.ContextImpl", null)
+            XposedBridge.hookAllMethods(ctxImpl, "sendBroadcast", object : XC_MethodHook() {
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    val intent = param.args.filterIsInstance<Intent>().firstOrNull() ?: return
+                    if (intent.action != action) return
+                    logI(TAG, "global search broadcast intercepted")
+                    Diagnostics.lastSearchBarHook = System.currentTimeMillis()
+                    param.result = null
+                    showOverlay(null)
+                }
+            })
         }
     }
 

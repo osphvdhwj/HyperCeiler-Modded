@@ -34,12 +34,21 @@ import com.sevtinge.hyperceiler.hook.module.hook.various.clipboard.NewClipboardL
 import com.sevtinge.hyperceiler.hook.module.hook.various.clipboard.UnlockIme;
 import com.sevtinge.hyperceiler.hook.utils.log.XposedLogUtils;
 
+import com.sevtinge.hyperceiler.hook.module.hook.various.CollapseMiuiTitle;
+import com.sevtinge.hyperceiler.hook.module.hook.various.dialog.DialogCustom;
+import com.sevtinge.hyperceiler.hook.module.hook.various.MiuiAppNoOverScroll;
+import com.sevtinge.hyperceiler.hook.module.hook.various.UnhardcodeNotes;
+import com.sevtinge.hyperceiler.hook.module.hook.various.clipboard.NewUnPhraseLimit;
+import org.luckypray.dexkit.DexKitBridge;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.List;
 
 @HookBase(targetPackage = "VariousThirdApps")
 public class VariousThirdApps extends BaseModule {
     String mPackageName;
+    boolean isMiuiApps;
 
     public static List<String> mAppsUsingInputMethod = new ArrayList<>();
 
@@ -69,6 +78,21 @@ public class VariousThirdApps extends BaseModule {
         // 焦点歌词（音乐软件相关）
         initHook(MusicHooks.INSTANCE, mPrefsMap.getBoolean("system_ui_statusbar_music_switch") && mPrefsMap.getBoolean("system_ui_statusbar_music_show_app"));
         initHook(new com.sevtinge.hyperceiler.hook.module.hook.various.dialog.DialogBlur(), mPrefsMap.getBoolean("various_dialog_blur"));
+
+        // Resurrected from VariousSystemApps — its pseudo-package entry
+        // ("VariousSystemApps") never dispatched, leaving these MIUI-wide
+        // hooks unreachable.
+        isMiuiApps = mPackageName.startsWith("com.miui") || mPackageName.startsWith("com.xiaomi") || miuiDialogCustomApps.contains(mPackageName);
+        if (mPrefsMap.getBoolean("various_phrase_clipboardlist") && mPackageName.equals("com.miui.phrase")) {
+            System.loadLibrary("dexkit");
+            DexKitBridge dexKitBridge = DexKitBridge.create(mLoadPackageParam.appInfo.sourceDir);
+            new NewUnPhraseLimit(dexKitBridge).onLoadPackage();
+            dexKitBridge.close();
+        }
+        initHook(new MiuiAppNoOverScroll(), isMiuiOverScrollApps());
+        initHook(new DialogCustom(), isMiuiDialogCustom());
+        initHook(new UnhardcodeNotes(), mPrefsMap.getBoolean("various_unhardcode_notes"));
+        initHook(new CollapseMiuiTitle(), isCollapseMiuiTitleApps());
     }
 
     private List<String> getAppsUsingInputMethod(Context context) {
@@ -118,4 +142,34 @@ public class VariousThirdApps extends BaseModule {
         }
         return false;
     }
+
+    private boolean isMiuiOverScrollApps() {
+        return mPrefsMap.getBoolean("various_no_overscroll") && miuiOverScrollApps.contains(mPackageName);
+    }
+
+    private boolean isMiuiDialogCustom() {
+        return mPrefsMap.getStringAsInt("various_dialog_gravity", 0) != 0 && isMiuiApps;
+    }
+
+    private boolean isCollapseMiuiTitleApps() {
+        return mPrefsMap.getStringAsInt("various_collapse_miui_title", 0) != 0 && collapseMiuiTitleApps.contains(mPackageName);
+    }
+
+    HashSet<String> miuiOverScrollApps = new HashSet<>(Arrays.asList(
+        "com.android.fileexplorer",
+        "com.android.providers.downloads.ui",
+        "com.android.settings"
+    ));
+
+    HashSet<String> miuiDialogCustomApps = new HashSet<>(Arrays.asList(
+        "com.android.fileexplorer",
+        "com.android.providers.downloads.ui",
+        "com.android.settings"
+    ));
+
+    HashSet<String> collapseMiuiTitleApps = new HashSet<>(Arrays.asList(
+        "com.android.fileexplorer",
+        "com.android.providers.downloads.ui",
+        "com.android.settings"
+    ));
 }
