@@ -225,9 +225,38 @@ public class FreeformShortcutMenu extends BaseHook {
                     String result = ShellUtils.rootExecCmd("am force-stop " + packageName);
                     stopped = result != null && !result.isEmpty();
                 }
+
+                // Human-readable app label for the toast.
+                String label = packageName;
+                try {
+                    android.content.pm.PackageManager pm = mContext1.getPackageManager();
+                    CharSequence cs = pm.getApplicationLabel(
+                            pm.getApplicationInfo(packageName, 0));
+                    if (cs != null && cs.length() > 0) label = cs.toString();
+                } catch (Throwable ignored) {
+                }
+
+                // Close the shortcut menu — force stop keeps us on the
+                // launcher, so nothing else dismisses it. Walk up the view
+                // tree to the ShortcutMenu instance and hide it.
+                try {
+                    android.view.View p = (android.view.View) view;
+                    while (p != null) {
+                        String cn = p.getClass().getName();
+                        if (cn.contains("ShortcutMenu")) {
+                            callMethod(p, "hide");
+                            break;
+                        }
+                        p = (android.view.View) p.getParent();
+                    }
+                    callMethod(mContext1, "hideShortcutMenuWithoutAnim");
+                } catch (Throwable t) {
+                    XposedBridge.log("[HyperHand] hide shortcut menu failed: " + t);
+                }
+
                 android.widget.Toast.makeText(
                     mContext1,
-                    stopped ? "Force stopped: " + packageName : "Force stop failed (no root)",
+                    stopped ? "Stopped " + label : "Force stop failed (no root)",
                     android.widget.Toast.LENGTH_SHORT
                 ).show();
             } catch (Exception e) {

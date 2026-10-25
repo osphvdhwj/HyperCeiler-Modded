@@ -65,11 +65,11 @@
 
             </FrameLayout>
 
-            <fan.cardview.widget.CardView
-                style="@style/CrashCardViewStyle"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/miuix_theme_content_padding_horizontal_common">
+                android:layout_marginTop="@dimen/miuix_theme_content_padding_horizontal_common"
+                android:background="@drawable/headtip_warn_background">
 
                 <LinearLayout
                     android:id="@+id/build_views"
@@ -100,13 +100,13 @@
 
                 </LinearLayout>
 
-            </fan.cardview.widget.CardView>
+            </FrameLayout>
 
-            <fan.cardview.widget.CardView
-                style="@style/CrashCardViewStyle"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/miuix_theme_content_padding_horizontal_common">
+                android:layout_marginTop="@dimen/miuix_theme_content_padding_horizontal_common"
+                android:background="@drawable/headtip_warn_background">
 
                 <LinearLayout
                     android:id="@+id/message_views"
@@ -160,13 +160,13 @@
                         android:title="@string/error_time" />
                 </LinearLayout>
 
-            </fan.cardview.widget.CardView>
+            </FrameLayout>
 
-            <fan.cardview.widget.CardView
-                style="@style/CrashCardViewStyle"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/miuix_theme_content_padding_horizontal_common">
+                android:layout_marginTop="@dimen/miuix_theme_content_padding_horizontal_common"
+                android:background="@drawable/headtip_warn_background">
 
                 <FrameLayout
                     android:id="@+id/stack_views"
@@ -192,7 +192,7 @@
                         android:typeface="monospace" />
                 </FrameLayout>
 
-            </fan.cardview.widget.CardView>
+            </FrameLayout>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 package com.sevtinge.hyperceiler.hook.module.hook.home.search
 
 import android.app.Activity
+import android.content.Intent
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -93,6 +94,17 @@ object GlobalSearchOverlay : BaseHook() {
             logI(TAG, "getGlobalSearchIntent intercepted")
             Diagnostics.lastSearchBarHook = System.currentTimeMillis()
             showOverlay(null)
+        }
+
+        // Trace: the pill launches the search app through plain startActivity
+        // (getGlobalSearchIntent is never called on this build). Log the exact
+        // search-app intents for one tap so the real call site can be hooked.
+        findClassIfExists("com.miui.home.launcher.BaseLauncher")?.hookBeforeAllMethods("startActivity") { param ->
+            val intent = param.args.filterIsInstance<Intent>().firstOrNull() ?: return@hookBeforeAllMethods
+            val target = intent.component?.packageName ?: intent.`package` ?: ""
+            if (target.contains("brave") || intent.action?.contains("SEARCH", ignoreCase = true) == true) {
+                logI(TAG, "trace startActivity -> " + intent)
+            }
         }
     }
 

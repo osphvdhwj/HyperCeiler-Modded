@@ -55,8 +55,41 @@ public class HomePageBannerHelper {
         isLoggerAlive(context, preference);
         // Warn
         checkWarnings(context, preference);
+        // Restore prompt (after reinstalls)
+        checkRestorePrompt(context, preference);
         // Tip
         isSupportAutoSafeMode(context, preference);
+    }
+
+    private void checkRestorePrompt(Context context, PreferenceCategory preference) {
+        try {
+            java.io.File backup = findNewestBackup();
+            if (backup == null) return;
+            android.content.SharedPreferences prefs =
+                com.sevtinge.hyperceiler.hook.utils.prefs.PrefsUtils.getSharedPrefs(context);
+            if (!prefs.getAll().isEmpty()) return;
+            LayoutPreference layoutPreference = (LayoutPreference) createBannerPreference(
+                context, R.layout.headtip_notice);
+            TextView titleView = layoutPreference.findViewById(android.R.id.title);
+            titleView.setText("Settings backup found: " + backup.getName()
+                + " — restore it in Settings → Backup");
+            preference.addPreference(layoutPreference);
+        } catch (Throwable ignored) {
+        }
+    }
+
+    private java.io.File findNewestBackup() {
+        java.io.File external = android.os.Environment.getExternalStorageDirectory();
+        java.io.File best = null;
+        for (java.io.File dir : new java.io.File[]{external, new java.io.File(external, "Backup")}) {
+            java.io.File[] files = dir.listFiles((d, n) ->
+                n.startsWith("HyperCeiler_settings_backup_") && n.endsWith(".json"));
+            if (files == null) continue;
+            for (java.io.File f : files) {
+                if (best == null || f.lastModified() > best.lastModified()) best = f;
+            }
+        }
+        return best;
     }
 
     private void isFuckCoolapkSDay(Context context, PreferenceCategory preference) {
@@ -96,6 +129,9 @@ public class HomePageBannerHelper {
         boolean isOfficialRom = getIsOfficialRom();
         boolean isFullSupport = isFullSupport();
         boolean isSignPass = SignUtils.isSignCheckPass(context);
+        // Self-built debug installs always fail the official-signature check —
+        // that's expected, not a tamper warning.
+        if (com.sevtinge.hyperceiler.BuildConfig.DEBUG) isSignPass = true;
 
         if (!isSignPass || !isFullSupport || isOfficialRom) {
             LayoutPreference layoutPreference = (LayoutPreference) createBannerPreference(
