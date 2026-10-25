@@ -102,6 +102,7 @@ import com.sevtinge.hyperceiler.hook.module.hook.home.other.OverlapMode;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.ShortcutItemCount;
 import com.sevtinge.hyperceiler.hook.module.hook.home.other.ShowAllHideApp;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.RecentShortcutMenu;
+import com.sevtinge.hyperceiler.hook.module.hook.home.recent.RecentsMenuTrace;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.AlwaysShowCleanUp;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.BackgroundBlur;
 import com.sevtinge.hyperceiler.hook.module.hook.home.recent.BlurLevel;
@@ -207,6 +208,7 @@ public class HomeU extends BaseModule {
         // RecentShortcutMenu disabled: on MIUI Home 6.x SystemShortcutMenuItem.isValid is shared by the
         // icon long-press menu, so force-validating Share/AppDetails/Pin adds buttons whose click
         // actions are only wired in their native contexts (App info / Share appeared dead).
+        initHook(RecentsMenuTrace.INSTANCE, true); // recents menu diagnostics
         initHook(GlobalSearchOverlay.INSTANCE, mPrefsMap.getBoolean("home_layout_global_search_enable"));
         initHook(UninstallDropTargetLabel.INSTANCE, true);
         initHook(new SearchBarMarginBottom(), (mPrefsMap.getInt("home_layout_searchbar_margin_bottom", 0) > 0) &&
